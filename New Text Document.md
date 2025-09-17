@@ -643,6 +643,37 @@ public class LoginTest {
 
 
 
-till here
+8 UtilityClassObject
+
+UtilityClassObject is designed to manage WebDriver and ExtentTest objects in a thread-safe manner, which is especially important during parallel test execution. When multiple tests run simultaneously, sharing the same WebDriver or ExtentTest instances can cause conflicts, such as overlapping commands, mixed logs, or inconsistent results. To prevent this, UtilityClassObject uses ThreadLocal, which ensures that each test thread gets its own independent copy of WebDriver and ExtentTest. Setter methods store these objects in the thread-local storage at the start of the test, and getter methods retrieve them during execution. This approach isolates each test, keeping reports, logs, and browser actions separate, making parallel execution reliable and maintaining clean, accurate test reports. Essentially, it provides each test thread with its own private workspace, avoiding interference between tests.
+
+
+```java
+public class UtilityClassObject {
+
+    // ThreadLocal variables → each thread (test case) gets its own copy
+    public static ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
+    public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+
+    // ===== Getter & Setter for ExtentTest =====
+    public static ExtentTest getTest() {
+        return test.get(); // returns ExtentTest object for current thread
+    }
+
+    public static void setTest(ExtentTest actTest) {
+        test.set(actTest); // assigns ExtentTest for current thread
+    }
+
+    // ===== Getter & Setter for WebDriver =====
+    public static WebDriver getDriver() {
+        return driver.get(); // returns WebDriver for current thread
+    }
+
+    public static void setDriver(WebDriver actDriver) {
+        driver.set(actDriver); // assigns WebDriver for current thread
+    }
+
+}
+
 
 
