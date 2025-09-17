@@ -36,48 +36,48 @@ ONE BASIC FLOW OF GIT
 
 
 
+| Category         | Command                                  | Description                                                    |
+| ---------------- | ---------------------------------------- | -------------------------------------------------------------- |
+| Repo Setup       | `git init`                               | Initialize a new Git repository.                               |
+|                  | `git clone <repo_url>`                   | Clone an existing repository.                                  |
+| Configuration    | `git config --global user.name "Name"`   | Set username for all repos.                                    |
+|                  | `git config --global user.email "Email"` | Set email for all repos.                                       |
+| Status/Info      | `git status`                             | Show working directory status.                                 |
+|                  | `git log`                                | Show commit history.                                           |
+|                  | `git log --oneline --graph --all`        | Compact history in tree format.                                |
+|                  | `git diff`                               | Show unstaged changes.                                         |
+| Staging & Commit | `git add <file>`                         | Add file(s) to staging area.                                   |
+|                  | `git add .`                              | Stage all changes.                                             |
+|                  | `git commit -m "message"`                | Commit staged changes with message.                            |
+|                  | `git commit --amend`                     | Edit last commit message or add forgotten changes.             |
+| Branching        | `git branch`                             | List all branches.                                             |
+|                  | `git branch <name>`                      | Create a new branch.                                           |
+|                  | `git checkout <branch>`                  | Switch to a branch.                                            |
+|                  | `git checkout -b <branch>`               | Create and switch to new branch.                               |
+|                  | `git switch <branch>`                    | Switch to a branch (newer syntax).                             |
+|                  | `git switch -c <branch>`                 | Create and switch to a new branch.                             |
+| Merging          | `git merge <branch>`                     | Merge a branch into current one.                               |
+|                  | `git rebase <branch>`                    | Reapply commits on top of another branch.                      |
+| Remote           | `git remote -v`                          | Show remote repositories.                                      |
+|                  | `git remote add origin <url>`            | Add remote repository.                                         |
+|                  | `git push origin <branch>`               | Push branch to remote.                                         |
+|                  | `git push -u origin <branch>`            | Push branch & set upstream.                                    |
+|                  | `git pull`                               | Fetch + merge changes from remote.                             |
+|                  | `git fetch`                              | Download changes without merging.                              |
+| Undo/Reset       | `git reset <file>`                       | Unstage a staged file.                                         |
+|                  | `git reset --hard <commit>`              | Reset repo to a specific commit (dangerous, discards changes). |
+|                  | `git restore <file>`                     | Restore file from last commit.                                 |
+|                  | `git revert <commit>`                    | Create a new commit that undoes changes from a commit.         |
+| Tagging          | `git tag <name>`                         | Create a tag.                                                  |
+|                  | `git tag`                                | List tags.                                                     |
+|                  | `git push origin <tag>`                  | Push a tag to remote.                                          |
+| Stash            | `git stash`                              | Save changes temporarily.                                      |
+|                  | `git stash pop`                          | Reapply stashed changes.                                       |
+|                  | `git stash list`                         | Show stashed changes.                                          |
+| Clean Up         | `git branch -d <branch>`                 | Delete branch (safe).                                          |
+|                  | `git branch -D <branch>`                 | Force delete branch.                                           |
+|                  | `git rm <file>`                          | Remove file and stage removal.                                 |
 
-| **Category**         | **Command**                              | **Description**                                                |
-| -------------------- | ---------------------------------------- | -------------------------------------------------------------- |
-| **Repo Setup**       | `git init`                               | Initialize a new Git repository.                               |
-|                      | `git clone <repo_url>`                   | Clone an existing repository.                                  |
-| **Configuration**    | `git config --global user.name "Name"`   | Set username for all repos.                                    |
-|                      | `git config --global user.email "Email"` | Set email for all repos.                                       |
-| **Status/Info**      | `git status`                             | Show working directory status.                                 |
-|                      | `git log`                                | Show commit history.                                           |
-|                      | `git log --oneline --graph --all`        | Compact history in tree format.                                |
-|                      | `git diff`                               | Show unstaged changes.                                         |
-| **Staging & Commit** | `git add <file>`                         | Add file(s) to staging area.                                   |
-|                      | `git add .`                              | Stage all changes.                                             |
-|                      | `git commit -m "message"`                | Commit staged changes with message.                            |
-|                      | `git commit --amend`                     | Edit last commit message or add forgotten changes.             |
-| **Branching**        | `git branch`                             | List all branches.                                             |
-|                      | `git branch <name>`                      | Create a new branch.                                           |
-|                      | `git checkout <branch>`                  | Switch to a branch.                                            |
-|                      | `git checkout -b <branch>`               | Create and switch to new branch.                               |
-|                      | `git switch <branch>`                    | Switch to a branch (newer syntax).                             |
-|                      | `git switch -c <branch>`                 | Create and switch to a new branch.                             |
-| **Merging**          | `git merge <branch>`                     | Merge a branch into current one.                               |
-|                      | `git rebase <branch>`                    | Reapply commits on top of another branch.                      |
-| **Remote**           | `git remote -v`                          | Show remote repositories.                                      |
-|                      | `git remote add origin <url>`            | Add remote repository.                                         |
-|                      | `git push origin <branch>`               | Push branch to remote.                                         |
-|                      | `git push -u origin <branch>`            | Push branch & set upstream.                                    |
-|                      | `git pull`                               | Fetch + merge changes from remote.                             |
-|                      | `git fetch`                              | Download changes without merging.                              |
-| **Undo/Reset**       | `git reset <file>`                       | Unstage a staged file.                                         |
-|                      | `git reset --hard <commit>`              | Reset repo to a specific commit (dangerous, discards changes). |
-|                      | `git restore <file>`                     | Restore file from last commit.                                 |
-|                      | `git revert <commit>`                    | Create a new commit that undoes changes from a commit.         |
-| **Tagging**          | `git tag <name>`                         | Create a tag.                                                  |
-|                      | `git tag`                                | List tags.                                                     |
-|                      | `git push origin <tag>`                  | Push a tag to remote.                                          |
-| **Stash**            | `git stash`                              | Save changes temporarily.                                      |
-|                      | `git stash pop`                          | Reapply stashed changes.                                       |
-|                      | `git stash list`                         | Show stashed changes.                                          |
-| **Clean Up**         | `git branch -d <branch>`                 | Delete branch (safe).                                          |
-|                      | `git branch -D <branch>`                 | Force delete branch.                                           |
-|                      | `git rm <file>`                          | Remove file and stage removal.                                 |
 
 
 2 MAVEN
@@ -87,21 +87,20 @@ Maven is a build automation and project management tool mainly used for Java pro
 In Maven, we use different lifecycle commands. The most common ones are mvn clean to remove the target folder, mvn compile to compile the source code, mvn test to execute test cases, mvn package to build the project into a JAR or WAR, and mvn install to place the package into the local repository. We also use mvn deploy to send the build to a remote repository. Additionally, commands like mvn dependency:tree and mvn help:effective-pom are useful for debugging dependencies.
 
 In my project, I run scripts from the command line using Maven. First, I install and configure Maven so it can be used in CMD. Then, I define all dependencies in the pom.xml and configure the Maven Surefire plugin to point to my TestNG suite file, for example Smoke.xml. After that, I go to the project root folder in CMD and execute mvn clean test -P STS, which cleans previous builds, compiles the code, and executes the suite. Once execution is done, I check the reports in the target\\surefire-reports and test-output folders. This approach is very useful in real-time because it allows us to run tests without opening Eclipse and also integrate easily with CI/CD tools like Jenkins.
-
-| \*\*Phase\*\*    | \*\*Command\*\*    | \*\*Easy Meaning\*\*               | \*\*Technical Meaning\*\*                                                             |
-| ------------ | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |
-| \*\*Clean\*\*    | `mvn clean`    | Delete old files, start fresh. | Removes previous build outputs (e.g., `target/` folder).                          |
-| \*\*Validate\*\* | `mvn validate` | Check project setup.           | Ensures project structure \& config are correct.                                   |
-| \*\*Compile\*\*  | `mvn compile`  | Convert code to class files.   | Compiles Java source into `.class` bytecode files.                                |
-| \*\*Test\*\*     | `mvn test`     | Run tests.                     | Executes unit/automation tests (JUnit, TestNG).                                   |
-| \*\*Package\*\*  | `mvn package`  | Make JAR/WAR file.             | Bundles compiled code + resources into a distributable (`.jar`, `.war`).          |
-| \*\*Verify\*\*   | `mvn verify`   | Double-check build.            | Runs integration checks to ensure the package is valid.                           |
-| \*\*Install\*\*  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |
-| \*\*Deploy\*\*   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |
-
+| Phase    | Command        | Easy Meaning                   | Technical Meaning                                                                 |
+| -------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |
+| Clean    | `mvn clean`    | Delete old files, start fresh. | Removes previous build outputs (e.g., `target/` folder).                          |
+| Validate | `mvn validate` | Check project setup.           | Ensures project structure & config are correct.                                   |
+| Compile  | `mvn compile`  | Convert code to class files.   | Compiles Java source into `.class` bytecode files.                                |
+| Test     | `mvn test`     | Run tests.                     | Executes unit/automation tests (JUnit, TestNG).                                   |
+| Package  | `mvn package`  | Make JAR/WAR file.             | Bundles compiled code + resources into a distributable (`.jar`, `.war`).          |
+| Verify   | `mvn verify`   | Double-check build.            | Runs integration checks to ensure the package is valid.                           |
+| Install  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |
+| Deploy   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |
 
 
-| \*\*Tag Name\*\*      | \*\*Meaning (Easy Words)\*\*                 | \*\*Technical Purpose\*\*                                                                |
+
+| Tag Name          | Meaning (Easy Words)                     | Technical Purpose                                                                    |
 | ----------------- | ---------------------------------------- | ------------------------------------------------------------------------------------ |
 | `<profiles>`      | Group of all profiles.                   | Container for one or more `<profile>` definitions.                                   |
 | `<profile>`       | A single profile (like a setting group). | Defines a specific build configuration (e.g., STS, Prod, Dev).                       |
@@ -116,6 +115,7 @@ In my project, I run scripts from the command line using Maven. First, I install
 | `<release>`       | Java version to use.                     | Tells compiler which Java version features are allowed (e.g., 21).                   |
 | `<suiteXmlFiles>` | TestNG XML file(s).                      | Used by Surefire to specify which test suite(s) to run.                              |
 | `<suiteXmlFile>`  | Single TestNG suite file.                | Provides the exact XML file path (e.g., `Smoke.xml`).                                |
+
 
 
   ```xml
@@ -245,70 +245,66 @@ Jenkins is an open-source automation server that we used mainly for Continuous I
 
 In Jenkins, Global Tool Configuration is where we define tools that can be used by all jobs across the Jenkins instance, ensuring consistency and avoiding repetitive setup for each job. To configure these tools, we first go to Manage Jenkins → Global Tool Configuration, where we can set up essential tools like JDK, Maven, Git, Gradle, and Ant. For JDK, we define a name and either provide the installation path or let Jenkins install it automatically; jobs can then select the desired JDK version during build. Similarly, for Maven, we provide the Maven version name and path, or allow automatic installation, so jobs can use the configured Maven to build Java projects. In the Git section, we specify the path to the Git executable, enabling Jenkins to clone repositories for all jobs. Optional tools like Gradle and Ant can also be configured with their paths or automatic installation if a project requires them. Once saved, these global configurations are available in all jobs’ build steps or build environments, allowing jobs to select the required tool versions without manual configuration every time. This setup simplifies project builds, maintains uniformity, and reduces configuration errors across Jenkins jobs.
 
-| \*\*Tool\*\*                | \*\*Purpose\*\*                                                   | \*\*How to Configure\*\*                                             | \*\*Usage in Jobs\*\*                                                   |
-| ----------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------- |
-| \*\*JDK\*\*                 | Java compiler required to run Jenkins and build Java projects | Add name, set JAVA\\\_HOME path, or select “Install automatically” | Jobs can select the JDK version under Build Environment             |
-| \*\*Maven\*\*               | Java build and dependency management tool                     | Add Maven version name, set path, or install automatically       | Jobs select Maven version in Build → Invoke top-level Maven targets |
-| \*\*Git\*\*                 | Version control system                                        | Add Git name and path to Git executable                          | Jenkins uses this Git to clone/fetch repositories for jobs          |
-| \*\*Gradle\*\* \*(optional)\* | Alternative build tool to Maven                               | Add Gradle version name, set path, or install automatically      | Jobs select Gradle version if project uses Gradle                   |
-| \*\*Ant\*\* \*(optional)\*    | Older Java build tool                                         | Add Ant version name, set path, or install automatically         | Jobs select Ant version if project uses Ant                         |
+| **Tool**                | **Purpose**                                                   | **How to Configure**                                                | **Usage in Jobs**                                                       |
+| ----------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **JDK**                 | Java compiler required to run Jenkins and build Java projects | Add a name, set `JAVA_HOME` path, or select “Install automatically” | Jobs can select the JDK version under **Build Environment**             |
+| **Maven**               | Java build and dependency management tool                     | Add Maven version name, set path, or install automatically          | Jobs select Maven version in **Build → Invoke top-level Maven targets** |
+| **Git**                 | Version control system                                        | Add Git name and path to Git executable                             | Jenkins uses this Git to clone/fetch repositories for jobs              |
+| **Gradle** *(optional)* | Alternative build tool to Maven                               | Add Gradle version name, set path, or install automatically         | Jobs select Gradle version if the project uses Gradle                   |
+| **Ant** *(optional)*    | Older Java build tool                                         | Add Ant version name, set path, or install automatically            | Jobs select Ant version if the project uses Ant                         |
 
-
-
-How to create a job in Jenkins
+How to create a job in Jenkins.
 To create a job in Jenkins, I go to Jenkins dashboard, click on New Item, give the job a name, select the project type (like Freestyle or Maven), configure the source code or POM file path, add the required build steps (like clean test), configure post-build actions such as email notifications or reports, save it, and then I can run the job by clicking Build Now.
 
 
 
-| \*\*Step\*\*                            | \*\*Action\*\*                                                                    | \*\*Details / Notes\*\*                                                                    |
-| ----------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| \*\*1. Access Jenkins Dashboard\*\*     | Open Jenkins URL and log in                                                   | Typically `http://localhost:8080`                                                      |
-| \*\*2. Click New Item\*\*               | On the left menu, click \*\*New Item\*\*                                          | Starts the job creation process                                                        |
-| \*\*3. Enter Job Name\*\*               | Give a unique name for the job                                                | Example: `MyMavenProject`                                                              |
-| \*\*4. Select Project Type\*\*          | Choose type like \*\*Freestyle Project\*\*, \*\*Maven Project\*\*, \*\*Pipeline\*\*, etc. | Freestyle for simple jobs, Maven for Maven projects, Pipeline for scripted/CI-CD flows |
-| \*\*5. Configure Source Code / POM\*\*  | Specify repository URL or POM file path                                       | For Git, provide repo URL and credentials; for Maven, provide `pom.xml` path           |
-| \*\*6. Add Build Steps\*\*              | Define actions Jenkins will perform                                           | Example: `clean install` for Maven, `Execute shell` commands, or other build steps     |
-| \*\*7. Configure Post-Build Actions\*\* | Set actions to perform after build                                            | Example: email notifications, test reports, archive artifacts                          |
-| \*\*8. Save the Job\*\*                 | Click \*\*Save\*\*                                                                | Job configuration is now stored in Jenkins                                             |
-| \*\*9. Run the Job\*\*                  | Click \*\*Build Now\*\* on the job page                                           | Jenkins executes the build according to the defined steps                              |
-| \*\*10. View Build Results\*\*          | Check \*\*Build History\*\* and \*\*Console Output\*\*                                | Helps verify success or troubleshoot errors                                            |
+| **Step**                            | **Action**                                                                  | **Details / Notes**                                                                    |
+| ----------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **1. Access Jenkins Dashboard**     | Open Jenkins URL and log in                                                 | Typically `http://localhost:8080`                                                      |
+| **2. Click New Item**               | Click **New Item** on the left menu                                         | Starts the job creation process                                                        |
+| **3. Enter Job Name**               | Provide a unique name for the job                                           | Example: `MyMavenProject`                                                              |
+| **4. Select Project Type**          | Choose a type: **Freestyle Project**, **Maven Project**, **Pipeline**, etc. | Freestyle for simple jobs, Maven for Maven projects, Pipeline for scripted/CI-CD flows |
+| **5. Configure Source Code / POM**  | Specify repository URL or POM file path                                     | For Git, provide repo URL and credentials; for Maven, provide `pom.xml` path           |
+| **6. Add Build Steps**              | Define actions Jenkins will perform                                         | Example: `clean install` for Maven, `Execute shell` commands, or other build steps     |
+| **7. Configure Post-Build Actions** | Set actions to perform after the build                                      | Example: email notifications, test reports, archive artifacts                          |
+| **8. Save the Job**                 | Click **Save**                                                              | Job configuration is now stored in Jenkins                                             |
+| **9. Run the Job**                  | Click **Build Now** on the job page                                         | Jenkins executes the build according to the defined steps                              |
+| **10. View Build Results**          | Check **Build History** and **Console Output**                              | Helps verify success or troubleshoot errors                                            |
 
 
 
-| \*\*Step\*\*                               | \*\*Action\*\*                  | \*\*Windows Instructions\*\*                                                  | \*\*Purpose (One-Liner)\*\*                             |
-| -------------------------------------- | --------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------- |
-| \*\*1. Install JDK\*\*                     | Download JDK                | \[Download JDK 21/17](https://www.oracle.com/java/technologies/downloads/) | Required to run Java, Maven, Jenkins, and Selenium. |
-|                                        | Install JDK                 | Example path: `C:\\Program Files\\Java\\jdk-21`                              | Installs Java Development Kit.                      |
-|                                        | Set Env Vars                | Add `JAVA\_HOME` and update `Path` with `%JAVA\_HOME%\\bin`.                 | Makes Java available system-wide.                   |
-|                                        | Verify                      | `java -version`                                                           | Confirms JDK installation.                          |
-| \*\*2. Install Maven\*\*                   | Download Maven              | \[Maven 3.9.x](https://maven.apache.org/download.cgi)                      | Required to build Java projects.                    |
-|                                        | Extract                     | Example path: `C:\\apache-maven-3.9.6`                                     | Installs Maven locally.                             |
-|                                        | Set Env Vars                | Add `MAVEN\_HOME` and update `Path` with `%MAVEN\_HOME%\\bin`.               | Enables Maven commands globally.                    |
-|                                        | Verify                      | `mvn -v`                                                                  | Confirms Maven installation.                        |
-| \*\*3. Create Maven Project in Eclipse\*\* | New Project                 | Eclipse → File → New → Maven Project → `maven-archetype-quickstart`       | Creates project structure with POM.                 |
-|                                        | POM (Dependencies + Plugin) | Add Selenium, TestNG, and Surefire plugin in `pom.xml`.                   | Brings required libraries \& ensures TestNG runs.    |
-|                                        | testng.xml                  | Defines suite with `<class name="com.example.MyTest"/>`.                  | Decides which test classes to run.                  |
-|                                        | Sample Test Class           | Simple `Assert.assertTrue(true)` test.                                    | Confirms TestNG + Maven setup works.                |
-|                                        | Run in Eclipse              | Right click `testng.xml` → Run As → TestNG Suite.                         | Verifies tests before Jenkins.                      |
-| \*\*4. Install Jenkins (Windows)\*\*       | Download                    | \[Jenkins Windows](https://www.jenkins.io/download/)                       | CI/CD tool for automation.                          |
-|                                        | Install                     | Run installer → Install as Windows Service.                               | Runs Jenkins as background service.                 |
-|                                        | Start Jenkins               | Open `http://localhost:8080/`                                             | Launch Jenkins dashboard.                           |
-|                                        | Unlock Jenkins              | Use key from `C:\\Program Files\\Jenkins\\secrets\\initialAdminPassword`.     | First-time setup authentication.                    |
-|                                        | Install Plugins             | Select \*\*Install Suggested Plugins\*\*.                                     | Installs basic required plugins.                    |
-| \*\*5. Configure Tools in Jenkins\*\*      | Add JDK                     | Add JDK in Global Tool Configuration.                                     | Lets Jenkins use system JDK.                        |
-|                                        | Add Maven                   | Add Maven in Global Tool Configuration.                                   | Lets Jenkins use system Maven.                      |
-| \*\*6. Create Jenkins Job\*\*              | New Item                    | New Freestyle Project → `MySeleniumJob`.                                  | Creates automation job.                             |
-|                                        | Build Step                  | Add \*\*Invoke top-level Maven targets\*\* → `clean test`.                    | Runs Maven build and TestNG tests.                  |
-|                                        | Run Job                     | Click \*\*Build Now\*\* → See Console Output.                                 | Tests Jenkins + Maven integration.                  |
-| \*\*7. Configure Email (Windows)\*\*       | Install Plugin              | Install \*\*Email Extension Plugin\*\*.                                       | Enables advanced email notifications.               |
-|                                        | Configure SMTP              | SMTP: `smtp.gmail.com`, Port: 465/587, Gmail App Password.                | Allows Jenkins to send emails.                      |
-|                                        | Post-Build Action           | Add \*\*Editable Email Notification\*\*.                                      | Configures email settings.                          |
-|                                        | Recipients                  | `shreenibassamal500@gmail.com, mdsaddamwwe611@gmail.com`                  | Who will receive reports.                           |
-|                                        | Subject                     | `Build #${BUILD\_NUMBER} - ${JOB\_NAME} Test Report`                        | Email subject with build info.                      |
-|                                        | Body                        | Custom message with `${BUILD\_URL}` and `${BUILD\_STATUS}`.                 | Detailed email body.                                |
-|                                        | Attachments                 | `\*\*/test-output/emailable-report.html`                                    | Sends TestNG HTML report.                           |
-|                                        | Trigger                     | Check \*\*Always\*\* ✅                                                        | Ensures email is sent on every build (pass/fail).  |
-| \*\*8. Schedule Build\*\*                  | Cron                        | `15 11 \* \* \*` → Runs daily at 11:15 AM.                                   | Automates test execution on schedule.               |
+
+| **Step**                                   | **Action**                                        | **Windows Instructions / Jenkins Action**                                                                         | **Purpose / Notes**                                    |
+| ------------------------------------------ | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| **1. Install JDK**                         | Download & Install                                | [Download JDK](https://www.oracle.com/java/technologies/downloads/), Example path: `C:\Program Files\Java\jdk-21` | Required to run Java, Maven, Jenkins, Selenium.        |
+|                                            | Set Environment Variables                         | Add `JAVA_HOME` and update `Path` with `%JAVA_HOME%\bin`                                                          | Makes Java available system-wide.                      |
+|                                            | Verify                                            | `java -version`                                                                                                   | Confirms JDK installation.                             |
+| **2. Install Maven**                       | Download & Extract                                | [Maven 3.9.x](https://maven.apache.org/download.cgi), Example path: `C:\apache-maven-3.9.6`                       | Required to build Java projects.                       |
+|                                            | Set Environment Variables                         | Add `MAVEN_HOME` and update `Path` with `%MAVEN_HOME%\bin`                                                        | Enables Maven commands globally.                       |
+|                                            | Verify                                            | `mvn -v`                                                                                                          | Confirms Maven installation.                           |
+| **3. Create Maven Project in Eclipse**     | New Project                                       | Eclipse → File → New → Maven Project → `maven-archetype-quickstart`                                               | Creates project structure with POM.                    |
+|                                            | POM (Dependencies + Plugin)                       | Add Selenium, TestNG, Surefire plugin                                                                             | Adds required libraries and ensures TestNG runs.       |
+|                                            | testng.xml                                        | Define suite with `<class name="com.example.MyTest"/>`                                                            | Decides which test classes to run.                     |
+|                                            | Sample Test Class                                 | `Assert.assertTrue(true)`                                                                                         | Confirms TestNG + Maven setup works.                   |
+|                                            | Run in Eclipse                                    | Right click `testng.xml` → Run As → TestNG Suite                                                                  | Verifies tests before Jenkins integration.             |
+| **4. Install Jenkins (Windows)**           | Download & Install                                | [Jenkins Windows](https://www.jenkins.io/download/), Install as Windows Service                                   | CI/CD tool for automation, runs as background service. |
+|                                            | Start Jenkins                                     | Open `http://localhost:8080/`                                                                                     | Launch Jenkins dashboard.                              |
+|                                            | Unlock Jenkins                                    | Use key from `C:\Program Files\Jenkins\secrets\initialAdminPassword`                                              | First-time setup authentication.                       |
+|                                            | Install Plugins                                   | Select **Install Suggested Plugins**                                                                              | Installs basic required plugins.                       |
+| **5. Configure Tools in Jenkins**          | Add JDK & Maven                                   | Global Tool Configuration → Add JDK / Maven                                                                       | Lets Jenkins use system-installed JDK and Maven.       |
+| **6. Create Jenkins Job**                  | New Item                                          | Freestyle Project → `MySeleniumJob`                                                                               | Creates automation job.                                |
+|                                            | Build Step                                        | Add **Invoke top-level Maven targets** → `clean test`                                                             | Runs Maven build and TestNG tests.                     |
+|                                            | Run Job                                           | Click **Build Now** → View Console Output                                                                         | Tests Jenkins + Maven integration.                     |
+| **7. Configure Email (Windows / Jenkins)** | Install Plugin                                    | Install **Email Extension Plugin**                                                                                | Enables advanced email notifications.                  |
+|                                            | Configure SMTP                                    | SMTP: `smtp.gmail.com`, Port: 465/587, Gmail App Password                                                         | Allows Jenkins to send emails.                         |
+|                                            | Post-Build Action                                 | Add **Editable Email Notification**                                                                               | Configures email settings.                             |
+|                                            | Recipients                                        | `shreenibassamal500@gmail.com, mdsaddamwwe611@gmail.com`                                                          | Who will receive reports.                              |
+|                                            | Subject & Body                                    | `Build #${BUILD_NUMBER} - ${JOB_NAME} Test Report`, Body with `${BUILD_URL}` & `${BUILD_STATUS}`                  | Detailed email content.                                |
+|                                            | Attachments                                       | `**/test-output/emailable-report.html`                                                                            | Sends TestNG HTML report.                              |
+|                                            | Trigger                                           | Check **Always**                                                                                                  | Ensures email is sent on every build (pass/fail).      |
+| **8. Schedule Build**                      | Cron                                              | `15 11 * * *` → Runs daily at 11:15 AM                                                                            | Automates test execution on schedule.                  |
+| **9. Access Jenkins Dashboard**            | Open Jenkins URL & Log in                         | Typically `http://localhost:8080`                                                                                 | Access and manage jobs.                                |
+| **10. Job Management**                     | Create Job / Configure Build / Post-Build Actions | See Steps 6–8                                                                                                     | End-to-end job setup and execution.                    |
 
 4 EXTENT REPORT
 
@@ -379,20 +375,21 @@ Java provides built-in exception handling (try–catch) to deal with these issue
 
 
 
-| \*\*#\*\*  | \*\*Exception\*\*                        | \*\*When it Occurs\*\*                                                              | \*\*Solution\*\*                                                                       |
-| ------ | ------------------------------------ | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| \*\*1\*\*  | \*\*NoSuchElementException\*\*           | When the element is not found in DOM (wrong locator, element not loaded yet).   | ✅ Check locator (XPath/CSS) and use explicit wait (`WebDriverWait`).               |
-| \*\*2\*\*  | \*\*ElementNotInteractableException\*\*  | When the element is present but not visible or enabled (like hidden input).     | ✅ Wait until element is visible, scroll into view, or ensure element is clickable. |
-| \*\*3\*\*  | \*\*StaleElementReferenceException\*\*   | When the element is no longer attached to DOM (page refreshed/reloaded).        | ✅ Re-locate the element and use wait after page reload.                            |
-| \*\*4\*\*  | \*\*TimeoutException\*\*                 | When explicit wait cannot find the element within the given time.               | ✅ Increase wait time or ensure correct condition in `WebDriverWait`.               |
-| \*\*5\*\*  | \*\*NoSuchFrameException\*\*             | When switching to a frame that doesn’t exist.                                   | ✅ Check frame name/index and use `driver.switchTo().frame()`.                      |
-| \*\*6\*\*  | \*\*NoAlertPresentException\*\*          | When switching to an alert that is not present.                                 | ✅ Ensure alert is triggered before switching and use wait.                         |
-| \*\*7\*\*  | \*\*ElementClickInterceptedException\*\* | When another element (like popup/overlay) blocks the element you want to click. | ✅ Wait until popup disappears, scroll, or use JavaScript click.                    |
-| \*\*8\*\*  | \*\*SessionNotCreatedException\*\*       | When driver version and browser version are not compatible.                     | ✅ Update WebDriver or browser version to match.                                    |
-| \*\*9\*\*  | \*\*InvalidSelectorException\*\*         | When the XPath or CSS selector syntax is invalid.                               | ✅ Fix the locator syntax.                                                          |
-| \*\*10\*\* | \*\*WebDriverException\*\*               | General error (like browser not reachable).                                     | ✅ Check driver setup, browser installation, and session.                           |
-| \*\*11\*\* | \*\*FileNotFoundException\*\*            | When the file path given (e.g., Excel, upload file, properties) does not exist. | ✅ Provide correct file path and verify file exists before execution.               |
-| \*\*12\*\* | \*\*InvalidArgumentException\*\*         | When invalid input is given (e.g., URL without `http/https`, wrong file path).  | ✅ Always use proper inputs, valid URLs, and existing file paths.                   |
+| **#** | **Exception**                        | **When it Occurs**                                                             | **Solution**                                                                       |
+| ----- | ------------------------------------ | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| 1     | **NoSuchElementException**           | Element not found in DOM (wrong locator, element not loaded yet).              | ✅ Check locator (XPath/CSS) and use explicit wait (`WebDriverWait`).               |
+| 2     | **ElementNotInteractableException**  | Element is present but not visible or enabled (hidden input, disabled button). | ✅ Wait until element is visible, scroll into view, or ensure element is clickable. |
+| 3     | **StaleElementReferenceException**   | Element is no longer attached to DOM (page refreshed/reloaded).                | ✅ Re-locate the element and use wait after page reload.                            |
+| 4     | **TimeoutException**                 | Explicit wait cannot find the element within the given time.                   | ✅ Increase wait time or ensure correct condition in `WebDriverWait`.               |
+| 5     | **NoSuchFrameException**             | Switching to a frame that doesn’t exist.                                       | ✅ Check frame name/index and use `driver.switchTo().frame()`.                      |
+| 6     | **NoAlertPresentException**          | Switching to an alert that is not present.                                     | ✅ Ensure alert is triggered before switching and use wait.                         |
+| 7     | **ElementClickInterceptedException** | Another element (popup/overlay) blocks the element you want to click.          | ✅ Wait until popup disappears, scroll, or use JavaScript click.                    |
+| 8     | **SessionNotCreatedException**       | Driver version and browser version are incompatible.                           | ✅ Update WebDriver or browser version to match.                                    |
+| 9     | **InvalidSelectorException**         | XPath or CSS selector syntax is invalid.                                       | ✅ Fix the locator syntax.                                                          |
+| 10    | **WebDriverException**               | General error (browser not reachable).                                         | ✅ Check driver setup, browser installation, and session.                           |
+| 11    | **FileNotFoundException**            | File path given (Excel, upload, properties) does not exist.                    | ✅ Provide correct file path and verify the file exists.                            |
+| 12    | **InvalidArgumentException**         | Invalid input (URL without `http/https`, wrong file path).                     | ✅ Always use proper inputs, valid URLs, and existing file paths.                   |
+            |
 
 6 LISTENERS
 
