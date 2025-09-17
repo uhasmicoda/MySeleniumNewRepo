@@ -22,6 +22,14 @@
 
 
 
+**# ONE BASIC FLOW OF GIT**
+
+
+
+**## Git Branching and Merging Workflow**
+
+
+
 **| Step | Command / Action                  | Description                            |**
 
 **| ---- | --------------------------------- | -------------------------------------- |**
@@ -67,6 +75,96 @@
 **| 20   | `git branch -d b3`                | Delete branch `b3`                     |**
 
 **| 21   | `ls` / `cat b1.txt b2.txt b3.txt` | Verify all files are present in master |**
+
+
+
+
+
+
+
+
+
+**| \*\*Category\*\*         | \*\*Command\*\*                              | \*\*Description\*\*                                                |**
+
+**| -------------------- | ---------------------------------------- | -------------------------------------------------------------- |**
+
+**| \*\*Repo Setup\*\*       | `git init`                               | Initialize a new Git repository.                               |**
+
+**|                      | `git clone <repo\_url>`                   | Clone an existing repository.                                  |**
+
+**| \*\*Configuration\*\*    | `git config --global user.name "Name"`   | Set username for all repos.                                    |**
+
+**|                      | `git config --global user.email "Email"` | Set email for all repos.                                       |**
+
+**| \*\*Status/Info\*\*      | `git status`                             | Show working directory status.                                 |**
+
+**|                      | `git log`                                | Show commit history.                                           |**
+
+**|                      | `git log --oneline --graph --all`        | Compact history in tree format.                                |**
+
+**|                      | `git diff`                               | Show unstaged changes.                                         |**
+
+**| \*\*Staging \& Commit\*\* | `git add <file>`                         | Add file(s) to staging area.                                   |**
+
+**|                      | `git add .`                              | Stage all changes.                                             |**
+
+**|                      | `git commit -m "message"`                | Commit staged changes with message.                            |**
+
+**|                      | `git commit --amend`                     | Edit last commit message or add forgotten changes.             |**
+
+**| \*\*Branching\*\*        | `git branch`                             | List all branches.                                             |**
+
+**|                      | `git branch <name>`                      | Create a new branch.                                           |**
+
+**|                      | `git checkout <branch>`                  | Switch to a branch.                                            |**
+
+**|                      | `git checkout -b <branch>`               | Create and switch to new branch.                               |**
+
+**|                      | `git switch <branch>`                    | Switch to a branch (newer syntax).                             |**
+
+**|                      | `git switch -c <branch>`                 | Create and switch to a new branch.                             |**
+
+**| \*\*Merging\*\*          | `git merge <branch>`                     | Merge a branch into current one.                               |**
+
+**|                      | `git rebase <branch>`                    | Reapply commits on top of another branch.                      |**
+
+**| \*\*Remote\*\*           | `git remote -v`                          | Show remote repositories.                                      |**
+
+**|                      | `git remote add origin <url>`            | Add remote repository.                                         |**
+
+**|                      | `git push origin <branch>`               | Push branch to remote.                                         |**
+
+**|                      | `git push -u origin <branch>`            | Push branch \& set upstream.                                    |**
+
+**|                      | `git pull`                               | Fetch + merge changes from remote.                             |**
+
+**|                      | `git fetch`                              | Download changes without merging.                              |**
+
+**| \*\*Undo/Reset\*\*       | `git reset <file>`                       | Unstage a staged file.                                         |**
+
+**|                      | `git reset --hard <commit>`              | Reset repo to a specific commit (dangerous, discards changes). |**
+
+**|                      | `git restore <file>`                     | Restore file from last commit.                                 |**
+
+**|                      | `git revert <commit>`                    | Create a new commit that undoes changes from a commit.         |**
+
+**| \*\*Tagging\*\*          | `git tag <name>`                         | Create a tag.                                                  |**
+
+**|                      | `git tag`                                | List tags.                                                     |**
+
+**|                      | `git push origin <tag>`                  | Push a tag to remote.                                          |**
+
+**| \*\*Stash\*\*            | `git stash`                              | Save changes temporarily.                                      |**
+
+**|                      | `git stash pop`                          | Reapply stashed changes.                                       |**
+
+**|                      | `git stash list`                         | Show stashed changes.                                          |**
+
+**| \*\*Clean Up\*\*         | `git branch -d <branch>`                 | Delete branch (safe).                                          |**
+
+**|                      | `git branch -D <branch>`                 | Force delete branch.                                           |**
+
+**|                      | `git rm <file>`                          | Remove file and stage removal.                                 |**
 
 
 
