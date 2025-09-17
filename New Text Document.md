@@ -24,6 +24,10 @@
 
 
 
+**# Git Branching and Merging Workflow**
+
+
+
 **| \*\*Step\*\* | \*\*Command / Action\*\*           | \*\*Description\*\*                         |**
 
 **|----------|--------------------------------|-----------------------------------------|**
@@ -60,7 +64,17 @@
 
 **| 16       | `git merge b2`                 | Merge `b2` into master                  |**
 
-**| 17       | `git merge b3`**
+**| 17       | `git merge b3`                 | Merge `b3` into master                  |**
+
+**| 18       | `git branch -d b1`             | Delete branch `b1`                      |**
+
+**| 19       | `git branch -d b2`             | Delete branch `b2`                      |**
+
+**| 20       | `git branch -d b3`             | Delete branch `b3`                      |**
+
+**| 21       | `ls` / `cat b1.txt b2.txt b3.txt` | Verify all files are present in master |**
+
+
 
 
 
