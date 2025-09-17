@@ -18,61 +18,91 @@
 
 
 
-**# Git Branching and Merging Workflow**
+**Git Branching and Merging Workflow**
 
 
 
+**| \*\*Category\*\*         | \*\*Command\*\*                              | \*\*Description\*\*                              |**
 
+**| -------------------- | ---------------------------------------- | -------------------------------------------- |**
 
-**# Git Branching and Merging Workflow**
+**| \*\*Repo Setup\*\*       | `git init`                               | Initialize a new repository                  |**
 
+**|                      | `git clone <repo\_url>`                   | Clone an existing repository                 |**
 
+**| \*\*Configuration\*\*    | `git config --global user.name "Name"`   | Set username for all repos                   |**
 
-**| \*\*Step\*\* | \*\*Command / Action\*\*           | \*\*Description\*\*                         |**
+**|                      | `git config --global user.email "Email"` | Set email for all repos                      |**
 
-**|----------|--------------------------------|-----------------------------------------|**
+**| \*\*Status / Info\*\*    | `git status`                             | Show working directory status                |**
 
-**| 1        | `git init`                     | Initialize empty Git repository         |**
+**|                      | `git log`                                | Show commit history                          |**
 
-**| 2        | `git checkout -b b1`           | Create and switch to branch `b1`        |**
+**|                      | `git log --oneline --graph --all`        | Compact history in tree format               |**
 
-**| 3        | Create `b1.txt` in Notepad     | Write one line in the file and save     |**
+**|                      | `git diff`                               | Show unstaged changes                        |**
 
-**| 4        | `git add b1.txt`               | Stage the file for commit               |**
+**| \*\*Staging \& Commit\*\* | `git add <file>`                         | Add file(s) to staging area                  |**
 
-**| 5        | `git commit -m "Added b1.txt"` | Commit the file to `b1` branch          |**
+**|                      | `git add .`                              | Stage all changes                            |**
 
-**| 6        | `git checkout -b b2`           | Create and switch to branch `b2`        |**
+**|                      | `git commit -m "message"`                | Commit staged changes with message           |**
 
-**| 7        | Create `b2.txt` in Notepad     | Write one line in the file and save     |**
+**|                      | `git commit --amend`                     | Edit last commit or add forgotten changes    |**
 
-**| 8        | `git add b2.txt`               | Stage the file                          |**
+**| \*\*Branching\*\*        | `git branch`                             | List all branches                            |**
 
-**| 9        | `git commit -m "Added b2.txt"` | Commit the file to `b2` branch          |**
+**|                      | `git branch <name>`                      | Create a new branch                          |**
 
-**| 10       | `git checkout -b b3`           | Create and switch to branch `b3`        |**
+**|                      | `git checkout <branch>`                  | Switch to a branch                           |**
 
-**| 11       | Create `b3.txt` in Notepad     | Write one line in the file and save     |**
+**|                      | `git checkout -b <branch>`               | Create \& switch to a new branch              |**
 
-**| 12       | `git add b3.txt`               | Stage the file                          |**
+**|                      | `git switch <branch>`                    | Switch to a branch (new syntax)              |**
 
-**| 13       | `git commit -m "Added b3.txt"` | Commit the file to `b3` branch          |**
+**|                      | `git switch -c <branch>`                 | Create \& switch to a new branch (new syntax) |**
 
-**| 14       | `git checkout -b master`       | Create and switch to master branch      |**
+**| \*\*Merging\*\*          | `git merge <branch>`                     | Merge a branch into current one              |**
 
-**| 15       | `git merge b1`                 | Merge `b1` into master                  |**
+**|                      | `git rebase <branch>`                    | Reapply commits on top of another branch     |**
 
-**| 16       | `git merge b2`                 | Merge `b2` into master                  |**
+**| \*\*Remote\*\*           | `git remote -v`                          | Show remote repositories                     |**
 
-**| 17       | `git merge b3`                 | Merge `b3` into master                  |**
+**|                      | `git remote add origin <url>`            | Add a remote repository                      |**
 
-**| 18       | `git branch -d b1`             | Delete branch `b1`                      |**
+**|                      | `git push origin <branch>`               | Push branch to remote                        |**
 
-**| 19       | `git branch -d b2`             | Delete branch `b2`                      |**
+**|                      | `git push -u origin <branch>`            | Push branch \& set upstream                   |**
 
-**| 20       | `git branch -d b3`             | Delete branch `b3`                      |**
+**|                      | `git pull`                               | Fetch + merge changes from remote            |**
 
-**| 21       | `ls` / `cat b1.txt b2.txt b3.txt` | Verify all files are present in master |**
+**|                      | `git fetch`                              | Download changes without merging             |**
+
+**| \*\*Undo / Reset\*\*     | `git reset <file>`                       | Unstage a staged file                        |**
+
+**|                      | `git reset --hard <commit>`              | Reset repo to specific commit (dangerous)    |**
+
+**|                      | `git restore <file>`                     | Restore file from last commit                |**
+
+**|                      | `git revert <commit>`                    | Create new commit that undoes a commit       |**
+
+**| \*\*Tagging\*\*          | `git tag <name>`                         | Create a tag                                 |**
+
+**|                      | `git tag`                                | List tags                                    |**
+
+**|                      | `git push origin <tag>`                  | Push a tag to remote                         |**
+
+**| \*\*Stash\*\*            | `git stash`                              | Save changes temporarily                     |**
+
+**|                      | `git stash pop`                          | Reapply stashed changes                      |**
+
+**|                      | `git stash list`                         | Show stashed changes                         |**
+
+**| \*\*Clean Up\*\*         | `git branch -d <branch>`                 | Delete branch (safe)                         |**
+
+**|                      | `git branch -D <branch>`                 | Force delete branch                          |**
+
+**|                      | `git rm <file>`                          | Remove file and stage removal                |**
 
 
 
