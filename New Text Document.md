@@ -170,6 +170,952 @@
 
 
 
+**2 MAVEN**
+
+
+
+**Maven is a build automation and project management tool mainly used for Java projects. It helps in compiling the source code, running the tests, packaging the application, and generating reports. The main advantage of Maven is dependency management — instead of manually adding jar files, we just declare them in the pom.xml and Maven automatically downloads them from the central repository. It also follows a standard project structure and uses plugins like the Compiler plugin and Surefire plugin to handle builds and test execution. In real-time projects, we use Maven not only to run tests but also to integrate with CI/CD pipelines like Jenkins.**
+
+
+
+**In Maven, we use different lifecycle commands. The most common ones are mvn clean to remove the target folder, mvn compile to compile the source code, mvn test to execute test cases, mvn package to build the project into a JAR or WAR, and mvn install to place the package into the local repository. We also use mvn deploy to send the build to a remote repository. Additionally, commands like mvn dependency:tree and mvn help:effective-pom are useful for debugging dependencies.**
+
+
+
+**In my project, I run scripts from the command line using Maven. First, I install and configure Maven so it can be used in CMD. Then, I define all dependencies in the pom.xml and configure the Maven Surefire plugin to point to my TestNG suite file, for example Smoke.xml. After that, I go to the project root folder in CMD and execute mvn clean test -P STS, which cleans previous builds, compiles the code, and executes the suite. Once execution is done, I check the reports in the target\\\\surefire-reports and test-output folders. This approach is very useful in real-time because it allows us to run tests without opening Eclipse and also integrate easily with CI/CD tools like Jenkins.**
+
+
+
+**| \\\*\\\*Phase\\\*\\\*    | \\\*\\\*Command\\\*\\\*    | \\\*\\\*Easy Meaning\\\*\\\*               | \\\*\\\*Technical Meaning\\\*\\\*                                                             |**
+
+**| ------------ | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |**
+
+**| \\\*\\\*Clean\\\*\\\*    | `mvn clean`    | Delete old files, start fresh. | Removes previous build outputs (e.g., `target/` folder).                          |**
+
+**| \\\*\\\*Validate\\\*\\\* | `mvn validate` | Check project setup.           | Ensures project structure \\\& config are correct.                                   |**
+
+**| \\\*\\\*Compile\\\*\\\*  | `mvn compile`  | Convert code to class files.   | Compiles Java source into `.class` bytecode files.                                |**
+
+**| \\\*\\\*Test\\\*\\\*     | `mvn test`     | Run tests.                     | Executes unit/automation tests (JUnit, TestNG).                                   |**
+
+**| \\\*\\\*Package\\\*\\\*  | `mvn package`  | Make JAR/WAR file.             | Bundles compiled code + resources into a distributable (`.jar`, `.war`).          |**
+
+**| \\\*\\\*Verify\\\*\\\*   | `mvn verify`   | Double-check build.            | Runs integration checks to ensure the package is valid.                           |**
+
+**| \\\*\\\*Install\\\*\\\*  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |**
+
+**| \\\*\\\*Deploy\\\*\\\*   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |**
+
+
+
+
+
+
+
+**| \\\*\\\*Tag Name\\\*\\\*      | \\\*\\\*Meaning (Easy Words)\\\*\\\*                 | \\\*\\\*Technical Purpose\\\*\\\*                                                                |**
+
+**| ----------------- | ---------------------------------------- | ------------------------------------------------------------------------------------ |**
+
+**| `<profiles>`      | Group of all profiles.                   | Container for one or more `<profile>` definitions.                                   |**
+
+**| `<profile>`       | A single profile (like a setting group). | Defines a specific build configuration (e.g., STS, Prod, Dev).                       |**
+
+**| `<id>`            | Profile name.                            | Uniquely identifies the profile (used with `-P <id>` to activate it).                |**
+
+**| `<build>`         | Build instructions.                      | Contains build-specific configurations (plugins, resources, etc.).                   |**
+
+**| `<plugins>`       | List of plugins used in the build.       | Groups multiple `<plugin>` definitions.                                              |**
+
+**| `<plugin>`        | One specific tool/plugin used by Maven.  | Defines how Maven should use a plugin (compiler, surefire, etc.).                    |**
+
+**| `<groupId>`       | Organization/group name of the plugin.   | Identifies the plugin’s publishing organization (e.g., `org.apache.maven.plugins`).  |**
+
+**| `<artifactId>`    | Plugin’s name.                           | Identifies the actual plugin (e.g., `maven-compiler-plugin`).                        |**
+
+**| `<version>`       | Version of the plugin.                   | Tells Maven which version of the plugin to use.                                      |**
+
+**| `<configuration>` | Custom settings for the plugin.          | Defines options (e.g., `<release>21</release>` for compiler, test suite file, etc.). |**
+
+**| `<release>`       | Java version to use.                     | Tells compiler which Java version features are allowed (e.g., 21).                   |**
+
+**| `<suiteXmlFiles>` | TestNG XML file(s).                      | Used by Surefire to specify which test suite(s) to run.                              |**
+
+**| `<suiteXmlFile>`  | Single TestNG suite file.                | Provides the exact XML file path (e.g., `Smoke.xml`).                                |**
+
+
+
+
+
+
+
+**<build>**
+
+        **<plugins>**
+
+            **<!-- Compiler Plugin (common for all profiles) -->**
+
+            **<plugin>**
+
+                **<groupId>org.apache.maven.plugins</groupId>**
+
+                **<artifactId>maven-compiler-plugin</artifactId>**
+
+                **<version>3.13.0</version>**
+
+                **<configuration>**
+
+                    **<release>21</release>**
+
+                **</configuration>**
+
+            **</plugin>**
+
+        **</plugins>**
+
+    **</build>**
+
+
+
+**\&nbsp;   <profiles>**
+
+        **<!-- Smoke Profile -->**
+
+        **<profile>**
+
+            **<id>smoke</id>**
+
+            **<build>**
+
+                **<plugins>**
+
+                    **<plugin>**
+
+                        **<groupId>org.apache.maven.plugins</groupId>**
+
+                        **<artifactId>maven-surefire-plugin</artifactId>**
+
+                        **<version>3.2.5</version>**
+
+                        **<configuration>**
+
+                            **<suiteXmlFiles>**
+
+                                **<suiteXmlFile>Smoke.xml</suiteXmlFile>**
+
+                            **</suiteXmlFiles>**
+
+                        **</configuration>**
+
+                    **</plugin>**
+
+                **</plugins>**
+
+            **</build>**
+
+        **</profile>**
+
+
+
+        **<!-- Integration Profile -->**
+
+        **<profile>**
+
+            **<id>integration</id>**
+
+            **<build>**
+
+                **<plugins>**
+
+                    **<plugin>**
+
+                        **<groupId>org.apache.maven.plugins</groupId>**
+
+                        **<artifactId>maven-surefire-plugin</artifactId>**
+
+                        **<version>3.2.5</version>**
+
+                        **<configuration>**
+
+                            **<suiteXmlFiles>**
+
+                                **<suiteXmlFile>Integration.xml</suiteXmlFile>**
+
+                            **</suiteXmlFiles>**
+
+                        **</configuration>**
+
+                    **</plugin>**
+
+                **</plugins>**
+
+            **</build>**
+
+        **</profile>**
+
+
+
+        **<!-- STS Profile -->**
+
+        **<profile>**
+
+            **<id>sts</id>**
+
+            **<build>**
+
+                **<plugins>**
+
+                    **<plugin>**
+
+                        **<groupId>org.apache.maven.plugins</groupId>**
+
+                        **<artifactId>maven-surefire-plugin</artifactId>**
+
+                        **<version>3.2.5</version>**
+
+                        **<configuration>**
+
+                            **<suiteXmlFiles>**
+
+                                **<suiteXmlFile>STS.xml</suiteXmlFile>**
+
+                            **</suiteXmlFiles>**
+
+                        **</configuration>**
+
+                    **</plugin>**
+
+                **</plugins>**
+
+            **</build>**
+
+        **</profile>**
+
+    **</profiles>**
+
+
+
+**</project>**
+
+
+
+**mvn test -Psmoke**
+
+**mvn test -Pintegration**
+
+**mvn test -Psts**
+
+
+
+
+
+
+
+**<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >**
+
+
+
+**<suite name="SmokeSuite">**
+
+    **<test name="SmokeTests">**
+
+        **<classes>**
+
+            **<class name="com.tests.LoginTest"/>**
+
+            **<class name="com.tests.HomePageTest"/>**
+
+        **</classes>**
+
+    **</test>**
+
+**</suite>**
+
+
+
+**<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >**
+
+
+
+**<suite name="IntegrationSuite">**
+
+    **<test name="IntegrationTests">**
+
+        **<classes>**
+
+            **<class name="com.tests.UserRegistrationTest"/>**
+
+            **<class name="com.tests.PaymentTest"/>**
+
+            **<class name="com.tests.OrderFlowTest"/>**
+
+        **</classes>**
+
+    **</test>**
+
+**</suite>**
+
+
+
+**<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >**
+
+
+
+**<suite name="STSSuite">**
+
+    **<test name="STSTests">**
+
+        **<classes>**
+
+            **<class name="com.tests.RegressionTest"/>**
+
+            **<class name="com.tests.PerformanceTest"/>**
+
+        **</classes>**
+
+    **</test>**
+
+**</suite>**
+
+
+
+**3 Jenkins**
+
+
+
+**Jenkins is an open-source automation server that we used mainly for Continuous Integration and Continuous Delivery (CI/CD). In my project, we integrated Jenkins with Git and Maven. Whenever we pushed code to the repository, Jenkins automatically triggered builds, compiled the project using Maven, ran the automated test cases, and generated reports.**
+
+
+
+**In Jenkins, Global Tool Configuration is where we define tools that can be used by all jobs across the Jenkins instance, ensuring consistency and avoiding repetitive setup for each job. To configure these tools, we first go to Manage Jenkins → Global Tool Configuration, where we can set up essential tools like JDK, Maven, Git, Gradle, and Ant. For JDK, we define a name and either provide the installation path or let Jenkins install it automatically; jobs can then select the desired JDK version during build. Similarly, for Maven, we provide the Maven version name and path, or allow automatic installation, so jobs can use the configured Maven to build Java projects. In the Git section, we specify the path to the Git executable, enabling Jenkins to clone repositories for all jobs. Optional tools like Gradle and Ant can also be configured with their paths or automatic installation if a project requires them. Once saved, these global configurations are available in all jobs’ build steps or build environments, allowing jobs to select the required tool versions without manual configuration every time. This setup simplifies project builds, maintains uniformity, and reduces configuration errors across Jenkins jobs.**
+
+
+
+**| \\\*\\\*Tool\\\*\\\*                | \\\*\\\*Purpose\\\*\\\*                                                   | \\\*\\\*How to Configure\\\*\\\*                                             | \\\*\\\*Usage in Jobs\\\*\\\*                                                   |**
+
+**| ----------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------- |**
+
+**| \\\*\\\*JDK\\\*\\\*                 | Java compiler required to run Jenkins and build Java projects | Add name, set JAVA\\\\\\\_HOME path, or select “Install automatically” | Jobs can select the JDK version under Build Environment             |**
+
+**| \\\*\\\*Maven\\\*\\\*               | Java build and dependency management tool                     | Add Maven version name, set path, or install automatically       | Jobs select Maven version in Build → Invoke top-level Maven targets |**
+
+**| \\\*\\\*Git\\\*\\\*                 | Version control system                                        | Add Git name and path to Git executable                          | Jenkins uses this Git to clone/fetch repositories for jobs          |**
+
+**| \\\*\\\*Gradle\\\*\\\* \\\*(optional)\\\* | Alternative build tool to Maven                               | Add Gradle version name, set path, or install automatically      | Jobs select Gradle version if project uses Gradle                   |**
+
+**| \\\*\\\*Ant\\\*\\\* \\\*(optional)\\\*    | Older Java build tool                                         | Add Ant version name, set path, or install automatically         | Jobs select Ant version if project uses Ant                         |**
+
+
+
+
+
+
+
+**How to create a job in Jenkins**
+
+**To create a job in Jenkins, I go to Jenkins dashboard, click on New Item, give the job a name, select the project type (like Freestyle or Maven), configure the source code or POM file path, add the required build steps (like clean test), configure post-build actions such as email notifications or reports, save it, and then I can run the job by clicking Build Now.**
+
+
+
+
+
+
+
+**| \\\*\\\*Step\\\*\\\*                            | \\\*\\\*Action\\\*\\\*                                                                    | \\\*\\\*Details / Notes\\\*\\\*                                                                    |**
+
+**| ----------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |**
+
+**| \\\*\\\*1. Access Jenkins Dashboard\\\*\\\*     | Open Jenkins URL and log in                                                   | Typically `http://localhost:8080`                                                      |**
+
+**| \\\*\\\*2. Click New Item\\\*\\\*               | On the left menu, click \\\*\\\*New Item\\\*\\\*                                          | Starts the job creation process                                                        |**
+
+**| \\\*\\\*3. Enter Job Name\\\*\\\*               | Give a unique name for the job                                                | Example: `MyMavenProject`                                                              |**
+
+**| \\\*\\\*4. Select Project Type\\\*\\\*          | Choose type like \\\*\\\*Freestyle Project\\\*\\\*, \\\*\\\*Maven Project\\\*\\\*, \\\*\\\*Pipeline\\\*\\\*, etc. | Freestyle for simple jobs, Maven for Maven projects, Pipeline for scripted/CI-CD flows |**
+
+**| \\\*\\\*5. Configure Source Code / POM\\\*\\\*  | Specify repository URL or POM file path                                       | For Git, provide repo URL and credentials; for Maven, provide `pom.xml` path           |**
+
+**| \\\*\\\*6. Add Build Steps\\\*\\\*              | Define actions Jenkins will perform                                           | Example: `clean install` for Maven, `Execute shell` commands, or other build steps     |**
+
+**| \\\*\\\*7. Configure Post-Build Actions\\\*\\\* | Set actions to perform after build                                            | Example: email notifications, test reports, archive artifacts                          |**
+
+**| \\\*\\\*8. Save the Job\\\*\\\*                 | Click \\\*\\\*Save\\\*\\\*                                                                | Job configuration is now stored in Jenkins                                             |**
+
+**| \\\*\\\*9. Run the Job\\\*\\\*                  | Click \\\*\\\*Build Now\\\*\\\* on the job page                                           | Jenkins executes the build according to the defined steps                              |**
+
+**| \\\*\\\*10. View Build Results\\\*\\\*          | Check \\\*\\\*Build History\\\*\\\* and \\\*\\\*Console Output\\\*\\\*                                | Helps verify success or troubleshoot errors                                            |**
+
+
+
+
+
+
+
+**| \\\*\\\*Step\\\*\\\*                               | \\\*\\\*Action\\\*\\\*                  | \\\*\\\*Windows Instructions\\\*\\\*                                                  | \\\*\\\*Purpose (One-Liner)\\\*\\\*                             |**
+
+**| -------------------------------------- | --------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------- |**
+
+**| \\\*\\\*1. Install JDK\\\*\\\*                     | Download JDK                | \\\[Download JDK 21/17](https://www.oracle.com/java/technologies/downloads/) | Required to run Java, Maven, Jenkins, and Selenium. |**
+
+**|                                        | Install JDK                 | Example path: `C:\\\\Program Files\\\\Java\\\\jdk-21`                              | Installs Java Development Kit.                      |**
+
+**|                                        | Set Env Vars                | Add `JAVA\\\_HOME` and update `Path` with `%JAVA\\\_HOME%\\\\bin`.                 | Makes Java available system-wide.                   |**
+
+**|                                        | Verify                      | `java -version`                                                           | Confirms JDK installation.                          |**
+
+**| \\\*\\\*2. Install Maven\\\*\\\*                   | Download Maven              | \\\[Maven 3.9.x](https://maven.apache.org/download.cgi)                      | Required to build Java projects.                    |**
+
+**|                                        | Extract                     | Example path: `C:\\\\apache-maven-3.9.6`                                     | Installs Maven locally.                             |**
+
+**|                                        | Set Env Vars                | Add `MAVEN\\\_HOME` and update `Path` with `%MAVEN\\\_HOME%\\\\bin`.               | Enables Maven commands globally.                    |**
+
+**|                                        | Verify                      | `mvn -v`                                                                  | Confirms Maven installation.                        |**
+
+**| \\\*\\\*3. Create Maven Project in Eclipse\\\*\\\* | New Project                 | Eclipse → File → New → Maven Project → `maven-archetype-quickstart`       | Creates project structure with POM.                 |**
+
+**|                                        | POM (Dependencies + Plugin) | Add Selenium, TestNG, and Surefire plugin in `pom.xml`.                   | Brings required libraries \\\& ensures TestNG runs.    |**
+
+**|                                        | testng.xml                  | Defines suite with `<class name="com.example.MyTest"/>`.                  | Decides which test classes to run.                  |**
+
+**|                                        | Sample Test Class           | Simple `Assert.assertTrue(true)` test.                                    | Confirms TestNG + Maven setup works.                |**
+
+**|                                        | Run in Eclipse              | Right click `testng.xml` → Run As → TestNG Suite.                         | Verifies tests before Jenkins.                      |**
+
+**| \\\*\\\*4. Install Jenkins (Windows)\\\*\\\*       | Download                    | \\\[Jenkins Windows](https://www.jenkins.io/download/)                       | CI/CD tool for automation.                          |**
+
+**|                                        | Install                     | Run installer → Install as Windows Service.                               | Runs Jenkins as background service.                 |**
+
+**|                                        | Start Jenkins               | Open `http://localhost:8080/`                                             | Launch Jenkins dashboard.                           |**
+
+**|                                        | Unlock Jenkins              | Use key from `C:\\\\Program Files\\\\Jenkins\\\\secrets\\\\initialAdminPassword`.     | First-time setup authentication.                    |**
+
+**|                                        | Install Plugins             | Select \\\*\\\*Install Suggested Plugins\\\*\\\*.                                     | Installs basic required plugins.                    |**
+
+**| \\\*\\\*5. Configure Tools in Jenkins\\\*\\\*      | Add JDK                     | Add JDK in Global Tool Configuration.                                     | Lets Jenkins use system JDK.                        |**
+
+**|                                        | Add Maven                   | Add Maven in Global Tool Configuration.                                   | Lets Jenkins use system Maven.                      |**
+
+**| \\\*\\\*6. Create Jenkins Job\\\*\\\*              | New Item                    | New Freestyle Project → `MySeleniumJob`.                                  | Creates automation job.                             |**
+
+**|                                        | Build Step                  | Add \\\*\\\*Invoke top-level Maven targets\\\*\\\* → `clean test`.                    | Runs Maven build and TestNG tests.                  |**
+
+**|                                        | Run Job                     | Click \\\*\\\*Build Now\\\*\\\* → See Console Output.                                 | Tests Jenkins + Maven integration.                  |**
+
+**| \\\*\\\*7. Configure Email (Windows)\\\*\\\*       | Install Plugin              | Install \\\*\\\*Email Extension Plugin\\\*\\\*.                                       | Enables advanced email notifications.               |**
+
+**|                                        | Configure SMTP              | SMTP: `smtp.gmail.com`, Port: 465/587, Gmail App Password.                | Allows Jenkins to send emails.                      |**
+
+**|                                        | Post-Build Action           | Add \\\*\\\*Editable Email Notification\\\*\\\*.                                      | Configures email settings.                          |**
+
+**|                                        | Recipients                  | `shreenibassamal500@gmail.com, mdsaddamwwe611@gmail.com`                  | Who will receive reports.                           |**
+
+**|                                        | Subject                     | `Build #${BUILD\\\_NUMBER} - ${JOB\\\_NAME} Test Report`                        | Email subject with build info.                      |**
+
+**|                                        | Body                        | Custom message with `${BUILD\\\_URL}` and `${BUILD\\\_STATUS}`.                 | Detailed email body.                                |**
+
+**|                                        | Attachments                 | `\\\*\\\*/test-output/emailable-report.html`                                    | Sends TestNG HTML report.                           |**
+
+**|                                        | Trigger                     | Check \\\*\\\*Always\\\*\\\* ✅                                                        | Ensures email is sent on every build (pass/fail).  |**
+
+**| \\\*\\\*8. Schedule Build\\\*\\\*                  | Cron                        | `15 11 \\\* \\\* \\\*` → Runs daily at 11:15 AM.                                   | Automates test execution on schedule.               |**
+
+
+
+**4 EXTENT REPORT**
+
+
+
+**Extent Reports is a popular reporting library used in automation testing, especially with Selenium and TestNG, to generate interactive and visually appealing HTML reports. Unlike the default TestNG reports, which are basic and plain, Extent Reports allows testers to log detailed test execution steps, including pass/fail status, informational messages, and even screenshots for failed steps. It provides a clear, structured, and easy-to-read report that helps both testers and stakeholders understand the test results quickly.**
+
+
+
+**The advantages of Extent Reports over default TestNG reports are significant. First, it allows step-by-step logging, so you can see exactly which actions passed or failed during the test execution. Second, it supports attaching screenshots, which is very useful for debugging failed test cases. Third, it is highly customizable—you can add themes, set report names, authors, categories, and organize tests by modules or priority. Fourth, it supports multiple tests in a single report, giving a consolidated view of the entire test suite. Overall, Extent Reports makes test reporting more professional, interactive, and easier to analyze compared to standard TestNG reports.**
+
+
+
+
+
+
+
+**In my projects, I have used Extent Reports to generate HTML reports of Selenium test execution. It shows test steps with pass/fail/skip status, environment details like OS and browser, and I can also attach screenshots for failed cases.**
+
+
+
+**In my framework, I generate reports using Extent Reports library. First, I create an object of the ExtentSparkReporter class, which is used to define the report file path, title, name, and theme. Then I create an object of the ExtentReports class, which is the main class responsible for report generation, and attach the reporter to it.**
+
+
+
+**For each test case, I use the ExtentTest interface (returned by the createTest() method of ExtentReports) to log execution steps. While logging, I use the Status enum (like Status.INFO, Status.PASS, Status.FAIL, Status.SKIP) to specify the test step result. At the end, I call the flush() method of ExtentReports to actually write all the logs into the HTML report.**
+
+
+
+
+
+
+
+**import com.aventstack.extentreports.ExtentReports;**
+
+**import com.aventstack.extentreports.ExtentTest;**
+
+**import com.aventstack.extentreports.Status;**
+
+**import com.aventstack.extentreports.reporter.ExtentSparkReporter;**
+
+**import com.aventstack.extentreports.reporter.configuration.Theme;**
+
+
+
+**import java.util.Date;**
+
+
+
+**public class ExtentReportEnhanced {**
+
+
+
+**\&nbsp;   public static void main(String\\\[] args) {**
+
+
+
+        **// Step 1: Setup Spark Reporter with timestamp in file name**
+
+        **String timeStamp = new Date().toString().replace(" ", "\\\_").replace(":", "\\\_");**
+
+        **String reportPath = "extentReport\\\_" + timeStamp + ".html";**
+
+        
+
+        **ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);**
+
+        **spark.config().setDocumentTitle("CRM Test Report");**
+
+        **spark.config().setReportName("Automation Execution Report");**
+
+        **spark.config().setTheme(Theme.DARK);**
+
+
+
+        **// Step 2: Create ExtentReports instance and attach reporter**
+
+        **ExtentReports extent = new ExtentReports();**
+
+        **extent.attachReporter(spark);**
+
+
+
+        **// Step 3: Add environment/system details**
+
+        **extent.setSystemInfo("OS", "Windows 10");**
+
+        **extent.setSystemInfo("Browser", "Chrome 122");**
+
+        **extent.setSystemInfo("Tester", "Saddam");**
+
+
+
+        **// Step 4: Create a test and add logs**
+
+        **ExtentTest test = extent.createTest("Login Test");**
+
+        **test.log(Status.INFO, "Browser launched successfully");**
+
+        **test.log(Status.PASS, "User logged in successfully");**
+
+
+
+        **// Step 5: Generate the report**
+
+        **extent.flush();**
+
+
+
+        **System.out.println("Report generated at: " + reportPath);**
+
+    **}**
+
+
+
+**}**
+
+
+
+**5 Exceptions and Their Solutions**
+
+
+
+**In Selenium (and Java), an exception is an unexpected event or error that occurs while the program is running, which disrupts the normal flow of execution.**
+
+
+
+**In Selenium automation, exceptions usually happen when the WebDriver is not able to perform the expected action on a web element—for example, if the element is not found, not clickable, or the browser/driver versions don’t match.**
+
+
+
+**Java provides built-in exception handling (try–catch) to deal with these issues, and Selenium defines many specific exceptions (like NoSuchElementException, TimeoutException, StaleElementReferenceException, etc.) to help testers understand what went wrong during script execution.**
+
+
+
+
+
+
+
+**| \\\*\\\*#\\\*\\\*  | \\\*\\\*Exception\\\*\\\*                        | \\\*\\\*When it Occurs\\\*\\\*                                                              | \\\*\\\*Solution\\\*\\\*                                                                       |**
+
+**| ------ | ------------------------------------ | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |**
+
+**| \\\*\\\*1\\\*\\\*  | \\\*\\\*NoSuchElementException\\\*\\\*           | When the element is not found in DOM (wrong locator, element not loaded yet).   | ✅ Check locator (XPath/CSS) and use explicit wait (`WebDriverWait`).               |**
+
+**| \\\*\\\*2\\\*\\\*  | \\\*\\\*ElementNotInteractableException\\\*\\\*  | When the element is present but not visible or enabled (like hidden input).     | ✅ Wait until element is visible, scroll into view, or ensure element is clickable. |**
+
+**| \\\*\\\*3\\\*\\\*  | \\\*\\\*StaleElementReferenceException\\\*\\\*   | When the element is no longer attached to DOM (page refreshed/reloaded).        | ✅ Re-locate the element and use wait after page reload.                            |**
+
+**| \\\*\\\*4\\\*\\\*  | \\\*\\\*TimeoutException\\\*\\\*                 | When explicit wait cannot find the element within the given time.               | ✅ Increase wait time or ensure correct condition in `WebDriverWait`.               |**
+
+**| \\\*\\\*5\\\*\\\*  | \\\*\\\*NoSuchFrameException\\\*\\\*             | When switching to a frame that doesn’t exist.                                   | ✅ Check frame name/index and use `driver.switchTo().frame()`.                      |**
+
+**| \\\*\\\*6\\\*\\\*  | \\\*\\\*NoAlertPresentException\\\*\\\*          | When switching to an alert that is not present.                                 | ✅ Ensure alert is triggered before switching and use wait.                         |**
+
+**| \\\*\\\*7\\\*\\\*  | \\\*\\\*ElementClickInterceptedException\\\*\\\* | When another element (like popup/overlay) blocks the element you want to click. | ✅ Wait until popup disappears, scroll, or use JavaScript click.                    |**
+
+**| \\\*\\\*8\\\*\\\*  | \\\*\\\*SessionNotCreatedException\\\*\\\*       | When driver version and browser version are not compatible.                     | ✅ Update WebDriver or browser version to match.                                    |**
+
+**| \\\*\\\*9\\\*\\\*  | \\\*\\\*InvalidSelectorException\\\*\\\*         | When the XPath or CSS selector syntax is invalid.                               | ✅ Fix the locator syntax.                                                          |**
+
+**| \\\*\\\*10\\\*\\\* | \\\*\\\*WebDriverException\\\*\\\*               | General error (like browser not reachable).                                     | ✅ Check driver setup, browser installation, and session.                           |**
+
+**| \\\*\\\*11\\\*\\\* | \\\*\\\*FileNotFoundException\\\*\\\*            | When the file path given (e.g., Excel, upload file, properties) does not exist. | ✅ Provide correct file path and verify file exists before execution.               |**
+
+**| \\\*\\\*12\\\*\\\* | \\\*\\\*InvalidArgumentException\\\*\\\*         | When invalid input is given (e.g., URL without `http/https`, wrong file path).  | ✅ Always use proper inputs, valid URLs, and existing file paths.                   |**
+
+
+
+**6 LISTENERS**
+
+
+
+**🎧 What are Listeners in Selenium/TestNG?**
+
+
+
+**Listeners in Selenium (especially with TestNG) are special interfaces that “listen” to the events that happen during test execution. They act like observers—whenever a specific event occurs (like a test starting, passing, failing, or skipping), the listener automatically executes the code you define for that event.**
+
+
+
+**In TestNG, listeners are implemented to perform actions automatically when certain events occur during the test lifecycle, such as when a test starts, passes, fails, or gets skipped. To implement a listener, we first create a separate class that implements the ITestListener interface and override its methods like onTestStart, onTestSuccess, onTestFailure, and onTestSkipped. For example, in the onTestFailure method, we can add code to capture a screenshot whenever a test fails.**
+
+
+
+**There are two ways to attach a listener to the test:**
+
+
+
+**1. Using the @Listeners Annotation – This approach allows us to specify the listener class directly at the test class level using the @Listeners annotation. When the test runs, TestNG will automatically trigger the listener methods.**
+
+**2. Using the testng.xml File – In this method, we configure the listener inside the testng.xml file by defining the fully qualified class name under the <listeners> tag. This is useful when we want to apply listeners globally across multiple test classes.**
+
+
+
+**After attaching the listener through either of these two ways, when we run the tests, the listener methods will automatically get triggered, and we will see logs such as “Test Started,” “Test Passed,” “Test Failed,” or “Test Skipped” in the console. Apart from logging, listeners can also be enhanced to integrate with reporting tools like Extent Reports or to capture screenshots for failed cases, making them very useful for real-time reporting and debugging.**
+
+
+
+
+
+
+
+**⚡ How to Implement Listeners in TestNG**
+
+**🔹 Step 1: Create a Listener Class**
+
+
+
+**Implement the ITestListener interface and override its methods.**
+
+
+
+
+
+**```java**
+
+**import org.testng.ITestListener;**
+
+**import org.testng.ITestResult;**
+
+
+
+**public class MyTestListener implements ITestListener {**
+
+
+
+**\&nbsp;   @Override**
+
+    **public void onTestStart(ITestResult result) {**
+
+        **System.out.println("Test Started: " + result.getName());**
+
+    **}**
+
+
+
+    **@Override**
+
+    **public void onTestSuccess(ITestResult result) {**
+
+        **System.out.println("Test Passed: " + result.getName());**
+
+    **}**
+
+
+
+    **@Override**
+
+    **public void onTestFailure(ITestResult result) {**
+
+        **System.out.println("Test Failed: " + result.getName());**
+
+        **// ✅ Example: Here you can add screenshot code**
+
+    **}**
+
+
+
+    **@Override**
+
+    **public void onTestSkipped(ITestResult result) {**
+
+        **System.out.println("Test Skipped: " + result.getName());**
+
+    **}**
+
+
+
+**}**
+
+**```**
+
+
+
+**🔹 Step 2: Attach Listener to Your Test**
+
+
+
+
+
+
+
+**✅ Approach 1:**
+
+**#✅ TestNG XML with Listeners**
+
+
+
+**```xml**
+
+**<suite name="Suite">**
+
+    **<listeners>**
+
+        **<listener class-name="com.listeners.MyTestListener"/>**
+
+    **</listeners>**
+
+
+
+    **<test name="Test">**
+
+        **<classes>**
+
+            **<class name="com.tests.LoginTest"/>**
+
+        **</classes>**
+
+    **</test>**
+
+**</suite>**
+
+**<<<<<<< HEAD**
+
+
+
+
+
+
+
+
+
+**✅ Approach 2: Using @Listeners Annotation**
+
+**=======**
+
+**```**
+
+**>>>>>>> 57fd355bfa32766236765ea1ad28162a389c37e9**
+
+
+
+**✅ Approach 2: Using @Listeners Annotation**
+
+**```java**
+
+**import org.testng.annotations.Listeners;**
+
+**import org.testng.annotations.Test;**
+
+
+
+**@Listeners(MyTestListener.class)**
+
+
+
+**public class LoginTest {**
+
+
+
+    **@Test**
+
+    **public void testLoginPass() {**
+
+        **System.out.println("Login test executed successfully.");**
+
+    **}**
+
+
+
+    **@Test**
+
+    **public void testLoginFail() {**
+
+        **throw new RuntimeException("Forcing a failure!");**
+
+    **}**
+
+**}**
+
+
+
+**Step 3: Run Your Tests**
+
+
+
+**When you execute your TestNG tests, the listener methods (onTestStart, onTestSuccess, onTestFailure, etc.) will automatically be triggered.**
+
+
+
+**You’ll see logs in the console, or you can enhance them (take screenshots, add Extent Report logs, etc.).**
+
+
+
+**7 TestNG Annotations**
+
+
+
+
+
+
+
+**In TestNG, annotations are special instructions that we place above methods, starting with the @ symbol, to control the test execution flow. They tell TestNG when and how a particular method should run during the test lifecycle.**
+
+
+
+**For example, @BeforeMethod will always run before each test case, @AfterMethod will run after each test case, and @Test is used to mark a method as a test case. Using these annotations, we can easily manage setup, cleanup, grouping of tests, dependencies, and even data-driven testing without writing extra boilerplate code.**
+
+
+
+**In TestNG, annotations are special markers used to control the flow of test execution. They are written above methods with the @ symbol and help in organizing the setup, execution, and cleanup of test cases. For example, @BeforeSuite and @AfterSuite run only once before and after the entire test suite, usually for tasks like starting and closing a database connection. @BeforeTest and @AfterTest are executed before and after all tests defined under a <test> tag in the TestNG XML file, often used to launch and close the browser. @BeforeClass and @AfterClass run before and after the first and last method in a test class, typically for login and logout actions. @BeforeMethod and @AfterMethod run before and after each test method, commonly used to set preconditions like navigating to a page and postconditions like taking a screenshot or clearing cookies. Finally, @Test is used to define actual test cases. With these annotations, TestNG provides a structured and flexible way to manage test execution.**
+
+**----------------------------------------------------------------------------------------------------------------------------------------------------------------------**
+
+
+
+**| #  | Annotation                  | Description                                                               |**
+
+
+
+**| -- | --------------------------- | ------------------------------------------------------------------------- |**
+
+
+
+**| 1  | @BeforeSuite                | Runs before all tests in the suite.                                       |**
+
+
+
+**| 2  | @AfterSuite                 | Runs after all tests in the suite.                                        |**
+
+
+
+**| 3  | @BeforeTest                 | Runs before `<test>` tag in testng.xml.                                   |**
+
+
+
+**| 4  | @AfterTest                  | Runs after `<test>` tag in testng.xml.                                    |**
+
+
+
+**| 5  | @BeforeClass                | Runs once before the first method in the current class.                   |**
+
+
+
+**| 6  | @AfterClass                 | Runs once after all test methods in the current class.                    |**
+
+
+
+**| 7  | @BeforeMethod               | Runs before each test method.                                             |**
+
+
+
+**| 8  | @AfterMethod                | Runs after each test method.                                              |**
+
+
+
+**| 9  | @Test                       | Marks a method as a test case.                                            |**
+
+
+
+**| 10 | @DataProvider               | Provides data to test methods (used for data-driven testing).             |**
+
+
+
+**| 11 | @Parameters                 | Passes parameters from testng.xml to test methods.                        |**
+
+
+
+**| 12 | @BeforeGroups               | Runs before the first method in a specified group.                        |**
+
+
+
+**| 13 | @AfterGroups                | Runs after all methods in a specified group have run.                     |**
+
+
+
+**| 14 | @Factory                    | Used to execute a set of test classes dynamically.                        |**
+
+
+
+**| 15 | @Listeners                  | Used to define listener classes (like ITestListener, ISuiteListener).     |**
+
+
+
+**| 16 | @Ignore                     | Ignores a test method or class (alternative is `enabled=false` in @Test). |**
+
+
+
+**| 17 | @Test(invocationCount=…)    | Runs the same test multiple times.                                        |**
+
+
+
+**| 18 | @Test(priority=…)           | Defines execution order of test methods.                                  |**
+
+
+
+**| 19 | @Test(dependsOnMethods=…)   | Makes one test dependent on another test.                                 |**
+
+
+
+**| 20 | @Test(expectedExceptions=…) | Defines exceptions a test method is expected to throw.                    |**
+
+
+
+
+
 
 
 
