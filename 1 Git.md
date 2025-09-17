@@ -118,7 +118,7 @@ In my project, I run scripts from the command line using Maven. First, I install
 | `<suiteXmlFile>`  | Single TestNG suite file.                | Provides the exact XML file path (e.g., `Smoke.xml`).                                |
 
 
-
+  ```xml
 <build>
         <plugins>
             <!-- Compiler Plugin (common for all profiles) -->
@@ -133,7 +133,7 @@ In my project, I run scripts from the command line using Maven. First, I install
         </plugins>
     </build>
 
-&nbsp;   <profiles>
+ <profiles>
         <!-- Smoke Profile -->
         <profile>
             <id>smoke</id>
@@ -152,7 +152,7 @@ In my project, I run scripts from the command line using Maven. First, I install
                 </plugins>
             </build>
         </profile>
-
+     
         <!-- Integration Profile -->
         <profile>
             <id>integration</id>
@@ -172,6 +172,10 @@ In my project, I run scripts from the command line using Maven. First, I install
             </build>
         </profile>
 
+        
+  
+
+      
         <!-- STS Profile -->
         <profile>
             <id>sts</id>
@@ -193,6 +197,7 @@ In my project, I run scripts from the command line using Maven. First, I install
     </profiles>
 
 </project>
+
 
 mvn test -Psmoke
 mvn test -Pintegration
@@ -233,7 +238,7 @@ mvn test -Psts
         </classes>
     </test>
 </suite>
-
+```
 3 Jenkins
 
 Jenkins is an open-source automation server that we used mainly for Continuous Integration and Continuous Delivery (CI/CD). In my project, we integrated Jenkins with Git and Maven. Whenever we pushed code to the repository, Jenkins automatically triggered builds, compiled the project using Maven, ran the automated test cases, and generated reports.
@@ -319,7 +324,7 @@ In my framework, I generate reports using Extent Reports library. First, I creat
 
 For each test case, I use the ExtentTest interface (returned by the createTest() method of ExtentReports) to log execution steps. While logging, I use the Status enum (like Status.INFO, Status.PASS, Status.FAIL, Status.SKIP) to specify the test step result. At the end, I call the flush() method of ExtentReports to actually write all the logs into the HTML report.
 
-
+ ```java
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -331,7 +336,7 @@ import java.util.Date;
 
 public class ExtentReportEnhanced {
 
-&nbsp;   public static void main(String\[] args) {
+public static void main(String\[] args) {
 
         // Step 1: Setup Spark Reporter with timestamp in file name
         String timeStamp = new Date().toString().replace(" ", "\_").replace(":", "\_");
@@ -363,7 +368,7 @@ public class ExtentReportEnhanced {
     }
 
 }
-
+```
 5 Exceptions and Their Solutions
 
 In Selenium (and Java), an exception is an unexpected event or error that occurs while the program is running, which disrupts the normal flow of execution.
@@ -491,6 +496,10 @@ public class LoginTest {
     }
 }
 
+
+
+
+```
 Step 3: Run Your Tests
 
 When you execute your TestNG tests, the listener methods (onTestStart, onTestSuccess, onTestFailure, etc.) will automatically be triggered.
@@ -498,59 +507,37 @@ When you execute your TestNG tests, the listener methods (onTestStart, onTestSuc
 You’ll see logs in the console, or you can enhance them (take screenshots, add Extent Report logs, etc.).
 
 7 TestNG Annotations
-
-
-
 In TestNG, annotations are special instructions that we place above methods, starting with the @ symbol, to control the test execution flow. They tell TestNG when and how a particular method should run during the test lifecycle.
 
 For example, @BeforeMethod will always run before each test case, @AfterMethod will run after each test case, and @Test is used to mark a method as a test case. Using these annotations, we can easily manage setup, cleanup, grouping of tests, dependencies, and even data-driven testing without writing extra boilerplate code.
 
 In TestNG, annotations are special markers used to control the flow of test execution. They are written above methods with the @ symbol and help in organizing the setup, execution, and cleanup of test cases. For example, @BeforeSuite and @AfterSuite run only once before and after the entire test suite, usually for tasks like starting and closing a database connection. @BeforeTest and @AfterTest are executed before and after all tests defined under a <test> tag in the TestNG XML file, often used to launch and close the browser. @BeforeClass and @AfterClass run before and after the first and last method in a test class, typically for login and logout actions. @BeforeMethod and @AfterMethod run before and after each test method, commonly used to set preconditions like navigating to a page and postconditions like taking a screenshot or clearing cookies. Finally, @Test is used to define actual test cases. With these annotations, TestNG provides a structured and flexible way to manage test execution.
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-| #  | Annotation                  | Description                                                               |
 
-| -- | --------------------------- | ------------------------------------------------------------------------- |
 
-| 1  | @BeforeSuite                | Runs before all tests in the suite.                                       |
+| #  | Annotation                    | Description                                                                 |
+| -- | ----------------------------- | --------------------------------------------------------------------------- |
+| 1  | `@BeforeSuite`                | Runs before all tests in the suite.                                         |
+| 2  | `@AfterSuite`                 | Runs after all tests in the suite.                                          |
+| 3  | `@BeforeTest`                 | Runs before `<test>` tag in testng.xml.                                     |
+| 4  | `@AfterTest`                  | Runs after `<test>` tag in testng.xml.                                      |
+| 5  | `@BeforeClass`                | Runs once before the first method in the current class.                     |
+| 6  | `@AfterClass`                 | Runs once after all test methods in the current class.                      |
+| 7  | `@BeforeMethod`               | Runs before each test method.                                               |
+| 8  | `@AfterMethod`                | Runs after each test method.                                                |
+| 9  | `@Test`                       | Marks a method as a test case.                                              |
+| 10 | `@DataProvider`               | Provides data to test methods (used for data-driven testing).               |
+| 11 | `@Parameters`                 | Passes parameters from testng.xml to test methods.                          |
+| 12 | `@BeforeGroups`               | Runs before the first method in a specified group.                          |
+| 13 | `@AfterGroups`                | Runs after all methods in a specified group have run.                       |
+| 14 | `@Factory`                    | Used to execute a set of test classes dynamically.                          |
+| 15 | `@Listeners`                  | Used to define listener classes (like `ITestListener`, `ISuiteListener`).   |
+| 16 | `@Ignore`                     | Ignores a test method or class (alternative is `enabled=false` in `@Test`). |
+| 17 | `@Test(invocationCount=…)`    | Runs the same test multiple times.                                          |
+| 18 | `@Test(priority=…)`           | Defines execution order of test methods.                                    |
+| 19 | `@Test(dependsOnMethods=…)`   | Makes one test dependent on another test.                                   |
+| 20 | `@Test(expectedExceptions=…)` | Defines exceptions a test method is expected to throw.                      |
 
-| 2  | @AfterSuite                 | Runs after all tests in the suite.                                        |
-
-| 3  | @BeforeTest                 | Runs before `<test>` tag in testng.xml.                                   |
-
-| 4  | @AfterTest                  | Runs after `<test>` tag in testng.xml.                                    |
-
-| 5  | @BeforeClass                | Runs once before the first method in the current class.                   |
-
-| 6  | @AfterClass                 | Runs once after all test methods in the current class.                    |
-
-| 7  | @BeforeMethod               | Runs before each test method.                                             |
-
-| 8  | @AfterMethod                | Runs after each test method.                                              |
-
-| 9  | @Test                       | Marks a method as a test case.                                            |
-
-| 10 | @DataProvider               | Provides data to test methods (used for data-driven testing).             |
-
-| 11 | @Parameters                 | Passes parameters from testng.xml to test methods.                        |
-
-| 12 | @BeforeGroups               | Runs before the first method in a specified group.                        |
-
-| 13 | @AfterGroups                | Runs after all methods in a specified group have run.                     |
-
-| 14 | @Factory                    | Used to execute a set of test classes dynamically.                        |
-
-| 15 | @Listeners                  | Used to define listener classes (like ITestListener, ISuiteListener).     |
-
-| 16 | @Ignore                     | Ignores a test method or class (alternative is `enabled=false` in @Test). |
-
-| 17 | @Test(invocationCount=…)    | Runs the same test multiple times.                                        |
-
-| 18 | @Test(priority=…)           | Defines execution order of test methods.                                  |
-
-| 19 | @Test(dependsOnMethods=…)   | Makes one test dependent on another test.                                 |
-
-| 20 | @Test(expectedExceptions=…) | Defines exceptions a test method is expected to throw.                    |
 
 
 
