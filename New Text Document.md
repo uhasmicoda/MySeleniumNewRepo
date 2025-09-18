@@ -226,7 +226,7 @@ Git is a distributed version control system that we use to manage our code. In m
 
 
 
-```xml
+
   mvn test -Psmoke
 
   mvn test -Pintegration
