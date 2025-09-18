@@ -737,3 +737,86 @@ In my experience, the Selenium Java architecture is designed using OOP concepts 
 
 
 
+11 Screenshot 
+
+In Selenium, a screenshot is basically a captured image of the browser at a particular point during test execution. It is very useful because it helps in bug reporting—when a test fails, a screenshot gives developers a clear idea of what went wrong. It also serves as evidence that a test was executed on a specific page or functionality, and it helps in debugging by showing the exact UI state when something unexpected happens. Many teams also include screenshots in reports like ExtentReports or Allure to provide visual proof of the test run. Screenshots can be taken in two main ways: one is a full-page screenshot, where we capture the entire visible browser window, and the other is an element screenshot, where we capture only a specific element like a button, logo, or text field. Depending on the requirement, we use either of these approaches to make our testing more effective and reliable.
+
+In Selenium, we capture screenshots using the TakesScreenshot interface. Since WebDriver itself doesn’t have a direct method to take screenshots, we first cast our driver object to TakesScreenshot. Then we call the getScreenshotAs() method, which captures the current state of the browser and returns it in the format we specify, usually as a file. Finally, we save that file to a permanent location on our system using the File class and FileHandler.copy(). This way we can preserve the screenshot and use it for bug reporting, debugging, or attaching in test reports. Depending on the need, we can capture the full browser window or even a specific element by calling getScreenshotAs() on a WebElement
+
+1️⃣ Element Screenshot (only captures selected element like a button, logo, etc.
+
+```java
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+
+public class ElementScreenShot {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.amazon.in/");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement englishBtn = driver.findElement(By.xpath("//div[@class='icp-button']"));
+
+        Thread.sleep(4000);
+        js.executeScript("arguments[0].scrollIntoView(true);", englishBtn);
+
+        File src = englishBtn.getScreenshotAs(OutputType.FILE);
+        FileHandler.copy(src, new File("./Screenshots/logo1.png"));
+
+        driver.quit();
+    }
+}
+
+```
+2️⃣ Full Page Screenshot (entire browser window.
+
+
+```java
+
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+
+public class ScreenShote {
+    public static void main(String[] args) throws InterruptedException, IOException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.amazon.in");
+
+        Thread.sleep(6000);
+
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File src = ts.getScreenshotAs(OutputType.FILE);
+        File f = new File("./Screenshots/screenshot.jpeg");
+        FileHandler.copy(src, f);
+
+        driver.quit();
+    }
+}
+
+```
+
+| Code Part                              | Type          | Belongs To / From Package              | Use / Role                                                                   |
+| -------------------------------------- | ------------- | -------------------------------------- | ---------------------------------------------------------------------------- |
+| `TakesScreenshot`                      | Interface     | `org.openqa.selenium`                  | Special interface in Selenium used to capture screenshots.                   |
+| `(TakesScreenshot) driver`             | Type Casting  | Casts `WebDriver` to `TakesScreenshot` | Because `WebDriver` doesn’t directly have screenshot methods, so we cast it. |
+| `getScreenshotAs(OutputType.FILE)`     | Method        | Defined in `TakesScreenshot`           | Captures screenshot and stores it as a file object (temporary).              |
+| `OutputType.FILE`                      | Enum/Constant | `org.openqa.selenium`                  | Tells Selenium that the screenshot should be stored in file format.          |
+| `File src`                             | Class         | `java.io.File`                         | Stores the temporary screenshot file returned by Selenium.                   |
+| `FileHandler.copy(src, new File("…"))` | Method        | `org.openqa.selenium.io.FileHandler`   | Copies the temporary file to a permanent location on disk.                   |
+
+
