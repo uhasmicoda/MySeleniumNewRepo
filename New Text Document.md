@@ -823,6 +823,13 @@ Page Object Model or POM
 
 Page Object Model, or POM, is a design pattern used in Selenium where we create separate classes for each page of the application. Each class stores the locators of the elements on that page and the methods to interact with them. This way, instead of writing locators directly inside test cases, we keep them in one place, which makes the code cleaner, reusable, and easier to maintain. If anything changes in the UI, we just update the locator in the page class and don’t need to touch the test logic. In short, POM helps in reducing code duplication and makes the framework more scalable.
 
+
+To implement the Page Object Model (POM) in Selenium, first we declare a WebDriver variable in the page class to hold the browser instance. Then, we create a constructor that takes the WebDriver as a parameter and assigns it to the class variable using this.driver = driver;. Inside the constructor, we call PageFactory.initElements(driver, this) to initialize all the web elements defined in the class.
+
+Next, we define web elements using annotations. For a single element, we use @FindBy. For multiple locators with an OR condition, we use @FindAll, and for multiple locators with an AND condition, we use @FindBys. We can also define lists of elements like checkboxes or links using List<WebElement>.
+
+After defining elements, we create getter methods to access them if needed. Then, we write action methods that perform operations on the elements, such as login(), selectAllCheckboxes(), or printAllLinks(). In the test class, we simply create an object of this page class and call its methods. This approach separates locators and actions from test logic, makes the code reusable, easier to maintain, and allows us to handle UI changes by updating only the page class.
+
 ```java
 import java.util.List;
 
@@ -928,96 +935,16 @@ findElement(By) → Finds first matching element
 
 findElements(By) → Finds all matching elements
 
-
-import java.util.List;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
-import org.openqa.selenium.support.PageFactory;
-
-public class LoginPage2 {
-
-    WebDriver driver;
-
-    public LoginPage2(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
-    // Single element
-    @FindBy(xpath = "//button[text()='Login']")
-    private WebElement loginBtn;
-
-    // OR condition using FindAll
-    @FindAll({
-        @FindBy(id = "email"),
-        @FindBy(name = "userEmail")
-    })
-    private WebElement emailField;
-
-    // AND condition using FindBys (all conditions must match)
-    @FindBys({
-        @FindBy(className = "input-field"),
-        @FindBy(name = "password")
-    })
-    private WebElement passwordField;
-
-    @FindBy(xpath = "//input[@type='checkbox']")
-    private List<WebElement> checkboxes;
-
-    @FindBy(tagName = "a")
-    private List<WebElement> allLinks;
-
-    // Getters
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    public WebElement getLoginBtn() {
-        return loginBtn;
-    }
-
-    public WebElement getEmailField() {
-        return emailField;
-    }
-
-    public WebElement getPasswordField() {
-        return passwordField;
-    }
-
-    public List<WebElement> getCheckboxes() {
-        return checkboxes;
-    }
-
-    public List<WebElement> getAllLinks() {
-        return allLinks;
-    }
-
-    // Example Action: login
-    public void login(String email, String password) {
-        emailField.sendKeys(email);
-        passwordField.sendKeys(password);
-        loginBtn.click();
-    }
-
-    // Example Action: check all checkboxes
-    public void selectAllCheckboxes() {
-        for (WebElement checkbox : checkboxes) {
-            if (!checkbox.isSelected()) {
-                checkbox.click();
-            }
-        }
-    }
-
-    // Example Action: print all link texts
-    public void printAllLinks() {
-        for (WebElement link : allLinks) {
-            System.out.println(link.getText());
-        }
-    }
-}
-
+| Component / Feature                      | Type / Annotation | Purpose / Usefulness                                                               |
+| ---------------------------------------- | ----------------- | ---------------------------------------------------------------------------------- |
+| `WebDriver driver;`                      | Class Variable    | Holds the browser driver instance for the page; used across page methods.          |
+| `public LoginPage2(WebDriver driver)`    | Constructor       | Initializes the page class; `this.driver = driver;` assigns local driver to class. |
+| `PageFactory.initElements(driver, this)` | Method Call       | Initializes all WebElements with locators defined in the class.                    |
+| `@FindBy`                                | Annotation        | Single element locator.                                                            |
+| `@FindAll`                               | Annotation        | Multiple locators (OR condition).                                                  |
+| `@FindBys`                               | Annotation        | Multiple locators (AND condition).                                                 |
+| `WebElement / List<WebElement>`          | Variable Type     | Stores page elements (single or multiple) for actions like click, sendKeys, etc.   |
+| `login(String email, String password)`   | Method / Action   | Example action method using page elements to perform login.                        |
+| `selectAllCheckboxes()`                  | Method / Action   | Example method to perform action on list of elements.                              |
+| `printAllLinks()`                        | Method / Action   | Example method to iterate and read all links on the page.                          |
 
