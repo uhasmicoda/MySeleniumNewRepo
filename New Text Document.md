@@ -567,10 +567,10 @@ public class MyTestListener implements ITestListener {
 
 </suite>
 
-
+```
 
 **✅ Approach 2: Using @Listeners Annotation**
-
+```java
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
