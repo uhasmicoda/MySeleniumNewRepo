@@ -819,7 +819,7 @@ public class ScreenShote {
 | `File src`                             | Class         | `java.io.File`                         | Stores the temporary screenshot file returned by Selenium.                   |
 | `FileHandler.copy(src, new File("…"))` | Method        | `org.openqa.selenium.io.FileHandler`   | Copies the temporary file to a permanent location on disk.                   |
 
-Page Object Model or POM
+12 Page Object Model or POM
 
 Page Object Model, or POM, is a design pattern used in Selenium where we create separate classes for each page of the application. Each class stores the locators of the elements on that page and the methods to interact with them. This way, instead of writing locators directly inside test cases, we keep them in one place, which makes the code cleaner, reusable, and easier to maintain. If anything changes in the UI, we just update the locator in the page class and don’t need to touch the test logic. In short, POM helps in reducing code duplication and makes the framework more scalable.
 
@@ -947,4 +947,64 @@ findElements(By) → Finds all matching elements
 | `login(String email, String password)`   | Method / Action   | Example action method using page elements to perform login.                        |
 | `selectAllCheckboxes()`                  | Method / Action   | Example method to perform action on list of elements.                              |
 | `printAllLinks()`                        | Method / Action   | Example method to iterate and read all links on the page.                          |
+
+
+13 WEDRIVER
+
+1 WEDRIVER ALL METHODS**
+
+🔹 Methods from WebDriver Interface**
+In Selenium, WebDriver is an interface that defines all the methods required for browser automation. It is the core component that allows us to interact with different browsers in a unified way. The main advantage of WebDriver is abstraction—it enables us to write common automation code that works across multiple browsers like Chrome, Firefox, or Edge without changing the logic. For example, when we write WebDriver driver = new ChromeDriver();, we are referring to the WebDriver interface but creating an object of ChromeDriver, which internally provides the actual implementation. This design, based on abstraction, inheritance, and polymorphism, allows Selenium to achieve cross-browser testing. In real-time, every automation script starts with WebDriver because it provides essential methods to open and close the browser, navigate between pages, find elements, handle windows, alerts, and frames, and perform various browser-level operations.
+
+| Method                | Return Type      | Description (Usage)                                           | Example                                            |
+| --------------------- | ---------------- | ------------------------------------------------------------- | -------------------------------------------------- |
+| `get(String url)`     | void             | Opens the given URL in the browser.                           | `driver.get("https://google.com");`                |
+| `getCurrentUrl()`     | String           | Returns the current page URL.                                 | `System.out.println(driver.getCurrentUrl());`      |
+| `getTitle()`          | String           | Returns the current page title.                               | `System.out.println(driver.getTitle());`           |
+| `getPageSource()`     | String           | Returns the HTML source of the page.                          | `driver.getPageSource();`                          |
+| `getWindowHandle()`   | String           | Returns unique ID of the current browser window.              | `String handle = driver.getWindowHandle();`        |
+| `getWindowHandles()`  | Set<String>      | Returns IDs of all open browser windows/tabs.                 | `Set<String> handles = driver.getWindowHandles();` |
+| `findElement(By by)`  | WebElement       | Finds the first matching element on the page.                 | `driver.findElement(By.id("username"));`           |
+| `findElements(By by)` | List<WebElement> | Finds all matching elements on the page.                      | `driver.findElements(By.tagName("a"));`            |
+| `manage()`            | Options          | Provides browser options like cookies, timeouts, window size. | `driver.manage().window().maximize();`             |
+| `navigate()`          | Navigation       | Used for navigation (back, forward, refresh, to).             | `driver.navigate().back();`                        |
+| `switchTo()`          | TargetLocator    | Switches control to frame, alert, or window.                  | `driver.switchTo().alert().accept();`              |
+| `close()`             | void             | Closes the current browser window.                            | `driver.close();`                                  |
+| `quit()`              | void             | Quits the entire browser session (all windows).               | `driver.quit();`                                   |
+
+2 🔹 Methods from WebElement Interface
+
+
+
+In Selenium, WebElement is an interface that represents any element on a web page, such as a button, link, text box, or dropdown. It provides a wide range of methods to perform user interactions and retrieve information about elements. WebElement is very important because once we locate an element using findElement() or findElements() from WebDriver, we can perform actions like clicking, typing, reading text, or checking visibility. For example, if we want to enter a username in a login field, we first locate the element and then use sendKeys("username"). Similarly, to verify whether a button is enabled, we can use isEnabled(). In real-time testing, WebElement methods are used in almost every test case since they allow us to simulate user behavior on the web page.
+
+| Method                                 | Usage Example                       | Meaning / Purpose                                                        |
+| -------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------ |
+| `click()`                              | `element.click();`                  | Clicks the element (button, link, checkbox, etc.).                       |
+| `submit()`                             | `element.submit();`                 | Submits a form if the element is inside a `<form>`.                      |
+| `sendKeys(CharSequence... keysToSend)` | `element.sendKeys("admin123");`     | Types text into a text field or textarea.                                |
+| `clear()`                              | `element.clear();`                  | Clears the existing text from an input/textarea field.                   |
+| `getTagName()`                         | `element.getTagName();`             | Returns the element’s tag name (e.g., `input`, `div`, `button`).         |
+| `getAttribute(String name)`            | `element.getAttribute("id");`       | Returns the value of an attribute (e.g., `id`, `name`, `value`).         |
+| `getDomAttribute(String name)`         | `element.getDomAttribute("class");` | Returns the attribute directly from the DOM.                             |
+| `getDomProperty(String name)`          | `element.getDomProperty("value");`  | Returns the live DOM property of the element.                            |
+| `getCssValue(String propertyName)`     | `element.getCssValue("color");`     | Returns the value of a CSS property (e.g., color, font-size).            |
+| `getText()`                            | `element.getText();`                | Gets the visible inner text of the element.                              |
+| `getRect()`                            | `element.getRect();`                | Returns element’s dimensions and position (`x`, `y`, `width`, `height`). |
+| `getLocation()`                        | `element.getLocation();`            | Returns the coordinates of the element on the page.                      |
+| `getSize()`                            | `element.getSize();`                | Returns the element’s width and height.                                  |
+| `isDisplayed()`                        | `element.isDisplayed();`            | Checks if the element is visible on the page.                            |
+| `isEnabled()`                          | `element.isEnabled();`              | Checks if the element is enabled and interactive.                        |
+| `isSelected()`                         | `element.isSelected();`             | Checks if a checkbox, radio button, or option is selected.               |
+
+```java 
+WebElement username = driver.findElement(By.id("username"));
+String enteredValue = username.getAttribute("value");
+Assert.assertEquals(enteredValue, "Saddam");
+
+String isDisabled = button.getAttribute("disabled");
+Assert.assertNotNull(isDisabled);  // confirms the button is disabled
+
+```
+
 
