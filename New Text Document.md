@@ -690,4 +690,31 @@ How to implement UtilityClassObject
 To implement UtilityClassObject, you first create a utility class that contains two ThreadLocal variables—one for WebDriver and one for ExtentTest. These variables ensure that each test thread gets its own independent copy, preventing interference when tests run in parallel. You then create getter and setter methods for both WebDriver and ExtentTest so that you can assign and retrieve these objects for the current thread during test execution. In your test setup, you assign a WebDriver instance and an ExtentTest instance to the current thread using the setter methods. During the test, whenever you need to interact with the browser or log test information, you retrieve the thread-specific instances using the getter methods. This approach ensures that each test has its own isolated browser session and reporting object, avoiding conflicts, maintaining clean logs, and making parallel execution reliable and thread-safe.
 
 
+What is testing.xlm file.
+
+testng.xml is like a control file for TestNG. Instead of hardcoding everything in the code, we use this XML file to tell TestNG which test classes to run, in what order, and with what settings. For example, we can group tests, run them in parallel, or pass parameters directly from the file. It basically makes test execution easier to manage and more flexible.
+
+Instead of me running test classes one by one, this file tells TestNG which tests to run, in what sequence, and with what setup. For example, I can group login tests together, keep payment tests separate, and even decide to run them in parallel. It’s also like a central place where I can pass parameters or add listeners. So basically, it’s a configuration file that organizes and controls the test execution, just like a schedule organizes daily tasks.
+
+
+| Tag / Attribute                                               | Example Used                          | Meaning / Purpose                                                                     |
+| ------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------- |
+| `<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">` | Declaration at the top                | Tells TestNG that this file is a valid TestNG configuration file.                     |
+| `<suite>`                                                     | `<suite name="Suite">`                | Root element of the XML. Represents the whole test suite. `name` gives it a label.    |
+| `<test>`                                                      | `<test name="Test">`                  | Defines one group of tests inside the suite. Each `<test>` can have multiple classes. |
+| `<classes>`                                                   | `<classes>...</classes>`              | Container for one or more `<class>` elements.                                         |
+| `<class>`                                                     | `<class name="com.tests.LoginTest"/>` | Defines the fully qualified name of the test class (package + class name) to run.     |
+| `</suite>`                                                    | Closing tag                           | Ends the suite definition.                                                            |
+
+
+```xml
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite">
+    <test name="Test">
+        <classes>
+            <class name="com.tests.LoginTest"/>
+        </classes>
+    </test>
+</suite>
 
