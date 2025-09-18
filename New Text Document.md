@@ -690,7 +690,7 @@ How to implement UtilityClassObject
 To implement UtilityClassObject, you first create a utility class that contains two ThreadLocal variables—one for WebDriver and one for ExtentTest. These variables ensure that each test thread gets its own independent copy, preventing interference when tests run in parallel. You then create getter and setter methods for both WebDriver and ExtentTest so that you can assign and retrieve these objects for the current thread during test execution. In your test setup, you assign a WebDriver instance and an ExtentTest instance to the current thread using the setter methods. During the test, whenever you need to interact with the browser or log test information, you retrieve the thread-specific instances using the getter methods. This approach ensures that each test has its own isolated browser session and reporting object, avoiding conflicts, maintaining clean logs, and making parallel execution reliable and thread-safe.
 
 
-What is testing.xlm file.
+9 What is testing.xlm file.
 
 testng.xml is like a control file for TestNG. Instead of hardcoding everything in the code, we use this XML file to tell TestNG which test classes to run, in what order, and with what settings. For example, we can group tests, run them in parallel, or pass parameters directly from the file. It basically makes test execution easier to manage and more flexible.
 
@@ -717,4 +717,19 @@ Instead of me running test classes one by one, this file tells TestNG which test
         </classes>
     </test>
 </suite>
+```
+10 Java–Selenium Architecture
+In my experience, the Selenium Java architecture is designed using OOP concepts like abstraction, inheritance, and runtime polymorphism. At the base, we have the SearchContext interface, which provides the fundamental methods like findElement() and findElements(). On top of that, the WebDriver interface extends SearchContext and adds browser-level methods such as get(), getTitle(), navigate(), close(), and quit(). Since WebDriver is just an interface, it only defines the behavior, but the actual implementation is provided by the RemoteWebDriver class. Browser-specific drivers like ChromeDriver or FirefoxDriver extend RemoteWebDriver and handle the communication with their respective browsers. In real projects, we usually use runtime polymorphism — for example, when I write WebDriver driver = new ChromeDriver();, I’m upcasting the ChromeDriver object to the WebDriver interface. This makes my framework browser-independent, because if I want to run the same test on Firefox, I only change the object creation, not the rest of the test logic. This architecture is what gives Selenium its flexibility and power for cross-browser testing.
+
+| Component                              | Type                            | What it Contains                                       | What it Inherits                 | Role / Usefulness                                                                  |
+| -------------------------------------- | ------------------------------- | ------------------------------------------------------ | -------------------------------- | ---------------------------------------------------------------------------------- |
+| SearchContext                          | Interface                       | 2 abstract methods → `findElement()`, `findElements()` | —                                | Base interface – provides fundamental element location methods.                    |
+| WebDriver                              | Interface                       | 13 abstract methods (11 new + 2 from SearchContext)    | Extends SearchContext            | Defines browser-level operations like navigation, title, window handling, etc.     |
+| RemoteWebDriver                        | Class                           | 13 concrete methods (implements WebDriver)             | Implements WebDriver             | Core implementation of WebDriver methods; parent for all browser-specific drivers. |
+| ChromeDriver                           | Class (extends RemoteWebDriver) | Inherits everything from RemoteWebDriver               | Extends RemoteWebDriver          | Launches and controls Chrome browser.                                              |
+| FirefoxDriver                          | Class (extends RemoteWebDriver) | Inherits everything from RemoteWebDriver               | Extends RemoteWebDriver          | Launches and controls Firefox browser.                                             |
+| IEDriver / EdgeDriver                  | Class (extends RemoteWebDriver) | Inherits everything from RemoteWebDriver               | Extends RemoteWebDriver          | Launches and controls IE/Edge browser.                                             |
+| WebDriver driver = new ChromeDriver(); | Example Statement               | Interface reference → Object creation                  | Uses WebDriver as reference type | Achieves Runtime Polymorphism (RTP). Same code works for any browser driver.       |
+
+
 
