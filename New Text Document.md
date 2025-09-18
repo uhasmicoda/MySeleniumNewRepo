@@ -182,6 +182,8 @@ Git is a distributed version control system that we use to manage our code. In m
         </build>
     </profile>
 
+
+
     <!-- Integration Profile -->
     <profile>
         <id>integration</id>
@@ -200,6 +202,7 @@ Git is a distributed version control system that we use to manage our code. In m
             </plugins>
         </build>
     </profile>
+
 
     <!-- STS Profile -->
     <profile>
