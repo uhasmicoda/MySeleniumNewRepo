@@ -226,13 +226,14 @@ Git is a distributed version control system that we use to manage our code. In m
 
 
 
-
+```
   mvn test -Psmoke
 
   mvn test -Pintegration
 
   mvn test -Psts
 
+```xml
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="SmokeSuite">
