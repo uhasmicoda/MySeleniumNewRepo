@@ -951,9 +951,10 @@ findElements(By) → Finds all matching elements
 
 13 WEDRIVER
 
-1 WEDRIVER ALL METHODS**
+1 WEDRIVER ALL METHODS
 
-🔹 Methods from WebDriver Interface**
+🔹 Methods from WebDriver Interface
+
 In Selenium, WebDriver is an interface that defines all the methods required for browser automation. It is the core component that allows us to interact with different browsers in a unified way. The main advantage of WebDriver is abstraction—it enables us to write common automation code that works across multiple browsers like Chrome, Firefox, or Edge without changing the logic. For example, when we write WebDriver driver = new ChromeDriver();, we are referring to the WebDriver interface but creating an object of ChromeDriver, which internally provides the actual implementation. This design, based on abstraction, inheritance, and polymorphism, allows Selenium to achieve cross-browser testing. In real-time, every automation script starts with WebDriver because it provides essential methods to open and close the browser, navigate between pages, find elements, handle windows, alerts, and frames, and perform various browser-level operations.
 
 | Method                | Return Type      | Description (Usage)                                           | Example                                            |
