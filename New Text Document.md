@@ -1151,20 +1151,21 @@ The Select class in Selenium is a built-in class used to handle dropdown menus (
 In companies, the Select class is important because dropdowns are very common in real-time applications, such as selecting a country, state, role, or payment type. Using the Select class makes automation scripts simple, readable, and reusable for such scenarios, and avoids writing complex code to handle dropdowns manually.
 
 
-| **Method**                         | **Definition**                                                 | **Example Code**                                         |
-| ---------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------- |
-| Select(WebElement element)         | Constructor → Creates a Select object for a given dropdown.    | `Select select = new Select(countryDropdown);`           |
-| selectByIndex(int index)           | Selects option by index (0-based, first option = 0).           | `select.selectByIndex(2);`                               |
-| selectByValue(String value)        | Selects option using the `value` attribute in HTML.            | `select.selectByValue("IND");`                           |
-| selectByVisibleText(String text)   | Selects option using the visible text shown to the user.       | `select.selectByVisibleText("India");`                   |
-| deselectByIndex(int index)         | Deselects option by index. *(Works only for multi-select)*     | `select.deselectByIndex(1);`                             |
-| deselectByValue(String value)      | Deselects option using the `value` attribute. *(Multi-select)* | `select.deselectByValue("USA");`                         |
-| deselectByVisibleText(String text) | Deselects option using visible text. *(Multi-select only)*     | `select.deselectByVisibleText("Canada");`                |
-| deselectAll()                      | Deselects all selected options. *(Multi-select only)*          | `select.deselectAll();`                                  |
-| getFirstSelectedOption()           | Returns the first selected option from dropdown.               | `WebElement first = select.getFirstSelectedOption();`    |
-| getAllSelectedOptions()            | Returns all selected options. *(Works only for multi-select)*  | `List<WebElement> all = select.getAllSelectedOptions();` |
-| getOptions()                       | Returns all available options in dropdown.                     | `List<WebElement> options = select.getOptions();`        |
-| isMultiple()                       | Checks if dropdown allows multiple selections.                 | `boolean multi = select.isMultiple();`                   |
+| **Method**                           | **Description**                                                     | **Example Code**                                         |
+| ------------------------------------ | ------------------------------------------------------------------- | -------------------------------------------------------- |
+| `Select(WebElement element)`         | Constructor → Creates a Select object for the given dropdown.       | `Select select = new Select(countryDropdown);`           |
+| `selectByIndex(int index)`           | Selects option by index (0-based, first option = 0).                | `select.selectByIndex(2);`                               |
+| `selectByValue(String value)`        | Selects option using the `value` attribute in HTML.                 | `select.selectByValue("IND");`                           |
+| `selectByVisibleText(String text)`   | Selects option using the visible text shown to the user.            | `select.selectByVisibleText("India");`                   |
+| `deselectByIndex(int index)`         | Deselects option by index. *(Works only for multi-select)*          | `select.deselectByIndex(1);`                             |
+| `deselectByValue(String value)`      | Deselects option using the `value` attribute. *(Multi-select only)* | `select.deselectByValue("USA");`                         |
+| `deselectByVisibleText(String text)` | Deselects option using visible text. *(Multi-select only)*          | `select.deselectByVisibleText("Canada");`                |
+| `deselectAll()`                      | Deselects all selected options. *(Multi-select only)*               | `select.deselectAll();`                                  |
+| `getFirstSelectedOption()`           | Returns the first selected option from the dropdown.                | `WebElement first = select.getFirstSelectedOption();`    |
+| `getAllSelectedOptions()`            | Returns all selected options. *(Works only for multi-select)*       | `List<WebElement> all = select.getAllSelectedOptions();` |
+| `getOptions()`                       | Returns all available options in the dropdown.                      | `List<WebElement> options = select.getOptions();`        |
+| `isMultiple()`                       | Checks if the dropdown allows multiple selections.                  | `boolean multi = select.isMultiple();`                   |
+
 
 
 ```java
