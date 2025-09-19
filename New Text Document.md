@@ -1164,7 +1164,8 @@ public class ExcelUtility {
 | `wb.close()`                        | Method        | `org.apache.poi.ss.usermodel.Workbook`        | Closes the workbook to release resources.                      |
 
 
-```
+
+
 17 SELECT CLASS
 
 The Select class in Selenium is a built-in class used to handle dropdown menus that are created using HTML select tags. Normally, Selenium WebDriver cannot directly select options from dropdowns, so we use the Select class to interact with them. With this class, we can select options in three ways: by index, by visible text, or by value.
