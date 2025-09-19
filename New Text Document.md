@@ -1174,7 +1174,7 @@ In companies, the Select class is important because dropdowns are very common in
 
 
 
-```
+
 | **Method**                           | **Description**                                                     | **Example Code**                                         |
 | ------------------------------------ | ------------------------------------------------------------------- | -------------------------------------------------------- |
 | `Select(WebElement element)`         | Constructor → Creates a Select object for the given dropdown.       | `Select select = new Select(countryDropdown);`           |
