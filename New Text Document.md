@@ -1140,6 +1140,8 @@ public class ExcelUtility {
         wb.close();
     }
 }
+
+
 ```
 
 17 SELECT CLASS
@@ -1162,6 +1164,8 @@ In companies, the Select class is important because dropdowns are very common in
 | **getAllSelectedOptions()**            | Returns all selected options.                                        | `List<WebElement> all = select.getAllSelectedOptions();` |
 | **getOptions()**                       | Returns all available options in dropdown.                           | `List<WebElement> options = select.getOptions();`        |
 | **isMultiple()**                       | Checks if dropdown allows multiple selections.                       | `boolean multi = select.isMultiple();`                   |
+
+
 
 ```java
 
