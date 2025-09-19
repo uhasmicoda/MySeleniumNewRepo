@@ -1145,19 +1145,9 @@ public class ExcelUtility {
 ```
 17 SELECT CLASS
 
-The Select class in Selenium is a built-in class used to handle dropdown menus (<select> HTML tags). Normally, Selenium WebDriver cannot directly select options from dropdowns, so we use the Select class to interact with them.
+The Select class in Selenium is a built-in class used to handle dropdown menus that are created using HTML select tags. Normally, Selenium WebDriver cannot directly select options from dropdowns, so we use the Select class to interact with them. With this class, we can select options in three ways: by index, by visible text, or by value.
 
-With this class, we can select options in three ways:
-
-By index
-
-By visible text
-
-By value
-
-It also provides methods like getOptions() to fetch all available choices, getFirstSelectedOption() to get the currently selected item, and deselectAll() for multi-select dropdowns.
-
-In companies, the Select class is important because dropdowns are very common in real-time applications, such as selecting a country, state, role, or payment type. Using the Select class makes automation scripts simple, readable, and reusable, and avoids writing complex code to handle dropdowns manually.
+In companies, the Select class is important because dropdowns are very common in real-time applications, such as selecting a country, state, role, or payment type. Using the Select class makes automation scripts simple, readable, and reusable for such scenarios, and avoids writing complex code to handle dropdowns manually.
 
 | **Method**                           | **Description**                                                     | **Example Code**                                         |
 | ------------------------------------ | ------------------------------------------------------------------- | -------------------------------------------------------- |
