@@ -1007,5 +1007,40 @@ String isDisabled = button.getAttribute("disabled");
 Assert.assertNotNull(isDisabled);  // confirms the button is disabled
 
 ```
-new notes.
+14 Property file
+A property file is a simple text file that stores configuration data in key–value pairs. In Selenium, we use it to store common test data like URL, browser, username, password, and timeouts. This helps avoid hardcoding, makes the framework more flexible, and allows us to maintain environment-specific data easily. If any value changes, we just update the property file instead of touching the code.
+
+```java 
+public class FileUtility {
+
+    public String getCommonDataFromPropertyFile(String key) throws IOException {
+        FileInputStream fis = new FileInputStream("./commdata.properties");
+        Properties p = new Properties();
+        p.load(fis);
+        return p.getProperty(key);
+    }
+}
+
+```
+Usage:
+
+```java
+FileUtility fUtil = new FileUtility();
+String url = fUtil.getCommonDataFromPropertyFile("url");
+driver.get(url);
+
+```
+
+| **Code**                                                              | **Type**                   | **Meaning / Use**                                                                                                              |
+| --------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `public class FileUtility { }`                                        | **Class**                  | A utility class to handle property file operations (reusable across the framework).                                            |
+| `public String getCommonDataFromPropertyFile(String key)`             | **Method**                 | A reusable method that accepts a **key** and returns its **value** from the property file.                                     |
+| `throws IOException`                                                  | **Exception Handling**     | Declared because `FileInputStream` and `Properties.load()` may throw `IOException` if the file is missing or unreadable.       |
+| `FileInputStream fis = new FileInputStream("./commdata.properties");` | **Class: FileInputStream** | Reads the property file from the given path (`./` means project root). Converts the file into a stream so Java can process it. |
+| `Properties p = new Properties();`                                    | **Class: Properties**      | Java’s inbuilt class to work with `.properties` files. Stores data in **key–value pair** format.                               |
+| `p.load(fis);`                                                        | **Method: load()**         | Loads the data from the property file into the `Properties` object.                                                            |
+| `return p.getProperty(key);`                                          | **Method: getProperty()**  | Fetches the value of the given **key** from the property file and returns it.                                                  |
+
+
+In my framework, I implemented a property file to store all the common configuration data like URL, browser name, username, password, and timeouts. This helps to avoid hardcoding values in the test scripts. I created a FileUtility class that reads the property file using FileInputStream and the Properties class provided by Java. Inside this utility, I used the getProperty() method to fetch values based on the key. For example, if I need the application URL or browser name in my test script, I just call the utility method with the key instead of hardcoding it. This makes the framework more flexible and easy to maintain because whenever there is a change, like a new URL or credentials, I only need to update the property file and not the test code. Overall, it centralizes common data, improves reusability, and makes the framework more professional.
 
