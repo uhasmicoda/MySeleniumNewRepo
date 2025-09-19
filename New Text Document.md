@@ -1164,13 +1164,12 @@ In companies, the Select class is important because dropdowns are very common in
 | **getAllSelectedOptions()**            | Returns all selected options.                                        | `List<WebElement> all = select.getAllSelectedOptions();` |
 | **getOptions()**                       | Returns all available options in dropdown.                           | `List<WebElement> options = select.getOptions();`        |
 | **isMultiple()**                       | Checks if dropdown allows multiple selections.                       | `boolean multi = select.isMultiple();`                   |
+
+
 ```
 
 
 ```java
-
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
