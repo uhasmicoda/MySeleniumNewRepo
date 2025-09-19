@@ -1007,7 +1007,8 @@ String isDisabled = button.getAttribute("disabled");
 Assert.assertNotNull(isDisabled);  // confirms the button is disabled
 
 ```
-14 Property file
+14 Property file.
+
 A property file is a simple text file that stores configuration data in key–value pairs. In Selenium, we use it to store common test data like URL, browser, username, password, and timeouts. This helps avoid hardcoding, makes the framework more flexible, and allows us to maintain environment-specific data easily. If any value changes, we just update the property file instead of touching the code.
 
 ```java 
@@ -1082,4 +1083,131 @@ robot.keyRelease(KeyEvent.VK_CONTROL);
 // Press ENTER
 robot.keyPress(KeyEvent.VK_ENTER);
 robot.keyRelease(KeyEvent.VK_ENTER);
+
 ```
+16. ExcelUtility
+
+An Excel Utility class is used to read and write test data from external resources like Excel files. This way, we don’t need to hardcode test data such as usernames, passwords, URLs, or input values inside the scripts. Instead, the data is stored in Excel, and our scripts simply fetch it when required.
+
+In companies, this is very useful because it supports data-driven testing, where the same test can run with multiple sets of data. It also improves maintainability, since if any value changes, we just update the Excel file instead of changing the code. The utility class centralizes all Excel operations like reading cell data, writing results back, and getting row counts, making it reusable and consistent across the whole framework.
+
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.*;
+
+public class ExcelUtility {
+
+    public String getDataFromExcel(String path, String sheet, int indexRow, int indexCell) 
+            throws EncryptedDocumentException, IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        Workbook wb = WorkbookFactory.create(fis);
+        Sheet sh = wb.getSheet(sheet);
+        Row row = sh.getRow(indexRow);
+        String data = row.getCell(indexCell).toString();
+        wb.close();
+        return data;
+    }
+
+    public int getLastRow(String path, String sheet) 
+            throws EncryptedDocumentException, IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        Workbook wb = WorkbookFactory.create(fis);
+        int rowNum = wb.getSheet(sheet).getLastRowNum();
+        wb.close();
+        return rowNum;
+    }
+
+    public void setDataIntoExcel(String path, String sheet, int index, String value) 
+            throws EncryptedDocumentException, IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        Workbook wb = WorkbookFactory.create(fis);
+        Sheet sh = wb.getSheet(sheet);
+        Row row = sh.getRow(index);
+        Cell cell = row.createCell(index);
+        cell.setCellValue(value);
+        wb.close();
+
+        FileOutputStream fos = new FileOutputStream(path);
+        wb.write(fos);
+        wb.close();
+    }
+}
+
+17 SELECT CLASS
+
+The Select class in Selenium is a built-in class used to handle dropdown menus (HTML <select> tags). Normally, Selenium WebDriver cannot directly select options from dropdowns, so we use the Select class to interact with them. With this class, we can select options in three ways: by index, by visible text, or by value. It also provides methods like getOptions() to fetch all available choices, getFirstSelectedOption() to get the currently selected item, and deselectAll() for multi-select dropdowns.
+
+In companies, the Select class is important because dropdowns are very common in real-time applications, such as selecting a country, state, role, or payment type. Using the Select class makes automation scripts simple, readable, and reusable for such scenarios, and avoids writing complex code to handle dropdowns manually.
+
+| **Method**                             | **Definition**                                                       | **Example Code**                                         |
+| -------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Select(WebElement element)**         | Constructor → Creates a Select object for a given dropdown element.  | `Select select = new Select(countryDropdown);`           |
+| **selectByIndex(int index)**           | Selects option by index (0-based, first option = 0).                 | `select.selectByIndex(2);`                               |
+| **selectByValue(String value)**        | Selects option using the `value` attribute in HTML.                  | `select.selectByValue("IND");`                           |
+| **selectByVisibleText(String text)**   | Selects option using the visible text shown to the user.             | `select.selectByVisibleText("India");`                   |
+| **deselectByIndex(int index)**         | Deselects option by index. *(Works only for multi-select dropdowns)* | `select.deselectByIndex(1);`                             |
+| **deselectByValue(String value)**      | Deselects option using the `value` attribute. *(Multi-select only)*  | `select.deselectByValue("USA");`                         |
+| **deselectByVisibleText(String text)** | Deselects option using visible text. *(Multi-select only)*           | `select.deselectByVisibleText("Canada");`                |
+| **deselectAll()**                      | Deselects all selected options. *(Multi-select only)*                | `select.deselectAll();`                                  |
+| **getFirstSelectedOption()**           | Returns the first selected option from dropdown.                     | `WebElement first = select.getFirstSelectedOption();`    |
+| **getAllSelectedOptions()**            | Returns all selected options.                                        | `List<WebElement> all = select.getAllSelectedOptions();` |
+| **getOptions()**                       | Returns all available options in dropdown.                           | `List<WebElement> options = select.getOptions();`        |
+| **isMultiple()**                       | Checks if dropdown allows multiple selections.                       | `boolean multi = select.isMultiple();`                   |
+
+```java
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class SelectExample {
+    public static void main(String[] args) {
+        // Set up WebDriver
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.example.com/dropdown"); // Replace with actual site
+        driver.manage().window().maximize();
+
+        // Locate dropdown element
+        WebElement countryDropdown = driver.findElement(By.id("country"));
+
+        // Create Select object
+        Select select = new Select(countryDropdown);
+
+        // ✅ Select options
+        select.selectByIndex(1); // Select 2nd option
+        select.selectByValue("USA"); // Select option with value="USA"
+        select.selectByVisibleText("India"); // Select option with visible text "India"
+
+        // ✅ Check if dropdown supports multiple selections
+        if (select.isMultiple()) {
+            System.out.println("This is a multi-select dropdown.");
+
+            // Deselect operations
+            select.deselectByValue("USA");
+            select.deselectAll();
+        }
+
+        // ✅ Get first selected option
+        WebElement firstOption = select.getFirstSelectedOption();
+        System.out.println("First selected option: " + firstOption.getText());
+
+        // ✅ Get all available options
+        for (WebElement option : select.getOptions()) {
+            System.out.println("Available option: " + option.getText());
+        }
+
+        // Close browser
+        driver.quit();
+    }
+}
+
