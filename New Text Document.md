@@ -1240,3 +1240,22 @@ public class SelectExample {
 }
 
 ```
+
+18 Locators
+
+Locators in Selenium are used to uniquely identify elements on a web page, such as buttons, text boxes, images, links, and dropdowns, so that we can perform actions on them like clicking, typing, or retrieving text. They are the backbone of Selenium automation, because without identifying elements, no interaction or testing can be performed. Selenium provides different types of locators such as ID, Name, Class Name, Tag Name, Link Text, Partial Link Text, CSS Selector, and XPath. Among these, ID is the most reliable and fastest because it is usually unique, while XPath and CSS Selector are more powerful when elements don’t have proper attributes. Choosing the right locator is very important for writing stable automation scripts, as poor locators can cause frequent failures when the application UI changes. In real-time projects, testers often use a combination of locators depending on the application’s structure, ensuring that scripts are both reusable and easy to maintain.
+
+| **Locator Name**    | **Definition**                                                       | **Example Code**                                                                  |
+| ------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **id**              | Finds element using the **id attribute** (must be unique).           | `driver.findElement(By.id("txtUsername")).sendKeys("Admin");`                     |
+| **name**            | Finds element using the **name attribute**.                          | `driver.findElement(By.name("password")).sendKeys("admin123");`                   |
+| **className**       | Finds element using the **class attribute**.                         | `driver.findElement(By.className("oxd-button")).click();`                         |
+| **tagName**         | Finds element using the **HTML tag name**.                           | `driver.findElement(By.tagName("input")).sendKeys("Test");`                       |
+| **linkText**        | Finds **link element** by matching exact visible text.               | `driver.findElement(By.linkText("Forgot your password?")).click();`               |
+| **partialLinkText** | Finds **link element** by matching partial visible text.             | `driver.findElement(By.partialLinkText("Forgot")).click();`                       |
+| **cssSelector**     | Finds element using **CSS selectors** (very powerful).               | `driver.findElement(By.cssSelector("input[name='username']")).sendKeys("Admin");` |
+| **xpath**           | Finds element using **XPath expression** (very flexible & powerful). | `driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();`    |
+
+
+By is a Selenium class that provides different locator strategies to find elements on a web page. It has static methods such as id, name, xpath, and cssSelector, which we use with Selenium to locate elements and perform actions on them."
+
