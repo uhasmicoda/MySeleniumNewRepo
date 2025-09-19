@@ -1091,6 +1091,13 @@ An Excel Utility class is used to read and write test data from external resourc
 
 In companies, this is very useful because it supports data-driven testing, where the same test can run with multiple sets of data. It also improves maintainability, since if any value changes, we just update the Excel file instead of changing the code. The utility class centralizes all Excel operations like reading cell data, writing results back, and getting row counts, making it reusable and consistent across the whole framework.
 
+ExcelUtility is a reusable utility class used in Selenium frameworks to handle reading and writing data from Excel files. In real-time automation projects, test data is usually kept in Excel sheets instead of hardcoding it in the script, because Excel makes it easier to maintain, modify, and share test data. The ExcelUtility class helps us fetch data, count rows, and insert or update values into Excel, which makes data-driven testing possible.
+
+To implement ExcelUtility, first we need to import the Apache POI library because Java itself does not provide direct support for Excel handling. Inside the utility class, we create methods for different operations. For example, a method like getDataFromExcel() is used to fetch cell data from a given sheet by passing the file path, sheet name, row index, and cell index. Similarly, getLastRow() helps us find the total number of rows in a sheet, which is useful when running tests with multiple sets of data. Another method like setDataIntoExcel() allows us to insert or update values into specific cells, which can be used to store test results or logs back into the Excel file.
+
+The actual implementation uses FileInputStream to open the Excel file and WorkbookFactory to create the workbook instance. From there, we fetch the required sheet, row, and cell. To write into Excel, we use FileOutputStream after updating the cell value. It’s also important to close the workbook to avoid memory leaks.
+
+In test cases, instead of hardcoding values like usernames or passwords, we can call ExcelUtility.getDataFromExcel() to fetch them dynamically from the Excel sheet. This makes our framework data-driven, more flexible, and easier to maintain. In short, ExcelUtility separates test data from test scripts, improves reusability, and supports large-scale testing where test data frequently changes.
 
 ```java
 import java.io.FileInputStream;
@@ -1140,6 +1147,21 @@ public class ExcelUtility {
         wb.close();
     }
 }
+
+| **Code Part**                       | **Type**      | **Belongs To / From Package**                 | **Use / Role**                                                 |
+| ----------------------------------- | ------------- | --------------------------------------------- | -------------------------------------------------------------- |
+| `FileInputStream`                   | Class         | `java.io`                                     | Reads the Excel file (input stream).                           |
+| `FileOutputStream`                  | Class         | `java.io`                                     | Writes data back into the Excel file (output stream).          |
+| `Workbook`                          | Interface     | `org.apache.poi.ss.usermodel`                 | Represents the whole Excel workbook.                           |
+| `WorkbookFactory.create(fis)`       | Static Method | `org.apache.poi.ss.usermodel.WorkbookFactory` | Creates `Workbook` instance (handles both `.xls` and `.xlsx`). |
+| `Sheet`                             | Interface     | `org.apache.poi.ss.usermodel`                 | Represents a single sheet inside the workbook.                 |
+| `Row`                               | Interface     | `org.apache.poi.ss.usermodel`                 | Represents a row inside a sheet.                               |
+| `Cell`                              | Interface     | `org.apache.poi.ss.usermodel`                 | Represents a single cell inside a row.                         |
+| `row.getCell(indexCell).toString()` | Method        | `org.apache.poi.ss.usermodel.Cell`            | Reads value from the cell and converts it into a string.       |
+| `sheet.getLastRowNum()`             | Method        | `org.apache.poi.ss.usermodel.Sheet`           | Gets the last row number (used for looping test data).         |
+| `row.createCell(index)`             | Method        | `org.apache.poi.ss.usermodel.Row`             | Creates a new cell in the row for writing data.                |
+| `cell.setCellValue(value)`          | Method        | `org.apache.poi.ss.usermodel.Cell`            | Sets a string value into the cell.                             |
+| `wb.close()`                        | Method        | `org.apache.poi.ss.usermodel.Workbook`        | Closes the workbook to release resources.                      |
 
 
 ```
@@ -1213,3 +1235,4 @@ public class SelectExample {
     }
 }
 
+```
