@@ -1044,3 +1044,42 @@ driver.get(url);
 
 In my framework, I implemented a property file to store all the common configuration data like URL, browser name, username, password, and timeouts. This helps to avoid hardcoding values in the test scripts. I created a FileUtility class that reads the property file using FileInputStream and the Properties class provided by Java. Inside this utility, I used the getProperty() method to fetch values based on the key. For example, if I need the application URL or browser name in my test script, I just call the utility method with the key instead of hardcoding it. This makes the framework more flexible and easy to maintain because whenever there is a change, like a new URL or credentials, I only need to update the property file and not the test code. Overall, it centralizes common data, improves reusability, and makes the framework more professional.
 
+15 Robot class
+
+The Robot class in Java (under the java.awt package) is used to simulate keyboard and mouse events. In Selenium WebDriver, we use it when we need to handle OS-level popups, file upload/download windows, print dialogs, or authentication popups that WebDriver cannot interact with directly since WebDriver works only with HTML DOM elements inside the browser. Robot class bridges this gap by allowing us to perform native keyboard and mouse operations, making it very useful in automation where Selenium alone is not sufficient.
+
+
+| **Method**                            | **Description**                                   | **Example Code**                                                             |
+| ------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `keyPress(int keycode)`               | Presses a key (key stays pressed until released). | `robot.keyPress(KeyEvent.VK_ENTER);`                                         |
+| `keyRelease(int keycode)`             | Releases a pressed key.                           | `robot.keyRelease(KeyEvent.VK_ENTER);`                                       |
+| `mousePress(int buttons)`             | Presses a mouse button.                           | `robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);`                            |
+| `mouseRelease(int buttons)`           | Releases a pressed mouse button.                  | `robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);`                          |
+| `mouseMove(int x, int y)`             | Moves mouse pointer to given screen coordinates.  | `robot.mouseMove(300, 200);`                                                 |
+| `mouseWheel(int wheelAmt)`            | Scrolls the mouse wheel up/down.                  | `robot.mouseWheel(5);`                                                       |
+| `delay(int ms)`                       | Pauses execution for given milliseconds.          | `robot.delay(2000); // wait 2 sec`                                           |
+| `createScreenCapture(Rectangle rect)` | Captures screenshot of the given screen area.     | `BufferedImage img = robot.createScreenCapture(new Rectangle(0,0,500,500));` |
+
+
+```java
+
+WebElement uploadBtn = driver.findElement(By.id("fileUpload"));
+uploadBtn.click();  // opens OS popup
+
+Robot robot = new Robot();
+robot.delay(2000);
+
+// Type file path
+StringSelection ss = new StringSelection("C:\\Users\\file.txt");
+Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+
+// Press CTRL+V
+robot.keyPress(KeyEvent.VK_CONTROL);
+robot.keyPress(KeyEvent.VK_V);
+robot.keyRelease(KeyEvent.VK_V);
+robot.keyRelease(KeyEvent.VK_CONTROL);
+
+// Press ENTER
+robot.keyPress(KeyEvent.VK_ENTER);
+robot.keyRelease(KeyEvent.VK_ENTER);
+```
