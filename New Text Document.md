@@ -1274,9 +1274,10 @@ Implicit wait in Selenium is a type of synchronization that tells the WebDriver 
 | `pageLoadTimeout(Duration time)`  | Waits for the entire page to load before throwing TimeoutException.                                                    | `driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));`  |
 | `setScriptTimeout(Duration time)` | Waits for asynchronous scripts to finish execution (like JavaScript).                                                  | `driver.manage().timeouts().setScriptTimeout(Duration.ofSeconds(20));` |
 
+ ```java
  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-
+```
 Fluent Wait is a type of explicit wait in Selenium that lets us set how long to wait in total, how often Selenium should keep checking for the element, and which exceptions to ignore during that time.
 
 | Meaning                                                              | Condition                                     | Usage Example                                                                                |
