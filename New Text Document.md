@@ -1245,6 +1245,8 @@ public class SelectExample {
 
 Locators in Selenium are used to uniquely identify elements on a web page, such as buttons, text boxes, images, links, and dropdowns, so that we can perform actions on them like clicking, typing, or retrieving text. They are the backbone of Selenium automation, because without identifying elements, no interaction or testing can be performed. Selenium provides different types of locators such as ID, Name, Class Name, Tag Name, Link Text, Partial Link Text, CSS Selector, and XPath. Among these, ID is the most reliable and fastest because it is usually unique, while XPath and CSS Selector are more powerful when elements don’t have proper attributes. Choosing the right locator is very important for writing stable automation scripts, as poor locators can cause frequent failures when the application UI changes. In real-time projects, testers often use a combination of locators depending on the application’s structure, ensuring that scripts are both reusable and easy to maintain.
 
+By is a Selenium class that provides different locator strategies to find elements on a web page. It has static methods such as id, name, xpath, and cssSelector, which we use with Selenium to locate elements and perform actions on them.
+
 | **Locator Name**    | **Definition**                                                       | **Example Code**                                                                  |
 | ------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | **id**              | Finds element using the **id attribute** (must be unique).           | `driver.findElement(By.id("txtUsername")).sendKeys("Admin");`                     |
@@ -1257,5 +1259,82 @@ Locators in Selenium are used to uniquely identify elements on a web page, such 
 | **xpath**           | Finds element using **XPath expression** (very flexible & powerful). | `driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();`    |
 
 
-By is a Selenium class that provides different locator strategies to find elements on a web page. It has static methods such as id, name, xpath, and cssSelector, which we use with Selenium to locate elements and perform actions on them."
+
+
+19. Synchronization in Selenium 
+
+Synchronization in Selenium is the process of matching the speed of the automation script with the speed of the application under test. Since web elements may take some time to load, we use synchronization to avoid errors like NoSuchElementException or ElementNotInteractableException. Selenium provides two main types of waits for synchronization: implicit wait and explicit wait. Implicit wait applies globally for all elements, while explicit wait is applied to specific elements based on defined conditions such as visibility, clickability, or presence of an element. We also have fluent wait, which is a type of explicit wait that allows us to define polling frequency and to ignore specific exceptions. Using proper synchronization makes the script more stable and less likely to fail due to timing issues.
+
+Implicit wait in Selenium is a type of synchronization that tells the WebDriver to wait for a specified amount of time before throwing a NoSuchElementException. It is applied globally, which means it works for all elements in the script. Once set, the driver will keep checking for the element until the defined time expires. However, it does not wait for conditions like visibility or clickability; it only checks for the presence of elements in the DOM
+
+
+| Method                            | Description                                                                                                            | Example                                                                |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `implicitlyWait(Duration time)`   | Sets a global wait for all elements. Selenium will wait for the specified time before throwing NoSuchElementException. | `driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));`   |
+| `pageLoadTimeout(Duration time)`  | Waits for the entire page to load before throwing TimeoutException.                                                    | `driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));`  |
+| `setScriptTimeout(Duration time)` | Waits for asynchronous scripts to finish execution (like JavaScript).                                                  | `driver.manage().timeouts().setScriptTimeout(Duration.ofSeconds(20));` |
+
+
+Fluent Wait is a type of explicit wait in Selenium that lets us set how long to wait in total, how often Selenium should keep checking for the element, and which exceptions to ignore during that time.
+
+```java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import java.time.Duration;
+import java.util.NoSuchElementException;
+
+public class FluentWaitSimpleExample {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://example.com");
+
+        // Create FluentWait
+        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(20))       // Maximum time to wait
+                .pollingEvery(Duration.ofSeconds(2))       // Check every 2 seconds
+                .ignoring(NoSuchElementException.class);   // Ignore exception
+
+        // Use FluentWait with ExpectedConditions
+        WebElement username = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.id("username"))
+        );
+
+        username.sendKeys("Admin");
+        driver.quit();
+    }
+}
+
+```
+| Condition                                     | Usage Example                                                                                | Meaning                                                              |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `presenceOfElementLocated(By locator)`        | `wait.until(ExpectedConditions.presenceOfElementLocated(By.id("email")));`                   | Waits until element is present in the DOM (not necessarily visible). |
+| `visibilityOfElementLocated(By locator)`      | `wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login")));`                 | Waits until element is visible on page.                              |
+| `visibilityOf(WebElement element)`            | `wait.until(ExpectedConditions.visibilityOf(button));`                                       | Waits until the given WebElement is visible.                         |
+| `elementToBeClickable(By locator)`            | `wait.until(ExpectedConditions.elementToBeClickable(By.name("submit")));`                    | Waits until element is clickable.                                    |
+| `elementToBeSelected(By locator)`             | `wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//input[@type='checkbox']")));` | Waits until checkbox/radio button is selected.                       |
+| `alertIsPresent()`                            | `wait.until(ExpectedConditions.alertIsPresent());`                                           | Waits until an alert is present.                                     |
+| `titleIs(String title)`                       | `wait.until(ExpectedConditions.titleIs("Dashboard"));`                                       | Waits until page title matches exactly.                              |
+| `titleContains(String text)`                  | `wait.until(ExpectedConditions.titleContains("Dashboard"));`                                 | Waits until title contains given text.                               |
+| `urlToBe(String url)`                         | `wait.until(ExpectedConditions.urlToBe("https://example.com"));`                             | Waits until URL matches exactly.                                     |
+| `urlContains(String text)`                    | `wait.until(ExpectedConditions.urlContains("dashboard"));`                                   | Waits until URL contains substring.                                  |
+| `frameToBeAvailableAndSwitchToIt(By locator)` | `wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("frame1")));`         | Waits for frame to be available and switches to it.                  |
+| `invisibilityOfElementLocated(By locator)`    | `wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));`              | Waits until element disappears.                                      |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
