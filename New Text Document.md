@@ -1416,7 +1416,18 @@ public class SoftAssertionExample {
         softAssert.assertAll();
     }
 }
+```
+Methods
 
+| Method                                     | Usage Example                              | Meaning & Explanation                                                                                                                         |
+| ------------------------------------------ | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Assert.assertEquals(actual, expected)`    | `Assert.assertEquals(title, "Dashboard");` | Passes if both values are equal. Useful for validating page titles, success messages, or API responses.                                       |
+| `Assert.assertNotEquals(actual, expected)` | `Assert.assertNotEquals(status, "Error");` | Passes if both values are not equal. Example: validating status should not return `"Error"`.                                                  |
+| `Assert.assertTrue(condition)`             | `Assert.assertTrue(isDisplayed);`          | Passes if condition is true. Mostly used to check if an element is visible, enabled, or condition holds true.                                 |
+| `Assert.assertFalse(condition)`            | `Assert.assertFalse(isEnabled);`           | Passes if condition is false. Example: verifying a button should be disabled before form submission.                                          |
+| `Assert.assertNull(object)`                | `Assert.assertNull(obj);`                  | Passes if object is null. Used when expecting that an object should not be initialized, e.g., a failed login shouldn’t return a user session. |
+| `Assert.assertNotNull(object)`             | `Assert.assertNotNull(driver);`            | Passes if object is not null. Example: checking driver/session is active or an element was successfully found.                                |
+| `Assert.fail()`                            | `Assert.fail("Forcefully failing test");`  | Forces a test failure regardless of condition. Useful when you want to stop test execution deliberately on critical errors.                   |
 
 
 
