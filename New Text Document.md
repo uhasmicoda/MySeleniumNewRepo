@@ -1277,6 +1277,21 @@ Implicit wait in Selenium is a type of synchronization that tells the WebDriver 
 
 Fluent Wait is a type of explicit wait in Selenium that lets us set how long to wait in total, how often Selenium should keep checking for the element, and which exceptions to ignore during that time.
 
+| Meaning                                                              | Condition                                     | Usage Example                                                                                |
+| -------------------------------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Waits until element is present in the DOM (not necessarily visible). | `presenceOfElementLocated(By locator)`        | `wait.until(ExpectedConditions.presenceOfElementLocated(By.id("email")));`                   |
+| Waits until element is visible on page.                              | `visibilityOfElementLocated(By locator)`      | `wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login")));`                 |
+| Waits until the given WebElement is visible.                         | `visibilityOf(WebElement element)`            | `wait.until(ExpectedConditions.visibilityOf(button));`                                       |
+| Waits until element is clickable.                                    | `elementToBeClickable(By locator)`            | `wait.until(ExpectedConditions.elementToBeClickable(By.name("submit")));`                    |
+| Waits until checkbox/radio button is selected.                       | `elementToBeSelected(By locator)`             | `wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//input[@type='checkbox']")));` |
+| Waits until an alert is present.                                     | `alertIsPresent()`                            | `wait.until(ExpectedConditions.alertIsPresent());`                                           |
+| Waits until page title matches exactly.                              | `titleIs(String title)`                       | `wait.until(ExpectedConditions.titleIs("Dashboard"));`                                       |
+| Waits until title contains given text.                               | `titleContains(String text)`                  | `wait.until(ExpectedConditions.titleContains("Dashboard"));`                                 |
+| Waits until URL matches exactly.                                     | `urlToBe(String url)`                         | `wait.until(ExpectedConditions.urlToBe("https://example.com"));`                             |
+| Waits until URL contains substring.                                  | `urlContains(String text)`                    | `wait.until(ExpectedConditions.urlContains("dashboard"));`                                   |
+| Waits for frame to be available and switches to it.                  | `frameToBeAvailableAndSwitchToIt(By locator)` | `wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("frame1")));`         |
+| Waits until element disappears.                                      | `invisibilityOfElementLocated(By locator)`    | `wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));`              |
+
 ```java
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -1309,20 +1324,7 @@ public class FluentWaitSimpleExample {
 }
 
 ```
-| Condition                                     | Usage Example                                                                                | Meaning                                                              |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `presenceOfElementLocated(By locator)`        | `wait.until(ExpectedConditions.presenceOfElementLocated(By.id("email")));`                   | Waits until element is present in the DOM (not necessarily visible). |
-| `visibilityOfElementLocated(By locator)`      | `wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login")));`                 | Waits until element is visible on page.                              |
-| `visibilityOf(WebElement element)`            | `wait.until(ExpectedConditions.visibilityOf(button));`                                       | Waits until the given WebElement is visible.                         |
-| `elementToBeClickable(By locator)`            | `wait.until(ExpectedConditions.elementToBeClickable(By.name("submit")));`                    | Waits until element is clickable.                                    |
-| `elementToBeSelected(By locator)`             | `wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//input[@type='checkbox']")));` | Waits until checkbox/radio button is selected.                       |
-| `alertIsPresent()`                            | `wait.until(ExpectedConditions.alertIsPresent());`                                           | Waits until an alert is present.                                     |
-| `titleIs(String title)`                       | `wait.until(ExpectedConditions.titleIs("Dashboard"));`                                       | Waits until page title matches exactly.                              |
-| `titleContains(String text)`                  | `wait.until(ExpectedConditions.titleContains("Dashboard"));`                                 | Waits until title contains given text.                               |
-| `urlToBe(String url)`                         | `wait.until(ExpectedConditions.urlToBe("https://example.com"));`                             | Waits until URL matches exactly.                                     |
-| `urlContains(String text)`                    | `wait.until(ExpectedConditions.urlContains("dashboard"));`                                   | Waits until URL contains substring.                                  |
-| `frameToBeAvailableAndSwitchToIt(By locator)` | `wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("frame1")));`         | Waits for frame to be available and switches to it.                  |
-| `invisibilityOfElementLocated(By locator)`    | `wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loader")));`              | Waits until element disappears.                                      |
+
 
 
 
