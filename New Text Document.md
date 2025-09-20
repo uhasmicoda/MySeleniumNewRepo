@@ -1350,8 +1350,72 @@ WebDriverWait.
 
 
 
+20 Assertion
 
+Assertion in testing is a way to verify that the actual result of the application matches the expected result. In Selenium automation, we use assertions to check conditions like page titles, element visibility, text values, or messages. If the assertion passes, the test continues; if it fails, the test is marked as failed. Assertions basically help us confirm whether the application is working as expected.
 
+In my framework, I used assertions to validate whether the actual behavior of the application matches the expected result. For example, I used assertions to check if a page title is correct after login, if a success message appears after submitting a form, or if an element is displayed on the screen. I mostly worked with hard assertions, where the test fails immediately if the condition is not met, but I also used soft assertions when I wanted to continue the execution and collect multiple failures in a single test run. By using assertions properly, I made sure the automation scripts were not only performing actions but also verifying outcomes, which improved the reliability of the tests.
+
+There are two types of assertions – Hard Assertion and Soft Assertion. Hard assertions stop the test execution immediately when a validation fails, while soft assertions allow the test to continue even after a failure and finally collect all the results when we call assertAll(). The commonly used hard assertion methods like assertEquals, assertTrue, assertFalse are static methods from the TestNG Assert class, which means we can call them directly without creating an object. On the other hand, soft assertions are non-static because we need to create an object of the SoftAssert class to use them, and then finally call assertAll() to validate all collected results. In my framework, I mainly used hard assertions for critical checks like login or navigation validation, and soft assertions when verifying multiple UI elements on the same page without stopping at the first failure.
+
+✅ Hard Assertion Example (Static methods)
+
+```java
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class HardAssertionExample {
+
+    @Test
+    public void testPageTitle() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.google.com");
+
+        String actualTitle = driver.getTitle();
+        String expectedTitle = "Google";
+
+        // Hard Assertion (static methods)
+        Assert.assertEquals(actualTitle, expectedTitle, "Title mismatch!");
+        Assert.assertTrue(actualTitle.contains("Google"), "Title not correct!");
+
+        driver.quit();
+    }
+}
+
+```
+✅ Soft Assertion Example (Non-static methods)
+```java
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+public class SoftAssertionExample {
+
+    @Test
+    public void testPageTitleWithSoftAssert() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.google.com");
+
+        String actualTitle = driver.getTitle();
+
+        SoftAssert softAssert = new SoftAssert();
+
+        // Soft Assertions (non-static methods)
+        softAssert.assertEquals(actualTitle, "Google Home", "Title mismatch!");
+        softAssert.assertTrue(actualTitle.contains("Search"), "Title does not contain 'Search'");
+
+        System.out.println("Even if above assertions fail, this line will still execute.");
+
+        driver.quit();
+
+        // Collect all results at the end
+        softAssert.assertAll();
+    }
+}
 
 
 
