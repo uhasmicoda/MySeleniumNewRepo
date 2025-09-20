@@ -1274,6 +1274,8 @@ Implicit wait in Selenium is a type of synchronization that tells the WebDriver 
 | `pageLoadTimeout(Duration time)`  | Waits for the entire page to load before throwing TimeoutException.                                                    | `driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));`  |
 | `setScriptTimeout(Duration time)` | Waits for asynchronous scripts to finish execution (like JavaScript).                                                  | `driver.manage().timeouts().setScriptTimeout(Duration.ofSeconds(20));` |
 
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
 
 Fluent Wait is a type of explicit wait in Selenium that lets us set how long to wait in total, how often Selenium should keep checking for the element, and which exceptions to ignore during that time.
 
@@ -1325,7 +1327,25 @@ public class FluentWaitSimpleExample {
 
 ```
 
+I implemented FluentWait in my framework mainly to handle elements that take unpredictable time to load. I created a FluentWait object on the WebDriver where I set the maximum timeout, the polling frequency, and the exceptions to ignore like NoSuchElementException. After that, I used the wait with ExpectedConditions, for example waiting until an element becomes visible before interacting with it. To make it reusable, I wrapped this logic inside a utility method so that instead of writing the FluentWait code every time, I could simply call the method in my test scripts. This made the framework more reliable and easier to maintain.
 
+
+
+WebDriverWait in Selenium is a type of explicit wait that helps in handling synchronization between the script and the application. It allows us to wait for specific conditions such as an element becoming clickable, visible, or an alert being present. WebDriverWait keeps checking for the condition at regular intervals until the maximum time is reached. If the condition is met before the time ends, execution continues immediately, otherwise it throws a TimeoutException. This makes WebDriverWait more reliable than implicit wait, since it targets particular elements or conditions instead of applying a general wait to all elements.
+
+```java 
+// Create WebDriverWait object with max 10 seconds wait
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+// Wait until login button is clickable
+WebElement loginBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("login")));
+loginBtn.click();
+
+
+``` 
+
+I created a WebDriverWait object with a defined timeout, and then used it with ExpectedConditions, like waiting for an element to be clickable, visible, or for an alert to appear. To avoid repeating the same wait code across different tests, I wrote reusable utility methods where I passed the locator and condition, and the method returned the element once it was ready. This approach made the tests more stable and reduced flaky failures
+WebDriverWait.
 
 
 
