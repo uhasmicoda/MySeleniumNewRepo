@@ -1624,13 +1624,6 @@ public class JavaScriptExecutorDemo {
 }
 
 
-
-
-
-
-
-
-
 ```
 | Method                                                                                  | Description                        | Example                                                                                |
 | --------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------- |
@@ -1653,6 +1646,34 @@ public class JavaScriptExecutorDemo {
 
 
 
+Switching to Window/Tab in Selenium means changing the WebDriver’s focus from the current browser window or tab to another one, so that automation commands can be executed in the newly opened window or tab.
+
+In real-time applications, actions like clicking a link, login with Google, or payment gateways often open a new window or tab. By default, Selenium interacts only with the current window, so we need to switch control manually. Selenium provides getWindowHandle to get the parent window ID and getWindowHandles to capture all open window IDs. Using these, we can identify the new (child) window and switch to it with driver.switchTo().window(handle). After performing the required actions, we can close the child window and switch back to the parent to continue the execution smoothly.
 
 
+```java
+
+// Store the current (parent) window
+String parentWindow = driver.getWindowHandle();
+
+// Perform action that opens a new window/tab
+driver.findElement(By.linkText("New Tab")).click();
+
+// Get all window handles
+Set<String> allWindows = driver.getWindowHandles();
+
+// Switch to the child window
+for (String window : allWindows) {
+    if (!window.equals(parentWindow)) {
+        driver.switchTo().window(window);
+        break;
+    }
+}
+
+// Now driver is focused on the child window
+System.out.println("Child window title: " + driver.getTitle());
+
+// Switch back to parent window
+driver.switchTo().window(parentWindow);
+System.out.println("Parent window title: " + driver.getTitle());
 
