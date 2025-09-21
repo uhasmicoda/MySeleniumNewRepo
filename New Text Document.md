@@ -1450,7 +1450,10 @@ Example: If you want to handle a file upload window (which Selenium cannot direc
 👉 In simple words:
 
 Action Class = Browser level interactions (DOM/Web elements)
+
 Robot Class = System level interactions (OS pop-ups, file dialogs, etc.)
+
+
 
 
 | Method                                                | Description                                                | Example                                                                     |
@@ -1477,6 +1480,8 @@ Robot Class = System level interactions (OS pop-ups, file dialogs, etc.)
 | `scrollToElement(WebElement element)`                 | Scrolls the page until the element is visible              | `act.scrollToElement(footer).perform();`                                    |
 | `scrollByAmount(int x, int y)`                        | Scrolls by x (horizontal) and y (vertical) offset          | `act.scrollByAmount(0, 500).perform();`                                     |
 | `scrollFromOrigin(ScrollOrigin origin, int x, int y)` | Scrolls from a defined origin (element/viewport) by offset | `act.scrollFromOrigin(ScrollOrigin.fromElement(header), 0, 300).perform();` |
+
+
 
  ```java
 package seleniumDemo;
@@ -1541,6 +1546,9 @@ public class ActionsClassDemo {
         driver.quit();
     }
 }
+
+
+
 ```
 22 JAVASCRIPT EXECUTOR
 
@@ -1551,6 +1559,8 @@ Technically, WebDriver is cast to the JavascriptExecutor interface, and then we 
 In my project experience, I used JavaScript Executor in scenarios where WebDriver methods weren’t reliable. For example, in an application with dynamic UI and sticky headers, the click() method was failing due to overlapping elements. I used JavaScript Executor to scroll the element into view and then click it. Another use case was highlighting elements during debugging so that during automation runs, it was easier to see which element was being interacted with. I also used it to fetch hidden values from the DOM that weren’t directly visible on the UI.
 
 While it’s a very powerful tool, I always prefer to use WebDriver’s standard methods first because they are more stable and maintainable. JavaScript Executor should be treated as a fallback or last resort for handling edge cases where WebDriver methods do not work. Overusing it can reduce the readability of tests and make scripts more dependent on JavaScript instead of Selenium’s natural API.
+
+
 
 
 | Method                                                                                  | Description                                                      | Example                                                                                |
@@ -1573,7 +1583,10 @@ While it’s a very powerful tool, I always prefer to use WebDriver’s standard
 | `executeScript("return navigator.userAgent;");`                                         | Get browser details (user agent)                                 | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
 
 
-'''java
+
+
+
+```
 package seleniumDemo;
 
 import org.openqa.selenium.By;
