@@ -1623,11 +1623,15 @@ public class JavaScriptExecutorDemo {
     }
 }
 
+
+
+
+
+
+
+
+
 ```
-
-
-
-
 | Method                                                                                  | Description                            | Example                                                                                |
 | --------------------------------------------------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------------------------- |
 | `executeScript("arguments[0].click();", element)`                                       | Click an element using JS              | `js.executeScript("arguments[0].click();", button);`                                   |
