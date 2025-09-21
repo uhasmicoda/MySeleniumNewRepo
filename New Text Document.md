@@ -1541,7 +1541,7 @@ public class ActionsClassDemo {
         driver.quit();
     }
 }
-
+```
 22 JAVASCRIPT EXECUTOR
 
 JavaScript Executor in Selenium is an interface that lets us run JavaScript code directly inside the browser. Normally, we rely on WebDriver methods like click() and sendKeys() to interact with elements, but sometimes these methods fail. For example, if an element is hidden behind another element, overlapped by a pop-up, not yet in the visible viewport, or dynamically loaded after AJAX calls, the normal WebDriver methods may throw exceptions like ElementNotInteractableException or ElementClickInterceptedException. In such cases, JavaScript Executor comes to the rescue because it interacts directly with the DOM rather than relying only on Selenium’s native methods.
