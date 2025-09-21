@@ -1645,6 +1645,8 @@ public class JavaScriptExecutorDemo {
 | `executeScript("return navigator.userAgent;");`                                         | Get browser <br> details (agent)   | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
 
 
+23. Switch to Window / Switch to Tab in Selenium
+
 
 Switching to Window/Tab in Selenium means changing the WebDriver’s focus from the current browser window or tab to another one, so that automation commands can be executed in the newly opened window or tab.
 
