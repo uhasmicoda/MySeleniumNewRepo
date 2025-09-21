@@ -1632,24 +1632,26 @@ public class JavaScriptExecutorDemo {
 
 
 ```
-| Method                                                                                  | Description                            | Example                                                                                |
-| --------------------------------------------------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------------------------- |
-| `executeScript("arguments[0].click();", element)`                                       | Click an element using JS              | `js.executeScript("arguments[0].click();", button);`                                   |
-| `executeScript("arguments[0].value='text';", element)`                                  | Enter text into a field                | `js.executeScript("arguments[0].value='Saddam';", inputBox);`                          |
-| `executeScript("return arguments[0].value;", element)`                                  | Get the value of an input field        | `String val = (String) js.executeScript("return arguments[0].value;", inputBox);`      |
-| `executeScript("window.scrollBy(x, y)");`                                               | Scroll the page by x,y pixels          | `js.executeScript("window.scrollBy(0, 500)");`                                         |
-| `executeScript("window.scrollTo(0, document.body.scrollHeight);");`                     | Scroll to the bottom of the page       | `js.executeScript("window.scrollTo(0, document.body.scrollHeight);");`                 |
-| `executeScript("arguments[0].scrollIntoView(true);", element);`                         | Scroll until element is visible        | `js.executeScript("arguments[0].scrollIntoView(true);", myElement);`                   |
-| `executeScript("return document.title;");`                                              | Get page title                         | `String title = (String) js.executeScript("return document.title;");`                  |
-| `executeScript("return document.readyState;");`                                         | Get page load state (e.g., "complete") | `String state = (String) js.executeScript("return document.readyState;");`             |
-| `executeScript("return document.domain;");`                                             | Get domain name                        | `String domain = (String) js.executeScript("return document.domain;");`                |
-| `executeScript("return document.URL;");`                                                | Get current URL                        | `String url = (String) js.executeScript("return document.URL;");`                      |
-| `executeScript("history.back();");`                                                     | Navigate back                          | `js.executeScript("history.back();");`                                                 |
-| `executeScript("history.forward();");`                                                  | Navigate forward                       | `js.executeScript("history.forward();");`                                              |
-| `executeScript("arguments[0].setAttribute('style','border:2px solid red');", element);` | Highlight an element with a border     | `js.executeScript("arguments[0].setAttribute('style','border:2px solid red');", btn);` |
-| `executeScript("alert('Hello World!');");`                                              | Display an alert popup                 | `js.executeScript("alert('Hello World!');");`                                          |
-| `executeScript("arguments[0].disabled=false;", element);`                               | Enable a disabled element              | `js.executeScript("arguments[0].disabled=false;", inputBox);`                          |
-| `executeScript("return navigator.userAgent;");`                                         | Get browser details (user agent)       | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
+| Method                                                                                  | Description                        | Example                                                                                |
+| --------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------- |
+| `executeScript("arguments[0].click();", element)`                                       | Click an element <br> using JS     | `js.executeScript("arguments[0].click();", button);`                                   |
+| `executeScript("arguments[0].value='text';", element)`                                  | Enter text <br> into a field       | `js.executeScript("arguments[0].value='Saddam';", inputBox);`                          |
+| `executeScript("return arguments[0].value;", element)`                                  | Get the value <br> of an input     | `String val = (String) js.executeScript("return arguments[0].value;", inputBox);`      |
+| `executeScript("window.scrollBy(x, y)");`                                               | Scroll the page <br> by x,y pixels | `js.executeScript("window.scrollBy(0, 500)");`                                         |
+| `executeScript("window.scrollTo(0, document.body.scrollHeight);");`                     | Scroll to the <br> bottom of page  | `js.executeScript("window.scrollTo(0, document.body.scrollHeight);");`                 |
+| `executeScript("arguments[0].scrollIntoView(true);", element);`                         | Scroll until <br> element visible  | `js.executeScript("arguments[0].scrollIntoView(true);", myElement);`                   |
+| `executeScript("return document.title;");`                                              | Get page <br> title                | `String title = (String) js.executeScript("return document.title;");`                  |
+| `executeScript("return document.readyState;");`                                         | Get page load <br> state           | `String state = (String) js.executeScript("return document.readyState;");`             |
+| `executeScript("return document.domain;");`                                             | Get domain <br> name               | `String domain = (String) js.executeScript("return document.domain;");`                |
+| `executeScript("return document.URL;");`                                                | Get current <br> URL               | `String url = (String) js.executeScript("return document.URL;");`                      |
+| `executeScript("history.back();");`                                                     | Navigate <br> back                 | `js.executeScript("history.back();");`                                                 |
+| `executeScript("history.forward();");`                                                  | Navigate <br> forward              | `js.executeScript("history.forward();");`                                              |
+| `executeScript("arguments[0].setAttribute('style','border:2px solid red');", element);` | Highlight element <br> with border | `js.executeScript("arguments[0].setAttribute('style','border:2px solid red');", btn);` |
+| `executeScript("alert('Hello World!');");`                                              | Display <br> alert popup           | `js.executeScript("alert('Hello World!');");`                                          |
+| `executeScript("arguments[0].disabled=false;", element);`                               | Enable a <br> disabled element     | `js.executeScript("arguments[0].disabled=false;", inputBox);`                          |
+| `executeScript("return navigator.userAgent;");`                                         | Get browser <br> details (agent)   | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
+
+
 
 
 
