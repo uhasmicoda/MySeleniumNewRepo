@@ -1560,8 +1560,6 @@ In my project experience, I used JavaScript Executor in scenarios where WebDrive
 
 While it’s a very powerful tool, I always prefer to use WebDriver’s standard methods first because they are more stable and maintainable. JavaScript Executor should be treated as a fallback or last resort for handling edge cases where WebDriver methods do not work. Overusing it can reduce the readability of tests and make scripts more dependent on JavaScript instead of Selenium’s natural API.
 
-```
-METHODS
 
 | Method                                                                                  | Description                                                      | Example                                                                                |
 | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
@@ -1588,7 +1586,6 @@ METHODS
 
 ```java
 package seleniumDemo;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
