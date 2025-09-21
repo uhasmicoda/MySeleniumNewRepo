@@ -1435,8 +1435,205 @@ Methods
 
 
 
+21 ACTIONS 
+
+The Action Class in Selenium is a special utility provided in the org.openqa.selenium.interactions package that allows us to handle complex user interactions such as mouse hover, drag and drop, right click, double click, click and hold, releasing a key, or sending multiple key combinations. While methods like click() and sendKeys() work for simple operations, many real-time scenarios need advanced interactions, like hovering over a menu to see sub-options, dragging an item from one section to another, or simulating keyboard shortcuts like Ctrl + A or Ctrl + C. For this, we create an Actions object, pass the WebDriver instance, and then use the required method, followed by .perform() to execute.
+
+Difference between Action Class and Robot Class
+
+Action Class is a Selenium-specific class. It is designed to interact inside the browser (DOM elements). It can simulate mouse and keyboard actions on web elements like buttons, textboxes, frames, or menus.
+
+Robot Class, on the other hand, belongs to the Java AWT (Abstract Window Toolkit) package. It is used to handle native system events like file upload pop-ups, keyboard shortcuts, or taking screenshots. Robot works outside the browser as well, because it directly interacts with the Operating System level.
+
+Example: If you want to handle a file upload window (which Selenium cannot directly access since it’s a Windows pop-up), you’d use Robot Class. But if you want to drag and drop an element on a webpage, you’d use Action Class.
+
+👉 In simple words:
+
+Action Class = Browser level interactions (DOM/Web elements)
+Robot Class = System level interactions (OS pop-ups, file dialogs, etc.)
 
 
+| Method                                                | Description                                                | Example                                                                     |
+| ----------------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `click()`                                             | Clicks on the current mouse location                       | `act.click().perform();`                                                    |
+| `click(WebElement element)`                           | Clicks on a specific element                               | `act.click(button).perform();`                                              |
+| `doubleClick()`                                       | Double clicks at current mouse location                    | `act.doubleClick().perform();`                                              |
+| `doubleClick(WebElement element)`                     | Double clicks on an element                                | `act.doubleClick(button).perform();`                                        |
+| `contextClick()`                                      | Right click at current mouse location                      | `act.contextClick().perform();`                                             |
+| `contextClick(WebElement element)`                    | Right click on an element                                  | `act.contextClick(button).perform();`                                       |
+| `moveToElement(WebElement element)`                   | Moves mouse to an element (hover)                          | `act.moveToElement(menu).perform();`                                        |
+| `moveByOffset(int x, int y)`                          | Moves mouse by x,y offset                                  | `act.moveByOffset(50, 100).perform();`                                      |
+| `dragAndDrop(source, target)`                         | Drag source element and drop on target                     | `act.dragAndDrop(source, target).perform();`                                |
+| `dragAndDropBy(source, xOffset, yOffset)`             | Drag element by x,y offset                                 | `act.dragAndDropBy(source, 100, 50).perform();`                             |
+| `keyDown(Keys key)`                                   | Press a key (like Ctrl, Shift)                             | `act.keyDown(Keys.CONTROL).perform();`                                      |
+| `keyUp(Keys key)`                                     | Release a key                                              | `act.keyUp(Keys.CONTROL).perform();`                                        |
+| `sendKeys(CharSequence keys)`                         | Type keys at current focus                                 | `act.sendKeys("Hello").perform();`                                          |
+| `sendKeys(WebElement element, CharSequence keys)`     | Type keys into an element                                  | `act.sendKeys(inputBox, "Hello").perform();`                                |
+| `clickAndHold()`                                      | Click and hold at current mouse location                   | `act.clickAndHold().perform();`                                             |
+| `clickAndHold(WebElement element)`                    | Click and hold on an element                               | `act.clickAndHold(element).perform();`                                      |
+| `release()`                                           | Release mouse button at current location                   | `act.release().perform();`                                                  |
+| `pause(Duration duration)`                            | Pause between actions                                      | `act.pause(Duration.ofSeconds(2)).perform();`                               |
+| `build()`                                             | Builds the sequence of actions                             | `act.moveToElement(el).click().build().perform();`                          |
+| `scrollToElement(WebElement element)`                 | Scrolls the page until the element is visible              | `act.scrollToElement(footer).perform();`                                    |
+| `scrollByAmount(int x, int y)`                        | Scrolls by x (horizontal) and y (vertical) offset          | `act.scrollByAmount(0, 500).perform();`                                     |
+| `scrollFromOrigin(ScrollOrigin origin, int x, int y)` | Scrolls from a defined origin (element/viewport) by offset | `act.scrollFromOrigin(ScrollOrigin.fromElement(header), 0, 300).perform();` |
 
+ ```java
+package seleniumDemo;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class ActionsClassDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://demo.guru99.com/test/simple_context_menu.html"); // demo site
+
+        Actions act = new Actions(driver);
+
+        // 1. Mouse Hover
+        WebElement hoverMenu = driver.findElement(By.xpath("//a[contains(text(),'Selenium')]"));
+        act.moveToElement(hoverMenu).perform();
+        System.out.println("Hovered over Selenium menu");
+
+        // 2. Right Click (Context Click)
+        WebElement rightClickBtn = driver.findElement(By.xpath("//span[text()='right click me']"));
+        act.contextClick(rightClickBtn).perform();
+        System.out.println("Performed right click");
+
+        // 3. Double Click
+        WebElement doubleClickBtn = driver.findElement(By.xpath("//button[text()='Double-Click Me To See Alert']"));
+        act.doubleClick(doubleClickBtn).perform();
+        System.out.println("Performed double click");
+        driver.switchTo().alert().accept();
+
+        // 4. Drag and Drop
+        driver.get("https://demoqa.com/droppable"); // another demo site
+        WebElement source = driver.findElement(By.id("draggable"));
+        WebElement target = driver.findElement(By.id("droppable"));
+        act.dragAndDrop(source, target).perform();
+        System.out.println("Performed drag and drop");
+
+        // 5. Click and Hold + Release
+        act.clickAndHold(source).moveToElement(target).release().perform();
+        System.out.println("Click and hold performed");
+
+        // 6. Send Keys with Modifier
+        driver.get("https://www.google.com");
+        WebElement searchBox = driver.findElement(By.name("q"));
+        act.keyDown(searchBox, org.openqa.selenium.Keys.SHIFT)
+                .sendKeys("selenium actions class")
+                .keyUp(org.openqa.selenium.Keys.SHIFT)
+                .perform();
+        System.out.println("Typed text in uppercase using SHIFT key");
+
+        // 7. Move By Offset (e.g., moving cursor)
+        act.moveByOffset(100, 200).perform();
+        System.out.println("Moved mouse by offset");
+
+        // Close browser
+        driver.quit();
+    }
+}
+
+22 JAVASCRIPT EXECUTOR
+
+JavaScript Executor in Selenium is an interface that lets us run JavaScript code directly inside the browser. Normally, we rely on WebDriver methods like click() and sendKeys() to interact with elements, but sometimes these methods fail. For example, if an element is hidden behind another element, overlapped by a pop-up, not yet in the visible viewport, or dynamically loaded after AJAX calls, the normal WebDriver methods may throw exceptions like ElementNotInteractableException or ElementClickInterceptedException. In such cases, JavaScript Executor comes to the rescue because it interacts directly with the DOM rather than relying only on Selenium’s native methods.
+
+Technically, WebDriver is cast to the JavascriptExecutor interface, and then we can call two main methods: executeScript() for synchronous execution and executeAsyncScript() for asynchronous execution. With this, we can perform actions such as clicking on elements, entering values into input fields, scrolling up and down, scrolling an element into view, generating alerts, highlighting elements for debugging, or even retrieving information like page title, URL, or inner text.
+
+In my project experience, I used JavaScript Executor in scenarios where WebDriver methods weren’t reliable. For example, in an application with dynamic UI and sticky headers, the click() method was failing due to overlapping elements. I used JavaScript Executor to scroll the element into view and then click it. Another use case was highlighting elements during debugging so that during automation runs, it was easier to see which element was being interacted with. I also used it to fetch hidden values from the DOM that weren’t directly visible on the UI.
+
+While it’s a very powerful tool, I always prefer to use WebDriver’s standard methods first because they are more stable and maintainable. JavaScript Executor should be treated as a fallback or last resort for handling edge cases where WebDriver methods do not work. Overusing it can reduce the readability of tests and make scripts more dependent on JavaScript instead of Selenium’s natural API.
+
+
+| Method                                                                                  | Description                                                      | Example                                                                                |
+| --------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `executeScript("arguments[0].click();", element)`                                       | Click an element using JS (helpful if Selenium `.click()` fails) | `js.executeScript("arguments[0].click();", button);`                                   |
+| `executeScript("arguments[0].value='text';", element)`                                  | Enter text into a field                                          | `js.executeScript("arguments[0].value='Saddam';", inputBox);`                          |
+| `executeScript("return arguments[0].value;", element)`                                  | Get the value of an input field                                  | `String val = (String) js.executeScript("return arguments[0].value;", inputBox);`      |
+| `executeScript("window.scrollBy(x, y)");`                                               | Scroll the page by x,y pixels                                    | `js.executeScript("window.scrollBy(0, 500)");`                                         |
+| `executeScript("window.scrollTo(0, document.body.scrollHeight);");`                     | Scroll to the bottom of the page                                 | `js.executeScript("window.scrollTo(0, document.body.scrollHeight);");`                 |
+| `executeScript("arguments[0].scrollIntoView(true);", element);`                         | Scroll until element is visible                                  | `js.executeScript("arguments[0].scrollIntoView(true);", myElement);`                   |
+| `executeScript("return document.title;");`                                              | Get page title                                                   | `String title = (String) js.executeScript("return document.title;");`                  |
+| `executeScript("return document.readyState;");`                                         | Get page load state (e.g., "complete")                           | `String state = (String) js.executeScript("return document.readyState;");`             |
+| `executeScript("return document.domain;");`                                             | Get domain name                                                  | `String domain = (String) js.executeScript("return document.domain;");`                |
+| `executeScript("return document.URL;");`                                                | Get current URL                                                  | `String url = (String) js.executeScript("return document.URL;");`                      |
+| `executeScript("history.back();");`                                                     | Navigate back                                                    | `js.executeScript("history.back();");`                                                 |
+| `executeScript("history.forward();");`                                                  | Navigate forward                                                 | `js.executeScript("history.forward();");`                                              |
+| `executeScript("arguments[0].setAttribute('style','border:2px solid red');", element);` | Highlight an element with a border (good for debugging)          | `js.executeScript("arguments[0].setAttribute('style','border:2px solid red');", btn);` |
+| `executeScript("alert('Hello World!');");`                                              | Display an alert popup                                           | `js.executeScript("alert('Hello World!');");`                                          |
+| `executeScript("arguments[0].disabled=false;", element);`                               | Enable a disabled element                                        | `js.executeScript("arguments[0].disabled=false;", inputBox);`                          |
+| `executeScript("return navigator.userAgent;");`                                         | Get browser details (user agent)                                 | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
+
+
+'''java
+package seleniumDemo;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.JavascriptExecutor;
+
+public class JavaScriptExecutorDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://example.com");  // Replace with real app URL
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // 1. Get Page Title
+        String title = (String) js.executeScript("return document.title;");
+        System.out.println("Page Title: " + title);
+
+        // 2. Click element using JS
+        WebElement button = driver.findElement(By.id("submitBtn"));
+        js.executeScript("arguments[0].click();", button);
+        System.out.println("Clicked on Submit button using JS");
+
+        // 3. Enter text into input box using JS
+        WebElement inputBox = driver.findElement(By.id("username"));
+        js.executeScript("arguments[0].value='Saddam';", inputBox);
+        System.out.println("Entered text into Username field using JS");
+
+        // 4. Scroll to specific element
+        WebElement footer = driver.findElement(By.id("footer"));
+        js.executeScript("arguments[0].scrollIntoView(true);", footer);
+        System.out.println("Scrolled to footer");
+
+        // 5. Scroll to bottom of the page
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+        System.out.println("Scrolled to bottom of page");
+
+        // 6. Highlight an element (useful for debugging)
+        WebElement loginBtn = driver.findElement(By.id("loginBtn"));
+        js.executeScript("arguments[0].setAttribute('style','border:3px solid red; background:yellow');", loginBtn);
+        System.out.println("Highlighted login button");
+
+        // 7. Get URL and Domain using JS
+        String url = (String) js.executeScript("return document.URL;");
+        String domain = (String) js.executeScript("return document.domain;");
+        System.out.println("Current URL: " + url);
+        System.out.println("Domain: " + domain);
+
+        // 8. Show an alert popup
+        js.executeScript("alert('Automation Test Completed Successfully!');");
+        Thread.sleep(2000); // wait to see alert
+        driver.switchTo().alert().accept();
+
+        // Close browser
+        driver.quit();
+    }
+}
 
 
