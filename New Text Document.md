@@ -1685,3 +1685,73 @@ System.out.println("Parent window title: " + driver.getTitle());
 24 FRAME
 
 In Selenium, a frame (or iframe) is an HTML document that is embedded inside another web page. It acts like a separate webpage within the main page. Elements inside a frame are not part of the main DOM, which means Selenium cannot access them directly. If you try to locate an element inside a frame without switching, Selenium will throw a NoSuchElementException. To work with these elements, you must first switch the driver’s focus from the main page to the desired frame using methods like driver.switchTo().frame(). Once the focus is on the frame, you can locate and interact with elements inside it as usual. After completing the operations, it is important to switch back to the default content using driver.switchTo().defaultContent() to continue interacting with elements on the main page.
+
+
+Selenium provides three ways to switch into a frame:
+
+By using the index of the frame.
+
+By using the name or ID attribute of the frame.
+
+By using the WebElement of the frame.
+
+Once the work inside the frame is completed, we can switch back:
+
+To the parent frame.
+
+Or to the main page (default content).
+
+
+| **Way to Switch**        | **Code Example**                                                                                                                 | **Explanation**                                                                                     |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **By Index**             | `driver.switchTo().frame(0);`                                                                                                    | Switches to the first frame on the page (index starts from 0). Useful when frame has no name or ID. |
+| **By Name or ID**        | `driver.switchTo().frame("frameName");`                                                                                          | Switches to a frame using its `name` or `id` attribute.                                             |
+| **By WebElement**        | `WebElement frameElement = driver.findElement(By.xpath("//iframe[@id='myFrame']"));`<br>`driver.switchTo().frame(frameElement);` | Locates the frame as a WebElement and switches to it. Useful when the frame has dynamic attributes. |
+| **Back to Parent Frame** | `driver.switchTo().parentFrame();`                                                                                               | Moves one level up to the immediate parent frame.                                                   |
+| **Back to Main Page**    | `driver.switchTo().defaultContent();`                                                                                            | Exits all frames and switches back to the main page.                                                |
+
+
+```java
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class FrameHandlingDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+        // Set up ChromeDriver
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        // Open a sample page with frames
+        driver.get("https://the-internet.herokuapp.com/iframe");
+
+        // --- Switch by Index ---
+        driver.switchTo().frame(0);  // switching to first frame
+        System.out.println("Switched to frame by Index.");
+        driver.switchTo().defaultContent();  // back to main page
+
+        // --- Switch by Name or ID ---
+        driver.switchTo().frame("mce_0_ifr"); // switching by frame name/id
+        System.out.println("Switched to frame by Name/ID.");
+        driver.switchTo().defaultContent();
+
+        // --- Switch by WebElement ---
+        WebElement frameElement = driver.findElement(By.id("mce_0_ifr"));
+        driver.switchTo().frame(frameElement);
+        System.out.println("Switched to frame by WebElement.");
+
+        // --- Switch back to Parent Frame ---
+        driver.switchTo().parentFrame();
+        System.out.println("Switched back to Parent Frame.");
+
+        // --- Switch back to Main Page ---
+        driver.switchTo().defaultContent();
+        System.out.println("Switched back to Main Page.");
+
+        // Close the browser
+        driver.quit();
+    }
+}
