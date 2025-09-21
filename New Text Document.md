@@ -1645,9 +1645,9 @@ public class JavaScriptExecutorDemo {
 | `executeScript("return navigator.userAgent;");`                                         | Get browser <br> details (agent)   | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
 
 
+
+
 23. Switch to Window / Switch to Tab in Selenium
-
-
 Switching to Window/Tab in Selenium means changing the WebDriver’s focus from the current browser window or tab to another one, so that automation commands can be executed in the newly opened window or tab.
 
 In real-time applications, actions like clicking a link, login with Google, or payment gateways often open a new window or tab. By default, Selenium interacts only with the current window, so we need to switch control manually. Selenium provides getWindowHandle to get the parent window ID and getWindowHandles to capture all open window IDs. Using these, we can identify the new (child) window and switch to it with driver.switchTo().window(handle). After performing the required actions, we can close the child window and switch back to the parent to continue the execution smoothly.
