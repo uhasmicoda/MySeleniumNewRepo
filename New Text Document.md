@@ -1680,4 +1680,8 @@ System.out.println("Child window title: " + driver.getTitle());
 // Switch back to parent window
 driver.switchTo().window(parentWindow);
 System.out.println("Parent window title: " + driver.getTitle());
+```
 
+24 FRAME
+
+In Selenium, a frame (or iframe) is an HTML document that is embedded inside another web page. It acts like a separate webpage within the main page. Elements inside a frame are not part of the main DOM, which means Selenium cannot access them directly. If you try to locate an element inside a frame without switching, Selenium will throw a NoSuchElementException. To work with these elements, you must first switch the driver’s focus from the main page to the desired frame using methods like driver.switchTo().frame(). Once the focus is on the frame, you can locate and interact with elements inside it as usual. After completing the operations, it is important to switch back to the default content using driver.switchTo().defaultContent() to continue interacting with elements on the main page.
