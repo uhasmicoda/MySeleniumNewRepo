@@ -1742,3 +1742,102 @@ public class FrameHandlingDemo {
         driver.quit();
     }
 }
+
+```
+
+25 Database
+
+A database is an organized collection of data where information is stored in a structured way so that it can be easily managed and retrieved when needed. In simple terms, it is the backend of an application where all the records, such as user details, transactions, or product information, are saved. We use a database because it allows applications to handle large amounts of data efficiently, ensures accuracy and consistency, and makes it possible to quickly fetch or update information whenever required.
+
+From a testing perspective, my role was not directly writing complex database queries but rather verifying that the application correctly stores and retrieves data. For example, when I created or updated a record from the UI, I ensured that the same data was visible and consistent across different parts of the application. In some cases, I cross-checked values with simple queries or test data, but mainly my focus was on validating that the app and database worked together correctly.
+
+
+In my framework, we had a DatabaseUtility class to interact with the database whenever required. Instead of writing connection code every time, we used this utility. For example, if I wanted to verify whether data entered from the UI is correctly stored in the backend database, I would use the executeConSelectQuery method to fetch the data and compare it with expected values. Similarly, in some test cases, we used non-select queries to update or insert test data directly into the DB before running UI tests. After every operation, I made sure to close the database connection using the closeDbconnection() method to avoid memory issues
+
+
+To implement the database utility, the first step I took was to create a separate Java class called DataBaseUtility where I could keep all reusable methods related to database operations. Inside this class, I declared a Connection object, which is responsible for holding the connection to the database once it is established. Then, I implemented two methods for database connection. The first method, getDbConnection(String url, String username, String password), accepts parameters so that I can connect to any database dynamically. The second one is an overloaded method, getDbConnection(), where I hardcoded the JDBC URL, username, and password of our project database. This allowed me to quickly connect to the application’s default database without passing parameters each time. After connecting, I also created a method called closeDbConnection() to safely close the database connection once my operations were completed, ensuring there were no resource leaks.
+
+Next, I implemented query execution methods. For SELECT queries, I created a method called executeConSelectQuery(String query) which uses a Statement object and returns a ResultSet containing all the rows and columns fetched from the database. This was useful when I needed to validate whether data entered from the application UI was correctly saved in the database. For queries like INSERT, UPDATE, or DELETE, I implemented another method executeNonSelectQuery(String query) which also uses a Statement object but returns an integer value, representing the number of rows affected. This helped in cases where I needed to prepare test data or clean up after tests.
+
+By keeping all these methods in a single utility class, I was able to reuse them across different test cases without writing duplicate code. For example, in my test, after creating a new user through the UI, I would call the executeConSelectQuery method to check if the user’s record was actually present in the database. This approach made my framework modular, clean, and easy to maintain.
+
+```java
+package com.comcast.crm.Genric.DatabaseUtility;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.mysql.jdbc.Driver;
+
+public class DataBaseUtility {
+
+	Connection conn;
+
+	public void getDbConnection(String url, String username, String passsword) throws SQLException {
+		try {
+			Driver driver = new Driver();
+			DriverManager.registerDriver(driver);
+			conn = DriverManager.getConnection(url, username, passsword);
+
+		} catch (Exception e) {
+
+		}
+
+	}
+
+	public void getDbConnection() throws SQLException {
+		try {
+			Driver driver = new Driver();
+			DriverManager.registerDriver(driver);
+
+			conn = DriverManager.getConnection("jdbc:mysql://49.249.28.218:3333/ninza_hrm", "root", "root");
+		} catch (Exception e) {
+
+		}
+
+	}
+
+	public void closeDbconnection() throws SQLException {
+		try {
+			conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public ResultSet executeConSelectQuery(String query) throws Throwable {
+		ResultSet result = null;
+		try {
+			Statement stat = conn.createStatement();
+			result = stat.executeQuery(query);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+
+	}
+
+	public int executeNonSelectQuery(String query) throws Throwable {
+		int result = 0;
+		try {
+			Statement stat = conn.createStatement();
+			result = stat.executeUpdate(query);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+
+	}
+
+}
+
+
+
+
+
