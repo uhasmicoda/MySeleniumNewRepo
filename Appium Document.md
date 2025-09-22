@@ -30,27 +30,9 @@
 
 
 
-**| Phase    | Command        | Easy Meaning                   | Technical Meaning                                                                 |**
-
-**| -------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |**
-
-**| Clean    | `mvn clean`    | Delete old files, start fresh. | Removes previous build outputs (e.g., `target/` folder).                          |**
-
-**| Validate | `mvn validate` | Check project setup.           | Ensures project structure \& config are correct.                                   |**
-
-**| Compile  | `mvn compile`  | Convert code to class files.   | Compiles Java source into `.class` bytecode files.                                |**
-
-**| Test     | `mvn test`     | Run tests.                     | Executes unit/automation tests (JUnit, TestNG).                                   |**
-
-**| Package  | `mvn package`  | Make JAR/WAR file.             | Bundles compiled code + resources into a distributable (`.jar`, `.war`).          |**
-
-**| Verify   | `mvn verify`   | Double-check build.            | Runs integration checks to ensure the package is valid.                           |**
-
-**| Install  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |**
-
-**| Deploy   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |**
 
 
+**###Table Format**
 
 
 
