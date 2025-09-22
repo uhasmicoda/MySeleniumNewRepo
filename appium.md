@@ -22,3 +22,15 @@ This layered structure makes Appium highly flexible and platform-independent. Ju
 | Automation Engines      | Platform-specific automation frameworks that interact directly with the OS and app.                         | Android → UIAutomator2, Espresso; iOS → XCUITest    |
 | Mobile Device (Target)  | Real device, emulator, or simulator where the app is installed. Executes the commands and returns response. | Android phone, iPhone, or emulator/simulator        |
 | Response Backflow       | Result of action is passed back → Device → Engine → Appium Server → Client script.                          | Example: Button click success, text retrieved, etc. |
+
+
+```java
+Test Script (Client) 
+       ⬇ JSON over HTTP
+Appium Client Libraries
+       ⬇
+Appium Server (Node.js)
+       ⬇
+Automation Engines (UIAutomator2 / XCUITest)
+       ⬇
+Mobile Device (Android / iOS)
