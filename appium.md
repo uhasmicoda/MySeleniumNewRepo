@@ -375,4 +375,74 @@ AndroidUtility util = new AndroidUtility(driver);
 util.openNotifications();
 util.portraitOrientation();
 
+```
+## 9 Context Handling in Appium (Native App ↔ WebView)
 
+In Appium, context handling refers to switching between different execution environments of a mobile application, mainly NATIVE_APP and WEBVIEW. By default, when a mobile app is launched, Appium starts in the NATIVE_APP context, which means it interacts with native UI elements such as buttons, text fields, and menus. However, many modern mobile apps are hybrid, containing embedded web content (like login pages, payment gateways, or in-app browsers). In such cases, we need to switch to the WEBVIEW context to interact with HTML elements like input fields, links, or buttons inside the web page.
+
+To achieve this, Appium provides methods such as getContextHandles() to list all available contexts, getContext() to check the current context, and context(name) to switch to the desired one. For example, we first capture all contexts, then switch from NATIVE_APP to WEBVIEW_com.example to perform web-based automation, and finally switch back to NATIVE_APP after completing the task.
+
+```java
+
+package androidDriverMethods;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.Set;
+
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
+
+public class ContextDemo {
+
+	public static void main(String[] args) throws MalformedURLException, URISyntaxException, InterruptedException {
+		
+		// Setup capabilities
+		UiAutomator2Options options = new UiAutomator2Options();
+		options.setPlatformName("Android");
+		options.setAutomationName("UiAutomator2");
+		options.setDeviceName("Galaxy M15 5G");
+		options.setUdid("RZCX41G7WHD");
+		options.setNoReset(true);
+
+		// Connect with Appium server
+		URL serverUrl = new URI("http://localhost:4723").toURL();
+		AndroidDriver driver = new AndroidDriver(serverUrl, options);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+		// Launch app
+		driver.activateApp("com.androidsample.generalstore");
+		driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/spinnerCountry")).click();
+		
+	    driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Air Jordan 4 Retro']/..//android.widget.TextView[@text='ADD TO CART']")).click();
+	    driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/counterText")).click();
+        driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/btnProceed")).click();
+        Thread.sleep(2000);
+
+        // Get all contexts
+        Set<String> contexts = driver.getContextHandles();
+        System.out.println("Available contexts: " + contexts);
+
+        // Switch to WebView
+        for (String context : contexts) {
+        	if (context.contains("WEBVIEW")) {
+        		driver.context(context);
+        		System.out.println("Switched to: " + context);
+        		break;
+        	}
+        }
+
+        // Example action in WebView
+        System.out.println("Page Title: " + driver.getTitle());
+
+        // Switch back to Native
+        driver.context("NATIVE_APP");
+        System.out.println("Switched back to Native App");
+
+        driver.quit();
+	}
+}
