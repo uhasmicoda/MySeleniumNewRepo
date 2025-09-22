@@ -34,3 +34,21 @@ Appium Server (Node.js)
 Automation Engines (UIAutomator2 / XCUITest)
        ⬇
 Mobile Device (Android / iOS)
+
+```
+
+Appium prerequisites
+
+To set up Appium for Android automation, a few prerequisites are required. First, we need the Java Development Kit (JDK), since Appium scripts are often written in Java and Android SDK tools depend on it. An IDE such as Eclipse, IntelliJ, or VS Code is required to write and manage automation scripts. Since Appium is built on top of Node.js, we must install Node.js to run the Appium server. The Appium server (Appium Desktop) acts as a middleware that translates our client commands into mobile actions. Along with this, we need the Appium drivers, such as UiAutomator2 (default for Android), which actually interacts with the Android device. For running tests, we need either a real Android device or an emulator created from Android Studio. To inspect app elements and get locators, we use Appium Inspector. Finally, Android Studio is essential because it provides the Android SDK, emulator, and ADB tools, which are mandatory for device communication and automation.
+
+| Tool / Component                       | Purpose                                                                            |
+| -------------------------------------- | ---------------------------------------------------------------------------------- |
+| **JDK (Java Development Kit)**         | Needed to run Appium scripts written in Java and for Android SDK tools.            |
+| **IDE (Eclipse / IntelliJ / VS Code)** | Where you write and manage your automation scripts.                                |
+| **Node.js**                            | Required because **Appium server** is built on Node.js.                            |
+| **Appium Server / Appium Desktop**     | The middleware that translates client commands to mobile actions.                  |
+| **Appium Drivers**                     | Platform-specific drivers: <br>👉 Android → **UiAutomator2 Driver** / Espresso     |
+| **Device (Real / Emulator)**           | The target where tests are executed (real Android phone or Android emulator).      |
+| **Appium Inspector**                   | GUI tool to inspect elements and get locators for automation.                      |
+| **Android Studio (with SDK & ADB)**    | Provides **SDK tools, Emulator, ADB commands** (mandatory for Android automation). |
+
