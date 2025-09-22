@@ -1809,7 +1809,7 @@ public class DataBaseUtility {
 
 	}
 
-	public ResultSet executeConSelectQuery(String query) throws Throwable {
+	public ResultSet executeSelectQuery(String query) throws Throwable {
 		ResultSet result = null;
 		try {
 			Statement stat = conn.createStatement();
@@ -1837,6 +1837,23 @@ public class DataBaseUtility {
 
 }
 
+```
+| **Code Part**                                          | **Type**                      | **Usage / Role**                                                                 |
+| ------------------------------------------------------ | ----------------------------- | -------------------------------------------------------------------------------- |
+| `public class DataBaseUtility`                         | Class                         | Utility class that provides methods to interact with the database.               |
+| `Connection conn;`                                     | Variable (Object)             | Holds the active database connection.                                            |
+| `Driver driver = new Driver();`                        | Class (from MySQL)            | MySQL JDBC driver class used to establish a connection between Java and DB.      |
+| `DriverManager.registerDriver(driver)`                 | Method (DriverManager class)  | Registers the JDBC driver so Java knows which DB driver to use.                  |
+| `DriverManager.getConnection(...)`                     | Method (DriverManager class)  | Establishes the connection to the database using URL, username, and password.    |
+| `Statement stat = conn.createStatement();`             | Method (Connection interface) | Creates a SQL statement object to send queries to the database.                  |
+| `stat.executeQuery(query)`                             | Method (Statement interface)  | Executes **SELECT queries** and returns a `ResultSet` containing data.           |
+| `stat.executeUpdate(query)`                            | Method (Statement interface)  | Executes **INSERT, UPDATE, DELETE queries** and returns number of rows affected. |
+| `ResultSet result`                                     | Interface                     | Stores the output (table data) from SELECT queries.                              |
+| `public void getDbConnection(...)`                     | Method                        | Opens DB connection using parameters (URL, username, password).                  |
+| `public void getDbConnection()`                        | Method (Overloaded)           | Opens DB connection using hardcoded values.                                      |
+| `public void closeDbconnection()`                      | Method                        | Closes the connection safely after operations.                                   |
+| `public ResultSet executeConSelectQuery(String query)` | Method                        | Runs SELECT queries and returns data in `ResultSet`.                             |
+| `public int executeNonSelectQuery(String query)`       | Method                        | Runs INSERT/UPDATE/DELETE and returns row count affected.                        |
 
 
 
