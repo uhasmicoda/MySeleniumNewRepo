@@ -1,7 +1,3 @@
-**APPIUM NOTES**
-
-
-
 **What is Appium explain**
 
 
@@ -34,25 +30,25 @@
 
 
 
+**| Phase    | Command        | Easy Meaning                   | Technical Meaning                                                                 |**
 
+**| -------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |**
 
-**| Component               | Example / Command                          | Easy Meaning                                | Technical Meaning                                                                 |**
+**| Clean    | `mvn clean`    | Delete old files, start fresh. | Removes previous build outputs (e.g., `target/` folder).                          |**
 
-**| ----------------------- | ------------------------------------------ | ------------------------------------------- | --------------------------------------------------------------------------------- |**
+**| Validate | `mvn validate` | Check project setup.           | Ensures project structure \& config are correct.                                   |**
 
-**| Test Script (Client)    | `driver.findElement(By.id("login")).click();` | QA’s test steps written in code.             | Script written in Java/Python/JS that defines automation steps.                   |**
+**| Compile  | `mvn compile`  | Convert code to class files.   | Compiles Java source into `.class` bytecode files.                                |**
 
-**| Appium Client Libraries | Java / Python / JS client libraries        | Translate test steps to WebDriver commands.  | Convert method calls into JSON over HTTP (WebDriver protocol).                    |**
+**| Test     | `mvn test`     | Run tests.                     | Executes unit/automation tests (JUnit, TestNG).                                   |**
 
-**| Appium Server (Node.js) | `appium` (CLI)                             | Middle layer between script and device.      | Receives JSON requests, parses them, and forwards to automation engine.           |**
+**| Package  | `mvn package`  | Make JAR/WAR file.             | Bundles compiled code + resources into a distributable (`.jar`, `.war`).          |**
 
-**| Automation Engines      | Android → UIAutomator2, Espresso<br>iOS → XCUITest | Brain that talks to OS \& app.                | Platform-specific frameworks that execute automation commands on the device.      |**
+**| Verify   | `mvn verify`   | Double-check build.            | Runs integration checks to ensure the package is valid.                           |**
 
-**| Mobile Device (Target)  | Real device / Emulator / Simulator         | Where the app actually runs.                 | Executes commands (tap, type, scroll) on the app and produces results.            |**
+**| Install  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |**
 
-**| Response Backflow       | Response JSON                              | Sends results back to script.                | Device → Engine → Appium Server → Client → Test script (success/failure/results). |**
-
-
+**| Deploy   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |**
 
 
 
