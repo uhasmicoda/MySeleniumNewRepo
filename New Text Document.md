@@ -1749,9 +1749,6 @@ public class FrameHandlingDemo {
 
 A database is an organized collection of data where information is stored in a structured way so that it can be easily managed and retrieved when needed. In simple terms, it is the backend of an application where all the records, such as user details, transactions, or product information, are saved. We use a database because it allows applications to handle large amounts of data efficiently, ensures accuracy and consistency, and makes it possible to quickly fetch or update information whenever required.
 
-From a testing perspective, my role was not directly writing complex database queries but rather verifying that the application correctly stores and retrieves data. For example, when I created or updated a record from the UI, I ensured that the same data was visible and consistent across different parts of the application. In some cases, I cross-checked values with simple queries or test data, but mainly my focus was on validating that the app and database worked together correctly.
-
-
 In my framework, we had a DatabaseUtility class to interact with the database whenever required. Instead of writing connection code every time, we used this utility. For example, if I wanted to verify whether data entered from the UI is correctly stored in the backend database, I would use the executeConSelectQuery method to fetch the data and compare it with expected values. Similarly, in some test cases, we used non-select queries to update or insert test data directly into the DB before running UI tests. After every operation, I made sure to close the database connection using the closeDbconnection() method to avoid memory issues
 
 
