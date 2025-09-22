@@ -1650,9 +1650,9 @@ public class JavaScriptExecutorDemo {
 23. Switch to Window / Switch to Tab in Selenium
 
 
-Switching to Window/Tab in Selenium means changing the WebDriver’s focus from the current browser window or tab to another one, so that automation commands can be executed in the newly opened window or tab.
+In Selenium, a window or tab represents a separate browser instance or page that opens while interacting with the application. When a new window or tab is opened, Selenium by default continues to point to the parent window, and it cannot directly interact with elements in the newly opened window. If you try to locate elements without switching, Selenium will throw a NoSuchElementException. To work with elements inside another window or tab, you must first switch the driver’s focus from the parent window to the desired child window using driver.switchTo().window(windowHandle). Once the focus is switched, you can interact with the elements inside that window normally. After completing the operations, it is important to switch back to the parent window using driver.switchTo().window(parentHandle) to continue working on the original page.
 
-In real-time applications, actions like clicking a link, login with Google, or payment gateways often open a new window or tab. By default, Selenium interacts only with the current window, so we need to switch control manually. Selenium provides getWindowHandle to get the parent window ID and getWindowHandles to capture all open window IDs. Using these, we can identify the new (child) window and switch to it with driver.switchTo().window(handle). After performing the required actions, we can close the child window and switch back to the parent to continue the execution smoothly.
+Selenium provides getWindowHandle() to fetch the unique ID (handle) of the current window and getWindowHandles() to fetch all opened window handles. By looping through these handles, we can switch to the required window or tab. Once the work is completed, we can switch back to the parent window or continue working in the newly focused window.
 
 
 ```java
