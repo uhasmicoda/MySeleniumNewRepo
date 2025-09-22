@@ -1,4 +1,4 @@
-1 Git
+## 1 Git
 
 
 
@@ -12,7 +12,9 @@ GitHub is a cloud-based platform built on top of Git. It provides a place where 
 
 Git is a distributed version control system that we use to manage our code. In my projects, we used Git with platforms like GitHub. Whenever we worked on a new feature or bug fix, we created separate branches, and once the work was done, we merged them into the main branch through pull requests. During this process, I also handled conflicts when multiple people worked on the same files. Git helped us keep track of changes, roll back if something went wrong, and made collaboration between developers and testers much easier.
 
-## Git Branching and Merging Workflow
+Git Branching and Merging Workflow
+
+
 | Step | Command / Action                  | Description                            |
 | ---- | --------------------------------- | -------------------------------------- |
 | 1    | `git init`                        | Initialize empty Git repository        |
@@ -90,7 +92,7 @@ Git is a distributed version control system that we use to manage our code. In m
 
 
 
-**2 MAVEN**
+## 2 MAVEN
 
 
 
@@ -278,7 +280,7 @@ Git is a distributed version control system that we use to manage our code. In m
 ```
 
 
-3 Jenkins
+## 3 Jenkins
 
 
 
@@ -354,7 +356,7 @@ Automates test execution on schedule.               |**
 
 
 
-**4 EXTENT REPORT**
+## 4 EXTENT REPORT
 
 
 
@@ -428,7 +430,7 @@ public class ExtentReportEnhanced {
 ```
 
 
-**5 Exceptions and Their Solutions**
+## 5 Exceptions and Their Solutions
 
 
 
@@ -461,7 +463,7 @@ public class ExtentReportEnhanced {
 
 
 
-**6 LISTENERS**
+## 6 LISTENERS**
 
 
 
@@ -609,7 +611,7 @@ public class LoginTest {
 
 
 
-**7 TestNG Annotations**
+## 7 TestNG Annotations**
 
 
 **In TestNG, annotations are special instructions that we place above methods, starting with the @ symbol, to control the test execution flow. They tell TestNG when and how a particular method should run during the test lifecycle.**
@@ -648,7 +650,7 @@ public class LoginTest {
 
 
 
-8 UtilityClassObject
+## 8 UtilityClassObject
 
 UtilityClassObject is designed to manage WebDriver and ExtentTest objects in a thread-safe manner, which is especially important during parallel test execution. When multiple tests run simultaneously, sharing the same WebDriver or ExtentTest instances can cause conflicts, such as overlapping commands, mixed logs, or inconsistent results. To prevent this, UtilityClassObject uses ThreadLocal, which ensures that each test thread gets its own independent copy of WebDriver and ExtentTest. Setter methods store these objects in the thread-local storage at the start of the test, and getter methods retrieve them during execution. This approach isolates each test, keeping reports, logs, and browser actions separate, making parallel execution reliable and maintaining clean, accurate test reports. Essentially, it provides each test thread with its own private workspace, avoiding interference between tests.
 
@@ -687,7 +689,7 @@ How to implement UtilityClassObject
 To implement UtilityClassObject, you first create a utility class that contains two ThreadLocal variables—one for WebDriver and one for ExtentTest. These variables ensure that each test thread gets its own independent copy, preventing interference when tests run in parallel. You then create getter and setter methods for both WebDriver and ExtentTest so that you can assign and retrieve these objects for the current thread during test execution. In your test setup, you assign a WebDriver instance and an ExtentTest instance to the current thread using the setter methods. During the test, whenever you need to interact with the browser or log test information, you retrieve the thread-specific instances using the getter methods. This approach ensures that each test has its own isolated browser session and reporting object, avoiding conflicts, maintaining clean logs, and making parallel execution reliable and thread-safe.
 
 
-9 What is testing.xlm file.
+## 9 What is testing.xlm file.
 
 testng.xml is like a control file for TestNG. Instead of hardcoding everything in the code, we use this XML file to tell TestNG which test classes to run, in what order, and with what settings. For example, we can group tests, run them in parallel, or pass parameters directly from the file. It basically makes test execution easier to manage and more flexible.
 
@@ -717,7 +719,7 @@ Instead of me running test classes one by one, this file tells TestNG which test
 
 
 ```
-10 Java–Selenium Architecture.
+## 10 Java–Selenium Architecture.
 
 
 In my experience, the Selenium Java architecture is designed using OOP concepts like abstraction, inheritance, and runtime polymorphism. At the base, we have the SearchContext interface, which provides the fundamental methods like findElement() and findElements(). On top of that, the WebDriver interface extends SearchContext and adds browser-level methods such as get(), getTitle(), navigate(), close(), and quit(). Since WebDriver is just an interface, it only defines the behavior, but the actual implementation is provided by the RemoteWebDriver class. Browser-specific drivers like ChromeDriver or FirefoxDriver extend RemoteWebDriver and handle the communication with their respective browsers. In real projects, we usually use runtime polymorphism — for example, when I write WebDriver driver = new ChromeDriver();, I’m upcasting the ChromeDriver object to the WebDriver interface. This makes my framework browser-independent, because if I want to run the same test on Firefox, I only change the object creation, not the rest of the test logic. This architecture is what gives Selenium its flexibility and power for cross-browser testing.
@@ -734,7 +736,7 @@ In my experience, the Selenium Java architecture is designed using OOP concepts 
 
 
 
-11 Screenshot 
+## 11 Screenshot 
 
 In Selenium, a screenshot is basically a captured image of the browser at a particular point during test execution. It is very useful because it helps in bug reporting—when a test fails, a screenshot gives developers a clear idea of what went wrong. It also serves as evidence that a test was executed on a specific page or functionality, and it helps in debugging by showing the exact UI state when something unexpected happens. Many teams also include screenshots in reports like ExtentReports or Allure to provide visual proof of the test run. Screenshots can be taken in two main ways: one is a full-page screenshot, where we capture the entire visible browser window, and the other is an element screenshot, where we capture only a specific element like a button, logo, or text field. Depending on the requirement, we use either of these approaches to make our testing more effective and reliable.
 
@@ -816,7 +818,7 @@ public class ScreenShote {
 | `File src`                             | Class         | `java.io.File`                         | Stores the temporary screenshot file returned by Selenium.                   |
 | `FileHandler.copy(src, new File("…"))` | Method        | `org.openqa.selenium.io.FileHandler`   | Copies the temporary file to a permanent location on disk.                   |
 
-12 Page Object Model or POM
+## 12 Page Object Model or POM
 
 Page Object Model, or POM, is a design pattern used in Selenium where we create separate classes for each page of the application. Each class stores the locators of the elements on that page and the methods to interact with them. This way, instead of writing locators directly inside test cases, we keep them in one place, which makes the code cleaner, reusable, and easier to maintain. If anything changes in the UI, we just update the locator in the page class and don’t need to touch the test logic. In short, POM helps in reducing code duplication and makes the framework more scalable.
 
@@ -946,7 +948,7 @@ findElements(By) → Finds all matching elements
 | `printAllLinks()`                        | Method / Action   | Example method to iterate and read all links on the page.                          |
 
 
-13 WEDRIVER
+## 13 WEDRIVER
 
 1 WEDRIVER ALL METHODS
 
