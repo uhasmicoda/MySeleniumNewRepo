@@ -152,6 +152,60 @@ options.setNewCommandTimeout(Duration.ofSeconds(60));       // Timeout for new c
 | `ignoreHiddenApiPolicyError` | `true`                             | Avoids failures caused by hidden API restrictions in newer Android versions.  |
 | `newCommandTimeout`          | `60`                               | Time (in seconds) Appium waits for new commands before ending the session.    |
 
+## 6 AndroidDriver
+
+AndroidDriver is a specialized class provided by Appium (in the Appium Java Client library) that is used to automate Android devices and applications. It extends the RemoteWebDriver class from Selenium, which means it inherits all the basic browser automation commands (like findElement, click, sendKeys) and then adds Android-specific features on top of it.
+
+
+It acts as a bridge between your test script and the Android device. Since it extends Selenium’s RemoteWebDriver, it can perform all the standard Selenium actions (like click(), sendKeys(), getText()) and also provides Android-specific capabilities (like accessing device settings, notifications, or app activities), this makes it a powerful driver because it doesn’t just automate browsers, but also real Android apps and even device-level operations.
+
+While Selenium WebDriver is mainly built for automating browsers, AndroidDriver is built for mobile automation. It not only allows you to automate mobile web browsers but also native and hybrid mobile apps. The unique advantage of AndroidDriver is that it can perform both app-level operations and device-level operations, which Selenium alone cannot handle.
+
+With AndroidDriver, you can perform actions such as launching and closing apps, installing and uninstalling apps, rotating the device screen, opening the notification panel, toggling airplane mode, checking whether an app is installed, and retrieving the current app’s package and activity. These capabilities go beyond traditional web automation and give you full control over the Android environment.
+
+When you create an AndroidDriver object in your test script, you provide two important things: the Appium server URL and a set of desired capabilities (like deviceName, platformName, appPackage, and appActivity). The AndroidDriver uses this information to establish a session with the Appium server.
+
+Once the session is established, the Appium server communicates with the Android automation engine, usually UiAutomator2 (or Espresso). This engine runs on the device and executes the commands sent from the AndroidDriver. For example, if your script calls driver.findElement().click(), the command travels from your code → AndroidDriver → Appium Server → UiAutomator2 → Android device. Finally, the result is sent back through the same path.
+
+| **Category**                | **Method**                                                 | **Purpose**                                            | **Example**                                                         |
+| --------------------------- | ---------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------- |
+| **App Management**          | `installApp(String appPath)`                               | Installs an app on the device.                         | `driver.installApp("C:\\apps\\myApp.apk");`                         |
+|                             | `isAppInstalled(String bundleId)`                          | Checks if an app is installed.                         | `driver.isAppInstalled("com.example.myapp");`                       |
+|                             | `activateApp(String appPackage)`                           | Launches an already installed app.                     | `driver.activateApp("com.example.myapp");`                          |
+|                             | `terminateApp(String appPackage)`                          | Closes the given app.                                  | `driver.terminateApp("com.example.myapp");`                         |
+|                             | `removeApp(String appPackage)`                             | Uninstalls the given app.                              | `driver.removeApp("com.example.myapp");`                            |
+|                             | `launchApp()`                                              | Launches the app defined in capabilities.              | `driver.launchApp();`                                               |
+|                             | `closeApp()`                                               | Closes the current app.                                | `driver.closeApp();`                                                |
+|                             | `resetApp()`                                               | Resets the app (clears data and restarts).             | `driver.resetApp();`                                                |
+| **Device Interaction**      | `lockDevice()`                                             | Locks the device.                                      | `driver.lockDevice();`                                              |
+|                             | `unlockDevice()`                                           | Unlocks the device.                                    | `driver.unlockDevice();`                                            |
+|                             | `isDeviceLocked()`                                         | Checks if the device is locked.                        | `driver.isDeviceLocked();`                                          |
+|                             | `toggleAirplaneMode()`                                     | Switch airplane mode on/off.                           | `driver.toggleAirplaneMode();`                                      |
+|                             | `toggleData()`                                             | Enable/disable mobile data.                            | `driver.toggleData();`                                              |
+|                             | `toggleWiFi()`                                             | Enable/disable Wi-Fi.                                  | `driver.toggleWiFi();`                                              |
+|                             | `toggleLocationServices()`                                 | Enable/disable location services.                      | `driver.toggleLocationServices();`                                  |
+|                             | `hideKeyboard()`                                           | Hides the software keyboard.                           | `driver.hideKeyboard();`                                            |
+|                             | `openNotifications()`                                      | Opens the notification drawer.                         | `driver.openNotifications();`                                       |
+|                             | `shake()`                                                  | Simulates device shake.                                | `driver.shake();`                                                   |
+| **Screen & Orientation**    | `rotate(ScreenOrientation orientation)`                    | Rotates the screen (PORTRAIT / LANDSCAPE).             | `driver.rotate(ScreenOrientation.LANDSCAPE);`                       |
+|                             | `getOrientation()`                                         | Gets current screen orientation.                       | `driver.getOrientation();`                                          |
+|                             | `getRotation()`                                            | Gets exact rotation (0, 90, 180, 270).                 | `driver.getRotation();`                                             |
+|                             | `setClipboardText(String text)`                            | Copies text to clipboard.                              | `driver.setClipboardText("Hello Appium");`                          |
+|                             | `getClipboardText()`                                       | Gets text from clipboard.                              | `driver.getClipboardText();`                                        |
+| **Context & Session**       | `getContext()`                                             | Returns current context (NATIVE\_APP / WEBVIEW).       | `driver.getContext();`                                              |
+|                             | `getContextHandles()`                                      | Lists all available contexts.                          | `driver.getContextHandles();`                                       |
+|                             | `context(String name)`                                     | Switches context to WEBVIEW or NATIVE.                 | `driver.context("WEBVIEW_com.example");`                            |
+|                             | `quit()`                                                   | Ends session and closes connection with Appium server. | `driver.quit();`                                                    |
+| **Activity & Package Info** | `currentActivity()`                                        | Returns the name of the current activity.              | `driver.currentActivity();`                                         |
+|                             | `getCurrentPackage()`                                      | Returns the app package currently in use.              | `driver.getCurrentPackage();`                                       |
+|                             | `startActivity(Activity activity)`                         | Starts a new activity inside the app.                  | `driver.startActivity(new Activity("com.example","MainActivity"));` |
+| **Gestures & Touch**        | `performTouchAction(TouchAction action)`                   | Perform touch actions like tap, press, swipe.          | `action.tap(PointOption.point(100,200)).perform();`                 |
+|                             | `multiTouchAction(MultiTouchAction action)`                | Perform multi-touch actions.                           | `multiAction.add(action1).add(action2).perform();`                  |
+| **Other Utilities**         | `getDeviceTime()`                                          | Returns the device time.                               | `driver.getDeviceTime();`                                           |
+|                             | `getBatteryInfo()`                                         | Returns battery status.                                | `driver.getBatteryInfo();`                                          |
+|                             | `getPerformanceData(String pkg, String type, int timeout)` | Get CPU/memory/network performance data.               | `driver.getPerformanceData("com.example","cpuinfo",5);`             |
+|                             | `isKeyboardShown()`                                        | Checks if the keyboard is visible.                     | `driver.isKeyboardShown();`                                         |
+
 
 
 
