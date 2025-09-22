@@ -1,10 +1,10 @@
-## 1 What is Appium explain
+## 1 What is Appium.
 
 Appium is an open-source mobile automation testing tool that is used to test mobile applications (Native, Hybrid, and Mobile Web apps) on both Android and iOS platforms.
 It works on the principle of "Write once, run anywhere", which means the same test script can be executed on different devices and platforms without changing the code.
 
 
-## 2 Appium architecture
+## 2 Appium architecture.
 
 In my experience, Appium follows a client-server architecture that allows us to automate mobile applications across different platforms. At the top, we have the test scripts, which are written using Appium client libraries in languages like Java, Python, or JavaScript. These client libraries act as a bridge, converting our test commands into JSON requests over HTTP, following the WebDriver protocol.
 
@@ -37,7 +37,7 @@ Mobile Device (Android / iOS)
 
 ```
 
-## 3 Appium prerequisites
+## 3 Appium prerequisites.
 
 To set up Appium for Android automation, a few prerequisites are required. First, we need the Java Development Kit (JDK), since Appium scripts are often written in Java and Android SDK tools depend on it. An IDE such as Eclipse, IntelliJ, or VS Code is required to write and manage automation scripts. Since Appium is built on top of Node.js, we must install Node.js to run the Appium server. The Appium server (Appium Desktop) acts as a middleware that translates our client commands into mobile actions. Along with this, we need the Appium drivers, such as UiAutomator2 (default for Android), which actually interacts with the Android device. For running tests, we need either a real Android device or an emulator created from Android Studio. To inspect app elements and get locators, we use Appium Inspector. Finally, Android Studio is essential because it provides the Android SDK, emulator, and ADB tools, which are mandatory for device communication and automation.
 
@@ -53,7 +53,7 @@ To set up Appium for Android automation, a few prerequisites are required. First
 | **Android Studio (with SDK & ADB)**    | Provides **SDK tools, Emulator, ADB commands** (mandatory for Android automation). |
 
 
-## 4 What are Desired Capabilities in Appium?
+## 4 What are Desired Capabilities in Appium.
 
 In Appium, Desired Capabilities are basically a set of key–value pairs that act like instructions for the Appium server, telling it what kind of automation session we want to start. Whenever we write a test script, before executing any action, our client script sends these capabilities to the Appium server in the form of a JSON object. The server then uses this information to launch the right platform, the right device, and the right application. For example, in Android automation, we usually define capabilities such as the platform name, platform version, device name, automation engine (like UiAutomator2), and the details of the application under test such as app package and app activity. Similarly, for iOS we provide capabilities like platform name, platform version, device UDID, automation engine (like XCUITest), and the bundle ID of the app. Desired Capabilities make the framework flexible because by changing these values we can run the same test scripts on different devices, OS versions, or even on real devices and emulators without changing the core logic of our test. In short, they act as the bridge between our test scripts and the mobile environment by defining all the necessary configurations for a successful session.
 
@@ -90,7 +90,7 @@ caps.setCapability("ignoreHiddenApiPolicyError", true); // Ignore hidden API pol
 caps.setCapability("newCommandTimeout", 60);            // Timeout (in seconds) for new commands
 ```
 
-## 5 UiAutomator2Options
+## 5 UiAutomator2Options.
 UiAutomator2Options is a special class introduced in Appium 2.x under the package io.appium.java_client.android.options. Its main purpose is to define the capabilities of an Android device or emulator in a more structured and type-safe way. Earlier, in Appium 1.x, testers used DesiredCapabilities to pass these values, but the problem was that everything was written as key–value strings (for example, "platformName", "deviceName"). If you made a small spelling mistake in the capability name, the script would fail, and debugging was difficult.
 
 With Appium 2.x, the Appium team introduced the concept of Options classes, such as UiAutomator2Options for Android and XCUITestOptions for iOS. These classes provide dedicated setter methods like setDeviceName(), setAppPackage(), or setAppActivity(). This not only makes the code cleaner and easier to read, but also gives autocomplete suggestions in the IDE, which helps avoid mistakes. For example, instead of writing caps.setCapability("deviceName", "Pixel_5"), now you can simply write options.setDeviceName("Pixel_5").
@@ -152,7 +152,7 @@ options.setNewCommandTimeout(Duration.ofSeconds(60));       // Timeout for new c
 | `ignoreHiddenApiPolicyError` | `true`                             | Avoids failures caused by hidden API restrictions in newer Android versions.  |
 | `newCommandTimeout`          | `60`                               | Time (in seconds) Appium waits for new commands before ending the session.    |
 
-## 6 AndroidDriver
+## 6 AndroidDriver.
 
 AndroidDriver is a specialized class provided by Appium (in the Appium Java Client library) that is used to automate Android devices and applications. It extends the RemoteWebDriver class from Selenium, which means it inherits all the basic browser automation commands (like findElement, click, sendKeys) and then adds Android-specific features on top of it.
 
@@ -207,7 +207,10 @@ Once the session is established, the Appium server communicates with the Android
 |                             | `isKeyboardShown()`                                        | Checks if the keyboard is visible.                     | `driver.isKeyboardShown();`                                         |
 
 
-## 7 Appium Inspector
+
+
+
+## 7 Appium Inspector.
 
 Appium Inspector is a graphical tool that allows testers and developers to inspect and interact with a mobile app’s UI while creating automation. It connects with the Appium server and the target device (real or emulator) to display the app’s UI hierarchy, element properties, and a live screenshot. This makes it easier to find and verify locators before writing test scripts.
 
@@ -231,8 +234,145 @@ To configure Appium Inspector, first make sure you have the Appium server instal
 | 6        | Inspect App                 | Inspector displays app screen, UI hierarchy, and element attributes for locator identification and validation.                                                                     |
 
 
+## 8 AndroidUtility class
+
+The AndroidUtility class is a reusable helper built on top of Appium’s AndroidDriver to make mobile automation easier and cleaner. Instead of writing driver method calls repeatedly in test scripts, we group all commonly used Android operations like app management, device interactions, screen orientation handling, and utility functions into this single class.
+
+It helps us install/uninstall apps, launch or close them, toggle device states (like airplane mode, notifications, or keyboard), rotate the screen, and fetch app or device details when needed. By centralizing these methods, the utility class improves reusability, readability, and maintainability of automation scripts, making testing faster and more efficient.
 
 
+```java
+package Utilities;
 
+import org.openqa.selenium.ScreenOrientation;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
+
+public class AndroidUtility {
+    AndroidDriver driver;
+
+    public AndroidUtility(AndroidDriver driver) {
+        this.driver = driver;
+    }
+
+    // ----------- App Management -----------
+    public void installApp(String path) {
+        driver.installApp(path);
+    }
+
+    public void activateApp(String appPackage) {
+        driver.activateApp(appPackage);
+    }
+
+    public void terminateApp(String appPackage) {
+        driver.terminateApp(appPackage);
+    }
+
+    public void deleteApp(String appPackage) {
+        driver.removeApp(appPackage);
+    }
+
+    public boolean isAppInstalled(String appPackage) {
+        return driver.isAppInstalled(appPackage);
+    }
+
+    public void launchApp() {
+        driver.launchApp();
+    }
+
+    public void closeApp() {
+        driver.closeApp();
+    }
+
+    public void resetApp() {
+        driver.resetApp();
+    }
+
+    // ----------- Device Interaction -----------
+    public void hideKeyboard() {
+        driver.hideKeyboard();
+    }
+
+    public void airplaneMode() {
+        driver.toggleAirplaneMode();
+    }
+
+    public void openNotifications() {
+        driver.openNotifications();
+    }
+
+    public void lockDevice(int seconds) {
+        driver.lockDevice(seconds);
+    }
+
+    public void unlockDevice() {
+        driver.unlockDevice();
+    }
+
+    public boolean isDeviceLocked() {
+        return driver.isDeviceLocked();
+    }
+
+    // ----------- Screen & Orientation -----------
+    public void portraitOrientation() {
+        driver.rotate(ScreenOrientation.PORTRAIT);
+    }
+
+    public void landscapeOrientation() {
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+    }
+
+    public ScreenOrientation getOrientation() {
+        return driver.getOrientation();
+    }
+
+    // ----------- App Info -----------
+    public String getCurrentPackage() {
+        return driver.getCurrentPackage();
+    }
+
+    public String getCurrentActivity() {
+        return driver.currentActivity();
+    }
+
+    public void startActivity(String appPackage, String appActivity) {
+        driver.startActivity(new Activity(appPackage, appActivity));
+    }
+
+    // ----------- Clipboard -----------
+    public void setClipboardText(String text) {
+        driver.setClipboardText(text);
+    }
+
+    public String getClipboardText() {
+        return driver.getClipboardText();
+    }
+
+    // ----------- Keyboard Info -----------
+    public boolean isKeyboardShown() {
+        return driver.isKeyboardShown();
+    }
+
+    // ----------- Other Useful Utilities -----------
+    public String getDeviceTime() {
+        return driver.getDeviceTime();
+    }
+
+    public String getBatteryInfo() {
+        return driver.getBatteryInfo().toString();
+    }
+}
+```
+
+How to implement 
+
+To implement AndroidUtility, first I create the class and pass the AndroidDriver object through its constructor so that all methods can use the same driver instance. Inside this class, I define reusable methods like installApp, activateApp, hideKeyboard, openNotifications, rotate screen, etc.
+
+In my test scripts, instead of calling driver methods directly, I just create an object of AndroidUtility and call these helper methods. For example:
+
+```java
+AndroidUtility util = new AndroidUtility(driver);
+util.openNotifications();
+util.portraitOrientation();
 
 
