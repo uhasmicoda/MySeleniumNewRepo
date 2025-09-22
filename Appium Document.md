@@ -36,21 +36,21 @@
 
 
 
-**| \*\*Layer / Component\*\*       | \*\*Description\*\*                                                                                                 | \*\*Example / Role\*\*                                         |**
+**| Layer / Component       | Description                                                                                                 | Example / Role                                      |**
 
-**| --------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |**
+**| ----------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |**
 
-**| \*\*Test Script (Client)\*\*    | Test cases written by QA using Appium client libraries in Java, Python, JavaScript, etc.                        | `driver.findElement(By.id("login")).click();`              |**
+**| Test Script (Client)    | Test cases written by QA using Appium client libraries in Java, Python, JavaScript, etc.                    | `driver.findElement(By.id("login")).click();`       |**
 
-**| \*\*Appium Client Libraries\*\* | Converts test commands into \*\*JSON over HTTP\*\* requests following the WebDriver protocol.                       | Acts as a \*\*bridge\*\* between script and server.            |**
+**| Appium Client Libraries | Converts test commands into JSON over HTTP requests following the WebDriver protocol.                       | Acts as a bridge between script and server.         |**
 
-**| \*\*Appium Server (Node.js)\*\* | Receives JSON requests from client, translates them into platform-specific commands.                            | Runs on Node.js, works like a \*\*middle layer\*\*.            |**
+**| Appium Server (Node.js) | Receives JSON requests from client, translates them into platform-specific commands.                        | Runs on Node.js, works like a middle layer.         |**
 
-**| \*\*Automation Engines\*\*      | Platform-specific automation frameworks that interact directly with the OS and app.                             | \*\*Android\*\* → UIAutomator2, Espresso<br>\*\*iOS\*\* → XCUITest |**
+**| Automation Engines      | Platform-specific automation frameworks that interact directly with the OS and app.                         | Android → UIAutomator2, Espresso; iOS → XCUITest    |**
 
-**| \*\*Mobile Device (Target)\*\*  | Real device, emulator, or simulator where the app is installed. Executes the commands and returns the response. | Android phone, iPhone, or emulator/simulator               |**
+**| Mobile Device (Target)  | Real device, emulator, or simulator where the app is installed. Executes the commands and returns response. | Android phone, iPhone, or emulator/simulator        |**
 
-**| \*\*Response Backflow\*\*       | Result of action is passed back → Device → Engine → Appium Server → Client script.                              | Example: Button click success, text retrieved, etc.        |**
+**| Response Backflow       | Result of action is passed back → Device → Engine → Appium Server → Client script.                          | Example: Button click success, text retrieved, etc. |**
 
 
 
