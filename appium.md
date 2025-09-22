@@ -207,6 +207,31 @@ Once the session is established, the Appium server communicates with the Android
 |                             | `isKeyboardShown()`                                        | Checks if the keyboard is visible.                     | `driver.isKeyboardShown();`                                         |
 
 
+## 7 Appium Inspector
+
+Appium Inspector is a graphical tool that allows testers and developers to inspect and interact with a mobile app’s UI while creating automation. It connects with the Appium server and the target device (real or emulator) to display the app’s UI hierarchy, element properties, and a live screenshot. This makes it easier to find and verify locators before writing test scripts.
+
+To use it, you start an Appium session by providing desired capabilities (like platformName, deviceName, appPackage/appActivity, or bundleId). Once connected, Inspector shows a tree view of UI elements alongside a screenshot. Selecting an element highlights it on the screen and displays attributes such as resource-id, class, text, accessibility id, or XPath, helping you decide the most stable locator strategy.
+
+Inspector also supports basic interactions like tap, send keys, swipe, or scroll directly from the tool. It can generate locator strings or code snippets to speed up script writing. For hybrid apps, Inspector allows switching between contexts (NATIVE_APP and WEBVIEW) and inspecting web elements, which simplifies debugging across native and web views.
+
+
+How to configure Appium instpector
+
+To configure Appium Inspector, first make sure you have the Appium server installed and running, either through the Appium Desktop app or Appium server on command line. Then open Appium Inspector, enter the same desired capabilities you use in your automation framework, such as platformName (Android/iOS), deviceName, automationName (like UiAutomator2 or XCUITest), and app details (for Android: appPackage and appActivity, for iOS: bundleId). Next, provide the Remote Host and Port where your Appium server is running (by default 0.0.0.0 and 4723). Once these details are filled, you can click the “Start Session” button, which launches a live session with the connected device or emulator. From there, Appium Inspector shows you the app’s screen, UI hierarchy, and all element attributes, which you can use for identifying locators and validating them before writing automation code.
+
+
+| **Step** | **Action**                  | **Details**                                                                                                                                                                        |
+| -------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1        | Install & Run Appium Server | Install Appium Desktop or run Appium server via command line.                                                                                                                      |
+| 2        | Open Appium Inspector       | Launch the Appium Inspector application.                                                                                                                                           |
+| 3        | Enter Desired Capabilities  | Provide values like: <br>• platformName (Android/iOS) <br>• deviceName <br>• automationName (UiAutomator2/XCUITest) <br>• appPackage & appActivity (Android) <br>• bundleId (iOS). |
+| 4        | Configure Server Details    | Enter Remote Host (default: 0.0.0.0) and Port (default: 4723).                                                                                                                     |
+| 5        | Start Session               | Click **“Start Session”** to connect Inspector with the device/emulator.                                                                                                           |
+| 6        | Inspect App                 | Inspector displays app screen, UI hierarchy, and element attributes for locator identification and validation.                                                                     |
+
+
+
 
 
 
