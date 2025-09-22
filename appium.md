@@ -448,6 +448,47 @@ public class ContextDemo {
 }
 
 ```
+
 In Appium, when we launch a mobile application, it starts in the NATIVE_APP context by default, which allows interaction with native elements like buttons, text fields, and menus. Many modern apps are hybrid, containing embedded web pages (WebViews), so to interact with web elements, we need to switch the context. First, we retrieve all available contexts using driver.getContextHandles(), which usually returns something like [NATIVE_APP, WEBVIEW_com.example.myapp]. Then we switch to the WebView context using driver.context("WEBVIEW_com.example.myapp") and perform Selenium-like actions on the web elements. Once the web actions are complete, we switch back to the native context using driver.context("NATIVE_APP"). This context handling feature in Appium allows seamless automation of hybrid apps, enabling testers to work with both native and web components within a single test script.
+
+
+## 10 ADB and its command
+
+ADB (Android Debug Bridge) is a versatile command-line tool that comes with the Android SDK. It acts as a bridge between your computer and an Android device—either a real device or an emulator—allowing you to send instructions, retrieve information, and control the device remotely. This is extremely useful for developers and testers because it provides capabilities that are otherwise not easily available through the device’s touchscreen or settings.
+
+
+| **ADB Command**                                                         | **Usage / Description**               | **Notes / Corrected Version**              |                               |
+| ----------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------ | ----------------------------- |
+| `adb devices`                                                           | Check connected devices/emulators     | Lists device ID and status                 |                               |
+| `adb install <path_to_apk>`                                             | Install an APK on the device          | Full path required                         |                               |
+| `adb uninstall <package_name>`                                          | Uninstall an app                      | e.g., `adb uninstall com.example.app`      |                               |
+| `adb shell pm list packages`                                            | List all installed packages           | Add \`                                     | findstr <keyword>\` to filter |
+| `adb shell dumpsys battery set level <value>`                           | Set battery level                     | Value between 0-100                        |                               |
+| `adb shell dumpsys battery reset`                                       | Reset battery level to device default | -                                          |                               |
+| `adb shell am start -a android.intent.action.CALL -d tel:<phoneNumber>` | Make a call                           | Replace `<phoneNumber>` with actual number |                               |
+| `adb shell input keyevent KEYCODE_ENDCALL`                              | End an ongoing call                   | -                                          |                               |
+| `adb shell input keyevent KEYCODE_HOME`                                 | Go back to Home screen                | -                                          |                               |
+| `adb shell input keyevent KEYCODE_BACK`                                 | Navigate back                         | -                                          |                               |
+| `adb shell charger set usb 0`                                           | Disconnect USB charger                | 0 = disconnect, 1 = connect                |                               |
+| `adb shell svc wifi enable/disable`                                     | Turn Wi-Fi on/off                     | Use `enable` or `disable`                  |                               |
+| `adb shell svc data enable/disable`                                     | Turn mobile data on/off               | Use `enable` or `disable`                  |                               |
+| `adb shell input text "text"`                                           | Enter text on device                  | Quotes needed for spaces                   |                               |
+| `adb shell input swipe x1 y1 x2 y2 [duration(ms)]`                      | Perform swipe                         | Optional duration in ms                    |                               |
+| `adb shell input tap x y`                                               | Perform tap at coordinates            | -                                          |                               |
+| \`adb shell dumpsys window                                              | findstr "mCurrentFocus"\`             | Check current foreground app               | -                             |
+| `adb logcat`                                                            | Capture device logs                   | Shows live logs                            |                               |
+| `adb logcat -d > logs.txt`                                              | Save logs to file                     | `-d` dumps current logs and exits          |                               |
+| \`adb logcat \*:E                                                       | findstr \<package\_name>\`            | Capture error logs only for app            | `*:E` filters error logs      |
+| `adb -s <device_id> <command>`                                          | Perform action on a specific device   | Device ID from `adb devices`               |                               |
+| `adb -s <device_id> shell screencap -p /sdcard/screenshot.png`          | Take screenshot on specific device    | -                                          |                               |
+| `adb shell screencap -p /sdcard/screenshot.png`                         | Take screenshot on default device     | -                                          |                               |
+| `adb pull /sdcard/screenshot.png <local_path>`                          | Pull screenshot from device to PC     | Replace `<local_path>`                     |                               |
+| `adb push <local_file_path> <device_path>`                              | Push file from PC to device           | Replace paths accordingly                  |                               |
+| `adb pull <device_file_path> <local_path>`                              | Pull file from device to PC           | Replace paths accordingly                  |                               |
+| `adb bugreport`                                                         | Generate full bug report              | Can take time, outputs device logs         |                               |
+| `adb bugreport > report.txt`                                            | Save bug report to file               | -                                          |                               |
+
+
+
 
 
