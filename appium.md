@@ -418,7 +418,7 @@ public class ContextDemo {
 		driver.activateApp("com.androidsample.generalstore");
 		driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/spinnerCountry")).click();
 		
-	    driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Air Jordan 4 Retro']/..//android.widget.TextView[@text='ADD TO CART']")).click();
+	    driver.findElement(AppiumBy.xpath("//android.widget.TextView//android.widget.TextView[@text='ADD TO CART']")).click();
 	    driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/counterText")).click();
         driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/btnProceed")).click();
         Thread.sleep(2000);
@@ -446,3 +446,8 @@ public class ContextDemo {
         driver.quit();
 	}
 }
+
+```
+In Appium, when we launch a mobile application, it starts in the NATIVE_APP context by default, which allows interaction with native elements like buttons, text fields, and menus. Many modern apps are hybrid, containing embedded web pages (WebViews), so to interact with web elements, we need to switch the context. First, we retrieve all available contexts using driver.getContextHandles(), which usually returns something like [NATIVE_APP, WEBVIEW_com.example.myapp]. Then we switch to the WebView context using driver.context("WEBVIEW_com.example.myapp") and perform Selenium-like actions on the web elements. Once the web actions are complete, we switch back to the native context using driver.context("NATIVE_APP"). This context handling feature in Appium allows seamless automation of hybrid apps, enabling testers to work with both native and web components within a single test script.
+
+
