@@ -37,7 +37,7 @@ Mobile Device (Android / iOS)
 
 ```
 
-Appium prerequisites
+3 Appium prerequisites
 
 To set up Appium for Android automation, a few prerequisites are required. First, we need the Java Development Kit (JDK), since Appium scripts are often written in Java and Android SDK tools depend on it. An IDE such as Eclipse, IntelliJ, or VS Code is required to write and manage automation scripts. Since Appium is built on top of Node.js, we must install Node.js to run the Appium server. The Appium server (Appium Desktop) acts as a middleware that translates our client commands into mobile actions. Along with this, we need the Appium drivers, such as UiAutomator2 (default for Android), which actually interacts with the Android device. For running tests, we need either a real Android device or an emulator created from Android Studio. To inspect app elements and get locators, we use Appium Inspector. Finally, Android Studio is essential because it provides the Android SDK, emulator, and ADB tools, which are mandatory for device communication and automation.
 
@@ -51,4 +51,101 @@ To set up Appium for Android automation, a few prerequisites are required. First
 | **Device (Real / Emulator)**           | The target where tests are executed (real Android phone or Android emulator).      |
 | **Appium Inspector**                   | GUI tool to inspect elements and get locators for automation.                      |
 | **Android Studio (with SDK & ADB)**    | Provides **SDK tools, Emulator, ADB commands** (mandatory for Android automation). |
+
+
+## 4 What are Desired Capabilities in Appium?
+
+In Appium, Desired Capabilities are basically a set of key–value pairs that act like instructions for the Appium server, telling it what kind of automation session we want to start. Whenever we write a test script, before executing any action, our client script sends these capabilities to the Appium server in the form of a JSON object. The server then uses this information to launch the right platform, the right device, and the right application. For example, in Android automation, we usually define capabilities such as the platform name, platform version, device name, automation engine (like UiAutomator2), and the details of the application under test such as app package and app activity. Similarly, for iOS we provide capabilities like platform name, platform version, device UDID, automation engine (like XCUITest), and the bundle ID of the app. Desired Capabilities make the framework flexible because by changing these values we can run the same test scripts on different devices, OS versions, or even on real devices and emulators without changing the core logic of our test. In short, they act as the bridge between our test scripts and the mobile environment by defining all the necessary configurations for a successful session.
+
+
+``java
+DesiredCapabilities caps = new DesiredCapabilities();
+
+// Platform & Device details
+caps.setCapability("platformName", "Android");          // Mobile OS
+caps.setCapability("platformVersion", "13.0");          // Android version
+caps.setCapability("deviceName", "Pixel_5");            // Emulator/Real device name
+caps.setCapability("automationName", "UiAutomator2");   // Automation engine
+
+// Application details
+caps.setCapability("appPackage", "com.example.myapp");               // App package name
+caps.setCapability("appActivity", "com.example.myapp.MainActivity"); // App launch activity
+caps.setCapability("app", "C:\\apps\\myapp.apk");                    // Path to the APK file
+
+// App behavior settings
+caps.setCapability("noReset", true);         // Don’t reset app data between sessions
+caps.setCapability("fullReset", false);      // Don’t uninstall app between sessions
+caps.setCapability("autoGrantPermissions", true); // Grant all runtime permissions automatically
+
+// Keyboard settings
+caps.setCapability("unicodeKeyboard", true); // Support Unicode input (e.g., Hindi, emojis, etc.)
+caps.setCapability("resetKeyboard", true);   // Reset to normal keyboard after test
+
+// Device unlock settings
+caps.setCapability("unlockType", "pin");     // Unlock method (pin, pattern, password)
+caps.setCapability("unlockKey", "1234");     // Unlock key (your actual PIN/pattern/password)
+
+// Extra configs
+caps.setCapability("ignoreHiddenApiPolicyError", true); // Ignore hidden API policy errors
+caps.setCapability("newCommandTimeout", 60);            // Timeout (in seconds) for new commands
+
+```java 
+import io.appium.java_client.android.options.UiAutomator2Options;
+
+UiAutomator2Options options = new UiAutomator2Options();
+
+// Platform & Device details
+options.setPlatformName("Android");           // Mobile OS
+options.setPlatformVersion("13.0");           // Android version
+options.setDeviceName("Pixel_5");             // Emulator/Real device name
+options.setAutomationName("UiAutomator2");    // Automation engine
+
+// Application details
+options.setAppPackage("com.example.myapp");                // App package name
+options.setAppActivity("com.example.myapp.MainActivity");  // App launch activity
+options.setApp("C:\\apps\\myapp.apk");                     // Path to the APK file
+
+// App behavior settings
+options.setNoReset(true);                   // Don’t reset app data between sessions
+options.setFullReset(false);                // Don’t uninstall app between sessions
+options.setAutoGrantPermissions(true);      // Grant all runtime permissions automatically
+
+// Keyboard settings
+options.setUnicodeKeyboard(true);           // Support Unicode input (e.g., Hindi, emojis, etc.)
+options.setResetKeyboard(true);             // Reset to normal keyboard after test
+
+// Device unlock settings
+options.setCapability("unlockType", "pin");  // Unlock method (pin, pattern, password)
+options.setCapability("unlockKey", "1234");  // Unlock key (your actual PIN/pattern/password)
+
+// Extra configs
+options.setCapability("ignoreHiddenApiPolicyError", true); // Ignore hidden API policy errors
+options.setNewCommandTimeout(Duration.ofSeconds(60));       // Timeout for new commands
+
+
+```
+
+| Capability                   | Example Value                      | Usage / Purpose                                                               |
+| ---------------------------- | ---------------------------------- | ----------------------------------------------------------------------------- |
+| `platformName`               | `"Android"`                        | Specifies the mobile OS to automate.                                          |
+| `platformVersion`            | `"13.0"`                           | Defines the Android OS version on the device/emulator.                        |
+| `deviceName`                 | `"Pixel_5"`                        | Identifies the device/emulator name where tests will run.                     |
+| `automationName`             | `"UiAutomator2"`                   | Sets the automation engine (UiAutomator2 is recommended for Android).         |
+| `appPackage`                 | `"com.example.myapp"`              | Unique package name of the target Android app.                                |
+| `appActivity`                | `"com.example.myapp.MainActivity"` | Entry-point activity of the app to be launched.                               |
+| `app`                        | `"C:\\apps\\myapp.apk"`            | Path to the APK file to install/run.                                          |
+| `noReset`                    | `true`                             | Prevents clearing app data between test runs.                                 |
+| `fullReset`                  | `false`                            | Prevents uninstalling the app before/after test session.                      |
+| `autoGrantPermissions`       | `true`                             | Grants all app permissions automatically at install/launch.                   |
+| `unicodeKeyboard`            | `true`                             | Enables Unicode keyboard (supports emojis, non-English languages like Hindi). |
+| `resetKeyboard`              | `true`                             | Resets the keyboard back to default after test execution.                     |
+| `unlockType`                 | `"pin"`                            | Defines unlock method (e.g., `pin`, `password`, `pattern`).                   |
+| `unlockKey`                  | `"1234"`                           | Actual unlock key (e.g., PIN = 1234, password = abcd).                        |
+| `ignoreHiddenApiPolicyError` | `true`                             | Avoids failures caused by hidden API restrictions in newer Android versions.  |
+| `newCommandTimeout`          | `60`                               | Time (in seconds) Appium waits for new commands before ending the session.    |
+
+
+
+
+
 
