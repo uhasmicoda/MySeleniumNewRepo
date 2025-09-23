@@ -160,11 +160,15 @@ options.setNewCommandTimeout(Duration.ofSeconds(60));       // Timeout for new c
 
 AndroidDriver is a specialized class provided by Appium (in the Appium Java Client library) that is used to automate Android devices and applications. It extends the RemoteWebDriver class from Selenium, which means it inherits all the basic browser automation commands (like findElement, click, sendKeys) and then adds Android-specific features on top of it, this makes it a powerful driver because it doesn’t just automate browsers, but also real Android apps and even device-level operations.
 
-While Selenium WebDriver is mainly built for automating browsers, AndroidDriver is built for mobile automation. It not only allows you to automate mobile web browsers but also native and hybrid mobile apps. The unique advantage of AndroidDriver is that it can perform both app-level operations and device-level operations, which Selenium alone cannot handle.
+When you create an AndroidDriver object in your test script, you provide two important things: the Appium server URL and a set of desired capabilities (like deviceName, platformName, appPackage, and appActivity). The AndroidDriver uses this information to establish a session with the Appium server.
 
 With AndroidDriver, you can perform actions such as launching and closing apps, installing and uninstalling apps, rotating the device screen, opening the notification panel, toggling airplane mode, checking whether an app is installed, and retrieving the current app’s package and activity. These capabilities go beyond traditional web automation and give you full control over the Android environment.
 
-When you create an AndroidDriver object in your test script, you provide two important things: the Appium server URL and a set of desired capabilities (like deviceName, platformName, appPackage, and appActivity). The AndroidDriver uses this information to establish a session with the Appium server.
+While Selenium WebDriver is mainly built for automating browsers, AndroidDriver is built for mobile automation. It not only allows you to automate mobile web browsers but also native and hybrid mobile apps. The unique advantage of AndroidDriver is that it can perform both app-level operations and device-level operations, which Selenium alone cannot handle.
+
+
+
+
 
 
 
