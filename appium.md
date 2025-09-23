@@ -166,7 +166,7 @@ With AndroidDriver, you can perform actions such as launching and closing apps, 
 
 When you create an AndroidDriver object in your test script, you provide two important things: the Appium server URL and a set of desired capabilities (like deviceName, platformName, appPackage, and appActivity). The AndroidDriver uses this information to establish a session with the Appium server.
 
-Once the session is established, the Appium server communicates with the Android automation engine, usually UiAutomator2 (or Espresso). This engine runs on the device and executes the commands sent from the AndroidDriver. For example, if your script calls driver.findElement().click(), the command travels from your code → AndroidDriver → Appium Server → UiAutomator2 → Android device. Finally, the result is sent back through the same path.
+
 
 | **Category**                | **Method**                                                 | **Purpose**                                            | **Example**                                                         |
 | --------------------------- | ---------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------- |
