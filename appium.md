@@ -158,10 +158,7 @@ options.setNewCommandTimeout(Duration.ofSeconds(60));       // Timeout for new c
 
 ## 6 AndroidDriver.
 
-AndroidDriver is a specialized class provided by Appium (in the Appium Java Client library) that is used to automate Android devices and applications. It extends the RemoteWebDriver class from Selenium, which means it inherits all the basic browser automation commands (like findElement, click, sendKeys) and then adds Android-specific features on top of it.
-
-
-It acts as a bridge between your test script and the Android device. Since it extends Selenium’s RemoteWebDriver, it can perform all the standard Selenium actions (like click(), sendKeys(), getText()) and also provides Android-specific capabilities (like accessing device settings, notifications, or app activities), this makes it a powerful driver because it doesn’t just automate browsers, but also real Android apps and even device-level operations.
+AndroidDriver is a specialized class provided by Appium (in the Appium Java Client library) that is used to automate Android devices and applications. It extends the RemoteWebDriver class from Selenium, which means it inherits all the basic browser automation commands (like findElement, click, sendKeys) and then adds Android-specific features on top of it, this makes it a powerful driver because it doesn’t just automate browsers, but also real Android apps and even device-level operations.
 
 While Selenium WebDriver is mainly built for automating browsers, AndroidDriver is built for mobile automation. It not only allows you to automate mobile web browsers but also native and hybrid mobile apps. The unique advantage of AndroidDriver is that it can perform both app-level operations and device-level operations, which Selenium alone cannot handle.
 
