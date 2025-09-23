@@ -463,7 +463,7 @@ public class ExtentReportEnhanced {
 
 
 
-## 6 LISTENERS**
+## 6 LISTENERS
 
 
 
@@ -611,10 +611,10 @@ public class LoginTest {
 
 
 
-## 7 TestNG Annotations**
+## 7 TestNG Annotations
 
 
-**In TestNG, annotations are special instructions that we place above methods, starting with the @ symbol, to control the test execution flow. They tell TestNG when and how a particular method should run during the test lifecycle.**
+In TestNG, annotations are special instructions that we place above methods, starting with the @ symbol, to control the test execution flow. They tell TestNG when and how a particular method should run during the test lifecycle.**
 
 
 
