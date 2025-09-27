@@ -217,9 +217,8 @@ While Selenium WebDriver is mainly built for automating browsers, AndroidDriver 
 
 ## 7 Appium Inspector.
 
-Appium Inspector is a graphical tool that allows testers and developers to inspect and interact with a mobile app’s UI while creating automation. It connects with the Appium server and the target device (real or emulator) to display the app’s UI hierarchy, element properties, and a live screenshot. This makes it easier to find and verify locators before writing test scripts.
+Appium Inspector is a tool that allows testers and developers to inspect and interact with a mobile app’s UI while creating automation. It connects with the Appium server and the target device (real or emulator) to display the app’s UI hierarchy, element properties, and a live screenshot. This makes it easier to find and verify locators before writing test scripts.
 
-To use it, you start an Appium session by providing desired capabilities (like platformName, deviceName, appPackage/appActivity, or bundleId). Once connected, Inspector shows a tree view of UI elements alongside a screenshot. Selecting an element highlights it on the screen and displays attributes such as resource-id, class, text, accessibility id, or XPath, helping you decide the most stable locator strategy.
 
 Inspector also supports basic interactions like tap, send keys, swipe, or scroll directly from the tool. It can generate locator strings or code snippets to speed up script writing. For hybrid apps, Inspector allows switching between contexts (NATIVE_APP and WEBVIEW) and inspecting web elements, which simplifies debugging across native and web views.
 
@@ -507,5 +506,25 @@ ADB (Android Debug Bridge) is a versatile command-line tool that comes with the 
 | **Supports Native, Hybrid, and Mobile Web Apps**        | Covers all types of apps: Native (platform-specific), Hybrid (native + web), and Mobile web (browser-based).                   |
 | **Supports Real Device and Simulator/Emulator Testing** | Enables testing on both physical devices and virtual devices like Android Emulator or iOS Simulator.                           |
 | **Built-in Inspector**                                  | Helps in locating UI elements easily for script writing. Supports **parallel execution** across multiple devices to save time. |
+
+
+## 12 Locators in Appium
+
+Locators in Appium are used to uniquely identify and interact with elements in a mobile application, such as buttons, text fields, images, links, and dropdowns. They are the backbone of mobile automation, because without identifying elements, we cannot perform actions like tapping, typing, swiping, or retrieving text. Appium provides different locator strategies for both Android and iOS, such as ID, Accessibility ID, Class Name, XPath, Android UIAutomator, iOS Predicate String, and iOS Class Chain.
+
+Among these, ID and Accessibility ID are the most reliable and fastest, as they are usually unique and stable across app versions. XPath is more flexible but can be slower and brittle if the app structure changes frequently. Platform-specific locators like UIAutomator (Android) and Predicate String / Class Chain (iOS) are powerful for handling complex element hierarchies.
+
+Choosing the right locator is very important for writing stable and maintainable Appium scripts. In real-time projects, testers usually combine different locator strategies depending on the app’s design, ensuring that the test cases are reusable, efficient, and less prone to breakage when the UI changes.
+
+
+| **Locator Name**         | **Definition**                                                                | **Example Code**                                                                              |
+| ------------------------ | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| **id**                   | Finds element using the **resource-id attribute** (must be unique).           | `driver.findElement(AppiumBy.id("com.example:id/username")).sendKeys("Admin");`               |
+| **accessibilityId**      | Finds element using the **Accessibility ID / content-desc** (cross-platform). | `driver.findElement(AppiumBy.accessibilityId("loginButton")).click();`                        |
+| **className**            | Finds element using the **class attribute** of UI element.                    | `driver.findElement(AppiumBy.className("android.widget.Button")).click();`                    |
+| **xpath**                | Finds element using **XPath expression** (flexible but slower).               | `driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Login']")).click();`     |
+| **androidUIAutomator**   | Android-specific locator using **UIAutomator framework**.                     | `driver.findElement(AppiumBy.androidUIAutomator("new UiSelector().text(\"India\")"));`        |
+| **iOS Predicate String** | iOS-specific locator using **NSPredicate query syntax**.                      | `driver.findElement(AppiumBy.iOSNsPredicateString("label == 'Login'"));`                      |
+| **iOS Class Chain**      | iOS-specific locator to find elements via **hierarchical queries**.           | `driver.findElement(AppiumBy.iOSClassChain("**/XCUIElementTypeButton[`label == 'Login'`]"));` |
 
 
