@@ -547,3 +547,120 @@ In Appium, an exception is an error that occurs while running automation scripts
 | **AbstractMethodError**            | Incompatible Appium client with TestNG/JUnit version                                                                                 | Update/downgrade versions                                                                                                    | Method is missing because of version mismatch.                |
 | **FatalException**                 | Critical failure in Appium or environment                                                                                            | Restart server/device, check logs                                                                                            | Serious error – Appium crashed unexpectedly.                  |
 
+
+## 14 Page Object Model (POM) in Appium
+
+
+Page Object Model, or POM, is a design pattern used in Appium where we create separate classes for each screen of the mobile application. Each class stores the locators of the elements on that screen and the methods to interact with them. Instead of writing locators directly inside test cases, we keep them in one place, which makes the code cleaner, reusable, and easier to maintain. If anything changes in the app’s UI, we just update the locator in the page class without touching the test logic. In short, POM helps reduce code duplication and makes the mobile automation framework more scalable.
+
+To implement POM in Appium, we declare an AndroidDriver (for Android) or IOSDriver (for iOS) variable in the page class to hold the mobile driver instance. Then, we create a constructor that takes this driver as a parameter and assigns it to the class variable using this.driver = driver;. Inside the constructor, we call
+
+``` java
+PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+
+```
+
+This initializes all the mobile elements defined in the class.
+
+For locating elements, instead of Selenium’s @FindBy, we use Appium’s annotations like @AndroidFindBy, @AndroidFindAll, @AndroidFindBys for Android, and @iOSXFindBy for iOS. With these, we can define single elements, OR conditions, AND conditions, or even lists of elements like multiple checkboxes or links.
+
+After defining elements, we create getter methods if we need direct access to them. Then, we write action methods that perform operations on these elements, such as login(), selectAllCheckboxes(), or printAllLinks().
+
+Finally, in the test class, we simply create an object of this page class and call its methods. This approach separates locators and actions from test logic, makes the code reusable, easier to maintain, and allows us to handle app UI changes by updating only the page class without rewriting test cases.
+
+
+
+```java
+
+import java.util.List;
+
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.pagefactory.AndroidFindAll;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBys;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+
+public class LoginPage2 {
+
+    AndroidDriver driver;
+
+    public LoginPage2(AndroidDriver driver) {
+        this.driver = driver;
+        // Appium uses AppiumFieldDecorator instead of initElements
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+    }
+
+    // Single element
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='Login']")
+    private WebElement loginBtn;
+
+    // OR condition using AndroidFindAll
+    @AndroidFindAll({
+        @AndroidFindBy(id = "com.example:id/email"),
+        @AndroidFindBy(xpath = "//android.widget.EditText[@content-desc='userEmail']")
+    })
+    private WebElement emailField;
+
+    // AND condition using AndroidFindBys (all conditions must match)
+    @AndroidFindBys({
+        @AndroidFindBy(className = "android.widget.EditText"),
+        @AndroidFindBy(xpath = "//android.widget.EditText[@password='true']")
+    })
+    private WebElement passwordField;
+
+    @AndroidFindBy(className = "android.widget.CheckBox")
+    private List<WebElement> checkboxes;
+
+    @AndroidFindBy(className = "android.widget.TextView")
+    private List<WebElement> allLinks;
+
+    // Getters
+    public AndroidDriver getDriver() {
+        return driver;
+    }
+
+    public WebElement getLoginBtn() {
+        return loginBtn;
+    }
+
+    public WebElement getEmailField() {
+        return emailField;
+    }
+
+    public WebElement getPasswordField() {
+        return passwordField;
+    }
+
+    public List<WebElement> getCheckboxes() {
+        return checkboxes;
+    }
+
+    public List<WebElement> getAllLinks() {
+        return allLinks;
+    }
+
+    // Example Action: login
+    public void login(String email, String password) {
+        emailField.sendKeys(email);
+        passwordField.sendKeys(password);
+        loginBtn.click();
+    }
+
+    // Example Action: check all checkboxes
+    public void selectAllCheckboxes() {
+        for (WebElement checkbox : checkboxes) {
+            if (!checkbox.isSelected()) {
+                checkbox.click();
+            }
+        }
+    }
+
+    // Example Action: print all link texts
+    public void printAllLinks() {
+        for (WebElement link : allLinks) {
+            System.out.println(link.getText());
+        }
+    }
+}
