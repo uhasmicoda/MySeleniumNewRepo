@@ -569,6 +569,16 @@ After defining elements, we create getter methods if we need direct access to th
 Finally, in the test class, we simply create an object of this page class and call its methods. This approach separates locators and actions from test logic, makes the code reusable, easier to maintain, and allows us to handle app UI changes by updating only the page class without rewriting test cases.
 
 
+| **Locator / Method**                   | **Description (Easy Words)**                               | **Example**                                                                                                                                                                           |
+| -------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **@AndroidFindBy / @iOSXFindBy**       | Used for a **single locator** (finds one element).         | `@AndroidFindBy(id = "com.app:id/loginBtn") private WebElement loginBtn;`                                                                                                             |
+| **@AndroidFindBys**                    | Works as **AND condition** → all locators must match.      | `@AndroidFindBys({ @AndroidFindBy(className = "android.widget.EditText"), @AndroidFindBy(xpath = "//android.widget.EditText[@password='true']") }) private WebElement passwordField;` |
+| **@AndroidFindAll**                    | Works as **OR condition** → any locator can match.         | `@AndroidFindAll({ @AndroidFindBy(id = "com.app:id/email"), @AndroidFindBy(xpath = "//android.widget.EditText[@content-desc='userEmail']") }) private WebElement emailField;`         |
+| **driver.findElement(AppiumBy / By)**  | Finds the **first matching element**.                      | `driver.findElement(AppiumBy.id("com.app:id/loginBtn")).click();`                                                                                                                     |
+| **driver.findElements(AppiumBy / By)** | Finds **all matching elements** and stores them in a list. | `List<WebElement> checkboxes = driver.findElements(AppiumBy.className("android.widget.CheckBox"));`                                                                                   |
+
+
+
 
 ```java
 
@@ -664,3 +674,18 @@ public class LoginPage2 {
         }
     }
 }
+
+```
+
+| **Component / Feature**                                            | **Type / Annotation** | **Purpose / Usefulness**                                                                    |
+| ------------------------------------------------------------------ | --------------------- | ------------------------------------------------------------------------------------------- |
+| `AndroidDriver driver;` / `IOSDriver driver;`                      | Class Variable        | Holds the mobile driver instance (Android or iOS) for the screen; used across page methods. |
+| `public LoginPage2(AndroidDriver driver)`                          | Constructor           | Initializes the screen class; `this.driver = driver;` assigns local driver to class.        |
+| `PageFactory.initElements(new AppiumFieldDecorator(driver), this)` | Method Call           | Initializes all MobileElements (with Appium locators) defined in the class.                 |
+| `@AndroidFindBy` / `@iOSXFindBy`                                   | Annotation            | Single element locator (specific to Android/iOS).                                           |
+| `@AndroidFindAll`                                                  | Annotation            | Multiple locators (**OR condition**) for Android.                                           |
+| `@AndroidFindBys`                                                  | Annotation            | Multiple locators (**AND condition**) for Android.                                          |
+| `MobileElement / List<MobileElement>`                              | Variable Type         | Stores screen elements (single or multiple) for actions like tap, sendKeys, etc.            |
+| `login(String email, String password)`                             | Method / Action       | Example action method using mobile elements to perform login.                               |
+| `selectAllCheckboxes()`                                            | Method / Action       | Example method to perform action on a list of checkboxes.                                   |
+| `printAllLinks()`                                                  | Method / Action       | Example method to iterate and read all text views / links on the screen.                    |
