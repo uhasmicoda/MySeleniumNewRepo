@@ -689,3 +689,141 @@ public class LoginPage2 {
 | `login(String email, String password)`                             | Method / Action       | Example action method using mobile elements to perform login.                               |
 | `selectAllCheckboxes()`                                            | Method / Action       | Example method to perform action on a list of checkboxes.                                   |
 | `printAllLinks()`                                                  | Method / Action       | Example method to iterate and read all text views / links on the screen.                    |
+
+
+## 15 Gesture in appium
+
+
+In Appium, gestures are very important because they replicate how a real user interacts with the mobile device. It’s not just about clicking or typing, but about handling actions like swiping, scrolling, pinch and zoom, drag and drop, long press, and tapping.
+
+For example, in my project, I had scenarios where I had to scroll down in a long list until a specific element was visible. I implemented scroll gestures using Appium’s mobile: scrollGesture command. Similarly, for swiping through product images, I used swipeGesture.
+
+I also worked on long press gestures, like when we had to test the context menu that opens on pressing and holding an element. In some cases, I used drag-and-drop gestures to rearrange items in the app.
+
+So overall, gestures in Appium helped me test real-world user interactions on touchscreens, and I made use of both JavascriptExecutor with mobile commands and sometimes TouchAction when needed
+
+
+```java
+package Utilities;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
+
+import com.google.common.collect.ImmutableMap;
+
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
+
+public class GestureUtility {
+    AndroidDriver driver;
+
+    public GestureUtility(AndroidDriver driver) {
+        this.driver = driver;
+    }
+
+    // Long Click on Element
+    public void longClickByElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId()));
+    }
+
+    // Click on Element
+    public void clickByElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("mobile: clickGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId()));
+    }
+
+    // Double Click on Element
+    public void doubleClickByElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("mobile: doubleClickGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId()));
+    }
+
+    // Long Click on Coordinates
+    public void longClickByCoordinates(int x, int y, int time) {
+        ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture",
+                ImmutableMap.of("x", x, "y", y, "duration", time));
+    }
+
+    // Click on Coordinates
+    public void clickByCoordinates(int x, int y) {
+        ((JavascriptExecutor) driver).executeScript("mobile: clickGesture",
+                ImmutableMap.of("x", x, "y", y));
+    }
+
+    // Double Click on Coordinates
+    public void doubleClickByCoordinates(int x, int y) {
+        ((JavascriptExecutor) driver).executeScript("mobile: doubleClickGesture",
+                ImmutableMap.of("x", x, "y", y));
+    }
+
+    // Drag and Drop
+    public void dragAndDrop(WebElement element, int endX, int endY) {
+        ((JavascriptExecutor) driver).executeScript("mobile: dragGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
+                        "endX", endX, "endY", endY));
+    }
+
+    // Zoom In (Pinch Open)
+    public void zoomIn(WebElement element, double percent) {
+        ((JavascriptExecutor) driver).executeScript("mobile: pinchOpenGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
+                        "percent", percent, "speed", 500));
+    }
+
+    // Zoom Out (Pinch Close)
+    public void zoomOut(WebElement element, double percent) {
+        ((JavascriptExecutor) driver).executeScript("mobile: pinchCloseGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
+                        "percent", percent, "speed", 500));
+    }
+
+    // Swipe by Coordinates
+    public void swipeByCoordinates(int left, int top, int width, int height, String direction, double percent) {
+        ((JavascriptExecutor) driver).executeScript("mobile: swipeGesture",
+                ImmutableMap.of("left", left, "top", top, "width", width, "height", height,
+                        "direction", direction, "percent", percent));
+    }
+
+    // Swipe by Element
+    public void swipeByElement(WebElement element, String direction, double percent) {
+        ((JavascriptExecutor) driver).executeScript("mobile: swipeGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
+                        "direction", direction, "percent", percent));
+    }
+
+    // Scroll by Visible Text
+    public WebElement scrollByText(String text) {
+        WebElement elementText = driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true))"
+                        + ".scrollIntoView(new UiSelector().text(\"" + text + "\"))"));
+        return elementText;
+    }
+
+    // Scroll by XPath (manual find + use swipe if needed)
+    public WebElement scrollByPath(String xpath) {
+        WebElement elementXpath = driver.findElement(AppiumBy.xpath(xpath));
+        return elementXpath;
+    }
+}
+
+```
+In my framework, I created a separate utility class called GestureUtility to handle all mobile gestures in one place. Inside this class, I declared an AndroidDriver reference at the class level, so that it can be used across all gesture methods. I then created a constructor GestureUtility(AndroidDriver driver) where I pass the driver instance from my test or page classes. Inside the constructor, I assign it using this.driver = driver; which means the driver coming from the test will now be accessible in this utility class.
+
+After this setup, I wrote different reusable methods for gestures like longClickByElement, clickByCoordinates, swipeByElement, dragAndDrop, zoomIn, zoomOut, and scrollByText. For implementing these, I used JavascriptExecutor with Appium’s mobile commands such as mobile: swipeGesture, mobile: longClickGesture, and mobile: pinchOpenGesture.
+
+The main advantage of this approach is reusability and cleaner code. Instead of writing gesture logic again and again inside test cases, I just call methods from GestureUtility. For example, if I want to swipe on an element, I simply call gesture.swipeByElement(element, "left", 0.75);. This makes my framework modular, easy to maintain, and scalable.
+
+
+| Step / Component       | Explanation                                                                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Class Creation**     | Created a separate utility class `GestureUtility` to handle all mobile gestures in one place.                                                                 |
+| **Driver Declaration** | Declared `AndroidDriver driver;` at the class level to use it across all gesture methods.                                                                     |
+| **Constructor**        | Defined `GestureUtility(AndroidDriver driver)` and assigned driver using `this.driver = driver;` so the driver instance from test/page classes can be reused. |
+| **Reusable Methods**   | Wrote methods like `longClickByElement`, `clickByCoordinates`, `swipeByElement`, `dragAndDrop`, `zoomIn`, `zoomOut`, and `scrollByText`.                      |
+| **Implementation**     | Used `JavascriptExecutor` with Appium mobile commands (`mobile: swipeGesture`, `mobile: longClickGesture`, `mobile: pinchOpenGesture`, etc.).                 |
+| **Usage in Tests**     | Instead of writing gesture code again in test cases, directly call utility methods, e.g., `gesture.swipeByElement(element, "left", 0.75);`.                   |
+| **Advantage**          | Improves **reusability, modularity, maintainability, and scalability** of the framework.                                                                      |
+
+
