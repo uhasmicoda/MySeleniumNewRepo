@@ -691,7 +691,12 @@ public class LoginPage2 {
 | `printAllLinks()`                                                  | Method / Action       | Example method to iterate and read all text views / links on the screen.                    |
 
 
-## 15 Gesture in appium
+## 15 Gesture in Appium
+
+
+In Appium, gestures are actions that simulate how a real user interacts with a mobile device. Instead of just doing simple clicks or typing, gestures allow us to perform touch-based interactions like swipe, scroll, drag-and-drop, pinch, zoom, tap, double tap, and long press.
+
+These gestures are very important because in real mobile apps, users don’t only click buttons — they swipe through lists, scroll to find elements, zoom into maps or images, and drag items. By automating gestures, Appium makes our test scripts behave closer to real user behavior.
 
 
 In Appium, gestures are very important because they replicate how a real user interacts with the mobile device. It’s not just about clicking or typing, but about handling actions like swiping, scrolling, pinch and zoom, drag and drop, long press, and tapping.
