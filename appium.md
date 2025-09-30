@@ -832,3 +832,40 @@ The main advantage of this approach is reusability and cleaner code. Instead of 
 | **Advantage**          | Improves **reusability, modularity, maintainability, and scalability** of the framework.                                                                      |
 
 
+## 16 Starting Appium Server Programmatically in Java
+
+Instead of manually starting Appium from the command line, I implemented a utility in my framework that starts and stops the Appium server programmatically using AppiumServiceBuilder and AppiumDriverLocalService. This makes the framework independent and fully automated
+
+I created a class called StartAppiumServer to handle the starting and stopping of the Appium server programmatically. Inside the main method, I first gave the path of the main.js file, which is responsible for launching the Appium server. Then I used AppiumServiceBuilder to configure the server by providing the JavaScript file path, the port number, the IP address, and a timeout value. After building the service, I started the Appium server, and once it was up, I could run my automation code. At the end of execution, I stopped the server to release resources. This approach helps me avoid starting the server manually and makes the setup more reliable, reusable, and suitable for CI/CD pipelines.
+
+```java
+import java.io.File;
+import java.time.Duration;
+
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+
+public class StartAppiumServer {
+
+    public static void main(String[] args) {
+        // Path of main.js inside Appium installation
+        File f = new File("C:\\Users\\YourUserName\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js");
+
+        AppiumDriverLocalService service = new AppiumServiceBuilder()
+                .withAppiumJS(f)
+                .usingPort(4723)
+                .withIPAddress("127.0.0.1")
+                .withTimeout(Duration.ofSeconds(300))
+                .build();
+
+        service.start();
+        System.out.println("Appium server started successfully!");
+
+        // --- your automation code will run here ---
+
+        service.stop();
+        System.out.println("Appium server stopped successfully!");
+    }
+}
+
+
