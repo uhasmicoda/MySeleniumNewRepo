@@ -1853,4 +1853,47 @@ public class DataBaseUtility {
 
 
 
+## 26 Types of execution
+
+Group execution in TestNG means organizing test cases into logical categories such as smoke, regression, or sanity, so that we can run them selectively instead of executing the entire suite every time. To achieve this, we assign tests to groups using the @Test(groups = "groupName") annotation. Later, in the testng.xml file, we can configure groups to include or exclude specific ones depending on our requirement. For example, if we only want to run smoke tests before a release, we can include only the smoke group in the XML. This approach gives flexibility, saves execution time, and avoids unnecessary running of the full suite. The line <class name="packageName.ClassName"/> is also correct, because in the XML we specify which test classes to execute, and inside that configuration, we can further control the execution by including or excluding groups.
+
+```java
+
+// Class 1
+package tests;
+
+import org.testng.annotations.Test;
+
+public class LoginTest {
+
+    @Test(groups = "smoke")
+    public void validLogin() {
+        System.out.println("Smoke: Valid login test executed");
+    }
+
+    @Test(groups = "regression")
+    public void invalidLogin() {
+        System.out.println("Regression: Invalid login test executed");
+    }
+}
+
+```java
+
+// Class 2
+package tests;
+
+import org.testng.annotations.Test;
+
+public class PaymentTest {
+
+    @Test(groups = "smoke")
+    public void paymentWithValidCard() {
+        System.out.println("Smoke: Payment with valid card executed");
+    }
+
+    @Test(groups = "regression")
+    public void paymentWithInvalidCard() {
+        System.out.println("Regression: Payment with invalid card executed");
+    }
+}
 
