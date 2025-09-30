@@ -1855,6 +1855,8 @@ public class DataBaseUtility {
 
 ## 26 Types of execution
 
+## Group execution
+
 Group execution in TestNG means organizing test cases into logical categories such as smoke, regression, or sanity, so that we can run them selectively instead of executing the entire suite every time. To achieve this, we assign tests to groups using the @Test(groups = "groupName") annotation. Later, in the testng.xml file, we can configure groups to include or exclude specific ones depending on our requirement. For example, if we only want to run smoke tests before a release, we can include only the smoke group in the XML. This approach gives flexibility, saves execution time, and avoids unnecessary running of the full suite. The line <class name="packageName.ClassName"/> is also correct, because in the XML we specify which test classes to execute, and inside that configuration, we can further control the execution by including or excluding groups.
 
 ```java
@@ -1877,7 +1879,7 @@ public class LoginTest {
     }
 }
 
-```java
+
 
 // Class 2
 package tests;
@@ -1897,3 +1899,91 @@ public class PaymentTest {
     }
 }
 
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Suite">
+
+    <groups>
+        <run>
+            <include name="smoke"/>
+        </run>
+    </groups>
+
+    <test name="GroupExecution">
+        <classes>
+            <class name="com.project.tests.LoginTest"/>
+            <class name="com.project.tests.PaymentTest"/>
+        </classes>
+    </test>
+
+</suite>
+
+```
+## 2 Batch execution
+
+Batch execution in TestNG means executing multiple test classes or test cases together in one go, rather than running them individually. This approach is very useful when you have a large test suite with different modules like login, payment, orders, or profile. Instead of manually running each test, you group them into a single batch and run them all at once. This saves time, ensures consistency, and helps in identifying integration issues quickly.
+
+In TestNG, batch execution is usually achieved using the testng.xml file, where we can define multiple test classes under a <classes> tag or multiple <test> sections for different modules. For example, we can include LoginTest, PaymentTest, and OrderTest in the XML so that TestNG runs all of them together in a batch. This makes execution more organized and allows us to manage large-scale automation projects effectively.
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Suite">
+    <test name="BatchExecution">
+        <classes>
+            <class name="com.project.tests.LoginTest"/>
+            <class name="com.project.tests.PaymentTest"/>
+            <class name="com.project.tests.ProfileTest"/>
+        </classes>
+    </test>
+</suite>
+
+```
+## PARALLEL EXECUTION
+
+Parallel execution in TestNG means running multiple tests, classes, or methods at the same time in separate threads instead of one after another. This is very useful when you have a large test suite, because it significantly reduces the overall execution time and makes better use of system resources. For example, if you have 10 test classes and you configure TestNG to run them in parallel, instead of waiting for each class to finish before starting the next, TestNG will launch multiple tests simultaneously.
+
+The thread-count attribute in TestNG controls how many threads (parallel executions) can run at the same time. It doesn’t always have to match the number of classes, but it defines the maximum concurrency allowed. If you want all classes to run together, you should set the thread-count equal to or greater than the number of classes. For instance, if you have 5 classes and set thread-count="5", TestNG can execute all 5 classes in parallel. This gives flexibility—depending on your suite size and machine capacity, you can adjust the thread count to balance between speed and system performance.
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="ParallelSuite" parallel="tests" thread-count="2">
+
+    <test name="LoginTests">
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="PaymentTests">
+        <classes>
+            <class name="tests.PaymentTest"/>
+        </classes>
+    </test>
+
+</suite>
+
+with class
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="ParallelByClassesSuite" parallel="classes" thread-count="3">
+
+    <test name="AllTests">
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.PaymentTest"/>
+            <class name="tests.ProfileTest"/>
+        </classes>
+    </test>
+
+</suite>
