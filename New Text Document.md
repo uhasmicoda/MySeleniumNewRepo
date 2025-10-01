@@ -1944,13 +1944,15 @@ In TestNG, batch execution is usually achieved using the testng.xml file, where 
 </suite>
 
 ```
-## PARALLEL EXECUTION
+## 3 Parallel execution
 
 Parallel execution in TestNG means running multiple tests, classes, or methods at the same time in separate threads instead of one after another. This is very useful when you have a large test suite, because it significantly reduces the overall execution time and makes better use of system resources. For example, if you have 10 test classes and you configure TestNG to run them in parallel, instead of waiting for each class to finish before starting the next, TestNG will launch multiple tests simultaneously.
 
 The thread-count attribute in TestNG controls how many threads (parallel executions) can run at the same time. It doesn’t always have to match the number of classes, but it defines the maximum concurrency allowed. If you want all classes to run together, you should set the thread-count equal to or greater than the number of classes. For instance, if you have 5 classes and set thread-count="5", TestNG can execute all 5 classes in parallel. This gives flexibility—depending on your suite size and machine capacity, you can adjust the thread count to balance between speed and system performance.
 
 ```xml
+
+with tests
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
@@ -1971,7 +1973,7 @@ The thread-count attribute in TestNG controls how many threads (parallel executi
 
 </suite>
 
-with class
+with classes
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
@@ -1987,3 +1989,33 @@ with class
     </test>
 
 </suite>
+
+```
+## 4 Cross browser execution
+
+Cross-browser testing is the process of executing the same test cases on different web browsers such as Chrome, Firefox, Edge, and Safari to ensure that a web application works consistently and correctly across all of them. Since users may access the application from different browsers and versions, cross-browser testing helps identify browser-specific issues like layout mismatches, functionality errors, or performance differences. In TestNG, this can be achieved by parameterizing the browser name in the testng.xml file and using the @Parameters annotation in the test script to launch tests dynamically on different browsers. This ensures better coverage and reliability of the application in real-world usage.
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="CrossBrowserSuite" parallel="tests" thread-count="2">
+
+    <test name="ChromeTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="FirefoxTest">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+</suite>
+
+
