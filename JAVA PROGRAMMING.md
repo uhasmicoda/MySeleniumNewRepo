@@ -1,6 +1,6 @@
 ## JAVA STRING PROGRAMMING
 
-
+1 Reverse AlterNet words
 
 ```java
 
@@ -28,4 +28,13 @@ public class AlternateWordReversal {
     }
 }
 
+```
+String.split(" ") → Splits a sentence into words.
 
+(i+1) % 2 == 0 → Checks if word is at even position (since index starts from 0).
+
+charAt() → Used to get each character from a word.
+
+String concatenation (+=) → Builds reversed word step by step.
+
+Final output is built by combining odd-positioned words (normal) + even-positioned words (reversed).
