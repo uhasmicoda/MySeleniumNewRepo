@@ -110,3 +110,63 @@ This data confirms that the server successfully processed the client’s request
 | **Actual Data (Response Body)** | Main content returned from server                      | Example:<br>`{"status":"success","userId":101,"name":"John"}`                                                                                                                                    |
 
 
+## 8 POSTMAN
+
+Postman is a popular API testing tool used by testers and developers to send, receive, and validate API requests and responses. In simple terms, it helps us check whether an API is working as expected. In my project, I used Postman mainly for manual API testing. Using Postman, we can perform all types of HTTP methods such as GET, POST, PUT, PATCH, and DELETE to verify CRUD operations. We can easily add headers, parameters, and request bodies in JSON or XML format and then analyze the response code, response time, and data. Postman also allows creating collections of APIs for better organization and reusability. One of the major advantages is the built-in automation feature using Pre-request Scripts and Tests (JavaScript), which allows us to validate responses automatically. Additionally, Postman supports environment variables like base URLs or tokens, making it easier to test APIs across multiple environments (dev, staging, production). Overall, Postman simplifies API testing by providing a user-friendly interface and powerful validation options, which help ensure the backend services are reliable and integrated correctly with the front end.
+
+
+## 9 Prerequisite for Postman
+
+Before starting API testing using Postman, there are a few important prerequisites that help in understanding and performing the testing effectively. First, you should have a clear understanding of the client-server architecture, since API testing is all about communication between a client (which sends the request) and a server (which gives the response). You also need to know how HTTP requests and responses work, including methods like GET, POST, PUT, and DELETE, along with response codes and headers. A basic understanding of databases is helpful because many APIs interact with data stored on the backend.
+
+You should also understand CRUD operations (Create, Read, Update, Delete) since these are the core actions performed through APIs. Knowledge of data formats like JSON and XML is essential, as APIs mostly exchange data in these formats. On top of that, familiarity with API testing tools like Postman, Rest Assured, FireFlink, or Requests (Python library) is important. Finally, you should know how to design API test cases — both positive and negative — and how to refer to API documentation or functional specifications, which describe the endpoints, parameters, and expected responses.
+
+
+## 10 Environment
+
+In Postman, an environment is basically a collection of variables that helps us manage different setups easily during API testing. For example, when we work on multiple stages like Development, QA, Staging, or Production, each of them has a different base URL or authentication token. Instead of changing these values manually in every request, we can store them as variables inside an environment. By doing this, we can simply switch the environment and Postman automatically picks the right set of values. This not only saves time but also reduces mistakes, especially when running large collections of requests. It’s very useful in real-time projects where we need to test the same APIs across different servers or environments.
+
+## 11 Types of variable
+
+In Postman, there are five types of variables, and each one has its own purpose and scope that defines where they can be accessed.
+In my project, I’ve come across almost all of them. The very first variable I used was the Environment variable, especially when we were testing the same API on different setups like Development (Dev), QA, and Production (Prod). In those environments, we usually stored the base URL and authentication tokens to easily switch between setups without changing the request manually.
+
+I’ve also worked with Global variables, which are accessible throughout the entire workspace. I mainly used them for storing common values like tokens or base URLs during quick testing.
+
+Collection variables were useful when I needed to share common values across multiple requests within the same collection. This helped keep the data consistent for that particular project.
+
+I’ve also used Local variables, which are limited to a single request or script block. I mostly used them for temporary or dynamic data like counters, timestamps, or random IDs generated during test execution.
+
+Finally, I worked with Data variables during data-driven testing, where I imported CSV or JSON files and ran the same request multiple times with different input data using the Collection Runner.
+
+| **Variable Type**        | **Scope / Accessibility**                                  | **Purpose / When to Use**                                                                                                         | **Example**                                           | **Persistence**                                             |
+| ------------------------ | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------- |
+| **Global Variable**      | Accessible across the entire workspace in Postman.         | Used for storing common values that are reused in multiple requests or collections (like base URLs, tokens, etc.).                | `{{baseUrl}}` → `https://api.example.com`             | Persists until manually deleted or changed.                 |
+| **Environment Variable** | Limited to a specific environment (like Dev, QA, or Prod). | Used when you need different values for the same variable across environments — e.g., different URLs or tokens for Dev, QA, Prod. | `{{token}}` → `Bearer 123xyz`                         | Persists for that environment.                              |
+| **Collection Variable**  | Available only within a specific collection.               | Used for values shared by all requests within that collection but not needed globally.                                            | `{{userId}}` → `101`                                  | Saved with the collection and reusable by all its requests. |
+| **Local Variable**       | Accessible only within a single request or script block.   | Used for temporary or dynamic values like timestamps, random numbers, or counters.                                                | `let count = 5;`<br>`pm.variables.set("temp", count)` | Exists only during request execution.                       |
+| **Data Variable**        | Used during data-driven testing (Collection Runner).       | Helps run the same request with multiple sets of input data from CSV or JSON files.                                               | `{{username}}`, `{{password}}` from CSV file          | Exists only during collection run.                          |
+
+
+## Types of parameter
+
+In Postman, there are different types of parameters that play a crucial role in API communication.
+
+One of the most common types I’ve worked with is the Path parameter, which is embedded directly into the endpoint URL to access a specific resource. For example, when I needed to fetch details of a particular user, the API endpoint looked like /users/101, where 101 is a dynamic path parameter representing the user ID.
+
+Next, we have Query parameters, which are mainly used for filtering, sorting, or paginating data. These parameters come after a question mark in the URL — for instance, /users?role=admin&sort=asc. I found them really useful whenever I had to retrieve data based on certain conditions.
+
+Then there are Form parameters, which are used when we want to send sensitive data such as a username or password in the request body, typically in a key-value format. These are commonly sent using either x-www-form-urlencoded or form-data, especially during login functionality or file upload testing. Form parameters are not used with the GET method — they are mostly used with POST or PUT requests.
+
+Finally, in Postman, the Params section generally refers to the key-value pairs we add either as query parameters in the URL or as form-data in the body, depending on the request type. For a GET request, the parameters appear in the URL as query parameters, while in a POST request, they appear in the request body as form parameters. So, the behavior depends on the HTTP method and the content type we use.
+
+
+| **Parameter Type**       | **Description**                                                                       | **Example**                                                         | **Used In**    | **HTTP Method**  |
+| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | -------------- | ---------------- |
+| **Path Parameter**       | Used to identify a specific resource in the API endpoint. It is part of the URL path. | `/users/101` → `101` is the user ID.                                | Endpoint URL   | GET, PUT, DELETE |
+| **Query Parameter**      | Used to filter, sort, or search data. Added after a `?` in the URL.                   | `/users?role=admin&sort=asc`                                        | URL after `?`  | GET              |
+| **Form Parameter**       | Used to send sensitive or structured data in the request body (key-value pairs).      | `username=John`<br>`password=1234`                                  | Request Body   | POST, PUT        |
+| **Header Parameter**     | Used to send additional information such as authentication tokens or content type.    | `Authorization: Bearer <token>`<br>`Content-Type: application/json` | Request Header | All Methods      |
+| **Body Parameter (Raw)** | Used to send raw data (JSON, XML, or text) directly in the request body.              | `{ "name": "John", "email": "john@gmail.com" }`                     | Request Body   | POST, PUT, PATCH |
+
+
