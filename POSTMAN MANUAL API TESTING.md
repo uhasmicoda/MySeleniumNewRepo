@@ -497,5 +497,19 @@ pm.test("Response array contains item", function () {
     pm.expect(jsonData.items).to.include("apple");
 });
 ```
+| Day | Topics                                                           |
+| --- | ---------------------------------------------------------------- |
+| 1   | Selenium concept + experience Qs                                 |
+| 2   | Selenium framework + Introduction + Roles & Responsibilities     |
+| 3   | Manual testing concept + experience Qs                           |
+| 4   | Manual mobile testing + experience Qs                            |
+| 5   | Appium concept + experience Qs                                   |
+| 6   | Appium framework + Introduction + Roles & Responsibilities       |
+| 7   | Manual API testing + experience Qs                               |
+| 8   | Rest Assured concept + experience Qs                             |
+| 9   | Java programming + logical programming                           |
+| 10  | Java logical programming practice + Jira concept & experience Qs |
+| 11  | Revision + Mock interview + weak topic practice                  |
+
 
 
