@@ -269,3 +269,63 @@ Authorization: Bearer <access_token>
 
 
 It’s called a “bearer” token because whoever possesses it can access the resource — it doesn’t require an additional signature or key. That’s why it’s very important to keep the token secure.
+
+
+## 17 🔁 Request Chaining
+
+In my experience, request chaining in Postman or API testing means using the response of one API request as an input for another request.
+This approach is especially useful when APIs are dependent on each other and need to be executed in sequence.
+
+For example, in one of my projects, I made a POST request to create a new user, and the response returned a userId. I then used that userId in the next GET request to fetch the details of that same user.
+To achieve this, I stored the userId using the Postman script command:
+
+Then, in the next request, I simply used {{userId}} as a variable.
+This process helped me test complete workflows step-by-step, similar to how a real user interacts with the system — ensuring data consistency and flow between related APIs.
+
+## 18 Validation in backend
+
+In my project, I used Postman to perform backend API testing and validated several things to ensure the APIs were working correctly.
+
+Firstly, I verified the response status codes like 200 for success, 201 for creation, 400 for bad requests, 401 for unauthorized access, 404 for not found, and 500 for server errors. This helped in confirming whether the API was behaving as expected in different scenarios
+
+Let’s say I was testing a login API — if I entered correct credentials, I expected a 200 status code. If I entered wrong credentials, then a 401 code should be returned. This helped me ensure that the API was responding correctly based on different situations."
+
+
+Secondly, I validated the response body, after sending the API request,  I validate that expected fields or data were coming back correctly in the response, for that I have used postman snippets something call json value check for need to how to fetch the json xpath For example, I checked if certain keys existed in the JSON response and confirmed that their values were accurate as per the requirements. This helped me ensure that the backend was functioning properly and returning the right data.
+
+Then I validated the response time to make sure the API was working fast enough. For example, if the system expects a reply within 2 seconds, I verified how long the API actually took using postman snippets tools. If it was slow or took longer than expected, I reported it to the development team along with the timing details and logs. This helped them identify where the delay was and improve the performance.
+
+While testing the API, I also checked the Content-Type in the response header. This tells us what format the data is coming in. Most of the time, it should be application/json, especially if the response contains structured data like product details or user info.
+
+If the Content-Type is wrong, the application might not understand the data, and it could cause errors. So, I make sure the format is correct. For example, if I’m expecting product data in JSON format, I check that the Content-Type is set to application/json. If it shows something else, I report it to the development team.
+
+
+| Validation Type   | What I Checked                                 | Example                                            |
+| ----------------- | ---------------------------------------------- | -------------------------------------------------- |
+| **Status Code**   | Correct response code for each scenario        | 200 (Success), 401 (Unauthorized), 404 (Not Found) |
+| **Response Body** | Data accuracy, key presence, value correctness | Checked `userId`, `token` fields                   |
+| **Response Time** | Performance and speed of API                   | Verified if response came under 2 seconds          |
+| **Headers**       | Correct data format (Content-Type)             | Ensured `application/json` for JSON data           |
+
+
+## 19 Batch execution
+
+In the context of Postman or API testing, batch execution refers to running multiple API requests together in one go, usually through tools like the Collection Runner or Newman.
+
+In real-time projects, we often have several APIs that are part of a single flow — for example, login, fetch user details, update information, and logout. Instead of executing these APIs one by one manually, we can execute them as a batch. This ensures that all requests run in a specific order automatically, which helps validate the entire workflow efficiently.
+
+Using the Collection Runner in Postman, we can execute a complete collection of APIs along with their test scripts, environment variables, and data files (like CSV or JSON) for data-driven testing. Similarly, Newman, which is a command-line tool for Postman, allows us to run the same collection directly from the terminal or integrate it into a CI/CD pipeline using tools like Jenkins.
+
+Batch execution is very useful in automation because it saves time, ensures consistency, and helps verify whether the APIs are working correctly together as part of a system flow.
+
+
+## 20 Report generation
+In Postman, report generation using Newman is a way to get detailed results after running a collection of APIs through the command line.
+
+When we execute APIs in bulk using Newman, it automatically generates a report that shows information like the number of tests passed or failed, response times, status codes, and any errors encountered during the execution. This report helps us easily analyze the overall quality and performance of the APIs.
+
+In my experience, I’ve used Newman for batch execution and report generation by running the command:
+
+newman run collection_name.json -e environment_name.json -r cli,html
+
+
