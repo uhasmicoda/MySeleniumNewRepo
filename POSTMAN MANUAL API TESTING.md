@@ -148,9 +148,11 @@ Finally, I worked with Data variables during data-driven testing, where I import
 | **Data Variable**        | Used during data-driven testing (Collection Runner).       | Helps run the same request with multiple sets of input data from CSV or JSON files.                                               | `{{username}}`, `{{password}}` from CSV file          | Exists only during collection run.                          |
 
 
-## 12 Types of parameter
+## 12 Parameter and its types
 
-In Postman, there are different types of parameters that play a crucial role in API communication.
+In Postman, a parameter is a way to send additional information with your API request. Parameters help the server understand what data you are requesting or sending. They are part of the URL, request body, or headers, depending on the type of request.
+
+In API or In Postman, there are different types of parameters that play a crucial role in API communication.
 
 One of the most common types I’ve worked with is the Path parameter, which is embedded directly into the endpoint URL to access a specific resource. For example, when I needed to fetch details of a particular user, the API endpoint looked like /users/101, where 101 is a dynamic path parameter representing the user ID.
 
