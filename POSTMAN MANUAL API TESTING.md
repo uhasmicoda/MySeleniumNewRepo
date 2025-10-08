@@ -148,7 +148,7 @@ Finally, I worked with Data variables during data-driven testing, where I import
 | **Data Variable**        | Used during data-driven testing (Collection Runner).       | Helps run the same request with multiple sets of input data from CSV or JSON files.                                               | `{{username}}`, `{{password}}` from CSV file          | Exists only during collection run.                          |
 
 
-## Types of parameter
+## 12 Types of parameter
 
 In Postman, there are different types of parameters that play a crucial role in API communication.
 
@@ -169,4 +169,65 @@ Finally, in Postman, the Params section generally refers to the key-value pairs 
 | **Header Parameter**     | Used to send additional information such as authentication tokens or content type.    | `Authorization: Bearer <token>`<br>`Content-Type: application/json` | Request Header | All Methods      |
 | **Body Parameter (Raw)** | Used to send raw data (JSON, XML, or text) directly in the request body.              | `{ "name": "John", "email": "john@gmail.com" }`                     | Request Body   | POST, PUT, PATCH |
 
+## 13 Status code
+
+A status code in API testing represents the result of the client’s request to the server. It’s part of the HTTP response and helps testers understand whether the request was successfully processed or if there was an error. These codes are divided into different categories based on their first digit — for example, 2xx indicates success, 4xx indicates client-side errors, and 5xx indicates server-side errors.
+
+200 Series – Success Codes
+
+These indicate that the request was successfully received, understood, and processed by the server.
+
+| **Code**                              | **Meaning**      | **Explanation / Use Case**                                                                                |
+| ------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| **200 OK**                            | Success          | Request completed successfully and server returned the expected response. Example: Fetching user details. |
+| **201 Created**                       | Resource Created | A new resource has been successfully created. Example: Creating a new user account.                       |
+| **202 Accepted**                      | Request Accepted | The request is accepted but still being processed (asynchronous). Example: File upload queued.            |
+| **203 Non-Authoritative Information** | Partial Info     | Response returned from a third-party or cached source, not directly from the origin server.               |
+| **204 No Content**                    | Success, No Data | Request was successful but there’s no content to return. Example: Deleting a record.                      |
+
+
+300 Series – Redirection Codes
+
+These indicate that further action is needed — like following a redirect to another URL.
+
+| **Code**                               | **Meaning**        | **Explanation / Use Case**                            |
+| -------------------------------------- | ------------------ | ----------------------------------------------------- |
+| **301 Moved Permanently**              | Permanent Redirect | Resource has been permanently moved to a new URL.     |
+| **302 Found (Temporarily Redirected)** | Temporary Redirect | Resource is temporarily available at a different URL. |
+
+
+400 Series – Client Error Codes
+
+These mean there’s an issue with the request sent by the client (like invalid input or missing authorization).
+
+
+| **Code**                       | **Meaning**             | **Explanation / Use Case**                                                              |
+| ------------------------------ | ----------------------- | --------------------------------------------------------------------------------------- |
+| **400 Bad Request**            | Invalid Request         | Server can’t process the request due to syntax or missing data.                         |
+| **401 Unauthorized**           | Authentication Required | Missing or invalid authentication token.                                                |
+| **403 Forbidden**              | Access Denied           | User is authenticated but doesn’t have permission to access the resource.               |
+| **404 Not Found**              | Resource Not Found      | The requested resource doesn’t exist.                                                   |
+| **405 Method Not Allowed**     | Invalid Method          | The HTTP method (GET, POST, etc.) is not allowed for this endpoint.                     |
+| **409 Conflict**               | Request Conflict        | Request conflicts with current state of the resource. Example: Duplicate record.        |
+| **415 Unsupported Media Type** | Wrong Format            | Server doesn’t support the format of the request body (e.g., wrong Content-Type).       |
+| **422 Unprocessable Entity**   | Invalid Data            | The request is well-formed but contains semantic errors. Example: Invalid email format. |
+| **429 Too Many Requests**      | Rate Limit Exceeded     | Too many requests in a short time — throttling applied.                                 |
+| **499 Client Closed Request**  | Client Cancelled        | Client closed the connection before the server could respond.                           |
+
+
+
+
+500 Series – Server Error Codes
+These indicate that the server failed to process a valid request due to internal problems.
+
+Code
+
+| **Code**                        | **Meaning**                    | **Explanation / Use Case**                                         |
+| ------------------------------- | ------------------------------ | ------------------------------------------------------------------ |
+| **500 Internal Server Error**   | General Server Error           | The server encountered an unexpected condition.                    |
+| **501 Not Implemented**         | Not Supported                  | The request method or feature is not implemented by the server.    |
+| **502 Bad Gateway**             | Invalid Response from Upstream | The server received an invalid response from another server.       |
+| **503 Service Unavailable**     | Temporary Downtime             | Server is overloaded or down for maintenance.                      |
+| **504 Gateway Timeout**         | Timeout Error                  | The server didn’t receive a response in time from another service. |
+| **599 Network Connect Timeout** | Network Timeout                | The network connection timed out before completing the request.    |
 
