@@ -231,3 +231,41 @@ Code
 | **504 Gateway Timeout**         | Timeout Error                  | The server didn’t receive a response in time from another service. |
 | **599 Network Connect Timeout** | Network Timeout                | The network connection timed out before completing the request.    |
 
+
+## 14 Endpoints
+
+During my experience with Postman, I understood that an endpoint is the specific path or address in an API where a request is sent to interact with a particular web resource. For example, in REST APIs, the base URL points to the main API service, such as https://api.example.com, and the endpoint is appended to it—like /users, /products, or /orders—to access specific data or functionalities. Each endpoint is linked with an HTTP method such as GET, POST, PUT, or DELETE, depending on the operation being performed. In simple terms, endpoints help testers communicate with the exact feature or resource of the API that needs to be tested or validated.
+
+| **Term**         | **Description**                                                                            | **Example**                      | **Purpose**                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------ | -------------------------------- | -------------------------------------------------------------------- |
+| **Base URL**     | The main domain or root address of the API server.                                         | `https://api.example.com`        | Identifies the main location of the API service.                     |
+| **Endpoint**     | A specific path appended to the base URL to access a particular resource or functionality. | `/users`, `/products`, `/orders` | Defines which resource or feature the client wants to interact with. |
+| **Full API URL** | Combination of base URL and endpoint.                                                      | `https://api.example.com/users`  | Used to send the actual request to the server.                       |
+| **HTTP Method**  | Defines the type of operation to perform on the resource.                                  | GET, POST, PUT, DELETE           | Specifies the action — fetch, create, update, or delete.             |
+
+
+## 15 🧩 Authentication and 🔐 Authorization
+
+Authentication is the process of verifying who the user or client is, In simple words, it confirms the identity of the person or system trying to access the API.
+
+In API testing, authentication ensures that only valid users or systems can send requests to the server, When I worked with Postman, I often used different authentication types like Basic Auth, Bearer Token, or API Key depending on the project’s setup.
+
+
+Authorization, on the other hand, decides what actions an authenticated user is allowed to perform, Once the identity is confirmed, authorization checks whether the user has permission to access certain data or perform specific operations.
+
+
+After login, I might be allowed to view user data (GET request) but not delete it (DELETE request), If I tried to delete without proper permission, I’d get a 403 Forbidden error.
+
+## 16 🔐 Difference between OAuth 1.0, OAuth 2.0, and Bearer Token
+
+In my experience, I’ve mostly worked with OAuth 2.0 and Bearer Tokens, but I also understand how OAuth 1.0 differs.
+The key difference is that OAuth 1.0 is more complex because it requires multiple credentials like access key, access secret, client ID, and client secret. It uses cryptographic signatures for every request, which makes it secure but harder to implement and maintain.
+
+On the other hand, OAuth 2.0 is simpler, more flexible, and widely used in modern web and mobile applications. It uses access tokens (typically bearer tokens) instead of complex signatures to authenticate and authorize requests.
+
+As for the Bearer Token, it’s actually a part of OAuth 2.0. Once the user is authenticated successfully, the server issues a bearer token, which is then passed in the request header like:
+
+Authorization: Bearer <access_token>
+
+
+It’s called a “bearer” token because whoever possesses it can access the resource — it doesn’t require an additional signature or key. That’s why it’s very important to keep the token secure.
