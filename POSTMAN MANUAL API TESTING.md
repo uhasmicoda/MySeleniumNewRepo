@@ -329,3 +329,173 @@ In my experience, I’ve used Newman for batch execution and report generation b
 newman run collection_name.json -e environment_name.json -r cli,html
 
 
+## 21 JAVASCRIPT SNIPPETS 
+
+In Postman, there are several predefined JavaScript snippets available that help in quickly writing test validations without needing to manually type all the code. These snippets are used under the “Tests” or “Pre-request Script” tab to validate the API response automatically.
+
+| **Snippet Name**                             | **Purpose**                                                                         | **Example / Description**                                                                                                            |
+| -------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Status code: Code is 200**                 | Checks if the response status code is 200 (OK).                                     | `pm.test("Status code is 200", function () { pm.response.to.have.status(200); });`                                                   |
+| **Response time is less than 200ms**         | Validates if the API response is received within the expected time.                 | `pm.test("Response time is less than 200ms", function () { pm.expect(pm.response.responseTime).to.be.below(200); });`                |
+| **Response body: Contains string**           | Checks if the response body includes a specific text or keyword.                    | `pm.test("Body contains success message", function () { pm.expect(pm.response.text()).to.include("success"); });`                    |
+| **Response body: JSON value check**          | Validates a specific key-value pair in a JSON response.                             | `pm.test("Validate name in response", function () { var jsonData = pm.response.json(); pm.expect(jsonData.name).to.eql("John"); });` |
+| **Response header: Content-Type is present** | Ensures that a specific header (like Content-Type) exists in the response.          | `pm.test("Content-Type header is present", function () { pm.response.to.have.header("Content-Type"); });`                            |
+| **Set an environment variable**              | Stores a value (like token or ID) in an environment variable for chaining requests. | `pm.environment.set("token", pm.response.json().token);`                                                                             |
+| **Clear an environment variable**            | Removes an environment variable from memory.                                        | `pm.environment.unset("token");`                                                                                                     |
+| **Check if response has a JSON body**        | Validates if the response body format is JSON.                                      | `pm.test("Response is JSON", function () { pm.response.to.be.json; });`                                                              |
+| **Check response code name**                 | Validates if the response status text (like “OK”, “Created”) matches expected.      | `pm.test("Status code name is OK", function () { pm.response.to.have.status("OK"); });`                                              |
+
+
+
+# 🧩 Postman Predefined JavaScript Snippets for API Validation
+
+These are some of the most commonly used Postman test snippets that help validate API responses effectively.
+
+---
+
+### ✅ 1. Validate Status Code is 200
+```javascript
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+```
+
+### ⚙️ 2. Validate Response Time is Less Than 2000ms
+```javascript
+pm.test("Response time is less than 2000ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(2000);
+});
+```
+
+### 🧾 3. Validate Content-Type Header
+```javascript
+pm.test("Content-Type is application/json", function () {
+    pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+});
+```
+
+### 🔍 4. Validate Specific Field in JSON Response
+```javascript
+pm.test("User name is correct", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.name).to.eql("John");
+});
+```
+
+### 🧩 5. Validate Key Exists in JSON Response
+```javascript
+pm.test("Response contains userId", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property("userId");
+});
+```
+
+### 🔢 6. Validate Status Code is Between Range
+```javascript
+pm.test("Status code is between 200 and 204", function () {
+    pm.expect(pm.response.code).to.be.within(200, 204);
+});
+```
+
+### 🧠 7. Store Response Value into Environment Variable
+```javascript
+var jsonData = pm.response.json();
+pm.environment.set("userId", jsonData.id);
+```
+
+### 🔄 8. Use Saved Environment Variable in Next Request
+```javascript
+pm.test("Verify stored userId", function () {
+    var userId = pm.environment.get("userId");
+    pm.expect(userId).to.not.be.undefined;
+});
+```
+
+### ⚠️ 9. Validate Error Message in Response
+```javascript
+pm.test("Validate error message", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.message).to.eql("Invalid credentials");
+});
+```
+
+### ⏱️ 10. Validate Response Has a JSON Body
+```javascript
+pm.test("Response has valid JSON", function () {
+    pm.response.to.be.json;
+});
+```
+
+### 🔐 11. Validate Token is Returned
+```javascript
+pm.test("Token is present in response", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property("token");
+});
+```
+
+### 🌐 12. Validate Response Body Contains a Text
+```javascript
+pm.test("Response body contains 'success'", function () {
+    pm.expect(pm.response.text()).to.include("success");
+});
+```
+
+### 📊 13. Validate Response Code is 201 (Created)
+```javascript
+pm.test("Status code is 201", function () {
+    pm.response.to.have.status(201);
+});
+```
+
+### 🧾 14. Validate Response Header Exists
+```javascript
+pm.test("Server header is present", function () {
+    pm.response.to.have.header("Server");
+});
+```
+
+### 🔄 15. Validate Array Length in JSON Response
+```javascript
+pm.test("Validate array length", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.data.length).to.be.above(0);
+});
+```
+
+### 🧹 16. Delete Environment Variable
+```javascript
+pm.environment.unset("userId");
+```
+
+### 🧮 17. Validate Numeric Value in JSON Response
+```javascript
+pm.test("Check user age is greater than 18", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.age).to.be.above(18);
+});
+```
+
+### 🧱 18. Validate Status Code 400 (Bad Request)
+```javascript
+pm.test("Status code is 400", function () {
+    pm.response.to.have.status(400);
+});
+```
+
+### ⚡ 19. Validate Non-Empty Response Body
+```javascript
+pm.test("Response body is not empty", function () {
+    pm.expect(pm.response.text()).to.not.be.empty;
+});
+```
+
+### 📦 20. Validate JSON Array Contains Value
+```javascript
+pm.test("Response array contains item", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.items).to.include("apple");
+});
+```
+
+
