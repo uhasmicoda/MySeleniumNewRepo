@@ -236,6 +236,8 @@ Code
 
 ## 14 Endpoints
 
+An endpoint is the specific URL path on a server where an API request is sent to perform an action or access data.
+
 During my experience with Postman, I understood that an endpoint is the specific path or address in an API where a request is sent to interact with a particular web resource. For example, in REST APIs, the base URL points to the main API service, such as https://api.example.com, and the endpoint is appended to it—like /users, /products, or /orders—to access specific data or functionalities. Each endpoint is linked with an HTTP method such as GET, POST, PUT, or DELETE, depending on the operation being performed. In simple terms, endpoints help testers communicate with the exact feature or resource of the API that needs to be tested or validated.
 
 | **Term**         | **Description**                                                                            | **Example**                      | **Purpose**                                                          |
