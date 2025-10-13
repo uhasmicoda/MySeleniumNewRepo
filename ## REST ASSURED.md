@@ -195,7 +195,7 @@ Deserialization is the reverse process of serialization. It means converting a J
 
 
 
-12 ## How to perform Serialization and Deserializatio ?
+## 12 How to perform Serialization and Deserializatio ?
 
 Serialization in Java is the process of converting a Java object into a stream of bytes so that it can be easily stored in a file or transferred over a network. In simple words, it helps to save the state of an object. Java provides a class called ObjectOutputStream to perform serialization. When we serialize an object, the data is converted into a non-readable binary format and can be stored in a file using FileOutputStream.
 
