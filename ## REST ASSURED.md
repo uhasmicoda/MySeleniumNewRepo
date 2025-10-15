@@ -324,7 +324,7 @@ In such cases, we call it a complex POST request, because the body is more struc
     "transactionId": "TXN98765"
   }
 }
-``
+```
 
 ## 15 How many ways can you send a POST request in Rest Assured?
 
