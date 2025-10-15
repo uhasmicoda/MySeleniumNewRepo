@@ -147,7 +147,7 @@ public class Run1_serialization_deserialization {
 ```
 
 
-## 10 How to perform Serialization and Deserialization ?
+## 10 How to acheive Serialization and Deserialization ?
 
 In order to achieve serialization in Java, first we need to make sure that the class implements the Serializable interface. This interface doesn’t have any methods — it just acts as a marker to tell the JVM that objects of this class can be converted into a byte stream.
 
@@ -176,6 +176,105 @@ This concept is very useful because it teaches how data from objects can be conv
 | **Example Classes**        | `ObjectOutputStream`, `FileOutputStream`                              | `ObjectInputStream`, `FileInputStream`                            |
 | **Use Case**               | Saving user session, game state, or configuration.                    | Loading saved session, restoring object data.                     |
 
+
+## 11 Jackson Serialization
+
+Jackson serialization is the process of converting a Java object into a JSON format using the Jackson library, which is one of the most widely used libraries in Java for handling JSON data. In simple words, it helps us convert our Java objects into JSON strings that can easily be used for API communication or stored in files or databases. To achieve serialization and deserialization, Jackson provides a powerful class called ObjectMapper, which acts as the main engine for converting between Java objects and JSON data.
+
+It also supports advanced features like annotations (@JsonIgnore, @JsonProperty, @JsonInclude, etc.) which help developers control how specific fields are serialized or deserialized. It can handle complex data structures such as nested objects, arrays, lists, and maps efficiently.
+
+
+
+
+
+```java
+
+package practice_serialization;
+
+import java.io.File;
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+// POJO class (Plain Old Java Object)
+class Project {
+	
+	private String projectName;
+	private String createdBy;
+	private int teamSize;
+	private String status;
+
+	// Default constructor (required for deserialization)
+	public Project() {}
+
+	// Parameterized constructor
+	public Project(String projectName, String createdBy, int teamSize, String status) {
+		this.projectName = projectName;
+		this.createdBy = createdBy;
+		this.teamSize = teamSize;
+		this.status = status;
+	}
+
+	// Getters and Setters
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public int getTeamSize() {
+		return teamSize;
+	}
+	public void setTeamSize(int teamSize) {
+		this.teamSize = teamSize;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+}
+
+public class Run1_JacksonSerializationTest {
+	public static void main(String[] args) throws StreamWriteException, DatabindException, IOException, StreamReadException {
+		
+		// Step 1: Create a Project object
+		Project projectObj = new Project("Walee", "Khaleed", 10, "Created");
+
+		// Step 2: Create ObjectMapper instance (used for both serialization & deserialization)
+		ObjectMapper objMapper = new ObjectMapper();
+		
+		// Step 3: Serialization - Convert Java Object to JSON and write to file
+		objMapper.writeValue(new File("./project.json"), projectObj);
+		System.out.println("✅ Serialization completed successfully!");
+
+		// Step 4: Deserialization - Read JSON file and convert it back to Java Object
+		Project readObj = objMapper.readValue(new File("./project.json"), Project.class);
+		
+		// Step 5: Print deserialized data
+		System.out.println("✅ Deserialization completed successfully!");
+		System.out.println("Project Name: " + readObj.getProjectName());
+		System.out.println("Created By  : " + readObj.getCreatedBy());
+		System.out.println("Team Size   : " + readObj.getTeamSize());
+		System.out.println("Status      : " + readObj.getStatus());
+	}
+}
+
+## 12 How to acheive Serialization and Deserialization Jackson?
+
+In order to perform serialization, we first need a POJO class (Plain Old Java Object) that contains variables, constructors, and getter/setter methods. Then, we create an instance of the ObjectMapper class and use its methods like writeValue() or writeValueAsString(). The writeValue() method converts the Java object into JSON and writes it directly to a file, while writeValueAsString() converts the Java object into a JSON string which can be printed or used in API requests. During this process, Jackson automatically reads all the fields and their values from the Java object and converts them into key-value pairs in JSON format.
+
+Next comes deserialization, which is the reverse process of serialization. In deserialization, the JSON data is converted back into a Java object using the readValue() method of ObjectMapper. For example, if we have a JSON file named project.json, Jackson will read the data from it and map it back to the Project class object. To make this possible, the POJO class must contain a default (no-argument) constructor and proper getter and setter methods, because Jackson internally uses them to create the object and assign values to its fields. Once the JSON is deserialized, we can access the data in the same way we access normal object properties in Java.
 
 ## 9 Rest assured class diagram
 
