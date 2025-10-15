@@ -540,9 +540,110 @@ public class SampleTestForPostDataViaPOJOclassTest {
 		System.out.println("✅ POST request sent successfully using POJO class!");
 	}
 }
-```
 
-## 16 
+```
+## 16 Assertion
+
+In API testing with Rest Assured, assertions are used to validate different parts of the API response such as the status code, response body, headers, and response time. After we send a request to an API, we don’t just stop there — we verify whether the response we got is correct. This is done using assertions.
+
+Response header
+
+In API testing, we usually validate a few common things from the response header to ensure the API is behaving as expected.
+The most common validations include:
+Content-Type – to confirm the response body format, usually JSON or XML.
+Status Code and Status Line – to check whether the request was successful or failed.
+Response Time – to make sure the API performance is within the acceptable limit.
+Server – to verify which web server is responding (optional but useful).
+Transfer-Encoding – to ensure the response is delivered properly, often seen as ‘chunked’.
+
+In order to validate the response headers in API testing, we generally use the Matchers class from the org.hamcrest package along with Rest Assured’s assertThat() method. The response headers contain key-value pairs such as Content-Type, Server, Connection, Content-Encoding, etc., which help verify that the API is returning the correct metadata along with the response body. Using Matchers methods like equalTo(), containsString(), or is() allows us to perform flexible and readable validations. For example, we can verify if the Content-Type header equals "application/json" or if the Server header contains a specific keyword. This approach ensures that the API behaves as expected and follows the correct communication format and standards.
+
+These headers are common across almost all APIs, while other headers like Cache-Control or Access-Control-Allow-Origin depend on the specific project or setup.”
+| **Header Name**       | **Example Value**         | **Purpose / What to Say in Interview**                                                                |
+| --------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **Content-Type**      | `application/json`        | Defines the format of the response body — we validate this to ensure the API returns expected format. |
+| **Status Code**       | `200, 201, 400, 404, 500` | Confirms whether the API request was successful or failed.                                            |
+| **Status Line**       | `HTTP/1.1 200 OK`         | Gives protocol version and overall response summary.                                                  |
+| **Response Time**     | `250ms`                   | Helps ensure the API performance is within expected limits.                                           |
+| **Server**            | `nginx` / `Apache`        | Shows which web server handled the request (optional but commonly visible).                           |
+| **Transfer-Encoding** | `chunked`                 | Indicates how the response body is sent — usually seen in large responses.                            |
+
+```java 
+package responseValidation;
+
+import static io.restassured.RestAssured.*;
+import org.testng.annotations.Test;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
+public class ValidateCommonResponseHeadersTest {
+
+    @Test
+    public void verifyCommonHeaders() {
+        // Step 1: Send a GET request to the API endpoint
+        Response resp = given()
+                            .when()
+                            .get("https://reqres.in/api/users?page=2"); // sample public API
+
+        // Step 2: Log the complete response (optional)
+        resp.then().log().all();
+
+        // Step 3: Validate mandatory headers
+        resp.then().assertThat()
+            .contentType(ContentType.JSON)                       // ✅ Content-Type validation
+            .statusCode(200)                                     // ✅ Status Code validation
+            .statusLine("HTTP/1.1 200 OK");                      // ✅ Status Line validation
+
+        // Step 4: Validate some common optional headers
+        resp.then().assertThat().header("Server", "cloudflare");           // ✅ Common server header
+        resp.then().assertThat().header("Transfer-Encoding", "chunked");   // ✅ Common encoding header
+    }
+}
+```
+Response time
+In order to validate the response time present in the response header, we should prefer using the Matchers class available in the org.hamcrest package. The Matchers class provides predefined methods such as lessThan(), greaterThan(), and both().and() that allow us to compare dynamic values like response time efficiently. Since the response time varies with each request, we cannot use the equals() method for validation. Instead, using Matchers helps us verify that the response time falls within an acceptable range, ensuring that the API meets the expected performance standards. This approach makes the validation more flexible, readable, and reliable during automation testing.
+
+``` java
+
+package complexResponseValidatoin;
+
+import static io.restassured.RestAssured.given;
+
+import java.util.concurrent.TimeUnit;
+import org.hamcrest.Matchers;
+import org.testng.annotations.Test;
+import io.restassured.response.Response;
+
+public class VerifyResponseTimeTest {
+    @Test()
+    public void verifyHeader() {
+        // Step 1: Send GET request to the endpoint
+        Response resp = given().get("http://49.249.28.218:8091/projects");
+
+        // Step 2: Log complete response details
+        resp.then().log().all();
+
+        // Step 3: Capture response time in milliseconds and seconds
+        long timeTaken = resp.time(); // in milliseconds
+        long timeTakenSeconds = resp.timeIn(TimeUnit.SECONDS); // in seconds
+        System.out.println("Response time in ms: " + timeTaken);
+        System.out.println("Response time in sec: " + timeTakenSeconds);
+
+        // Step 4: Validate time constraints using Hamcrest Matchers
+        // Check if response time is less than 1000 ms
+        resp.then().assertThat().time(Matchers.lessThan(1000L));
+
+        // Check if response time is greater than 300 ms
+        resp.then().assertThat().time(Matchers.greaterThan(300L));
+
+        // Check if response time is between 300 ms and 1000 ms
+        resp.then().assertThat().time(
+            Matchers.both(Matchers.greaterThan(300L))
+                    .and(Matchers.lessThan(1000L))
+        );
+    }
+}
+
 
 ## 9 Rest assured class diagram
 
