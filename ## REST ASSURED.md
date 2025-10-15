@@ -85,7 +85,7 @@ In short, before working on Rest Assured, one should have hands-on experience wi
 In Rest Assured project setup, we first create a Maven project in Eclipse and add all the required dependencies in the pom.xml file. The main dependency is Rest Assured, which is used for API automation testing. Along with that, we can add json-simple for creating or parsing JSON data, TestNG for writing and managing test cases, and mysql-connector-java if we need to connect and validate data from a database. Optionally, selenium-java can also be added if we want to integrate API and UI testing together. Once the dependencies are added, we create a package under the src/test/java folder and write a test class inside it. Finally, we can write a simple Rest Assured test, such as sending a GET request to an API and verifying the response. This setup helps us structure our API automation testing efficiently.
 
 
-## 9 🧩 What is Serialization and Deserialization ?
+## 9 🧩 What is Java Serialization and Deserialization ?
 
 Serialization is the process of converting a Java object into a format like JSON or XML so that it can be easily sent over the network. In API testing, we usually use serialization when we need to send request data in JSON format. Instead of manually creating a JSON string, we create a Java object and let the serialization process automatically convert it into JSON. This makes our code cleaner, easier to maintain, and reduces chances of human error. For example, in Rest Assured, when we pass a Java object in the .body() method, it gets automatically serialized into JSON before sending the API request.
 
@@ -644,6 +644,168 @@ public class VerifyResponseTimeTest {
     }
 }
 
+```
+
+## Request Chaining or API Chaining
+
+Request Chaining, also called API Chaining, is a process where the response of one API is used as the input for another API. It’s mainly used in end-to-end API testing to verify workflows where multiple APIs depend on each other. For example, creating a user in one API and then using that user’s ID in another API to fetch or update details. I’ve also used this approach in Rest Assured by extracting values from responses using jsonPath() and passing them dynamically to subsequent requests.
+
+## ✅ Scenario 1 – Create a Project → Delete the Same Project
+
+``` java
+package request_Chaining;
+
+import static io.restassured.RestAssured.given;
+
+import java.util.Random;
+
+import org.testng.annotations.Test;
+
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import pojoclass.utility.ProjectPojo;
+
+public class Scenario_1_Delete_Project {
+	
+    @Test
+    public void postDataFromServer() {
+        
+        Random random = new Random();
+        int randomNum = random.nextInt(5000);
+
+        // Step 1: Create a project (POST request)
+        ProjectPojo pObj = new ProjectPojo("Nizame-Allah" + randomNum, "Created", "Maula", 10);
+
+        Response response = given()
+            .contentType(ContentType.JSON)
+            .body(pObj)
+        .when()
+            .post("http://49.249.28.218:8091/addProject");
+
+        // Verify project creation
+        response.then()
+            .assertThat().statusCode(201)
+            .log().all();
+
+        // Step 2: Capture projectId from the response
+        String projectId = response.jsonPath().getString("projectId");
+        System.out.println("Created Project ID: " + projectId);
+
+        // Step 3: Delete the project using projectId (DELETE request)
+        given()
+        .when()
+            .delete("http://49.249.28.218:8091/project/" + projectId)
+        .then()
+            .assertThat().statusCode(204)  // or 200, depending on API behavior
+            .log().all();
+    }
+}
+```
+## 🧩 Scenario 2 — Create a Project → Add an Employee to that Project
+``` java
+
+package request_Chaining;
+
+import static io.restassured.RestAssured.*;
+
+import java.util.Random;
+
+import org.testng.annotations.Test;
+
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import pojoclass.utility.EmployeePOJO;
+import pojoclass.utility.ProjectPojo;
+
+public class Scenario_2_AddEmployeeToProject {
+
+    @Test
+    public void postDataFromServer() {
+
+        Random random = new Random();
+        int randomNum = random.nextInt(5000);
+
+        // ✅ API 1 → Add a Project inside the Server
+        ProjectPojo pObj = new ProjectPojo("Nizame-Allah" + randomNum, "Created", "Maula", 0);
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body(pObj)
+                .when()
+                .post("http://49.249.28.218:8091/addProject");
+
+        response.then().assertThat().statusCode(201).log().all();
+
+        // ✅ Capture projectName from the response
+        String projectName = response.jsonPath().get("projectName");
+        System.out.println("Created Project Name: " + projectName);
+
+        // ✅ API 2 → Add Employee to the same Project
+        EmployeePOJO empObj = new EmployeePOJO(
+                "Mujahid",
+                "11-03-1998",
+                "mdsaddamffd811@gmail.com",
+                "Mahboob-e-Khuda" + randomNum,
+                18,
+                "6767674554",
+                projectName,
+                "ROLE_EMPLOYEE",
+                "Mahboob-e-Khuda" + randomNum
+        );
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(empObj)
+                .when()
+                .post("http://49.249.28.218:8091/employees")
+                .then()
+                .assertThat()
+                .statusCode(201)
+                .log().all();
+    }
+}
+```
+
+## ✅ Scenario 3: Get Payroll Info via Authentication
+
+``` java
+
+package request_Chaining;
+
+import static io.restassured.RestAssured.*;
+
+import org.testng.annotations.Test;
+import io.restassured.response.Response;
+
+public class Scenario_3_GetPayrollInfo {
+
+    @Test
+    public void getPayrollInfo() {
+
+        // ✅ API 1 — Get Auth Token
+        Response resp = given()
+                .formParam("client_id", "rinzra-client")
+                .formParam("client_secret", "q8JS......")  // your actual secret
+                .formParam("grant_type", "client_credentials")
+            .when()
+                .post("http://49.249.28.218:8080/auth/realms/rinzra/protocol/openid-connect/token");
+
+        resp.then().log().all();
+
+        // ✅ Capture token from the response
+        String token = resp.jsonPath().get("access_token");
+        System.out.println("Access Token: " + token);
+
+        // ✅ API 2 — Get Payroll Info using the token
+        given()
+            .auth().oauth2(token)
+        .when()
+            .get("http://49.249.28.218:8091/admin/payrolls")
+        .then()
+            .log().all();
+    }
+}
+```
 
 ## 9 Rest assured class diagram
 
@@ -672,7 +834,7 @@ Overall, these classes work together in a structured flow: we start by defining 
 | **JSONObject**            | Used to create JSON request bodies dynamically for POST/PUT requests.                                                | `put()`, `get()`, `toString()`                                                               |
 | **ObjectMapper**          | Used for serialization (Java → JSON) and deserialization (JSON → Java).                                              | `writeValueAsString()`, `readValue()`                                                        |
 
-## 
+
 ## 10 Crud operation with and without bdd
 
 In API testing, CRUD stands for Create, Read, Update, and Delete, which represent the basic operations on any resource. For example, in Rest Assured, Create is done using POST, Read using GET, Update using PUT/PATCH, and Delete using DELETE methods.
