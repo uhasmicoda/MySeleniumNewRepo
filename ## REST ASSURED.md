@@ -278,7 +278,7 @@ In order to perform serialization, we first need a POJO class (Plain Old Java Ob
 
 Next comes deserialization, which is the reverse process of serialization. In deserialization, the JSON data is converted back into a Java object using the readValue() method of ObjectMapper. For example, if we have a JSON file named project.json, Jackson will read the data from it and map it back to the Project class object. To make this possible, the POJO class must contain a default (no-argument) constructor and proper getter and setter methods, because Jackson internally uses them to create the object and assign values to its fields. Once the JSON is deserialized, we can access the data in the same way we access normal object properties in Java.
 
-## Jackson annotation 
+## 13 Jackson annotation 
 
 Jackson annotations are used to control how Java objects are converted to JSON and vice versa during serialization and deserialization. They help customize field names, include or exclude specific fields, and manage data formats easily. For example, @JsonProperty is used to rename a field in JSON, @JsonIgnore hides a field from JSON output, and @JsonInclude controls whether null or empty fields should be included. Similarly, @JsonFormat defines date or number formats, and @JsonIgnoreProperties can ignore multiple fields at once.
 
@@ -291,6 +291,258 @@ Jackson annotations are used to control how Java objects are converted to JSON a
 | `@JsonIgnoreProperties({"field1","field2"})` | Ignores multiple fields during serialization/deserialization. | `java\n@JsonIgnoreProperties({"age", "salary"})\nclass Employee { ... }\n`                                            |
 | `@JsonPropertyOrder({"id","name","salary"})` | Sets custom order of JSON fields.                             | `java\n@JsonPropertyOrder({"id","name","salary"})\nclass Employee { ... }\n`                                          |
 
+## 14 🧩 What is a Complex POST Request?
+
+A Complex POST Request is an API request that sends multiple layers of data or nested JSON structures to the server, instead of just simple key-value pairs. In real-world applications, APIs often require sending detailed information such as objects within objects, arrays, or lists — for example, when creating an order that contains multiple products, customer details, and payment info all in one request.
+
+In such cases, we call it a complex POST request, because the body is more structured and may include nested JSON data, lists, or multiple dependent objects.
+
+``` json
+
+{
+  "customer": {
+    "name": "Rahul Sharma",
+    "email": "rahul@example.com"
+  },
+  "order": {
+    "orderId": "ORD123",
+    "items": [
+      {
+        "productId": "P101",
+        "quantity": 2,
+        "price": 500
+      },
+      {
+        "productId": "P102",
+        "quantity": 1,
+        "price": 1200
+      }
+    ]
+  },
+  "payment": {
+    "method": "UPI",
+    "transactionId": "TXN98765"
+  }
+}
+``
+
+## 15 How many ways can you send a POST request in Rest Assured?
+
+There are four main ways to send a POST request in Rest Assured:
+
+## 1 Using JSONObject – This is suitable for simple request payloads, where we manually create a JSON object and pass it in the request body.
+
+```java
+package postViaDifferentWays;
+
+import org.json.simple.JSONObject;
+import org.testng.annotations.Test;
+
+import static io.restassured.RestAssured.*;
+import io.restassured.http.ContentType;
+
+public class PostRequestUsingJsonObjectTest {
+    
+    @Test
+    public void postDataToServer() {
+        
+        // Step 1: Create a JSON Object
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("createdBy", "Talha Anjum");
+        jsonObj.put("projectName", "Helicopter");
+        jsonObj.put("status", "Created");
+        jsonObj.put("teamSize", 5);
+
+        // Step 2: Perform POST request
+        given()
+            .contentType(ContentType.JSON) // Set content type as JSON
+            .body(jsonObj.toJSONString())  // Convert JSONObject to JSON string
+        .when()
+            .post("http://49.249.28.218:8091/addProject") // API endpoint
+        .then()
+            .assertThat().statusCode(201) // Validate response code
+            .log().all(); // Print full response in console
+    }
+}
+```
+
+
+
+## 2 Using JSON File – This approach supports complex JSON payloads stored in an external .json file, but handling dynamic data is a bit difficult.
+
+
+
+```java
+package postViaDifferentWays;
+
+import java.io.File;
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+import io.restassured.http.ContentType;
+
+public class SampleTestForPostDataViaJsonFileTest {
+
+    @Test
+    public void postDataFromServer() {
+        
+        // Step 1: Create a File object referring to the external JSON file
+        File file = new File("./project.json"); // Ensure project.json exists in your project root folder
+
+        // Step 2: Send POST request using Rest Assured
+        given()
+            .contentType(ContentType.JSON)   // Specify content type as JSON
+            .body(file)                      // Pass the JSON file as request body
+        .when()
+            .post("http://49.249.28.218:8091/addProject")  // API endpoint
+        .then()
+            .assertThat().statusCode(201)    // Validate successful creation (HTTP 201)
+            .log().all();                    // Print full response for verification
+    }
+}
+```
+
+``` json 
+{
+  "createdBy": "Talha Anjum",
+  "projectName": "Helicopter",
+  "status": "Created",
+  "teamSize": 5
+}
+```
+
+## 3 Using HashMap – This is also used for simple key-value payloads. Rest Assured automatically converts the map into JSON format.
+
+``` java
+
+package postViaDifferentWays;
+
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+import java.util.HashMap;
+import io.restassured.http.ContentType;
+
+public class SampleTestForPostDataViaHashMapTest {
+
+    @Test
+    public void postDataFromServer() {
+        
+        // Step 1: Create a HashMap to store data in key-value pairs
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("createdBy", "Talha Anjum");
+        map.put("projectName", "Helicopter_2025");
+        map.put("status", "Created");
+        map.put("teamSize", 5);
+
+        // Step 2: Send POST request with HashMap body
+        given()
+            .contentType(ContentType.JSON)     // Specify content type as JSON
+            .body(map)                         // Attach request body from HashMap
+        .when()
+            .post("http://49.249.28.218:8091/addProject")  // API endpoint
+        .then()
+            .assertThat().statusCode(201)      // Validate response code
+            .log().all();                      // Log complete response
+        
+        System.out.println("✅ POST request sent successfully using HashMap!");
+    }
+}
+```
+
+## 4 Using POJO Class – This is the most preferred way for complex or nested payloads. It allows easy handling of dynamic data using object properties and supports serialization with Jackson.
+
+## ProjectPojo.java
+
+```java
+package pojoclass.utility;
+
+public class ProjectPojo {
+	
+	private String projectName;
+	private String status;
+	private String createdBy;
+	private int teamSize;
+	
+	// Default constructor (mandatory for serialization/deserialization)
+	public ProjectPojo() {
+	}
+	
+	// Parameterized constructor
+	public ProjectPojo(String projectName, String status, String createdBy, int teamSize) {
+		this.projectName = projectName;
+		this.status = status;
+		this.createdBy = createdBy;
+		this.teamSize = teamSize;
+	}
+	
+	// Getters and Setters
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public int getTeamSize() {
+		return teamSize;
+	}
+	public void setTeamSize(int teamSize) {
+		this.teamSize = teamSize;
+	}
+}
+
+```
+## SampleTestForPostDataViaPOJOclassTest.java
+
+```java
+
+package postViaDifferentWays;
+
+import static io.restassured.RestAssured.given;
+
+import java.util.Random;
+import org.testng.annotations.Test;
+import io.restassured.http.ContentType;
+import pojoclass.utility.ProjectPojo;
+
+public class SampleTestForPostDataViaPOJOclassTest {
+	
+	@Test
+	public void postDataFromServer() {
+		
+		// Step 1: Generate a random project name to avoid duplication
+		Random random = new Random();
+	    int randomNum = random.nextInt(5000);
+		
+		// Step 2: Create a POJO object and set the data
+		ProjectPojo pObj = new ProjectPojo("Nizame-Allah-" + randomNum, "Created", "Maula", 5);
+		
+		// Step 3: Send the POST request using Rest Assured
+		given()
+			.contentType(ContentType.JSON)     // Specify content type as JSON
+			.body(pObj)                         // Pass POJO as request body
+		.when()
+			.post("http://49.249.28.218:8091/addProject") // API endpoint
+		.then()
+			.assertThat().statusCode(201)       // Validate response code
+			.log().all();                       // Log full response
+		
+		System.out.println("✅ POST request sent successfully using POJO class!");
+	}
+}
+```
+
+## 16 
 
 ## 9 Rest assured class diagram
 
