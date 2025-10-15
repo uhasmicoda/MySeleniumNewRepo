@@ -278,6 +278,20 @@ In order to perform serialization, we first need a POJO class (Plain Old Java Ob
 
 Next comes deserialization, which is the reverse process of serialization. In deserialization, the JSON data is converted back into a Java object using the readValue() method of ObjectMapper. For example, if we have a JSON file named project.json, Jackson will read the data from it and map it back to the Project class object. To make this possible, the POJO class must contain a default (no-argument) constructor and proper getter and setter methods, because Jackson internally uses them to create the object and assign values to its fields. Once the JSON is deserialized, we can access the data in the same way we access normal object properties in Java.
 
+## Jackson annotation 
+
+Jackson annotations are used to control how Java objects are converted to JSON and vice versa during serialization and deserialization. They help customize field names, include or exclude specific fields, and manage data formats easily. For example, @JsonProperty is used to rename a field in JSON, @JsonIgnore hides a field from JSON output, and @JsonInclude controls whether null or empty fields should be included. Similarly, @JsonFormat defines date or number formats, and @JsonIgnoreProperties can ignore multiple fields at once.
+
+| **Annotation**                               | **Purpose / Description**                                     | **Example Code Snippet**                                                                                              |
+| -------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `@JsonProperty("customName")`                | Changes the field name in JSON.                               | `java\n@JsonProperty("emp_name")\nprivate String name;\n`<br>👉 JSON Output → `{ "emp_name": "Rahul" }`               |
+| `@JsonIgnore`                                | Excludes a field from JSON serialization.                     | `java\n@JsonIgnore\nprivate String password;\n`<br>👉 JSON Output won’t include the password field.                   |
+| `@JsonInclude(JsonInclude.Include.NON_NULL)` | Ignores null fields during serialization.                     | `java\n@JsonInclude(JsonInclude.Include.NON_NULL)\nprivate String address;\n`<br>👉 Null values won’t appear in JSON. |
+| `@JsonFormat(pattern = "dd-MM-yyyy")`        | Defines custom date format in JSON.                           | `java\n@JsonFormat(pattern = "dd-MM-yyyy")\nprivate Date dob;\n`<br>👉 JSON Output → `{ "dob": "10-10-2025" }`        |
+| `@JsonIgnoreProperties({"field1","field2"})` | Ignores multiple fields during serialization/deserialization. | `java\n@JsonIgnoreProperties({"age", "salary"})\nclass Employee { ... }\n`                                            |
+| `@JsonPropertyOrder({"id","name","salary"})` | Sets custom order of JSON fields.                             | `java\n@JsonPropertyOrder({"id","name","salary"})\nclass Employee { ... }\n`                                          |
+
+
 ## 9 Rest assured class diagram
 
 In Rest Assured, several important classes work together to make API automation smooth and structured. The main class is RestAssured, which acts as the starting point of the framework. It allows us to write REST API test cases in a readable BDD format using methods like given(), when(), and then(). These methods help us build requests, send them, and then validate the responses in a clear, step-by-step way.
@@ -305,6 +319,7 @@ Overall, these classes work together in a structured flow: we start by defining 
 | **JSONObject**            | Used to create JSON request bodies dynamically for POST/PUT requests.                                                | `put()`, `get()`, `toString()`                                                               |
 | **ObjectMapper**          | Used for serialization (Java → JSON) and deserialization (JSON → Java).                                              | `writeValueAsString()`, `readValue()`                                                        |
 
+## 
 ## 10 Crud operation with and without bdd
 
 In API testing, CRUD stands for Create, Read, Update, and Delete, which represent the basic operations on any resource. For example, in Rest Assured, Create is done using POST, Read using GET, Update using PUT/PATCH, and Delete using DELETE methods.
