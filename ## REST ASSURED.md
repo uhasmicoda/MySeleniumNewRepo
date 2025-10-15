@@ -192,7 +192,58 @@ Serialization is the process of converting a Java object into a format like JSON
 
 Deserialization is the reverse process of serialization. It means converting a JSON or XML response from the API back into a Java object. In simple terms, when we receive a response from the server, instead of reading raw JSON data, we can map that response directly to a Java class (POJO). This makes it easier to extract and validate specific fields like name, id, or status. In Rest Assured, deserialization happens automatically when we use methods like .as(ClassName.class) to convert the response body into a Java object. It helps in writing clean, readable, and easily maintainable test scripts.
 
+```java
+package practice_serialization;
 
+import java.io.*;
+
+// Step 1: Create a class that implements Serializable
+class NFSGame implements Serializable {
+    String name;
+    int level;
+    long score;
+    int life;
+
+    public NFSGame(String name, int level, long score, int life) {
+        this.name = name;
+        this.level = level;
+        this.score = score;
+        this.life = life;
+    }
+}
+
+public class Run1_serialization_deserialization {
+    public static void main(String[] args) throws Exception {
+
+        // Step 2: Create an object to serialize
+        NFSGame user1 = new NFSGame("Hasmi", 10, 80000, 2);
+
+        // Step 3: Serialization (object → file)
+        FileOutputStream fileOut = new FileOutputStream("f.txt");
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        objOut.writeObject(user1);
+        objOut.close();
+        fileOut.close();
+        System.out.println("✅ Serialization completed successfully!");
+
+        // Step 4: Deserialization (file → object)
+        FileInputStream fileIn = new FileInputStream("f.txt");
+        ObjectInputStream objIn = new ObjectInputStream(fileIn);
+        NFSGame restoredUser = (NFSGame) objIn.readObject();
+        objIn.close();
+        fileIn.close();
+        System.out.println("✅ Deserialization completed successfully!");
+
+        // Step 5: Display restored data
+        System.out.println("\n--- Restored Object Data ---");
+        System.out.println("Name: " + restoredUser.name);
+        System.out.println("Level: " + restoredUser.level);
+        System.out.println("Score: " + restoredUser.score);
+        System.out.println("Life: " + restoredUser.life);
+    }
+}
+
+```
 
 
 ## 12 How to perform Serialization and Deserializatio ?
