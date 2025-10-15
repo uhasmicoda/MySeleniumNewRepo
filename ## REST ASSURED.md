@@ -270,6 +270,8 @@ public class Run1_JacksonSerializationTest {
 	}
 }
 
+```
+
 ## 12 How to acheive Serialization and Deserialization Jackson?
 
 In order to perform serialization, we first need a POJO class (Plain Old Java Object) that contains variables, constructors, and getter/setter methods. Then, we create an instance of the ObjectMapper class and use its methods like writeValue() or writeValueAsString(). The writeValue() method converts the Java object into JSON and writes it directly to a file, while writeValueAsString() converts the Java object into a JSON string which can be printed or used in API requests. During this process, Jackson automatically reads all the fields and their values from the Java object and converts them into key-value pairs in JSON format.
