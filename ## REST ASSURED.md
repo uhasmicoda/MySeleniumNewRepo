@@ -4,7 +4,7 @@
 Backend Testing means testing the part of an application that works behind the scenes — not the part that users can see on the screen. In this type of testing, we don’t open the website or app in a browser; instead, we test the server, database, and APIs directly to make sure everything works properly. The goal is to verify that data is stored correctly in the database, that APIs are sending and receiving the right information, and that all the internal systems are communicating smoothly with each other. Simply put, backend testing ensures that when a user performs any action on the front end (like placing an order or logging in), the backend system processes it correctly and returns the right result.
 
 
-## 3 What is SOA (Service-Oriented Architecture)
+## 2 What is SOA (Service-Oriented Architecture)
 
 SOA (Service-Oriented Architecture) is a design model where an application is divided into different layers, and each layer has a specific role.
 
@@ -16,17 +16,17 @@ The third layer is the Database Layer, which stores all the application’s data
 
 For testing these layers, tools like Postman are used for manual API testing, and Rest Assured is used for automation testing to verify that APIs and backend systems work correctly.
 
-## 4 Use Case: E-commerce (Amazon Example)
+## 3 Use Case: E-commerce (Amazon Example)
 
 In an E-commerce application like Amazon, the backend system has multiple servers that handle different parts of the process. The Inventory Management Server manages product information such as name, price, and quantity. Once products are uploaded here, they become visible on the Amazon app or website. When a user places an order, an Order ID is created, and the Billing & Revenue Server (CRM) checks whether the payment is successful. If the payment goes through, the order status changes to “Order Placed.” Finally, the Logistic Management Server takes care of product delivery to the customer. During this entire process, various APIs are used to perform backend operations like creating, reading, updating, and deleting products, as well as creating or modifying orders. This ensures smooth coordination between servers and accurate order management.
 
-## 5 Why backend testing is required
+## 4 Why backend testing is required
 
 Backend testing is required to make sure that the application’s internal systems — such as the server, database, and APIs — are working correctly and reliably. It ensures that data is stored, retrieved, and processed properly without any errors. Even if the front end looks fine, the application can fail if the backend is not functioning as expected.
 
 This type of testing helps verify that all business rules, database connections, and APIs are performing the right actions. It also helps find issues like data mismatches, incorrect responses, or slow server performance before the user faces them. In short, backend testing is important to maintain data accuracy, system stability, and smooth communication between all layers of the application.
 
-## 6 🔍 Difference Between Frontend and Backend Testing
+## 5 🔍 Difference Between Frontend and Backend Testing
 
 | **Frontend Testing**                                                                                 | **Backend Testing**                                                                                                                    |
 | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
@@ -39,7 +39,7 @@ This type of testing helps verify that all business rules, database connections,
 | 7. Common tools: **Selenium**, **QTP (UFT)**, **TestComplete**, etc.                                 | 7. Common tools: **SOAP UI**, **Postman**, **Fiddler**, **REST Client**, **Rest Assured**, etc.                                        |
 
 
-## 7 What is rest assured
+## 6 What is Rest assured
 
 Rest Assured is a Java-based library used for automating RESTful API testing. It provides a simple and readable syntax for sending HTTP requests (like GET, POST, PUT, DELETE) and validating responses without needing to write complex code. It’s built on top of Java and integrates easily with tools like Maven, TestNG, and Jenkins, which makes it suitable for CI/CD pipelines
 Rest Assured provides a simple and powerful way to test REST APIs by sending HTTP requests and validating responses. It supports features like validating status codes, response body, headers, and response time. This makes it one of the most widely used tools for API automation testing.
@@ -61,7 +61,7 @@ It’s especially useful because it works seamlessly with JSONPath and XMLPath, 
 | **Reporting**      | Can be combined with **Extent Reports**, **Allure Reports**, or **TestNG reports**             |
 
 
-## 2 Perquisites of rest assured
+## 7 Perquisites of rest assured
 
 Prerequisites for Rest Assured:
 Before starting with Rest Assured, it’s important to have some basic technical knowledge and tools in place. First, a good understanding of Java programming is required since Rest Assured is built on top of Java. Concepts like classes, methods, loops, exception handling, and collections are commonly used while writing API automation scripts. Next, we use an IDE such as Eclipse or IntelliJ IDEA to create and manage the automation framework, as it provides features like auto-completion, project structure, and easy integration with build tools. A Maven project setup is also essential because Maven helps manage dependencies for Rest Assured, TestNG, and other libraries through the pom.xml file, avoiding the need to handle JAR files manually.
@@ -83,6 +83,99 @@ In short, before working on Rest Assured, one should have hands-on experience wi
 ## 8 Rest assured project setup
 
 In Rest Assured project setup, we first create a Maven project in Eclipse and add all the required dependencies in the pom.xml file. The main dependency is Rest Assured, which is used for API automation testing. Along with that, we can add json-simple for creating or parsing JSON data, TestNG for writing and managing test cases, and mysql-connector-java if we need to connect and validate data from a database. Optionally, selenium-java can also be added if we want to integrate API and UI testing together. Once the dependencies are added, we create a package under the src/test/java folder and write a test class inside it. Finally, we can write a simple Rest Assured test, such as sending a GET request to an API and verifying the response. This setup helps us structure our API automation testing efficiently.
+
+
+## 9 🧩 What is Serialization and Deserialization ?
+
+Serialization is the process of converting a Java object into a format like JSON or XML so that it can be easily sent over the network. In API testing, we usually use serialization when we need to send request data in JSON format. Instead of manually creating a JSON string, we create a Java object and let the serialization process automatically convert it into JSON. This makes our code cleaner, easier to maintain, and reduces chances of human error. For example, in Rest Assured, when we pass a Java object in the .body() method, it gets automatically serialized into JSON before sending the API request.
+
+
+Deserialization is the reverse process of serialization. It means converting a JSON or XML response from the API back into a Java object. In simple terms, when we receive a response from the server, instead of reading raw JSON data, we can map that response directly to a Java class (POJO). This makes it easier to extract and validate specific fields like name, id, or status. In Rest Assured, deserialization happens automatically when we use methods like .as(ClassName.class) to convert the response body into a Java object. It helps in writing clean, readable, and easily maintainable test scripts.
+
+
+```java
+package practice_serialization;
+
+import java.io.*;
+
+// Step 1: Create a class that implements Serializable
+class NFSGame implements Serializable {
+    String name;
+    int level;
+    long score;
+    int life;
+
+    public NFSGame(String name, int level, long score, int life) {
+        this.name = name;
+        this.level = level;
+        this.score = score;
+        this.life = life;
+    }
+}
+
+public class Run1_serialization_deserialization {
+    public static void main(String[] args) throws Exception {
+
+        // Step 2: Create an object to serialize
+        NFSGame user1 = new NFSGame("Hasmi", 10, 80000, 2);
+
+        // Step 3: Serialization (object → file)
+        FileOutputStream fileOut = new FileOutputStream("f.txt");
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        objOut.writeObject(user1);
+        objOut.close();
+        fileOut.close();
+        System.out.println("✅ Serialization completed successfully!");
+
+        // Step 4: Deserialization (file → object)
+        FileInputStream fileIn = new FileInputStream("f.txt");
+        ObjectInputStream objIn = new ObjectInputStream(fileIn);
+        NFSGame restoredUser = (NFSGame) objIn.readObject();
+        objIn.close();
+        fileIn.close();
+        System.out.println("✅ Deserialization completed successfully!");
+
+        // Step 5: Display restored data
+        System.out.println("\n--- Restored Object Data ---");
+        System.out.println("Name: " + restoredUser.name);
+        System.out.println("Level: " + restoredUser.level);
+        System.out.println("Score: " + restoredUser.score);
+        System.out.println("Life: " + restoredUser.life);
+    }
+}
+
+```
+
+
+## 10 How to perform Serialization and Deserialization ?
+
+In order to achieve serialization in Java, first we need to make sure that the class implements the Serializable interface. This interface doesn’t have any methods — it just acts as a marker to tell the JVM that objects of this class can be converted into a byte stream.
+
+Next, we create an object of that class which we want to serialize. Then we use two main classes — FileOutputStream and ObjectOutputStream. FileOutputStream is used to create or open a file, and ObjectOutputStream is used to actually convert the object into a stream of bytes and write it into that file using the writeObject() method. Once this is done, the object’s state is safely stored in that file, and we call it the serialization process.
+
+Now, to achieve deserialization, we basically do the reverse process. We use FileInputStream to read the same file and then use ObjectInputStream to convert the byte stream back into a real Java object using the readObject() method. Since readObject() returns an object type, we typecast it to our original class type.
+
+Finally, when we print the object’s data, it shows the same values that were stored before serialization — which confirms that both serialization and deserialization have worked successfully.
+
+In short, serialization helps to save the state of an object or transfer it over a network, and deserialization helps to recreate that object back in memory whenever required.
+
+This concept is very useful because it teaches how data from objects can be converted and transferred, which is the same concept we use in API testing when we serialize and deserialize Java objects into JSON format using tools like Rest Assured. So, having a good understanding of Java serialization and deserialization really helps in understanding API automation more clearly.
+
+
+
+| **Feature**                | **Serialization**                                                     | **Deserialization**                                               |
+| -------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Definition**             | Process of converting a Java object into a byte stream (binary data). | Process of converting a byte stream back into a Java object.      |
+| **Purpose**                | Used to save the state of an object or send it over a network.        | Used to restore the state of an object that was previously saved. |
+| **Classes Used**           | `ObjectOutputStream` and `FileOutputStream`                           | `ObjectInputStream` and `FileInputStream`                         |
+| **Direction of Data Flow** | Java Object ➜ Byte Stream (Binary Data)                               | Byte Stream (Binary Data) ➜ Java Object                           |
+| **Interface Required**     | Class must implement the `Serializable` interface.                    | No specific interface required; reads the serialized object.      |
+| **Output Format**          | Non-readable binary data stored in a file or sent over network.       | Reconstructed Java object in readable form.                       |
+| **Method Used**            | `writeObject(Object obj)`                                             | `readObject()`                                                    |
+| **Storage File Example**   | Data is stored in a `.ser` file (e.g., `game.ser`).                   | Reads data from the same `.ser` file.                             |
+| **Example Classes**        | `ObjectOutputStream`, `FileOutputStream`                              | `ObjectInputStream`, `FileInputStream`                            |
+| **Use Case**               | Saving user session, game state, or configuration.                    | Loading saved session, restoring object data.                     |
+
 
 ## 9 Rest assured class diagram
 
@@ -185,93 +278,6 @@ In short, Rest Assured makes CRUD operations simple and readable using the BDD s
 
 
 
-## 11 🧩 What is Serialization and Deserialization ?
-
-Serialization is the process of converting a Java object into a format like JSON or XML so that it can be easily sent over the network. In API testing, we usually use serialization when we need to send request data in JSON format. Instead of manually creating a JSON string, we create a Java object and let the serialization process automatically convert it into JSON. This makes our code cleaner, easier to maintain, and reduces chances of human error. For example, in Rest Assured, when we pass a Java object in the .body() method, it gets automatically serialized into JSON before sending the API request.
-
-
-Deserialization is the reverse process of serialization. It means converting a JSON or XML response from the API back into a Java object. In simple terms, when we receive a response from the server, instead of reading raw JSON data, we can map that response directly to a Java class (POJO). This makes it easier to extract and validate specific fields like name, id, or status. In Rest Assured, deserialization happens automatically when we use methods like .as(ClassName.class) to convert the response body into a Java object. It helps in writing clean, readable, and easily maintainable test scripts.
-
-```java
-package practice_serialization;
-
-import java.io.*;
-
-// Step 1: Create a class that implements Serializable
-class NFSGame implements Serializable {
-    String name;
-    int level;
-    long score;
-    int life;
-
-    public NFSGame(String name, int level, long score, int life) {
-        this.name = name;
-        this.level = level;
-        this.score = score;
-        this.life = life;
-    }
-}
-
-public class Run1_serialization_deserialization {
-    public static void main(String[] args) throws Exception {
-
-        // Step 2: Create an object to serialize
-        NFSGame user1 = new NFSGame("Hasmi", 10, 80000, 2);
-
-        // Step 3: Serialization (object → file)
-        FileOutputStream fileOut = new FileOutputStream("f.txt");
-        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-        objOut.writeObject(user1);
-        objOut.close();
-        fileOut.close();
-        System.out.println("✅ Serialization completed successfully!");
-
-        // Step 4: Deserialization (file → object)
-        FileInputStream fileIn = new FileInputStream("f.txt");
-        ObjectInputStream objIn = new ObjectInputStream(fileIn);
-        NFSGame restoredUser = (NFSGame) objIn.readObject();
-        objIn.close();
-        fileIn.close();
-        System.out.println("✅ Deserialization completed successfully!");
-
-        // Step 5: Display restored data
-        System.out.println("\n--- Restored Object Data ---");
-        System.out.println("Name: " + restoredUser.name);
-        System.out.println("Level: " + restoredUser.level);
-        System.out.println("Score: " + restoredUser.score);
-        System.out.println("Life: " + restoredUser.life);
-    }
-}
-
-```
-
-
-## 12 How to perform Serialization and Deserializatio ?
-
-Serialization in Java is the process of converting a Java object into a stream of bytes so that it can be easily stored in a file or transferred over a network. In simple words, it helps to save the state of an object. Java provides a class called ObjectOutputStream to perform serialization. When we serialize an object, the data is converted into a non-readable binary format and can be stored in a file using FileOutputStream.
-
-On the other hand, Deserialization is the reverse process of serialization. It means converting the byte stream back into the original Java object. This allows us to restore the saved state of an object. In Java, deserialization is done using the ObjectInputStream class, which reads the binary data from a file (using FileInputStream) and reconstructs the object in memory.
-
-For example, if we have a class named NFSGame that implements the Serializable interface, we can serialize its object using ObjectOutputStream and later deserialize it using ObjectInputStream. By doing this, we can store and retrieve object data such as game name, level, and score whenever needed.
-
-This concept is very useful because it teaches how data from objects can be converted and transferred, which is the same concept we use in API testing when we serialize and deserialize Java objects into JSON format using tools like Rest Assured. So, having a good understanding of Java serialization and deserialization really helps in understanding API automation more clearly.
-
-
-
-
-
-| **Feature**                | **Serialization**                                                     | **Deserialization**                                               |
-| -------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| **Definition**             | Process of converting a Java object into a byte stream (binary data). | Process of converting a byte stream back into a Java object.      |
-| **Purpose**                | Used to save the state of an object or send it over a network.        | Used to restore the state of an object that was previously saved. |
-| **Classes Used**           | `ObjectOutputStream` and `FileOutputStream`                           | `ObjectInputStream` and `FileInputStream`                         |
-| **Direction of Data Flow** | Java Object ➜ Byte Stream (Binary Data)                               | Byte Stream (Binary Data) ➜ Java Object                           |
-| **Interface Required**     | Class must implement the `Serializable` interface.                    | No specific interface required; reads the serialized object.      |
-| **Output Format**          | Non-readable binary data stored in a file or sent over network.       | Reconstructed Java object in readable form.                       |
-| **Method Used**            | `writeObject(Object obj)`                                             | `readObject()`                                                    |
-| **Storage File Example**   | Data is stored in a `.ser` file (e.g., `game.ser`).                   | Reads data from the same `.ser` file.                             |
-| **Example Classes**        | `ObjectOutputStream`, `FileOutputStream`                              | `ObjectInputStream`, `FileInputStream`                            |
-| **Use Case**               | Saving user session, game state, or configuration.                    | Loading saved session, restoring object data.                     |
 
 
 To achieve serialization in Java, the class must implement the Serializable interface**, which is a **marker interface** (it doesn’t contain any methods). Then we use **ObjectOutputStream** along with **FileOutputStream** to convert the Java object into a byte stream and store it in a file. We call the method **writeObject()` to perform serialization.
