@@ -61,7 +61,7 @@ It’s especially useful because it works seamlessly with JSONPath and XMLPath, 
 | **Reporting**      | Can be combined with **Extent Reports**, **Allure Reports**, or **TestNG reports**             |
 
 
-## 7 Perquisites of rest assured
+## 7 Perquisites of Rest assured
 
 Prerequisites for Rest Assured:
 Before starting with Rest Assured, it’s important to have some basic technical knowledge and tools in place. First, a good understanding of Java programming is required since Rest Assured is built on top of Java. Concepts like classes, methods, loops, exception handling, and collections are commonly used while writing API automation scripts. Next, we use an IDE such as Eclipse or IntelliJ IDEA to create and manage the automation framework, as it provides features like auto-completion, project structure, and easy integration with build tools. A Maven project setup is also essential because Maven helps manage dependencies for Rest Assured, TestNG, and other libraries through the pom.xml file, avoiding the need to handle JAR files manually.
