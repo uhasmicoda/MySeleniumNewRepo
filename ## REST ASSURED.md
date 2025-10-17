@@ -1073,6 +1073,11 @@ It is slower but much more secure than symmetric encryption, because even if som
 
 In short, encoding is for data conversion, encryption is for security, and Base64 encoding is mainly used in REST Assured for authentication purposes — not as a security mechanism but to safely transmit credentials over the network.
 
+In API testing, encryption plays an important role when we deal with sensitive data like passwords, user details, or payment information. Encryption basically converts readable data into an unreadable format so that even if someone intercepts it, they can’t understand the actual information. There are mainly two types of encryption — symmetric and asymmetric. In symmetric encryption, the same key is used for both encryption and decryption, while in asymmetric encryption two keys are used — one public and one private.
+
+In most cases, we use AES, which stands for Advanced Encryption Standard. It’s a symmetric algorithm that is fast, secure, and commonly used in APIs. For example, if we are testing a payment API, we can use AES to encrypt the card number before sending the request, and later decrypt it using the same key to verify the response. This ensures that the data remains protected during communication.
+
+In simple terms, encryption adds an extra layer of security during API testing. It’s different from encoding — encoding just converts data format, but encryption actually hides the meaning. So, whenever I deal with confidential information in REST Assured, I prefer using AES encryption to make sure the data is transmitted securely.
 
 ## 9 Rest assured class diagram
 
