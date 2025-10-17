@@ -1079,7 +1079,7 @@ public class Base64Example {
     }
 }
 ```
-Encryption
+## Encryption
 
 Encryption is a security technique used to protect data before sending it from the client to the server. It converts plain text into cipher text, which looks unreadable to anyone intercepting the data. Only the authorized receiver (server) can decrypt it back into readable text using a key.
 Encryption ensures data security and privacy during communication between client and server.
