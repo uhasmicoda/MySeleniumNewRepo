@@ -1055,7 +1055,30 @@ In REST Assured, when we use Basic Authentication, the username and password are
 Base64 is a method used to convert binary data into ASCII characters so that it can be safely sent over the network. It does not encrypt the data — it only encodes it, which means it can be easily decoded back to its original form.
 
 For example, when you encode the text "abc" using Base64, it becomes "YWJj". Similarly, when decoding "YWJj", it returns "abc". In Java, Base64 encoding and decoding can be done using the built-in Base64 class (Base64.getEncoder() for encoding and Base64.getDecoder() for decoding). REST Assured internally uses this Base64 mechanism for Basic Authentication to send credentials in the request header.
+## 🧩 Base64 Encoding and Decoding Example
 
+``` java
+
+import java.util.Base64;
+
+public class Base64Example {
+
+    public static void main(String[] args) {
+
+        // Original text
+        String originalText = "abc";
+
+        // Encoding the text into Base64
+        String encodedText = Base64.getEncoder().encodeToString(originalText.getBytes());
+        System.out.println("Encoded Text: " + encodedText);
+
+        // Decoding the Base64 back to original text
+        byte[] decodedBytes = Base64.getDecoder().decode(encodedText);
+        String decodedText = new String(decodedBytes);
+        System.out.println("Decoded Text: " + decodedText);
+    }
+}
+```
 Encryption
 
 Encryption is a security technique used to protect data before sending it from the client to the server. It converts plain text into cipher text, which looks unreadable to anyone intercepting the data. Only the authorized receiver (server) can decrypt it back into readable text using a key.
