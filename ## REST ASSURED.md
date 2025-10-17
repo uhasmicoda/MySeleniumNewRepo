@@ -827,8 +827,227 @@ Finally, in Rest Assured, parameters work similarly to how they do in Postman. F
 | **Form Parameter**   | Used to send sensitive or structured data like username and password in key-value format.     | Sent in the request body.                             | Commonly used with POST or PUT methods for login or file upload.               | Data is sent using `x-www-form-urlencoded` or `form-data` content type.                              |
 | **Header Parameter** | Used to send metadata or authentication details along with the request.                       | Sent in the request header section.                   | Used to provide tokens, content type, or other additional request information. | Example: `Authorization: Bearer <token>` or `Content-Type: application/json`.                        |
 | **Body Parameter**   | Used to send raw JSON or XML data to the server.                                              | Present in the request body.                          | Mostly used with POST or PUT methods to send structured data.                  | Example: Sending complete user details like name, email, and password in JSON format.                |
+``` java 
+
+given()
+    .pathParam("userId", 101)
+.when()
+    .get("https://api.example.com/users/{userId}")
+.then()
+    .statusCode(200)
+    .log().all();
+```
+
+``` java
+
+given()
+    .queryParam("role", "admin")
+    .queryParam("sort", "asc")
+.when()
+    .get("https://api.example.com/users")
+.then()
+    .statusCode(200)
+    .log().all();
+```
+
+``` java
+given()
+    .contentType("application/x-www-form-urlencoded")
+    .formParam("username", "john")
+    .formParam("password", "12345")
+.when()
+    .post("https://api.example.com/login")
+.then()
+    .statusCode(200)
+    .log().all();
 
 
+```
+
+```
+
+In Rest Assured, the .param() method is a general-purpose method that can act as both query and form parameter, depending on the HTTP method used in the request.
+✅ Explanation:
+
+If the request is a GET or DELETE, .param() will behave like a query parameter.
+
+If the request is a POST or PUT, .param() will behave like a form parameter.
+
+So basically, .param() automatically adjusts based on the HTTP method you’re using.
+
+Example 1 — Used as Query Parameter (GET request)
+
+``` java
+
+given()
+    .param("role", "admin")
+    .param("status", "active")
+.when()
+    .get("https://api.example.com/users")
+.then()
+    .statusCode(200)
+    .log().all();
+```
+Example 2 — Used as Form Parameter (POST request)
+
+``` java
+
+given()
+    .contentType("application/x-www-form-urlencoded")
+    .param("username", "john")
+    .param("password", "12345")
+.when()
+    .post("https://api.example.com/login")
+.then()
+    .statusCode(200)
+    .log().all();
+```
+## 19 🧩 Authentication and 🔐 Authorization
+
+Authentication is the process of verifying who the user or client is, In simple words, it confirms the identity of the person or system trying to access the API.
+
+In API testing, authentication ensures that only valid users or systems can send requests to the server, When I worked with Postman, I often used different authentication types like Basic Auth, Bearer Token, or API Key depending on the project’s setup.
+
+Authorization, on the other hand, decides what actions an authenticated user is allowed to perform, Once the identity is confirmed, authorization checks whether the user has permission to access certain data or perform specific operations.
+
+Almost every REST API requires authorization before allowing access to a resource. Authentication details are generally present in the header of the request.
+
+There are different types of authentication methods in REST API such as Basic Authentication, Digest Authentication, Pre-emptive Authentication, Bearer Token, and OAuth 2.0 Authentication.
+
+In Basic Authentication, the client sends the username and password with each request. These credentials are encoded using Base64 but not encrypted, meaning they can be easily decoded if intercepted. Hence, it provides less security.
+
+Digest Authentication is more secure than Basic Auth. Here, the username and password are sent in an encrypted format using the MD5 (Message Digest Algorithm). The password does not get exposed in the network because it is encrypted, making this approach safer than Basic Authentication.
+
+Pre-emptive Authentication sends authentication details in the request header directly without waiting for the server to ask for them. It avoids the extra round trip between client and server, making it faster. Although the password is still exposed in the network, it remains encrypted. The main advantage of this method is simplicity.
+
+Bearer Token Authentication involves using a token string for both authentication and authorization. The token is sent in the Authorization header while making API requests to access protected resources. This token usually has an expiry time and provides better security.
+
+Finally, OAuth 2.0 is an advanced and widely used authentication protocol in modern API security. It requires passing client ID and client secret to obtain a Bearer Token from the OAuth 2.0 server. This token is used for every request and has a limited validity period. OAuth 2.0 provides a higher level of security and supports multiple authentication flows like Client Credentials and Password Credentials. It is considered simple, secure, and efficient for modern application development.
+
+## 🧩 1. Basic Authentication
+
+``` java 
+import io.restassured.RestAssured;
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+
+public class BasicAuthTest {
+    @Test
+    public void basicAuthExample() {
+        given()
+            .auth().basic("username", "password")   // Basic Auth credentials
+        .when()
+            .get("https://api.example.com/login")
+        .then()
+            .statusCode(200)
+            .log().all();
+    }
+}
+```
+
+## 🔐 2. Digest Authentication
+
+``` java
+
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+
+public class DigestAuthTest {
+    @Test
+    public void digestAuthExample() {
+        given()
+            .auth().digest("username", "password")   // Digest Auth credentials
+        .when()
+            .get("https://api.example.com/login")
+        .then()
+            .statusCode(200)
+            .log().all();
+    }
+}
+
+```
+
+## ⚙️ 3. Preemptive Authentication
+
+``` java
+
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+
+public class PreemptiveAuthTest {
+    @Test
+    public void preemptiveAuthExample() {
+        given()
+            .auth().preemptive().basic("username", "password")  // Preemptive Auth
+        .when()
+            .get("https://api.example.com/login")
+        .then()
+            .statusCode(200)
+            .log().all();
+    }
+}
+```
+
+## 🎟️ 4. Bearer Token Authentication
+
+``` java
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+
+public class BearerTokenAuthTest {
+    @Test
+    public void bearerTokenExample() {
+        given()
+            .auth().oauth2("your_bearer_token_here")  // Bearer token
+        .when()
+            .get("https://api.example.com/projects")
+        .then()
+            .statusCode(200)
+            .log().all();
+    }
+}
+
+```
+
+## 🔑 5. OAuth 2.0 Authentication
+
+``` java
+
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+
+public class OAuth2AuthTest {
+    @Test
+    public void oauth2Example() {
+        given()
+            .auth().oauth2("your_access_token_here")  // OAuth2 access token
+        .when()
+            .get("https://api.example.com/userinfo")
+        .then()
+            .statusCode(200)
+            .log().all();
+    }
+}
+
+```
+
+## 🧠 Bonus Tip:
+
+If you need to generate an OAuth 2.0 token first, you can send a POST request to the token endpoint:
+
+``` java 
+
+Response response = given()
+    .formParam("client_id", "your_client_id")
+    .formParam("client_secret", "your_client_secret")
+    .formParam("grant_type", "client_credentials")
+.when()
+    .post("https://authserver.com/oauth/token");
+
+String token = response.jsonPath().getString("access_token");
+System.out.println("Access Token: " + token);
+
+```
 ## 9 Rest assured class diagram
 
 In Rest Assured, several important classes work together to make API automation smooth and structured. The main class is RestAssured, which acts as the starting point of the framework. It allows us to write REST API test cases in a readable BDD format using methods like given(), when(), and then(). These methods help us build requests, send them, and then validate the responses in a clear, step-by-step way.
