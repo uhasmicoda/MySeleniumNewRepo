@@ -1048,6 +1048,32 @@ String token = response.jsonPath().getString("access_token");
 System.out.println("Access Token: " + token);
 
 ```
+
+## 20 Encoding, Decoding & Encryption (for REST Assured / API Testing)
+
+In REST Assured, when we use Basic Authentication, the username and password are encoded using Base64 encoding.
+Base64 is a method used to convert binary data into ASCII characters so that it can be safely sent over the network. It does not encrypt the data — it only encodes it, which means it can be easily decoded back to its original form.
+
+For example, when you encode the text "abc" using Base64, it becomes "YWJj". Similarly, when decoding "YWJj", it returns "abc". In Java, Base64 encoding and decoding can be done using the built-in Base64 class (Base64.getEncoder() for encoding and Base64.getDecoder() for decoding). REST Assured internally uses this Base64 mechanism for Basic Authentication to send credentials in the request header.
+
+Encryption
+
+Encryption is a security technique used to protect data before sending it from the client to the server. It converts plain text into cipher text, which looks unreadable to anyone intercepting the data. Only the authorized receiver (server) can decrypt it back into readable text using a key.
+Encryption ensures data security and privacy during communication between client and server.
+
+There are two main types of encryption:
+
+Symmetric Encryption – In this method, the same key is used for both encryption and decryption.
+Example: AES, DES, and Blowfish algorithms.
+It is faster but less secure, as both sides share the same key.
+
+Asymmetric Encryption – This method uses two keys: a public key for encryption and a private key for decryption.
+Example: RSA and ECC algorithms.
+It is slower but much more secure than symmetric encryption, because even if someone gets the public key, they cannot decrypt the data without the private key.
+
+In short, encoding is for data conversion, encryption is for security, and Base64 encoding is mainly used in REST Assured for authentication purposes — not as a security mechanism but to safely transmit credentials over the network.
+
+
 ## 9 Rest assured class diagram
 
 In Rest Assured, several important classes work together to make API automation smooth and structured. The main class is RestAssured, which acts as the starting point of the framework. It allows us to write REST API test cases in a readable BDD format using methods like given(), when(), and then(). These methods help us build requests, send them, and then validate the responses in a clear, step-by-step way.
