@@ -646,7 +646,7 @@ public class VerifyResponseTimeTest {
 
 ```
 
-## Request Chaining or API Chaining
+## 17 Request Chaining or API Chaining
 
 Request Chaining, also called API Chaining, is a process where the response of one API is used as the input for another API. It’s mainly used in end-to-end API testing to verify workflows where multiple APIs depend on each other. For example, creating a user in one API and then using that user’s ID in another API to fetch or update details. I’ve also used this approach in Rest Assured by extracting values from responses using jsonPath() and passing them dynamically to subsequent requests.
 
