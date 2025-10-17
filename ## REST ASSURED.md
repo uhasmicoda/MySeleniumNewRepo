@@ -807,6 +807,28 @@ public class Scenario_3_GetPayrollInfo {
 }
 ```
 
+
+## 18 Parameter and its types
+
+In Rest Assured, a parameter is a way to send additional information with your API request. Parameters help the server understand what data you are requesting or sending. They can be part of the URL, request body, or headers, depending on the type of request.
+
+In API testing using Rest Assured, there are different types of parameters that play a crucial role in communication between the client and the server. One of the most common types is the Path Parameter, which is embedded directly into the endpoint URL to access a specific resource. For example, when we need to fetch details of a particular user, the endpoint might look like /users/{userId}. The value inside the curly braces is dynamic and represents the specific resource we want to access.
+
+Next, there are Query Parameters, which are mainly used for filtering, sorting, or paginating data. These parameters appear after a question mark in the URL and are written in key-value pairs, such as /users?role=admin&sort=asc. Query parameters are especially useful when we need to retrieve data based on certain conditions without changing the endpoint itself.
+
+Another type is the Form Parameter, which is used when we want to send sensitive or structured data like a username, password, or other information in the request body. These parameters are usually sent in a key-value format using either x-www-form-urlencoded or form-data. They are commonly used during login functionality or file upload testing. Form parameters are not used with the GET method — they are mostly used with POST or PUT requests.
+
+Finally, in Rest Assured, parameters work similarly to how they do in Postman. For GET requests, parameters are sent through the URL, either as path or query parameters. For POST or PUT requests, parameters are included in the request body as form or JSON data. The behavior of parameters depends on the HTTP method and the content type being used in the request.
+
+| **Parameter Type**   | **Description**                                                                               | **Where It Appears**                                  | **When It’s Used**                                                             | **Example Explanation**                                                                              |
+| -------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| **Path Parameter**   | Used to identify a specific resource in the API endpoint. It is embedded directly in the URL. | Part of the URL path, enclosed in `{}`.               | Used when you want to access or modify a specific item or resource.            | Example endpoint `/users/{userId}` where `{userId}` is replaced with the actual user ID (e.g., 101). |
+| **Query Parameter**  | Used to filter, sort, or search data. Written as key-value pairs after a `?` in the URL.      | At the end of the URL after `?` and separated by `&`. | Used when you need to retrieve data based on certain conditions.               | Example: `/users?role=admin&sort=asc` filters users by role and sorts results.                       |
+| **Form Parameter**   | Used to send sensitive or structured data like username and password in key-value format.     | Sent in the request body.                             | Commonly used with POST or PUT methods for login or file upload.               | Data is sent using `x-www-form-urlencoded` or `form-data` content type.                              |
+| **Header Parameter** | Used to send metadata or authentication details along with the request.                       | Sent in the request header section.                   | Used to provide tokens, content type, or other additional request information. | Example: `Authorization: Bearer <token>` or `Content-Type: application/json`.                        |
+| **Body Parameter**   | Used to send raw JSON or XML data to the server.                                              | Present in the request body.                          | Mostly used with POST or PUT methods to send structured data.                  | Example: Sending complete user details like name, email, and password in JSON format.                |
+
+
 ## 9 Rest assured class diagram
 
 In Rest Assured, several important classes work together to make API automation smooth and structured. The main class is RestAssured, which acts as the starting point of the framework. It allows us to write REST API test cases in a readable BDD format using methods like given(), when(), and then(). These methods help us build requests, send them, and then validate the responses in a clear, step-by-step way.
