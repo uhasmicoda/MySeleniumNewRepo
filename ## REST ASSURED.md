@@ -1213,6 +1213,62 @@ To achieve serialization in Java, the class must implement the Serializable inte
 
 
 
+## Interview Question
+| **S.No.** | **Topic Area** | **Interview Question**                                                       |
+| --------- | -------------- | ---------------------------------------------------------------------------- |
+| **1**     | Basics         | What is REST Assured and why is it used in API testing?                      |
+| **2**     | Basics         | What are REST APIs and how do they differ from SOAP APIs?                    |
+| **3**     | Basics         | What are the common HTTP methods used in REST Assured?                       |
+| **4**     | Basics         | Explain the syntax of a REST Assured test using given(), when(), and then(). |
+| **5**     | Basics         | What are status codes in API testing? Can you name a few important ones?     |
+| **6**     | Basics         | What is the default return type of the response in REST Assured?             |
+| **7**     | Basics         | What is the difference between get(), post(), put(), and delete() methods?   |
+| **8**     | Basics         | How do you validate response status code and response body in REST Assured?  |
+| **9**     | Basics         | What is the use of `RequestSpecification` and `Response` interfaces?         |
+| **10**    | Basics         | How do you log request and response details in REST Assured?                 |
+
+| **S.No.** | **Topic Area**        | **Interview Question**                                                |
+| --------- | --------------------- | --------------------------------------------------------------------- |
+| 11        | Parameters            | What are path parameters in REST Assured and how are they used?       |
+| 12        | Parameters            | What are query parameters and how do you pass them in REST Assured?   |
+| 13        | Parameters            | What are form parameters and when do you use them?                    |
+| 14        | Parameters            | What is the difference between `param()` and `queryParam()` methods?  |
+| 15        | Parameters            | What is request chaining in REST Assured and how do you implement it? |
+| 16        | Authentication        | What is Authentication and Authorization in API testing?              |
+| 17        | Authentication        | How do you perform Basic Authentication in REST Assured?              |
+| 18        | Authentication        | What is Digest Authentication and how is it different from Basic?     |
+| 19        | Authentication        | What is Preemptive Authentication in REST Assured?                    |
+| 20        | Authentication        | How do you use Bearer Token in REST Assured?                          |
+| 21        | Authentication        | How do you handle OAuth 2.0 Authentication in REST Assured?           |
+| 22        | JSON Handling         | How do you validate a JSON response in REST Assured?                  |
+| 23        | JSON Handling         | What is JSONPath and how is it used in REST Assured?                  |
+| 24        | JSON Handling         | How do you extract values from JSON response using REST Assured?      |
+| 25        | JSON Handling         | How do you handle nested JSON objects in API response?                |
+| 26        | JSON Handling         | What is the difference between JSONPath and XMLPath?                  |
+| 27        | Serialization & POJO  | What is a POJO class in REST Assured?                                 |
+| 28        | Serialization & POJO  | What is serialization and deserialization in API testing?             |
+| 29        | Serialization & POJO  | How do you send a POJO class as a request body in REST Assured?       |
+| 30        | Serialization & POJO  | How do you deserialize JSON response to a POJO in REST Assured?       |
+| 31        | Framework Integration | How do you integrate REST Assured with TestNG or JUnit?               |
+| 32        | Framework Integration | How do you perform data-driven testing in REST Assured?               |
+| 33        | Framework Integration | How do you handle dynamic data in API automation?                     |
+| 34        | Framework Integration | How do you create reusable methods for API requests?                  |
+| 35        | Framework Integration | How do you generate API test reports in your framework?               |
+| 36        | Headers & Cookies     | How do you add headers in a REST Assured request?                     |
+| 37        | Headers & Cookies     | How do you validate headers and cookies in REST Assured?              |
+| 38        | Headers & Cookies     | How do you pass Content-Type and Accept headers?                      |
+| 39        | Headers & Cookies     | What is the importance of Content-Type in API testing?                |
+| 40        | Advanced Concepts     | How do you upload a file using REST Assured?                          |
+| 41        | Advanced Concepts     | How do you send multipart/form-data requests?                         |
+| 42        | Advanced Concepts     | How do you validate JSON schema in REST Assured?                      |
+| 43        | Advanced Concepts     | How do you handle response time validation in REST Assured?           |
+| 44        | Advanced Concepts     | How do you handle API errors or failed responses?                     |
+| 45        | Advanced Concepts     | How can you use REST Assured with Maven and Jenkins?                  |
+| 46        | Real-time Scenarios   | How would you test login functionality using REST Assured?            |
+| 47        | Real-time Scenarios   | How do you test pagination or filtering APIs?                         |
+| 48        | Real-time Scenarios   | How do you handle dependent APIs (like first create, then fetch)?     |
+| 49        | Real-time Scenarios   | How do you test negative API scenarios using REST Assured?            |
+| 50        | Real-time Scenarios   | How do you debug an API failure in your automation framework?         |
 
 
 
