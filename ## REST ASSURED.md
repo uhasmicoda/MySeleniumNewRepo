@@ -864,8 +864,6 @@ given()
 
 ```
 
-```
-
 In Rest Assured, the .param() method is a general-purpose method that can act as both query and form parameter, depending on the HTTP method used in the request.
 ✅ Explanation:
 
@@ -876,6 +874,8 @@ If the request is a POST or PUT, .param() will behave like a form parameter.
 So basically, .param() automatically adjusts based on the HTTP method you’re using.
 
 Example 1 — Used as Query Parameter (GET request)
+
+
 
 ``` java
 
