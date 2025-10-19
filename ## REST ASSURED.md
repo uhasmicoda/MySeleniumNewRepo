@@ -1272,6 +1272,120 @@ To achieve serialization in Java, the class must implement the Serializable inte
 
 
 
+1 What is a POJO class in REST Assured?
+
+In REST Assured, a POJO class stands for Plain Old Java Object. It’s basically a simple Java class that we use to represent the request or response data in a structured way. Instead of writing raw JSON directly in our code, we create a POJO class with variables, constructors, getters, and setters. REST Assured then automatically converts this POJO into JSON when sending the request body and also converts the JSON response back into a POJO object. This makes the code cleaner, easier to maintain, and more readable during API automation.
+
+2 What is serialization and deserialization in API testing? 
+
+Serialization is the process of converting a Java object into a format like JSON or XML so that it can be easily sent over the network. In API testing, we usually use serialization when we need to send request data in JSON format. Instead of manually creating a JSON string, we create a Java object and let the serialization process automatically convert it into JSON. This makes our code cleaner, easier to maintain, and reduces chances of human error. For example, in Rest Assured, when we pass a Java object in the .body() method, it gets automatically serialized into JSON before sending the API request.
+
+Deserialization is the reverse process of serialization. It means converting a JSON or XML response from the API back into a Java object. In simple terms, when we receive a response from the server, instead of reading raw JSON data, we can map that response directly to a Java class (POJO). This makes it easier to extract and validate specific fields like name, id, or status. In Rest Assured, deserialization happens automatically when we use methods like .as(ClassName.class) to convert the response body into a Java object. It helps in writing clean, readable, and easily maintainable test scripts.
+
+3 How do you send a POJO class as a request body in REST Assured?  
+To send a POJO class as a request body in REST Assured, we first create a POJO class that represents our JSON structure — with variables, constructors, and getter-setter methods. Then we create an object of that POJO and simply pass it inside the .body() method. REST Assured automatically converts the POJO object into JSON format before sending the request.
 
 
+4 How do you deserialize JSON response to a POJO in REST Assured?
+In REST Assured, deserialization means converting the JSON response into a Java object. We just create a matching POJO class and use response.as(POJOClass.class). REST Assured handles the conversion internally using the Jackson library
 
+
+5 How do you integrate REST Assured with TestNG or JUnit?
+
+To integrate REST Assured with TestNG, I first add both the REST Assured and TestNG dependencies in the Maven pom.xml file. Then, I create a Java class for my test cases and import both REST Assured and TestNG packages. Inside that class, I use TestNG annotations like @BeforeClass to set up the base URI and @Test to write the actual API test methods using REST Assured.
+
+Finally, I execute the test cases either directly from the IDE or through the testng.xml file, which helps in grouping and managing multiple API test classes. The results are automatically displayed in TestNG’s HTML report.
+
+6 How do you pass Content-Type and Accept headers?
+In REST Assured, I pass the Content-Type and Accept headers to define the type of data I’m sending and the type of data I want in the response. The Content-Type header tells the server the format of the request body, like application/json, and the Accept header tells the server what kind of response format I expect.
+
+I can pass these headers using either the .contentType() and .accept() methods or by using the .header() method. For example:
+
+``` java
+
+given()
+    .contentType("application/json")
+    .accept("application/json")
+    .body("{ \"name\": \"John\", \"job\": \"Tester\" }")
+.when()
+    .post("https://reqres.in/api/users");
+```
+
+7 What are query parameters and how do you pass them in REST Assured?
+In REST Assured, query parameters are used to filter, sort, or search data from an API. They are added to the end of a URL after a question mark (?) and usually appear in key-value format — for example:
+/users?role=admin&sort=asc.
+
+In REST Assured, I can pass query parameters using the .queryParam() method. For example:
+```java
+given()
+    .queryParam("role", "admin")
+    .queryParam("sort", "asc")
+.when()
+    .get("https://reqres.in/api/users");
+
+```
+Here, I’m passing two query parameters — role=admin and sort=asc. The server will use these values to return data based on the given conditions.
+
+So, query parameters are mainly used when we want to fetch specific data by applying filters or sorting options in an API request.
+
+
+8 What are path parameters in REST Assured and how are they used?
+In REST Assured, path parameters are used when we want to access a specific resource by embedding a value directly into the endpoint URL. They are part of the URL path itself — for example, in /users/101, the value 101 is a path parameter representing the user ID.
+
+In REST Assured, I can pass path parameters using the .pathParam() method. For example:
+
+```java
+
+given()
+    .pathParam("userId", 101)
+.when()
+    .get("https://reqres.in/api/users/{userId}");
+```
+
+Here, {userId} in the URL is replaced with the actual value 101 at runtime. This helps in dynamically passing values like user IDs, product IDs, or order numbers in API requests.
+
+So, path parameters are mainly used when we want to target a specific record or resource in an API.
+
+
+9 What are form parameters and when do you use them?
+In REST Assured, form parameters are used when we want to send data in the body of a request in a key-value format — especially while testing login forms, registration, or file upload features. These parameters are usually sent using the x-www-form-urlencoded or form-data content type.
+
+In REST Assured, I can pass form parameters using the .formParam() method. For example:
+
+
+``` java
+given()
+    .formParam("username", "john")
+    .formParam("password", "12345")
+.when()
+    .post("https://example.com/login");
+```
+Form parameters are not used with GET requests — they’re mainly used with POST or PUT requests where we need to send sensitive data like login credentials or user details in the request body.
+
+So, simply put, form parameters help send structured input data securely to the server during form submissions.
+
+10 What is the difference between param() and queryParam() methods?
+
+In REST Assured, both param() and queryParam() methods are used to send parameters, but there’s a small difference between them.
+
+The queryParam() method is specifically used to send parameters as part of the URL after a question mark (?). For example:
+/users?role=admin&status=active.
+
+The param() method is a more general one — it automatically decides how to send the parameter based on the HTTP method being used. For a GET request, it behaves like a query parameter, and for a POST request, it behaves like a form parameter.
+
+```java
+// Using queryParam()
+given()
+    .queryParam("role", "admin")
+    .queryParam("status", "active")
+.when()
+    .get("https://reqres.in/api/users");
+
+// Using param()
+given()
+    .param("username", "john")
+    .param("password", "12345")
+.when()
+    .post("https://example.com/login");
+```
+So, in short — queryParam() is used mainly for GET requests to filter data in the URL, while param() is more flexible and can adjust based on the request type.
