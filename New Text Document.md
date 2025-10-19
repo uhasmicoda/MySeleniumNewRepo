@@ -1104,6 +1104,7 @@ To implement ExcelUtility, first we need to import the Apache POI library becaus
 
 The actual implementation uses FileInputStream to open the Excel file and WorkbookFactory to create the workbook instance. From there, we fetch the required sheet, row, and cell. To write into Excel, we use FileOutputStream after updating the cell value. It’s also important to close the workbook to avoid memory leaks.
 
+In test cases, instead of hardcoding values like usernames or passwords, we can call ExcelUtility.getDataFromExcel() to fetch them dynamically from the Excel sheet. This makes our framework data-driven, more flexible, and easier to maintain. In short, ExcelUtility separates test data from test scripts, improves reusability, and supports large-scale testing where test data frequently changes.
 
 ```java
 import java.io.FileInputStream;
@@ -2015,5 +2016,130 @@ Cross-browser testing is the process of executing the same test cases on differe
     </test>
 
 </suite>
+
+How to handle drop downs, write the script for that with all the Select class methods?
+How will you print the first selected option in the drop-down?
+JENKINS BASED QUESTION
+
+1 Why you use Jenkins, explain how you perform On Scheduling execution in Jenkin?
+Jenkins is an open-source automation server that we used mainly for Continuous Integration and Continuous Delivery (CI/CD). In my project, we integrated Jenkins with Git and Maven. Whenever we pushed code to the repository, Jenkins automatically triggered builds, compiled the project using Maven, ran the automated test cases, and generated reports.
+To schedule my test runs in Jenkins, I use the "Build Periodically" option in the job configuration.
+Open Jenkins job → Configure, Check the box for “Build periodically” In the Schedule textbox,  I use Cron syntax, for example: * 10 * * 1-5
+
+
+2 Jenkins configuration?
+
+In Jenkins, Global Tool Configuration is where we define tools that can be used by all jobs across the Jenkins instance, ensuring consistency and avoiding repetitive setup for each job. To configure these tools, we first go to Manage Jenkins → Global Tool Configuration, where we can set up essential tools like JDK, Maven, Git, Gradle, and Ant. For JDK, we define a name and either provide the installation path or let Jenkins install it automatically; jobs can then select the desired JDK version during build. Similarly, for Maven, we provide the Maven version name and path, or allow automatic installation, so jobs can use the configured Maven to build Java projects. In the Git section, we specify the path to the Git executable, enabling Jenkins to clone repositories for all jobs. Optional tools like Gradle and Ant can also be configured with their paths or automatic installation if a project requires them. Once saved, these global configurations are available in all jobs’ build steps or build environments, allowing jobs to select the required tool versions without manual configuration every time. This setup simplifies project builds, maintains uniformity, and reduces configuration errors across Jenkins jobs.
+3 Write a condition to execute my suite on every Sunday 3pm, in Jenkins?
+4 How you are scheduling build and if you want to schedule the build at 2pm USA timing what is the approach.
+5 How you executed script in Jenkins ?
+
+
+6 Explain your daily interaction wrt GitHub?
+
+In my project, we follow a proper branching strategy where developers create separate branches for each new feature or bug fix. As a tester, I usually switch to those branches to test the changes in isolation before they are merged into the main codebase. This really helps in avoiding conflicts and keeps the main branch stable.
+
+Whenever we worked on a new feature or bug fix, we created separate branches, and once the work was done, we merged them into the main branch through pull requests. During this process, I also handled conflicts when multiple people worked on the same files. Git helped us keep track of changes, roll back if something went wrong, and made collaboration between developers and testers much easier.
+
+For example, if a developer creates a feature branch for something like a login enhancement, I pull that branch, run all my test script, and validate the functionality end to end. Once everything looks good from my side, I usually update the pull request with my testing comments so that the reviewer or team lead knows it's been tested. After that, the team lead reviews the code and merges the PR if everything is fine. This process helps us catch issues early, maintain good collaboration between dev and QA, and ensure only stable code goes into the main branch
+
+7 Git interaction command
+
+| **Category**         | **Command**                              | **Description**                                                |
+| -------------------- | ---------------------------------------- | -------------------------------------------------------------- |
+| **Repo Setup**       | `git init`                               | Initialize a new Git repository.                               |
+|                      | `git clone <repo_url>`                   | Clone an existing repository.                                  |
+| **Configuration**    | `git config --global user.name "Name"`   | Set username for all repos.                                    |
+|                      | `git config --global user.email "Email"` | Set email for all repos.                                       |
+| **Status/Info**      | `git status`                             | Show working directory status.                                 |
+|                      | `git log`                                | Show commit history.                                           |
+|                      | `git log --oneline --graph --all`        | Compact history in tree format.                                |
+|                      | `git diff`                               | Show unstaged changes.                                         |
+| **Staging & Commit** | `git add <file>`                         | Add file(s) to staging area.                                   |
+|                      | `git add .`                              | Stage all changes.                                             |
+|                      | `git commit -m "message"`                | Commit staged changes with message.                            |
+|                      | `git commit --amend`                     | Edit last commit message or add forgotten changes.             |
+| **Branching**        | `git branch`                             | List all branches.                                             |
+|                      | `git branch <name>`                      | Create a new branch.                                           |
+|                      | `git checkout <branch>`                  | Switch to a branch.                                            |
+|                      | `git checkout -b <branch>`               | Create and switch to new branch.                               |
+|                      | `git switch <branch>`                    | Switch to a branch (newer syntax).                             |
+|                      | `git switch -c <branch>`                 | Create and switch to a new branch.                             |
+| **Merging**          | `git merge <branch>`                     | Merge a branch into current one.                               |
+|                      | `git rebase <branch>`                    | Reapply commits on top of another branch.                      |
+| **Remote**           | `git remote -v`                          | Show remote repositories.                                      |
+|                      | `git remote add origin <url>`            | Add remote repository.                                         |
+|                      | `git push origin <branch>`               | Push branch to remote.                                         |
+|                      | `git push -u origin <branch>`            | Push branch & set upstream.                                    |
+|                      | `git pull`                               | Fetch and merge changes from remote.                           |
+|                      | `git fetch`                              | Download changes without merging.                              |
+| **Undo/Reset**       | `git reset <file>`                       | Unstage a staged file.                                         |
+|                      | `git reset --hard <commit>`              | Reset repo to a specific commit (dangerous, discards changes). |
+|                      | `git restore <file>`                     | Restore file from last commit.                                 |
+|                      | `git revert <commit>`                    | Create a new commit that undoes changes from a commit.         |
+| **Tagging**          | `git tag <name>`                         | Create a tag.                                                  |
+|                      | `git tag`                                | List tags.                                                     |
+|                      | `git push origin <tag>`                  | Push a tag to remote.                                          |
+| **Stash**            | `git stash`                              | Save changes temporarily.                                      |
+|                      | `git stash pop`                          | Reapply stashed changes.                                       |
+|                      | `git stash list`                         | Show stashed changes.                                          |
+| **Clean Up**         | `git branch -d <branch>`                 | Delete branch (safe).                                          |
+|                      | `git branch -D <branch>`                 | Force delete branch.                                           |
+
+8 Git conflicts and how will you resolve it.
+
+A conflict in Git occurs when two or more people (or branches) change the same lines of code in the same file and Git cannot decide which version to keep during a merge or pull operation.
+A Git conflict happens when two branches change the same part of a file and Git doesn’t know which one to keep. I resolve conflicts by opening the file, checking the conflict markers, manually correcting the code, then staging and committing the resolved file
+Yes, I always pull the latest code before pushing mine. This ensures I have the latest updates and helps identify any conflicts early. If a conflict arises, I resolve it locally and commit the changes before pushing
+
+9 Explain Maven?
+
+Maven is a build automation and project management tool mainly used for Java projects. It helps in compiling the source code, running the tests, packaging the application, and generating reports. The main advantage of Maven is dependency management — instead of manually adding jar files, we just declare them in the pom.xml and Maven automatically downloads them from the central repository. It also follows a standard project structure and uses plugins like the Compiler plugin and Surefire plugin to handle builds and test execution. In real-time projects, we use Maven not only to run tests but also to integrate with CI/CD pipelines like Jenkins.
+
+
+10 Explain Maven life cycle.
+In Maven, we use different lifecycle commands. The most common ones are mvn clean to remove the target folder, mvn compile to compile the source code, mvn test to execute test cases, mvn package to build the project into a JAR or WAR, and mvn install to place the package into the local repository. We also use mvn deploy to send the build to a remote repository. Additionally, commands like mvn dependency:tree and mvn help:effective-pom are useful for debugging dependencies.
+
+11 What is the Work process of maven
+In my experience, Maven plays a very important role in managing Java projects smoothly. It uses a configuration file called pom.xml, where we define the entire structure of the project—like its dependencies, plugins, and build steps. I mostly use it to handle all project dependencies and to automate the build process.
+
+When I run a command like mvn clean install, Maven follows a specific lifecycle. It starts by checking the project structure, then compiles the code, runs tests, and finally packages everything into a .jar or .war file. If needed, it can also deploy the final output to a remote repository.
+
+One thing I really like about Maven is that it takes care of downloading all required JARs from its central repository, which saves a lot of manual work and helps maintain consistency across different systems.
+
+Overall, Maven makes project setup and builds very straightforward. It also works really well with Jenkins. In my projects, I’ve used them together in CI/CD pipelines to automate builds and run regression tests, which has made the whole process much faster and more reliable.
+
+12 Maven command 
+
+| Phase    | Command        | Easy Meaning                   | Technical Meaning                                                                 |
+| -------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |
+| Clean    | `mvn clean`    | Delete old files, start fresh. | Removes previous build outputs (e.g., `target/` folder).                          |
+| Validate | `mvn validate` | Check project setup.           | Ensures project structure & config are correct.                                   |
+| Compile  | `mvn compile`  | Convert code to class files.   | Compiles Java source into `.class` bytecode files.                                |
+| Test     | `mvn test`     | Run tests.                     | Executes unit/automation tests (JUnit, TestNG).                                   |
+| Package  | `mvn package`  | Make JAR/WAR file.             | Bundles compiled code + resources into a distributable (`.jar`, `.war`).          |
+| Verify   | `mvn verify`   | Double-check build.            | Runs integration checks to ensure the package is valid.                           |
+| Install  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |
+| Deploy   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |
+
+
+
+| No. | Interview Question                                                         | Simple Interview Answer                                                                                                                          |
+| --- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **What types of reports do you generate after testing?**                   | I generate test execution reports that show total test cases, passed, failed, skipped, and defect details.                                       |
+| 2   | **Why is reporting important in testing?**                                 | Reporting helps to communicate testing progress, quality of the product, and highlights issues clearly to the team and management.               |
+| 3   | **What details do you include in your test report?**                       | I include test summary, total test cases executed, pass/fail count, defect summary, environment details, and tester’s comments.                  |
+| 4   | **How do you share your test execution reports with your team or client?** | I usually share reports through Jenkins links, email, or upload them on shared drives or project management tools like Jira or Confluence.       |
+| 5   | **How do you view or download test reports from Jenkins?**                 | After the build is completed, I go to the Jenkins build console → click on “Test Result” or “Extent Report” link to view or download the report. |
+| 6   | **What kind of reports can Jenkins generate after a build?**               | Jenkins can generate JUnit, TestNG, Extent, or Allure reports depending on the project configuration.                                            |
+| 7   | **What are Extent Reports and why do you use them?**                       | Extent Reports provide a detailed, colorful, and easy-to-read HTML report of automation execution with logs, screenshots, and test status.       |
+| 8   | **How do you integrate Extent Reports with Selenium or TestNG?**           | I add the Extent Report dependency in the pom.xml, create a report object in my test listener, and log pass/fail status after each test.         |
+| 9   | **What is Allure Report and how do you generate it?**                      | Allure Report is a visually rich reporting tool. It’s generated using Maven commands or Jenkins plugins after running test cases.                |
+| 10  | **What kind of reports does TestNG generate by default?**                  | TestNG generates HTML and XML reports by default in the “test-output” folder after execution.                                                    |
+| 11  | **Have you ever customized your test reports? If yes, how?**               | Yes, I’ve customized Extent Reports by adding project name, browser details, screenshots, and execution time for better readability.             |
+| 12  | **What do you include in a defect or bug report?**                         | I include defect ID, summary, steps to reproduce, expected and actual results, screenshots, severity, and environment details.                   |
+| 13  | **What key metrics do you track in your test reports?**                    | I track total test cases executed, pass/fail ratio, defect density, and execution progress.                                                      |
+| 14  | **How do you handle report sharing in CI/CD pipelines?**                   | Reports are automatically generated and uploaded by Jenkins after every build, and links are shared with the team via Slack or email.            |
+| 15  | **Which reporting tools or plugins have you worked with?**                 | I have worked with TestNG default reports, Extent Reports, and Allure Reports integrated with Jenkins for automation test execution.             |
 
 
