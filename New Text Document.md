@@ -2024,6 +2024,8 @@ How will you print the first selected option in the drop-down?
 JENKINS BASED QUESTION
 
 1 Why you use Jenkins, explain how you perform On Scheduling execution in Jenkin?
+
+
 Jenkins is an open-source automation server that we used mainly for Continuous Integration and Continuous Delivery (CI/CD). In my project, we integrated Jenkins with Git and Maven. Whenever we pushed code to the repository, Jenkins automatically triggered builds, compiled the project using Maven, ran the automated test cases, and generated reports.
 To schedule my test runs in Jenkins, I use the "Build Periodically" option in the job configuration.
 Open Jenkins job → Configure, Check the box for “Build periodically” In the Schedule textbox,  I use Cron syntax, for example: * 10 * * 1-5
@@ -2031,10 +2033,22 @@ Open Jenkins job → Configure, Check the box for “Build periodically” In th
 
 2 Jenkins configuration?
 
+
 In Jenkins, Global Tool Configuration is where we define tools that can be used by all jobs across the Jenkins instance, ensuring consistency and avoiding repetitive setup for each job. To configure these tools, we first go to Manage Jenkins → Global Tool Configuration, where we can set up essential tools like JDK, Maven, Git, Gradle, and Ant. For JDK, we define a name and either provide the installation path or let Jenkins install it automatically; jobs can then select the desired JDK version during build. Similarly, for Maven, we provide the Maven version name and path, or allow automatic installation, so jobs can use the configured Maven to build Java projects. In the Git section, we specify the path to the Git executable, enabling Jenkins to clone repositories for all jobs. Optional tools like Gradle and Ant can also be configured with their paths or automatic installation if a project requires them. Once saved, these global configurations are available in all jobs’ build steps or build environments, allowing jobs to select the required tool versions without manual configuration every time. This setup simplifies project builds, maintains uniformity, and reduces configuration errors across Jenkins jobs.
+
+
 3 Write a condition to execute my suite on every Sunday 3pm, in Jenkins?
+
+* 3 * * 7 AM 
+0 15 * * 7 PM
+
 4 How you are scheduling build and if you want to schedule the build at 2pm USA timing what is the approach.
+
+In my project, I schedule builds in Jenkins using the “Build periodically” option under the configuration section. We use a CRON expression to set the exact timing for execution. For example, if I want to schedule the build at 2 PM USA time, I first convert that time to my local server time zone — because Jenkins follows the server’s system time. Once converted, I write the corresponding CRON schedule, such as H 0 2 * * or any matching format, depending on the server location. This ensures the build automatically runs at 2 PM USA time without manual triggering. I also make sure the time zone setting in Jenkins or on the system aligns with the required region to avoid timing mismatches.
+
 5 How you executed script in Jenkins ?
+
+In my project, I execute automation scripts in Jenkins by integrating my testing framework, such as TestNG with Maven or Gradle. First, I configure a Jenkins job and connect it with my project’s GitHub repository so that Jenkins automatically pulls the latest code whenever a build is triggered. Then, under the Build section, I specify the Maven command like mvn clean test to execute my test scripts. I can run the job manually by clicking Build Now, or schedule it automatically using a CRON expression. Once the execution is done, Jenkins generates test reports like TestNG reports, JUnit reports, or HTML reports, which help us track the build and test results directly from the Jenkins dashboard.
 
 
 6 Explain your daily interaction wrt GitHub?
@@ -2123,6 +2137,116 @@ Overall, Maven makes project setup and builds very straightforward. It also work
 | Verify   | `mvn verify`   | Double-check build.            | Runs integration checks to ensure the package is valid.                           |
 | Install  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |
 | Deploy   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |
+
+13 What is take screenshot?
+
+TakesScreenshot is an interface provided by Selenium WebDriver that allows us to capture screenshots of the current browser window. It is mainly used for debugging or reporting purposes in test automation frameworks. Since not all WebDriver classes directly support screenshot functionality, we need to typecast the driver object to the TakesScreenshot interface before using it. Once casted, we can call the getScreenshotAs(OutputType.FILE) method to capture the screenshot and store it as a file. This interface is especially useful when a test fails, and we want to know what was visible on the screen at the time of failure.
+
+14 How to capture screentshot
+
+In Selenium, we capture screenshots using the TakesScreenshot interface. Since WebDriver itself doesn’t have a direct method to take screenshots, we first cast our driver object to TakesScreenshot. Then we call the getScreenshotAs() method, which captures the current state of the browser and returns it in the format we specify, usually as a file. Finally, we save that file to a permanent location on our system using the File class and FileHandler.copy(). This way we can preserve the screenshot and use it for bug reporting, debugging, or attaching in test reports. Depending on the need, we can capture the full browser window or even a specific element by calling getScreenshotAs() on a WebElement
+
+15  Write Script to take screenshot and what exception do you get?
+
+To take a screenshot in Selenium, we generally use the TakesScreenshot interface which is provided by Selenium WebDriver. This interface allows us to capture the current screen of the browser during test execution, which is especially helpful in case of failures or for visual validation during automation. To take the screenshot, we first need to cast the WebDriver instance to TakesScreenshot.
+
+While taking a screenshot in Selenium, there are a few exceptions that might occur depending on the situation. One common exception is WebDriverException, which occurs if the browser fails to capture the screenshot properly, often due to session issues or driver disconnection. Another is IOException, which generally occurs when the file path provided is invalid or if there are permission issues while saving the screenshot. If the WebDriver is not properly cast to TakesScreenshot, it throws a ClassCastException. Additionally, if the WebDriver instance is not initialized at the time of taking the screenshot, it leads to a NullPointerException. Each of these exceptions indicates specific mistakes in the code or environment setup and should be handled properly.
+
+16 What are the methods of take screenshot?
+
+In Selenium, we can take screenshots using the TakesScreenshot interface and its getScreenshotAs() method. For example, File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE); is used to capture the entire screen. We can also capture element-specific screenshots using element.getScreenshotAs(OutputType.FILE). For full-page screenshots, we use external tools like AShot.
+
+17 Can you take screen shot in headless scripts (Jenkins)
+
+Yes, we can take screenshots in headless mode while running scripts in Jenkins. In headless execution, the browser doesn’t open a visible window but still renders the page in memory, allowing Selenium to capture screenshots normally. We just need to set the headless flag while launching the browser, like --headless for Chrome. After that, we can use the regular TakesScreenshot interface to capture images. This is especially useful in Jenkins or CI pipelines for debugging failed test cases where the UI isn’t visible.
+
+18 How to fetch the data from Excel.
+
+To fetch the data form excel, first we need to import the Apache POI library because Java itself does not provide direct support for Excel handling. Inside the utility class, we create methods for different operations. For example, a method like getDataFromExcel() is used to fetch cell data from a given sheet by passing the file path, sheet name, row index, and cell index. Similarly, getLastRow() helps us find the total number of rows in a sheet, which is useful when running tests with multiple sets of data. Another method like setDataIntoExcel() allows us to insert or update values into specific cells, which can be used to store test results or logs back into the Excel file.
+
+The actual implementation uses FileInputStream to open the Excel file and WorkbookFactory to create the workbook instance. From there, we fetch the required sheet, row, and cell. To write into Excel, we use FileOutputStream after updating the cell value. It’s also important to close the workbook to avoid memory leaks.
+
+19 How many ways are there to fetch the date from outside 
+
+There are several ways to fetch data from outside the script. One of the most common ways is using Excel files through libraries like Apache POI, where we can read rows and columns using WorkbookFactory. Another popular option is using property files (like .properties), which is ideal for storing key-value pairs such as URLs, usernames, and passwords. You can also use CSV files to store simple tabular data, which can be easily read using Java’s built-in libraries or third-party libraries like OpenCSV. In some cases, testers use JSON or XML files, especially when dealing with API test data, configurations, or structured input—these can be read using libraries like Jackson, Gson (for JSON), or DOM/SAX parsers (for XML). In more advanced frameworks, teams even fetch data from databases (like MySQL, Oracle, etc.) using JDBC, where the query returns test inputs directly from a table. Lastly, in CI/CD environments, environment variables or command-line arguments are also used to inject data dynamically during execution. These methods help separate data from logic and support data-driven testing in a clean and maintainable way.
+
+20 Tell me about Action class methods
+
+The Action Class in Selenium is a special utility provided in the org.openqa.selenium.interactions package that allows us to handle complex user interactions such as mouse hover, drag and drop, right click, double click, click and hold, releasing a key, or sending multiple key combinations. While methods like click() and sendKeys() work for simple operations, many real-time scenarios need advanced interactions, like hovering over a menu to see sub-options, dragging an item from one section to another, or simulating keyboard shortcuts like Ctrl + A or Ctrl + C. For this, we create an Actions object, pass the WebDriver instance, and then use the required method, followed by .perform() to execute.
+
+
+21 What are the different methods of the Actions class in Selenium?
+
+| Method                                                | Description                                                | Example                                                                     |
+| ----------------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `click()`                                             | Clicks on the current mouse location                       | `act.click().perform();`                                                    |
+| `click(WebElement element)`                           | Clicks on a specific element                               | `act.click(button).perform();`                                              |
+| `doubleClick()`                                       | Double clicks at current mouse location                    | `act.doubleClick().perform();`                                              |
+| `doubleClick(WebElement element)`                     | Double clicks on an element                                | `act.doubleClick(button).perform();`                                        |
+| `contextClick()`                                      | Right click at current mouse location                      | `act.contextClick().perform();`                                             |
+| `contextClick(WebElement element)`                    | Right click on an element                                  | `act.contextClick(button).perform();`                                       |
+| `moveToElement(WebElement element)`                   | Moves mouse to an element (hover)                          | `act.moveToElement(menu).perform();`                                        |
+| `moveByOffset(int x, int y)`                          | Moves mouse by x,y offset                                  | `act.moveByOffset(50, 100).perform();`                                      |
+| `dragAndDrop(source, target)`                         | Drag source element and drop on target                     | `act.dragAndDrop(source, target).perform();`                                |
+| `dragAndDropBy(source, xOffset, yOffset)`             | Drag element by x,y offset                                 | `act.dragAndDropBy(source, 100, 50).perform();`                             |
+| `keyDown(Keys key)`                                   | Press a key (like Ctrl, Shift)                             | `act.keyDown(Keys.CONTROL).perform();`                                      |
+| `keyUp(Keys key)`                                     | Release a key                                              | `act.keyUp(Keys.CONTROL).perform();`                                        |
+| `sendKeys(CharSequence keys)`                         | Type keys at current focus                                 | `act.sendKeys("Hello").perform();`                                          |
+| `sendKeys(WebElement element, CharSequence keys)`     | Type keys into an element                                  | `act.sendKeys(inputBox, "Hello").perform();`                                |
+| `clickAndHold()`                                      | Click and hold at current mouse location                   | `act.clickAndHold().perform();`                                             |
+| `clickAndHold(WebElement element)`                    | Click and hold on an element                               | `act.clickAndHold(element).perform();`                                      |
+| `release()`                                           | Release mouse button at current location                   | `act.release().perform();`                                                  |
+| `pause(Duration duration)`                            | Pause between actions                                      | `act.pause(Duration.ofSeconds(2)).perform();`                               |
+| `build()`                                             | Builds the sequence of actions                             | `act.moveToElement(el).click().build().perform();`                          |
+| `scrollToElement(WebElement element)`                 | Scrolls the page until the element is visible              | `act.scrollToElement(footer).perform();`                                    |
+| `scrollByAmount(int x, int y)`                        | Scrolls by x (horizontal) and y (vertical) offset          | `act.scrollByAmount(0, 500).perform();`                                     |
+| `scrollFromOrigin(ScrollOrigin origin, int x, int y)` | Scrolls from a defined origin (element/viewport) by offset | `act.scrollFromOrigin(ScrollOrigin.fromElement(header), 0, 300).perform();` |
+
+22 What is Selenium WebDriver?
+
+
+In Selenium, WebDriver is an interface that defines all the methods required for browser automation. It is the core component that allows us to interact with different browsers in a unified way. The main advantage of WebDriver is abstraction—it enables us to write common automation code that works across multiple browsers like Chrome, Firefox, or Edge without changing the logic. For example, when we write WebDriver driver = new ChromeDriver();, we are referring to the WebDriver interface but creating an object of ChromeDriver, which internally provides the actual implementation. This design, based on abstraction, inheritance, and polymorphism, allows Selenium to achieve cross-browser testing. In real-time, every automation script starts with WebDriver because it provides essential methods to open and close the browser, navigate between pages, find elements, handle windows, alerts, and frames, and perform various browser-level operations.
+
+
+| Method                | Return Type      | Description (Usage)                                           | Example                                            |
+| --------------------- | ---------------- | ------------------------------------------------------------- | -------------------------------------------------- |
+| `get(String url)`     | void             | Opens the given URL in the browser.                           | `driver.get("https://google.com");`                |
+| `getCurrentUrl()`     | String           | Returns the current page URL.                                 | `System.out.println(driver.getCurrentUrl());`      |
+| `getTitle()`          | String           | Returns the current page title.                               | `System.out.println(driver.getTitle());`           |
+| `getPageSource()`     | String           | Returns the HTML source of the page.                          | `driver.getPageSource();`                          |
+| `getWindowHandle()`   | String           | Returns unique ID of the current browser window.              | `String handle = driver.getWindowHandle();`        |
+| `getWindowHandles()`  | Set<String>      | Returns IDs of all open browser windows/tabs.                 | `Set<String> handles = driver.getWindowHandles();` |
+| `findElement(By by)`  | WebElement       | Finds the first matching element on the page.                 | `driver.findElement(By.id("username"));`           |
+| `findElements(By by)` | List<WebElement> | Finds all matching elements on the page.                      | `driver.findElements(By.tagName("a"));`            |
+| `manage()`            | Options          | Provides browser options like cookies, timeouts, window size. | `driver.manage().window().maximize();`             |
+| `navigate()`          | Navigation       | Used for navigation (back, forward, refresh, to).             | `driver.navigate().back();`                        |
+| `switchTo()`          | TargetLocator    | Switches control to frame, alert, or window.                  | `driver.switchTo().alert().accept();`              |
+| `close()`             | void             | Closes the current browser window.                            | `driver.close();`                                  |
+| `quit()`              | void             | Quits the entire browser session (all windows).               | `driver.quit();`                                   |
+
+23 Explain what a Listener is in Selenium.
+
+**Listeners in Selenium (especially with TestNG) are special interfaces that “listen” to the events that happen during test execution. They act like observers—whenever a specific event occurs (like a test starting, passing, failing, or skipping), the listener automatically executes the code you define for that event.**
+
+
+
+**In TestNG, listeners are implemented to perform actions automatically when certain events occur during the test lifecycle, such as when a test starts, passes, fails, or gets skipped. To implement a listener, we first create a separate class that implements the ITestListener interface and override its methods like onTestStart, onTestSuccess, onTestFailure, and onTestSkipped. For example, in the onTestFailure method, we can add code to capture a screenshot whenever a test fails.**
+
+
+
+**There are two ways to attach a listener to the test:**
+
+
+
+**1. Using the @Listeners Annotation – This approach allows us to specify the listener class directly at the test class level using the @Listeners annotation. When the test runs, TestNG will automatically trigger the listener methods.**
+
+**2. Using the testng.xml File – In this method, we configure the listener inside the testng.xml file by defining the fully qualified class name under the <listeners> tag. This is useful when we want to apply listeners globally across multiple test classes.**
+
+
+
+**After attaching the listener through either of these two ways, when we run the tests, the listener methods will automatically get triggered, and we will see logs such as “Test Started,” “Test Passed,” “Test Failed,” or “Test Skipped” in the console. Apart from logging, listeners can also be enhanced to integrate with reporting tools like Extent Reports or to capture screenshots for failed cases, making them very useful for real-time reporting and debugging.**
+
+
 
 
 
