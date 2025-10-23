@@ -96,7 +96,7 @@ Git Branching and Merging Workflow
 
 
 
-**Maven is a build automation and project management tool mainly used for Java projects. It helps in compiling the source code, running the tests, packaging the application, and generating reports. The main advantage of Maven is dependency management — instead of manually adding jar files, we just declare them in the pom.xml and Maven automatically downloads them from the central repository. It also follows a standard project structure and uses plugins like the Compiler plugin and Surefire plugin to handle builds and test execution. In real-time projects, we use Maven not only to run tests but also to integrate with CI/CD pipelines like Jenkins.**
+Maven is a build automation and project management tool mainly used for Java projects. It helps in compiling the source code, running the tests, packaging the application, and generating reports. The main advantage of Maven is dependency management — instead of manually adding jar files, we just declare them in the pom.xml and Maven automatically downloads them from the central repository. It also follows a standard project structure and uses plugins like the Compiler plugin and Surefire plugin to handle builds and test execution. In real-time projects, we use Maven not only to run tests but also to integrate with CI/CD pipelines like Jenkins.
 
 
 
@@ -2017,49 +2017,31 @@ Cross-browser testing is the process of executing the same test cases on differe
 
 </suite>
 ```
-## INTERIVEW QUESTIONS
-
-How to handle drop downs, write the script for that with all the Select class methods?
-How will you print the first selected option in the drop-down?
-JENKINS BASED QUESTION
-
-1 Why you use Jenkins, explain how you perform On Scheduling execution in Jenkin?
+INTERVIEW QUESTION
+## 1 GIT AND GITHUB
 
 
-Jenkins is an open-source automation server that we used mainly for Continuous Integration and Continuous Delivery (CI/CD). In my project, we integrated Jenkins with Git and Maven. Whenever we pushed code to the repository, Jenkins automatically triggered builds, compiled the project using Maven, ran the automated test cases, and generated reports.
-To schedule my test runs in Jenkins, I use the "Build Periodically" option in the job configuration.
-Open Jenkins job → Configure, Check the box for “Build periodically” In the Schedule textbox,  I use Cron syntax, for example: * 10 * * 1-5
+1 What is git and git hub.
 
+Git is a distributed version control system. It’s mainly used to track changes in code, manage different versions of a project, and allow multiple people to work on the same codebase at the same time without conflicts.
 
-2 Jenkins configuration?
+GitHub is a cloud-based platform built on top of Git. It provides a place where we can store our code repositories online, collaborate with team members, review code through pull requests, and manage issues or tasks. Basically, Git is the version control system, and GitHub is the platform that makes collaboration and project management easier.
 
-
-In Jenkins, Global Tool Configuration is where we define tools that can be used by all jobs across the Jenkins instance, ensuring consistency and avoiding repetitive setup for each job. To configure these tools, we first go to Manage Jenkins → Global Tool Configuration, where we can set up essential tools like JDK, Maven, Git, Gradle, and Ant. For JDK, we define a name and either provide the installation path or let Jenkins install it automatically; jobs can then select the desired JDK version during build. Similarly, for Maven, we provide the Maven version name and path, or allow automatic installation, so jobs can use the configured Maven to build Java projects. In the Git section, we specify the path to the Git executable, enabling Jenkins to clone repositories for all jobs. Optional tools like Gradle and Ant can also be configured with their paths or automatic installation if a project requires them. Once saved, these global configurations are available in all jobs’ build steps or build environments, allowing jobs to select the required tool versions without manual configuration every time. This setup simplifies project builds, maintains uniformity, and reduces configuration errors across Jenkins jobs.
-
-
-3 Write a condition to execute my suite on every Sunday 3pm, in Jenkins?
-
-* 3 * * 7 AM 
-0 15 * * 7 PM
-
-4 How you are scheduling build and if you want to schedule the build at 2pm USA timing what is the approach.
-
-In my project, I schedule builds in Jenkins using the “Build periodically” option under the configuration section. We use a CRON expression to set the exact timing for execution. For example, if I want to schedule the build at 2 PM USA time, I first convert that time to my local server time zone — because Jenkins follows the server’s system time. Once converted, I write the corresponding CRON schedule, such as H 0 2 * * or any matching format, depending on the server location. This ensures the build automatically runs at 2 PM USA time without manual triggering. I also make sure the time zone setting in Jenkins or on the system aligns with the required region to avoid timing mismatches.
-
-5 How you executed script in Jenkins ?
-
-In my project, I execute automation scripts in Jenkins by integrating my testing framework, such as TestNG with Maven or Gradle. First, I configure a Jenkins job and connect it with my project’s GitHub repository so that Jenkins automatically pulls the latest code whenever a build is triggered. Then, under the Build section, I specify the Maven command like mvn clean test to execute my test scripts. I can run the job manually by clicking Build Now, or schedule it automatically using a CRON expression. Once the execution is done, Jenkins generates test reports like TestNG reports, JUnit reports, or HTML reports, which help us track the build and test results directly from the Jenkins dashboard.
-
-
-6 Explain your daily interaction wrt GitHub?
+2 Explain your daily interaction wrt GitHub?
 
 In my project, we follow a proper branching strategy where developers create separate branches for each new feature or bug fix. As a tester, I usually switch to those branches to test the changes in isolation before they are merged into the main codebase. This really helps in avoiding conflicts and keeps the main branch stable.
 
 Whenever we worked on a new feature or bug fix, we created separate branches, and once the work was done, we merged them into the main branch through pull requests. During this process, I also handled conflicts when multiple people worked on the same files. Git helped us keep track of changes, roll back if something went wrong, and made collaboration between developers and testers much easier.
 
-For example, if a developer creates a feature branch for something like a login enhancement, I pull that branch, run all my test script, and validate the functionality end to end. Once everything looks good from my side, I usually update the pull request with my testing comments so that the reviewer or team lead knows it's been tested. After that, the team lead reviews the code and merges the PR if everything is fine. This process helps us catch issues early, maintain good collaboration between dev and QA, and ensure only stable code goes into the main branch
+For example, if a developer creates a feature branch for something like a login enhancement, I pull that branch, run all my test script, and validate the functionality end to end. Once everything looks good from my side, I usually update the pull request with my testing comments so that the reviewer or team lead knows it's been tested. After that, the team lead reviews the code and merges the PR if everything is fine. This process helps us catch issues early, maintain good collaboration between dev and QA, and ensure only stable code goes into the main branch.
 
-7 Git interaction command
+3 Git conflicts and how will you resolve it.
+
+A conflict in Git occurs when two or more people (or branches) change the same lines of code in the same file and Git cannot decide which version to keep during a merge or pull operation.
+A Git conflict happens when two branches change the same part of a file and Git doesn’t know which one to keep. I resolve conflicts by opening the file, checking the conflict markers, manually correcting the code, then staging and committing the resolved file
+Yes, I always pull the latest code before pushing mine. This ensures I have the latest updates and helps identify any conflicts early. If a conflict arises, I resolve it locally and commit the changes before pushing.
+
+4 Write all git commands and explain them?
 
 | **Category**         | **Command**                              | **Description**                                                |
 | -------------------- | ---------------------------------------- | -------------------------------------------------------------- |
@@ -2102,21 +2084,68 @@ For example, if a developer creates a feature branch for something like a login 
 | **Clean Up**         | `git branch -d <branch>`                 | Delete branch (safe).                                          |
 |                      | `git branch -D <branch>`                 | Force delete branch.                                           |
 
-8 Git conflicts and how will you resolve it.
+5 Explain Git branching.
 
-A conflict in Git occurs when two or more people (or branches) change the same lines of code in the same file and Git cannot decide which version to keep during a merge or pull operation.
-A Git conflict happens when two branches change the same part of a file and Git doesn’t know which one to keep. I resolve conflicts by opening the file, checking the conflict markers, manually correcting the code, then staging and committing the resolved file
-Yes, I always pull the latest code before pushing mine. This ensures I have the latest updates and helps identify any conflicts early. If a conflict arises, I resolve it locally and commit the changes before pushing
+In Git, branching is a way to create separate lines of development within the same project. It allows multiple people to work on different features or bug fixes without affecting the main codebase.
 
-9 Explain Maven?
+For example, we usually have a main (or master) branch that holds the stable production code. When we want to add a new feature or make changes, we create a new branch from the main branch — say, feature/login — and work there independently.
+
+Once the work is completed and tested, we merge the branch back into the main branch using a pull request (PR) or merge command.
+
+This process helps in parallel development, code isolation, and easy collaboration among team members.
+
+6 How to add master branch data to other branch
+
+If I need to add or update the latest code from the master branch into another branch, I usually use the merge or rebase command in Git. First, I switch to the branch where I want the updates — for example, if I’m working on the feature/login branch, I check out that branch. Then I run git merge master, which brings all the latest changes from the master branch into my current branch.
+
+Sometimes, instead of merge, I use git rebase master. Rebase is helpful when I want a cleaner and linear commit history because it applies my branch changes on top of the latest master commits.
+
+So, in short, I use merge when I want to keep both histories and rebase when I prefer a more streamlined commit structure. Both commands help me keep my branch updated with the latest code from master.
+
+8 How do you handle conflicts in GIT?
+
+When a conflict happens in Git, it usually means two branches have modified the same part of a file differently. In such cases, Git can’t decide which change to keep, so I resolve it manually.
+
+What I do is first run a pull or merge command, and when the conflict appears, Git clearly marks the conflicting sections in the file using <<<<<<, ======, and >>>>>> symbols. I open that file, review both versions of the code, and then keep or combine the correct changes as per the requirement.
+
+Once the conflict is resolved, I remove those conflict markers, save the file, and then run the commands — git add, git commit, and git push — to finalize the merge.
+
+In short, I handle Git conflicts by manually reviewing, editing, and committing the corrected code to ensure both sets of changes are properly merged.
+
+9 Which branch the git will be by default
+
+By default, Git creates a branch called “main” when you initialize a new repository, Earlier, the default branch used to be “master”, but now Git has changed it to “main” to follow inclusive naming conventions, So, when you run git init, Git automatically creates the main branch as the default one unless it’s configured otherwise.
+
+10 What is git bash
+
+Git Bash is a command-line tool that allows you to use Git commands in a Unix-like terminal on Windows.
+
+In simple terms, it provides a Linux-style command interface where you can run Git commands such as git init, git clone, git add, git commit, and many more. It also supports basic Linux commands like ls, cd, and mkdir, which makes working with Git easier for Windows users.
+
+11 What is the process of branching in a release?
+
+In a release process, branching helps in managing different stages of development without affecting the main code. Generally, the main or master branch holds the stable production code. When a new release is planned, a release branch is created from the main branch. This branch is used for final testing, bug fixing, and preparing the release version. Once the testing is complete and everything is stable, the release branch is merged back into the main branch for deployment and also into the develop branch (if it exists) to keep all branches up to date. This process helps in isolating release activities from ongoing development work.
+
+
+11 How to revert git commit or How to revert a Git commit
+
+If we make a wrong commit in Git, we can undo it using the git revert command. This command doesn’t delete the commit but instead creates a new commit that reverses the changes from the previous one, keeping history safe. by using git revert <commit_id>.
+
+12 What are the git bash command used in your project.
+how did resolve the merge conflicts
+
+## 2 MAVEN
+
+1 What is Maven how it Supports in Jenkins.
+
+1 What is Maven and what is the use of the Maven?
 
 Maven is a build automation and project management tool mainly used for Java projects. It helps in compiling the source code, running the tests, packaging the application, and generating reports. The main advantage of Maven is dependency management — instead of manually adding jar files, we just declare them in the pom.xml and Maven automatically downloads them from the central repository. It also follows a standard project structure and uses plugins like the Compiler plugin and Surefire plugin to handle builds and test execution. In real-time projects, we use Maven not only to run tests but also to integrate with CI/CD pipelines like Jenkins.
 
-
-10 Explain Maven life cycle.
+2 Explain Maven life cycle.
 In Maven, we use different lifecycle commands. The most common ones are mvn clean to remove the target folder, mvn compile to compile the source code, mvn test to execute test cases, mvn package to build the project into a JAR or WAR, and mvn install to place the package into the local repository. We also use mvn deploy to send the build to a remote repository. Additionally, commands like mvn dependency:tree and mvn help:effective-pom are useful for debugging dependencies.
 
-11 What is the Work process of maven
+3 What is the Work process of maven
 In my experience, Maven plays a very important role in managing Java projects smoothly. It uses a configuration file called pom.xml, where we define the entire structure of the project—like its dependencies, plugins, and build steps. I mostly use it to handle all project dependencies and to automate the build process.
 
 When I run a command like mvn clean install, Maven follows a specific lifecycle. It starts by checking the project structure, then compiles the code, runs tests, and finally packages everything into a .jar or .war file. If needed, it can also deploy the final output to a remote repository.
@@ -2125,7 +2154,7 @@ One thing I really like about Maven is that it takes care of downloading all req
 
 Overall, Maven makes project setup and builds very straightforward. It also works really well with Jenkins. In my projects, I’ve used them together in CI/CD pipelines to automate builds and run regression tests, which has made the whole process much faster and more reliable.
 
-12 Maven command 
+4 Maven command 
 
 | Phase    | Command        | Easy Meaning                   | Technical Meaning                                                                 |
 | -------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -2138,134 +2167,415 @@ Overall, Maven makes project setup and builds very straightforward. It also work
 | Install  | `mvn install`  | Save build locally.            | Installs package into local Maven repo (`~/.m2`) for use in other local projects. |
 | Deploy   | `mvn deploy`   | Share with team.               | Uploads package to remote repo (Nexus, Artifactory) for sharing with others.      |
 
-13 What is take screenshot?
+5 How you will Use Maven Commands
 
-TakesScreenshot is an interface provided by Selenium WebDriver that allows us to capture screenshots of the current browser window. It is mainly used for debugging or reporting purposes in test automation frameworks. Since not all WebDriver classes directly support screenshot functionality, we need to typecast the driver object to the TakesScreenshot interface before using it. Once casted, we can call the getScreenshotAs(OutputType.FILE) method to capture the screenshot and store it as a file. This interface is especially useful when a test fails, and we want to know what was visible on the screen at the time of failure.
+I use Maven commands through the command prompt or terminal to perform various build-related tasks. For example, I use mvn clean to delete the target folder and remove previously compiled files, mvn compile to compile the source code, mvn test to run the test cases, mvn package to build the project into a JAR or WAR file, and mvn install to install the package into the local repository. These commands help in automating and managing the entire build and testing process efficiently.
 
-14 How to capture screentshot
+6 What is profiling and why you have used profiling in your maven project.
+Profiling in Maven is used to define different configurations for different environments like dev, test, and production within the same project. It allows us to customize settings such as URLs, database connections, or dependencies based on the environment we are working in.
 
-In Selenium, we capture screenshots using the TakesScreenshot interface. Since WebDriver itself doesn’t have a direct method to take screenshots, we first cast our driver object to TakesScreenshot. Then we call the getScreenshotAs() method, which captures the current state of the browser and returns it in the format we specify, usually as a file. Finally, we save that file to a permanent location on our system using the File class and FileHandler.copy(). This way we can preserve the screenshot and use it for bug reporting, debugging, or attaching in test reports. Depending on the need, we can capture the full browser window or even a specific element by calling getScreenshotAs() on a WebElement
+I have used profiling in my Maven project to avoid manual changes in configuration files every time we switch environments. By activating the required profile using a simple command like mvn test -Pdev, the appropriate settings automatically get applied, making the build process smoother and error-free.
 
-15  Write Script to take screenshot and what exception do you get?
+7 Which build tool you are using
+I am using Maven as the build tool in my project. It helps in managing dependencies, building, testing, and packaging the project efficiently. Maven also automates the build process and ensures consistency across different environments. I use commands like mvn clean, mvn test, and mvn install for different stages of the build lifecycle."
 
-To take a screenshot in Selenium, we generally use the TakesScreenshot interface which is provided by Selenium WebDriver. This interface allows us to capture the current screen of the browser during test execution, which is especially helpful in case of failures or for visual validation during automation. To take the screenshot, we first need to cast the WebDriver instance to TakesScreenshot.
+8 What does mvn compile does and mvn package does.
 
-While taking a screenshot in Selenium, there are a few exceptions that might occur depending on the situation. One common exception is WebDriverException, which occurs if the browser fails to capture the screenshot properly, often due to session issues or driver disconnection. Another is IOException, which generally occurs when the file path provided is invalid or if there are permission issues while saving the screenshot. If the WebDriver is not properly cast to TakesScreenshot, it throws a ClassCastException. Additionally, if the WebDriver instance is not initialized at the time of taking the screenshot, it leads to a NullPointerException. Each of these exceptions indicates specific mistakes in the code or environment setup and should be handled properly.
+mvn compile command compiles the source code of the project and converts the .java files into .class files inside the target folder.
 
-16 What are the methods of take screenshot?
+mvn package command goes one step further — it compiles the code, runs the tests, and then packages the compiled code into a distributable format like a .jar or .war file inside the target folder."
 
-In Selenium, we can take screenshots using the TakesScreenshot interface and its getScreenshotAs() method. For example, File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE); is used to capture the entire screen. We can also capture element-specific screenshots using element.getScreenshotAs(OutputType.FILE). For full-page screenshots, we use external tools like AShot.
+9 How can we execute the testcases using maven commands
 
-17 Can you take screen shot in headless scripts (Jenkins)
-
-Yes, we can take screenshots in headless mode while running scripts in Jenkins. In headless execution, the browser doesn’t open a visible window but still renders the page in memory, allowing Selenium to capture screenshots normally. We just need to set the headless flag while launching the browser, like --headless for Chrome. After that, we can use the regular TakesScreenshot interface to capture images. This is especially useful in Jenkins or CI pipelines for debugging failed test cases where the UI isn’t visible.
-
-18 How to fetch the data from Excel.
-
-To fetch the data form excel, first we need to import the Apache POI library because Java itself does not provide direct support for Excel handling. Inside the utility class, we create methods for different operations. For example, a method like getDataFromExcel() is used to fetch cell data from a given sheet by passing the file path, sheet name, row index, and cell index. Similarly, getLastRow() helps us find the total number of rows in a sheet, which is useful when running tests with multiple sets of data. Another method like setDataIntoExcel() allows us to insert or update values into specific cells, which can be used to store test results or logs back into the Excel file.
-
-The actual implementation uses FileInputStream to open the Excel file and WorkbookFactory to create the workbook instance. From there, we fetch the required sheet, row, and cell. To write into Excel, we use FileOutputStream after updating the cell value. It’s also important to close the workbook to avoid memory leaks.
-
-19 How many ways are there to fetch the date from outside 
-
-There are several ways to fetch data from outside the script. One of the most common ways is using Excel files through libraries like Apache POI, where we can read rows and columns using WorkbookFactory. Another popular option is using property files (like .properties), which is ideal for storing key-value pairs such as URLs, usernames, and passwords. You can also use CSV files to store simple tabular data, which can be easily read using Java’s built-in libraries or third-party libraries like OpenCSV. In some cases, testers use JSON or XML files, especially when dealing with API test data, configurations, or structured input—these can be read using libraries like Jackson, Gson (for JSON), or DOM/SAX parsers (for XML). In more advanced frameworks, teams even fetch data from databases (like MySQL, Oracle, etc.) using JDBC, where the query returns test inputs directly from a table. Lastly, in CI/CD environments, environment variables or command-line arguments are also used to inject data dynamically during execution. These methods help separate data from logic and support data-driven testing in a clean and maintainable way.
-
-20 Tell me about Action class methods
-
-The Action Class in Selenium is a special utility provided in the org.openqa.selenium.interactions package that allows us to handle complex user interactions such as mouse hover, drag and drop, right click, double click, click and hold, releasing a key, or sending multiple key combinations. While methods like click() and sendKeys() work for simple operations, many real-time scenarios need advanced interactions, like hovering over a menu to see sub-options, dragging an item from one section to another, or simulating keyboard shortcuts like Ctrl + A or Ctrl + C. For this, we create an Actions object, pass the WebDriver instance, and then use the required method, followed by .perform() to execute.
+In my project, we execute the test cases using Maven commands through the Maven Surefire plugin. I usually use the command mvn test, which automatically identifies and runs all the test cases written in TestNG or JUnit. If I want to run a specific test class, I use mvn -Dtest=ClassName test, and for multiple classes, I can specify them separated by commas. This approach allows me to execute the tests directly from the command line without opening any IDE, making the process faster and more convenient during CI/CD execution.
 
 
-21 What are the different methods of the Actions class in Selenium?
 
-| Method                                                | Description                                                | Example                                                                     |
-| ----------------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `click()`                                             | Clicks on the current mouse location                       | `act.click().perform();`                                                    |
-| `click(WebElement element)`                           | Clicks on a specific element                               | `act.click(button).perform();`                                              |
-| `doubleClick()`                                       | Double clicks at current mouse location                    | `act.doubleClick().perform();`                                              |
-| `doubleClick(WebElement element)`                     | Double clicks on an element                                | `act.doubleClick(button).perform();`                                        |
-| `contextClick()`                                      | Right click at current mouse location                      | `act.contextClick().perform();`                                             |
-| `contextClick(WebElement element)`                    | Right click on an element                                  | `act.contextClick(button).perform();`                                       |
-| `moveToElement(WebElement element)`                   | Moves mouse to an element (hover)                          | `act.moveToElement(menu).perform();`                                        |
-| `moveByOffset(int x, int y)`                          | Moves mouse by x,y offset                                  | `act.moveByOffset(50, 100).perform();`                                      |
-| `dragAndDrop(source, target)`                         | Drag source element and drop on target                     | `act.dragAndDrop(source, target).perform();`                                |
-| `dragAndDropBy(source, xOffset, yOffset)`             | Drag element by x,y offset                                 | `act.dragAndDropBy(source, 100, 50).perform();`                             |
-| `keyDown(Keys key)`                                   | Press a key (like Ctrl, Shift)                             | `act.keyDown(Keys.CONTROL).perform();`                                      |
-| `keyUp(Keys key)`                                     | Release a key                                              | `act.keyUp(Keys.CONTROL).perform();`                                        |
-| `sendKeys(CharSequence keys)`                         | Type keys at current focus                                 | `act.sendKeys("Hello").perform();`                                          |
-| `sendKeys(WebElement element, CharSequence keys)`     | Type keys into an element                                  | `act.sendKeys(inputBox, "Hello").perform();`                                |
-| `clickAndHold()`                                      | Click and hold at current mouse location                   | `act.clickAndHold().perform();`                                             |
-| `clickAndHold(WebElement element)`                    | Click and hold on an element                               | `act.clickAndHold(element).perform();`                                      |
-| `release()`                                           | Release mouse button at current location                   | `act.release().perform();`                                                  |
-| `pause(Duration duration)`                            | Pause between actions                                      | `act.pause(Duration.ofSeconds(2)).perform();`                               |
-| `build()`                                             | Builds the sequence of actions                             | `act.moveToElement(el).click().build().perform();`                          |
-| `scrollToElement(WebElement element)`                 | Scrolls the page until the element is visible              | `act.scrollToElement(footer).perform();`                                    |
-| `scrollByAmount(int x, int y)`                        | Scrolls by x (horizontal) and y (vertical) offset          | `act.scrollByAmount(0, 500).perform();`                                     |
-| `scrollFromOrigin(ScrollOrigin origin, int x, int y)` | Scrolls from a defined origin (element/viewport) by offset | `act.scrollFromOrigin(ScrollOrigin.fromElement(header), 0, 300).perform();` |
+## 3 Jenkins
 
-22 What is Selenium WebDriver?
+1 Why you use Jenkins, explain how you perform On Scheduling execution in Jenkin?
 
+
+Jenkins is an open-source automation server that we used mainly for Continuous Integration and Continuous Delivery (CI/CD). In my project, we integrated Jenkins with Git and Maven. Whenever we pushed code to the repository, Jenkins automatically triggered builds, compiled the project using Maven, ran the automated test cases, and generated reports.
+To schedule my test runs in Jenkins, I use the "Build Periodically" option in the job configuration.
+Open Jenkins job → Configure, Check the box for “Build periodically” In the Schedule textbox,  I use Cron syntax, for example: * 10 * * 1-5
+
+
+2 Jenkins configuration?
+
+
+In Jenkins, Global Tool Configuration is where we define tools that can be used by all jobs across the Jenkins instance, ensuring consistency and avoiding repetitive setup for each job. To configure these tools, we first go to Manage Jenkins → Global Tool Configuration, where we can set up essential tools like JDK, Maven, Git, Gradle, and Ant. For JDK, we define a name and either provide the installation path or let Jenkins install it automatically; jobs can then select the desired JDK version during build. Similarly, for Maven, we provide the Maven version name and path, or allow automatic installation, so jobs can use the configured Maven to build Java projects. In the Git section, we specify the path to the Git executable, enabling Jenkins to clone repositories for all jobs. Optional tools like Gradle and Ant can also be configured with their paths or automatic installation if a project requires them. Once saved, these global configurations are available in all jobs’ build steps or build environments, allowing jobs to select the required tool versions without manual configuration every time. This setup simplifies project builds, maintains uniformity, and reduces configuration errors across Jenkins jobs.
+
+
+3 Write a condition to execute my suite on every Sunday 3pm, in Jenkins?
+
+* 3 * * 7 AM 
+0 15 * * 7 PM
+
+4 How you are scheduling build and if you want to schedule the build at 2pm USA timing what is the approach.
+
+In my project, I schedule builds in Jenkins using the “Build periodically” option under the configuration section. We use a CRON expression to set the exact timing for execution. For example, if I want to schedule the build at 2 PM USA time, I first convert that time to my local server time zone — because Jenkins follows the server’s system time. Once converted, I write the corresponding CRON schedule, such as H 0 2 * * or any matching format, depending on the server location. This ensures the build automatically runs at 2 PM USA time without manual triggering. I also make sure the time zone setting in Jenkins or on the system aligns with the required region to avoid timing mismatches.
+
+5 How you executed script in Jenkins ?
+
+In my project, I execute automation scripts in Jenkins by integrating my testing framework, such as TestNG with Maven or Gradle. First, I configure a Jenkins job and connect it with my project’s GitHub repository so that Jenkins automatically pulls the latest code whenever a build is triggered. Then, under the Build section, I specify the Maven command like mvn clean test to execute my test scripts. I can run the job manually by clicking Build Now, or schedule it automatically using a CRON expression. Once the execution is done, Jenkins generates test reports like TestNG reports, JUnit reports, or HTML reports, which help us track the build and test results directly from the Jenkins dashboard.
+
+6 How u will Setup Jenkins in Different Environment and How u will Use Maven commands
+
+In my project, I set up Jenkins in different environments like QA, Staging, and Production by configuring separate Jenkins jobs for each environment. Each job has its own Git branch or configuration file pointing to the respective environment setup. For example, the QA job connects to the QA server, while the production job connects to the production environment.
+
+In Jenkins, I integrate Maven by adding the Maven path under Global Tool Configuration. Then, inside the Jenkins job, I use Maven commands like mvn clean test, mvn package, or mvn install in the “Build” section. This allows Jenkins to automatically clean the workspace, compile the code, and execute test cases through the configured POM file. This setup helps in maintaining a continuous and automated build process across multiple environments.
+
+7 How do you pass external data from the Jenkins
+
+Yes, I have knowledge of building a pipeline in Jenkins. In my project, I created a Jenkins pipeline using a Jenkinsfile, which defines all the stages of the automation process such as build, test, and deploy. I usually configure it in the project’s Git repository so that Jenkins automatically detects the Jenkinsfile when the job runs.
+
+Inside the Jenkinsfile, I define different stages like “Checkout Code,” “Build using Maven,” “Run Test Cases,” and “Deploy to Server.” Each stage runs step by step, making the process transparent and easy to debug. I use declarative pipelines most of the time because they’re easier to maintain and understand.
+
+This pipeline setup helps in achieving continuous integration and continuous deployment (CI/CD), ensuring that every code change is automatically built, tested, and deployed without manual effort.
+
+8 How can you make a job parameterized in Jenkins
+
+To make a job parameterized in Jenkins, I enable the “This project is parameterized” option in the job configuration. After enabling it, I can add different types of parameters like String Parameter, Boolean Parameter, Choice Parameter, or File Parameter depending on what I need.
+
+For example, if I want to pass an environment name like “QA” or “Production” during the build, I can add a Choice Parameter with those values. Then, I can access the parameter inside the build script or Jenkinsfile using the syntax like ${PARAMETER_NAME}.
+
+This approach makes the Jenkins job more flexible and reusable because I can run the same job for different inputs or environments without creating multiple separate jobs.
+
+9 How to fetch the report in Jenkins.
+
+To fetch or view reports in Jenkins, I usually configure post-build actions in my Jenkins job. After the test execution, the reports (like TestNG, JUnit, or Extent reports) are automatically generated in the project workspace.
+
+In Jenkins, I go to “Post-build Actions” and select “Publish HTML Reports” or “Publish JUnit test result report” depending on the type of report. I then provide the path of the report folder (for example, target/surefire-reports or test-output).
+
+Once the build is complete, Jenkins shows a “Test Result” or “HTML Report” link on the build page. I can click that link to view the detailed test execution report directly from the Jenkins dashboard.
+
+This helps to monitor build results, track failed tests, and share reports with the team easily.
+
+## 4 TestNg
+
+1 What is testNg
+
+TestNG is a powerful testing framework in Java that is inspired by JUnit and NUnit, but it provides more advanced features for organizing, managing, and running automated tests efficiently. The term “NG” stands for “Next Generation.” It is widely used in automation testing, especially with Selenium and API testing using REST Assured. TestNG allows testers to create a well-structured test suite by using annotations like @Test, @BeforeMethod, @AfterMethod, @BeforeClass, and @AfterClass to control the flow of test execution. One of the biggest advantages of TestNG is that it supports parallel execution, data-driven testing (through @DataProvider), and dependency testing (using dependsOnMethods or dependsOnGroups). It also allows grouping of test cases and prioritizing them, which helps in managing large test suites. TestNG automatically generates detailed HTML and XML reports after execution, making it easy to analyze test results. Overall, TestNG improves test efficiency, flexibility, and maintainability in automation frameworks.
+
+2 Why we use testNg in automation.
+
+We use TestNG in automation because it helps organize, manage, and execute test cases in a structured and efficient way. It provides several powerful features that make automation testing easier and more flexible compared to using plain Java. With TestNG, we can control the order of test execution, group related test cases, and even make one test depend on another using annotations like @Test, @BeforeMethod, and @AfterMethod. It also supports data-driven testing using the @DataProvider annotation, allowing the same test to run with multiple sets of data. Another key reason we use TestNG is for parallel execution, which helps save time by running multiple tests simultaneously. After execution, it automatically generates detailed HTML and XML reports, showing passed, failed, and skipped tests clearly. In short, TestNG makes automation testing more organized, reusable, and easier to maintain.
+
+3 How do annotations works?
+
+TestNG annotations work by controlling the order and flow of test execution automatically. When we run a TestNG test class or suite, the framework reads the annotations defined above each method — like @BeforeSuite, @BeforeClass, @Test, and so on — and determines which methods should execute first and which should follow. This means we don’t have to manually call methods; TestNG handles the sequence internally. For example, setup methods such as @BeforeSuite or @BeforeClass run before the actual test methods to prepare the environment, while cleanup methods like @AfterMethod or @AfterSuite run after the test completes to close the browser or generate reports. Internally, TestNG uses Java reflection to identify these annotations and manage execution automatically. This makes test execution structured, repeatable, and easy to maintain, especially when working on large automation frameworks.
+
+4 What are annotations are there in there testing
+
+
+| #  | Annotation                  | Description                                                               |
+| -- | --------------------------- | ------------------------------------------------------------------------- |
+| 1  | @BeforeSuite                | Runs before all tests in the suite.                                       |
+| 2  | @AfterSuite                 | Runs after all tests in the suite.                                        |
+| 3  | @BeforeTest                 | Runs before `<test>` tag in testng.xml.                                   |
+| 4  | @AfterTest                  | Runs after `<test>` tag in testng.xml.                                    |
+| 5  | @BeforeClass                | Runs once before the first method in the current class.                   |
+| 6  | @AfterClass                 | Runs once after all test methods in the current class.                    |
+| 7  | @BeforeMethod               | Runs before each test method.                                             |
+| 8  | @AfterMethod                | Runs after each test method.                                              |
+| 9  | @Test                       | Marks a method as a test case.                                            |
+| 10 | @DataProvider               | Provides data to test methods (used for data-driven testing).             |
+| 11 | @Parameters                 | Passes parameters from testng.xml to test methods.                        |
+| 12 | @BeforeGroups               | Runs before the first method in a specified group.                        |
+| 13 | @AfterGroups                | Runs after all methods in a specified group have run.                     |
+| 14 | @Factory                    | Used to execute a set of test classes dynamically.                        |
+| 15 | @Listeners                  | Used to define listener classes (like ITestListener, ISuiteListener).     |
+| 16 | @Ignore                     | Ignores a test method or class (alternative is `enabled=false` in @Test). |
+| 17 | @Test(invocationCount=…)    | Runs the same test multiple times.                                        |
+| 18 | @Test(priority=…)           | Defines execution order of test methods.                                  |
+| 19 | @Test(dependsOnMethods=…)   | Makes one test dependent on another test.                                 |
+| 20 | @Test(expectedExceptions=…) | Defines exceptions a test method is expected to throw.                    |
+
+
+
+
+5 What is dependsOn.
+
+In TestNG, the dependsOn keyword is used when one test method depends on the successful execution of another. For example, if I have a test for login and another for booking, I can make the booking test depend on the login test. So, if the login fails, the booking test will be skipped automatically. It helps maintain a logical execution flow between dependent test cases.
+
+6 What is dataprovider
+In TestNG, a DataProvider is used to run the same test case multiple times with different sets of data. It helps in achieving data-driven testing. For example, if I have a login test that needs to check multiple usernames and passwords, instead of writing separate test cases, I can use a DataProvider to supply all the data. The test will automatically execute once for each data set. It makes testing more efficient and reduces code repetition.
+
+7 How do you make one group depend on another group in TestNG?
+In TestNG, we can make one group depend on another group using the dependsOnGroups attribute. This means that the tests in one group will only run after the dependent group has completed successfully. For example, if I have a group named ‘login’ and another named ‘dashboard’, I can make the ‘dashboard’ group depend on the ‘login’ group using @Test(dependsOnGroups = {"login"}). This helps maintain a proper execution flow between related test groups.
+
+8 Other than @Before and @After annotations, what other TestNG annotations have you used in your framework?
+
+Apart from the @Before and @After annotations, I have also used other important TestNG annotations such as @Test, @DataProvider, @Parameters, @DependsOnMethods, and @DependsOnGroups.
+
+The @Test annotation is the main one that marks a method as a test case.
+@DataProvider is used for data-driven testing — it helps to pass multiple sets of data to a single test method.
+@Parameters allows passing values from the TestNG XML file to test methods.
+And @DependsOnMethods or @DependsOnGroups are useful for setting dependencies between tests to maintain execution order
+
+9 TestNg Annotations Order of execution like(@BS,@AS,@TEST@BC,@AC,BM,AM,BT,AT).
+
+In TestNG, the annotations are executed in a specific order to maintain a structured testing flow. The execution starts with @BeforeSuite, which runs only once before all tests in the entire suite. Next comes @BeforeTest, which executes before any test tag in the TestNG XML file. After that, @BeforeClass runs once before any test method in the current class. Then, @BeforeMethod runs before each individual test method to handle setup tasks like launching a browser or logging in. Once that’s done, the actual @Test method runs. After every test method, @AfterMethod executes to perform cleanup actions like closing the browser or logging out. Then, after all test methods in a class have finished, @AfterClass runs once. Following that, @AfterTest runs after all the test tags in the XML are completed. Finally, @AfterSuite executes once at the end of the entire suite to wrap up final tasks like generating reports.
+
+10 PRIORITY ORDER OF EXECUTION (-1,-2,0,1).
+
+In TestNG, when you assign priorities to test methods using the priority attribute, the execution happens in ascending order of those priority numbers. That means the test with the lowest priority value runs first. If a priority is not defined, it is considered as priority = 0 by default.
+
+For example, a test with priority = -2 will run before one with priority = -1, and a test with priority = -1 will run before priority = 0, followed by priority = 1.
+
+👉 Order of execution:
+priority = -2 → priority = -1 → priority = 0 → priority = 1
+
+In simple words, the smaller the number, the higher the execution priority.
+
+11 What is invocationCont
+
+In TestNG, the invocationCount attribute is used when you want to run the same test method multiple times automatically without writing it again and again, For example, if you set invocationCount = 3, that particular test method will execute three times continuously during the test run. This is useful when you want to check the stability or consistency of a test, especially for performance testing, retry scenarios, or when verifying that a feature works the same way on multiple executions.
+
+So, in simple terms — invocationCount helps you repeat the same test multiple times with a single line of configuration.
+
+## 5 POM
+
+1 What is pom why it is necessary
+
+Page Object Model, or POM, is a design pattern used in Selenium where we create separate classes for each page of the application. Each class stores the locators of the elements on that page and the methods to interact with them. This way, instead of writing locators directly inside test cases, we keep them in one place, which makes the code cleaner, reusable, and easier to maintain. If anything changes in the UI, we just update the locator in the page class and don’t need to touch the test logic. In short, POM helps in reducing code duplication and makes the framework more scalable.
+
+2 How to implement pom.
+
+To implement the Page Object Model (POM) in Selenium, first we declare a WebDriver variable in the page class to hold the browser instance. Then, we create a constructor that takes the WebDriver as a parameter and assigns it to the class variable using this.driver = driver;. Inside the constructor, we call PageFactory.initElements(driver, this) to initialize all the web elements defined in the class.
+
+Next, we define web elements using annotations. For a single element, we use @FindBy. For multiple locators with an OR condition, we use @FindAll, and for multiple locators with an AND condition, we use @FindBys. We can also define lists of elements like checkboxes or links using List<WebElement>.
+
+After defining elements, we create getter methods to access them if needed. Then, we write action methods that perform operations on the elements, such as login(), selectAllCheckboxes(), or printAllLinks(). In the test class, we simply create an object of this page class and call its methods. This approach separates locators and actions from test logic, makes the code reusable, easier to maintain, and allows us to handle UI changes by updating only the page class.
+
+3 What is lazy initialization?
+
+In the context of Page Object Model (POM) and PageFactory in Selenium, lazy initialization means that the web elements are not found or loaded into memory until they are actually used in the code.
+In simple words — Selenium doesn’t locate all elements of a page when the Page Object is created. Instead, it waits until you perform an action (like click or sendKeys) on that element. At that moment, the element is located and interacted with, This improves performance because unnecessary elements are not loaded upfront. It also helps handle dynamic elements that may not be visible immediately when the page loads.
+
+
+4 How do you handle stale element reference exception?
+
+StaleElementReferenceException occurs when the element I’m trying to interact with is no longer attached to the DOM — usually after a page refresh, navigation, or dynamic update. To handle this, I use one of the following approaches:
+
+First, I re-locate the element before interacting with it. This is useful when the page refreshes or reloads because the old element reference becomes invalid. By locating the element again before performing any action, I ensure Selenium interacts with the updated element in the DOM.
+
+Second, I use explicit waits to make sure the element is in a stable and interactable state before performing any operation. This helps when elements are dynamically reloaded or take time to become clickable.
+
+Lastly, I apply a retry mechanism using a loop with a try-catch block. If the exception occurs, I catch it and attempt to locate and interact with the element again. This approach is especially helpful in handling intermittent DOM updates that may cause the exception occasionally.
+
+5 Difference between POM and pageFactory.
+
+The main difference between POM (Page Object Model) and Page Factory lies in how the web elements are initialized and managed.
+
+In POM, we create a separate class for each webpage, store the locators using By objects, and then use driver.findElement() inside methods to perform actions. It’s a manual approach to locate and interact with elements, which makes it simple but slightly longer in code.
+
+In Page Factory, it’s an advanced version of POM that provides lazy initialization of elements using @FindBy annotations and the PageFactory.initElements() method. It automatically initializes the elements when they are used, reducing code and improving readability.
+
+7 What is the use of constructor POM
+
+
+In Page Object Model (POM), a constructor is used to initialize the web elements and the WebDriver instance for that particular page class, When we create a POM class, we usually define a constructor that takes the WebDriver as a parameter. Inside this constructor, we assign that driver to the local driver variable and initialize all the elements using PageFactory.initElements(driver, this), This ensures that whenever we create an object of the page class in our test, all the elements on that page are properly initialized and ready to use.
+
+The constructor of LoginPage initializes all elements (like username, password, and login button) using the same driver instance, So, the main use of the constructor in POM is to initialize the WebDriver and web elements to make the page ready for interaction.
+
+8 What is PageFactorgy.
+
+PageFactory is class in Selenium is used to make the implementation of the Page Object Model (POM) more efficient and organized, In simple terms, PageFactory helps initialize all the web elements defined in a page class automatically, instead of locating them manually each time using driver.findElement(). It reduces code duplication and makes the code cleaner and easier to maintain, With PageFactory, we use annotations like @FindBy to locate elements. Then, the method PageFactory.initElements(driver, this) is used to initialize those elements when the page object is created.
+
+9 Difference between POM.xml and PageFactory
+
+In Selenium, POM.xml and PageFactory serve two completely different purposes. The POM.xml file is part of a Maven project and is mainly used for managing project dependencies, plugins, and build configurations. It tells Maven which libraries like Selenium, TestNG, or Rest Assured need to be downloaded and included in the project, so it helps in maintaining versions and building the project easily.
+
+On the other hand, PageFactory is a concept in Selenium that helps in implementing the Page Object Model (POM) design pattern more efficiently. It is used to initialize web elements using the @FindBy annotation, making the code more readable and reusable. PageFactory helps reduce code duplication and improves test maintenance by separating locators and test logic.
+
+In short, POM.xml is used for project setup and dependency management, while PageFactory is used for initializing and managing web elements inside page classes in Selenium automation.
+
+10 Can we store the dynamic Xpath in POM class?
+Yes, we can store dynamic XPath in a POM (Page Object Model) class, In real-time projects, some elements change dynamically based on user actions or data. To handle such elements, we can use parameterized or dynamic XPath inside the POM class by storing it as a String and replacing the variable part at runtime, For example, we can write a method in the POM class that builds the XPath dynamically:
+
+
+## 6 Synchronization in Selenium
+
+1 What is Synchronization in Selenium 
+
+Synchronization in Selenium is the process of matching the speed of the automation script with the speed of the application under test. Since web elements may take some time to load, we use synchronization to avoid errors like NoSuchElementException or ElementNotInteractableException. Selenium provides two main types of waits for synchronization: implicit wait and explicit wait. Implicit wait applies globally for all elements, while explicit wait is applied to specific elements based on defined conditions such as visibility, clickability, or presence of an element. We also have fluent wait, which is a type of explicit wait that allows us to define polling frequency and to ignore specific exceptions. Using proper synchronization makes the script more stable and less likely to fail due to timing issues.
+
+2 Difference between explicit wait and implicit Wait
+
+Implicit wait in Selenium is a type of synchronization that tells the WebDriver to wait for a specified amount of time before throwing a NoSuchElementException. It is applied globally, which means it works for all elements in the script. Once set, the driver will keep checking for the element until the defined time expires. However, it does not wait for conditions like visibility or clickability; it only checks for the presence of elements in the DOM
+
+Explicit wait or WebDriverWait in Selenium is a type of explicit wait that helps in handling synchronization between the script and the application. It allows us to wait for specific conditions such as an element becoming clickable, visible, or an alert being present. WebDriverWait keeps checking for the condition at regular intervals until the maximum time is reached. If the condition is met before the time ends, execution continues immediately, otherwise it throws a TimeoutException. This makes WebDriverWait more reliable than implicit wait, since it targets particular elements or conditions instead of applying a general wait to all elements.
+
+2 What is fluent wait
+
+Fluent Wait is a type of explicit wait in Selenium that lets us set how long to wait in total, how often Selenium should keep checking for the element, and which exceptions to ignore during that time.
+              |
+3 How to implement FluentWait
+
+I implemented FluentWait in my framework mainly to handle elements that take unpredictable time to load. I created a FluentWait object on the WebDriver where I set the maximum timeout, the polling frequency, and the exceptions to ignore like NoSuchElementException. After that, I used the wait with ExpectedConditions, for example waiting until an element becomes visible before interacting with it. To make it reusable, I wrapped this logic inside a utility method so that instead of writing the FluentWait code every time, I could simply call the method in my test scripts. This made the framework more reliable and easier to maintain.
+
+
+4 How to implement webdriverWait
+
+I created a WebDriverWait object with a defined timeout, and then used it with ExpectedConditions, like waiting for an element to be clickable, visible, or for an alert to appear. To avoid repeating the same wait code across different tests, I wrote reusable utility methods where I passed the locator and condition, and the method returned the element once it was ready. This approach made the tests more stable and reduced flaky failures
+WebDriverWait.
+
+5 What is thread.sleep
+
+In automation, particularly in Selenium, Thread.sleep() is a method used to pause the execution of the script for a specific amount of time.
+It belongs to the Java Thread class and takes time in milliseconds as an argument — for example, Thread.sleep(2000) pauses the test for 2 seconds. During this pause, the script does nothing; it simply waits before moving to the next step.
+This is often used when you want to give the page or an element some time to load before performing the next action. However, it’s not a good practice to rely on Thread.sleep() too much because it causes unnecessary delays even when the element is ready earlier.
+Instead, we usually prefer explicit waits (WebDriverWait) or implicit waits, which are more dynamic and wait only until the required condition is met.
+So, in short — Thread.sleep() is a hard wait used to pause execution for a fixed time, but it should be replaced with smarter waiting methods in real-time
+
+6 What exception you get when you use explicit wait
+
+When we use Explicit Wait in Selenium and the expected condition is not met within the given time, we get a TimeoutException.
+This happens when Selenium keeps checking for a certain condition (like element to be clickable, visible, or present) until the specified timeout period. If the element still doesn’t appear or meet the condition within that time, Selenium throws this TimeoutException to indicate that the wait has failed.
+So in short, the TimeoutException is the most common exception we get when using Explicit Wait in Selenium.
+
+7 What exception you get when you use fluent wait
+
+When we use Fluent Wait in Selenium, the most common exception we get is also a TimeoutException if the condition is not met within the specified time.
+Fluent Wait keeps checking for the element at regular polling intervals until the maximum timeout is reached. If the element is still not found or the condition doesn’t become true within that time, Selenium throws a TimeoutException.
+However, the difference is that in Fluent Wait, we can ignore specific exceptions like NoSuchElementException, which prevents the script from failing during each polling cycle. So in short, the main exception thrown by Fluent Wait is TimeoutException, but it can be customized to ignore others during waiting.
+
+8 What is default polling period
+
+The default polling period in Selenium is 500 milliseconds (or 0.5 seconds).
+
+This means that when you use Explicit Wait or Fluent Wait, Selenium checks the condition (like element visibility or presence) every 500 milliseconds until the maximum timeout is reached. If the condition is met before the timeout, it immediately proceeds with the next step; otherwise, it throws a TimeoutException.
+
+In simple words, Selenium keeps checking every half a second to see if the element has appeared or the condition has been satisfied.
+
+9 What is difference between Thread.sleep() and Wait commands in Selenium.
+
+The main difference between Thread.sleep() and Wait commands in Selenium lies in how they pause execution and handle synchronization during automation testing.
+
+Thread.sleep() is a Java command that pauses the execution of the script for a fixed amount of time, regardless of whether the element is present or not. It doesn’t care about the webpage’s condition; it simply waits for the specified time. For example, if you use Thread.sleep(5000), the script will wait for exactly 5 seconds before moving ahead.
+
+On the other hand, Wait commands (like Implicit Wait, Explicit Wait, or Fluent Wait) are Selenium-specific and provide a more intelligent way of waiting. They wait dynamically — meaning they pause only until the required condition is met or until the maximum timeout is reached. For example, with Explicit Wait, Selenium waits until a particular element becomes clickable or visible, which avoids unnecessary waiting and makes the script faster and more reliable.
+
+In short, Thread.sleep() is a hard wait (fixed delay), while Selenium Wait commands are smart waits (conditional and efficient)
+
+10 What are the different types of parameters is accepted by sleep method and in implicit wait method
+
+## 7 Selenium and its architecture.
+
+1 What is Selenium WebDriver?
 
 In Selenium, WebDriver is an interface that defines all the methods required for browser automation. It is the core component that allows us to interact with different browsers in a unified way. The main advantage of WebDriver is abstraction—it enables us to write common automation code that works across multiple browsers like Chrome, Firefox, or Edge without changing the logic. For example, when we write WebDriver driver = new ChromeDriver();, we are referring to the WebDriver interface but creating an object of ChromeDriver, which internally provides the actual implementation. This design, based on abstraction, inheritance, and polymorphism, allows Selenium to achieve cross-browser testing. In real-time, every automation script starts with WebDriver because it provides essential methods to open and close the browser, navigate between pages, find elements, handle windows, alerts, and frames, and perform various browser-level operations.
 
+2 What is searchContext
 
-| Method                | Return Type      | Description (Usage)                                           | Example                                            |
-| --------------------- | ---------------- | ------------------------------------------------------------- | -------------------------------------------------- |
-| `get(String url)`     | void             | Opens the given URL in the browser.                           | `driver.get("https://google.com");`                |
-| `getCurrentUrl()`     | String           | Returns the current page URL.                                 | `System.out.println(driver.getCurrentUrl());`      |
-| `getTitle()`          | String           | Returns the current page title.                               | `System.out.println(driver.getTitle());`           |
-| `getPageSource()`     | String           | Returns the HTML source of the page.                          | `driver.getPageSource();`                          |
-| `getWindowHandle()`   | String           | Returns unique ID of the current browser window.              | `String handle = driver.getWindowHandle();`        |
-| `getWindowHandles()`  | Set<String>      | Returns IDs of all open browser windows/tabs.                 | `Set<String> handles = driver.getWindowHandles();` |
-| `findElement(By by)`  | WebElement       | Finds the first matching element on the page.                 | `driver.findElement(By.id("username"));`           |
-| `findElements(By by)` | List<WebElement> | Finds all matching elements on the page.                      | `driver.findElements(By.tagName("a"));`            |
-| `manage()`            | Options          | Provides browser options like cookies, timeouts, window size. | `driver.manage().window().maximize();`             |
-| `navigate()`          | Navigation       | Used for navigation (back, forward, refresh, to).             | `driver.navigate().back();`                        |
-| `switchTo()`          | TargetLocator    | Switches control to frame, alert, or window.                  | `driver.switchTo().alert().accept();`              |
-| `close()`             | void             | Closes the current browser window.                            | `driver.close();`                                  |
-| `quit()`              | void             | Quits the entire browser session (all windows).               | `driver.quit();`                                   |
+In Selenium, SearchContext is the top-level interface that defines the basic methods used to locate elements on a web page. It provides two core methods — findElement() and findElements() — which are used to find single or multiple elements, respectively. Both WebDriver and WebElement interfaces extend SearchContext, meaning you can search for elements either from the entire page using the driver or within a specific section of the page using a WebElement. This interface acts as the foundation for all element search operations in Selenium.
 
-23 Explain what a Listener is in Selenium.
+3 What is webelement
+In Selenium, a WebElement represents an element on a web page, such as a button, textbox, link, checkbox, or dropdown.
 
-**Listeners in Selenium (especially with TestNG) are special interfaces that “listen” to the events that happen during test execution. They act like observers—whenever a specific event occurs (like a test starting, passing, failing, or skipping), the listener automatically executes the code you define for that event.**
+When you locate an element using methods like findElement(), Selenium returns it as a WebElement object. This object allows you to perform different actions on that element — like clicking a button (click()), typing text into an input field (sendKeys()), or fetching its text (getText()).
+
+In simple words, WebElement is the reference or handle to a specific element on a web page that lets us interact with it in automation scripts.
+
+4 What are difference between Selenium 3 and Selenium 4
+
+The main difference between Selenium 3 and Selenium 4 is that Selenium 4 comes with major upgrades, new features, and improved architecture compared to Selenium 3.
+
+In Selenium 3, the communication between the Selenium client and browser drivers was done using the JSON Wire Protocol, which caused extra conversion steps and slower execution. In Selenium 4, this is replaced with the W3C WebDriver Protocol, making communication faster and more stable.
+
+Selenium 4 also introduced a new and improved UI for Selenium Grid, allowing testers to easily manage multiple nodes and sessions. It provides relative locators like above(), below(), near(), etc., which make locating elements easier and more human-readable.
+
+Another big change is in Window and Tab management, which allows switching between multiple windows and tabs easily. The new version also added better support for Chrome DevTools Protocol (CDP), enabling performance monitoring, capturing network logs, and more advanced debugging features.
+
+Overall, Selenium 4 is more modern, faster, and feature-rich, with better stability, improved APIs, and enhanced browser compatibility compared to Selenium 3.
+
+5 How does selenium
+
+Selenium works by interacting directly with web browsers to automate user actions just like a real person would do. When we write a Selenium script, it uses the WebDriver to communicate with the browser.
+
+Here’s how it works in simple terms — when you run your test script, Selenium WebDriver sends commands (like click, enter text, or navigate) to the browser driver (for example, ChromeDriver for Chrome, GeckoDriver for Firefox). The browser driver then translates those commands into browser-specific actions using the W3C WebDriver Protocol. The browser executes those actions and sends the response back to the WebDriver, which finally reports the result to your test script.
+
+So basically, Selenium acts as a bridge between your automation code and the browser, ensuring your script can perform all operations — like opening URLs, clicking buttons, or verifying text — just as a user would, but automatically and much faster.
+ 
+
+6Difference between get() and navigate().
+The get() and navigate() methods in Selenium are both used to open web pages, but they differ slightly in usage and functionality.
+
+The get() method is used to launch a new web page in the current browser window. It simply loads the specified URL and waits until the page is completely loaded before performing the next action.
+
+On the other hand, the navigate() method (used as driver.navigate().to(url)) offers more control for browser navigation. It not only allows opening a URL but also supports additional navigation actions like back(), forward(), and refresh().
+
+In short, get() is straightforward and used for directly loading a page, while navigate() provides more advanced navigation options within the same browser session.
+
+7 Difference between close and quite
+The close() and quit() methods in Selenium are both used to close browser windows, but they serve different purposes.
+
+The close() method is used to close the current active browser window or tab where the driver is currently focused. If multiple browser windows are open, only that specific one will be closed, and the rest will remain open.
+
+The quit() method, on the other hand, is used to close all browser windows opened by the WebDriver and end the entire browser session. It also releases the memory and resources used by the driver.                               |
+
+
+8 Explain WebDriver driver=new ChromeDriver();
+The statement WebDriver driver = new ChromeDriver(); is used to launch the Chrome browser in Selenium.
+
+Here, WebDriver is an interface in Selenium that defines all the methods required to interact with a browser, such as get(), click(), sendKeys(), etc.
+ChromeDriver is a class that implements the WebDriver interface and provides the actual implementation for Chrome-specific browser actions.
+
+When we write WebDriver driver = new ChromeDriver();, we are creating an object of ChromeDriver and referring to it using the WebDriver interface reference.
+This approach is useful because it makes the code browser-independent — later, we can easily switch to another browser (like Firefox or Edge) by just changing the driver object without modifying the rest of the test code.
+
+
+9 Return type of getOptions method and get window handles
+The getOptions() method returns an Options interface, which provides methods to manage browser settings such as cookies, timeouts, and windows.
+The getWindowHandles() method returns a Set<String>, which contains the unique window IDs (also called handles) of all the open browser windows. Each window handle can be used to switch between multiple browser windows or tabs during automation.
+
+
+10 Explain Selenium Architecture.
+
+In my experience, the Selenium Java architecture is designed using OOP concepts like abstraction, inheritance, and runtime polymorphism. At the base, we have the SearchContext interface, which provides the fundamental methods like findElement() and findElements(). On top of that, the WebDriver interface extends SearchContext and adds browser-level methods such as get(), getTitle(), navigate(), close(), and quit(). Since WebDriver is just an interface, it only defines the behavior, but the actual implementation is provided by the RemoteWebDriver class. Browser-specific drivers like ChromeDriver or FirefoxDriver extend RemoteWebDriver and handle the communication with their respective browsers. In real projects, we usually use runtime polymorphism — for example, when I write WebDriver driver = new ChromeDriver();, I’m upcasting the ChromeDriver object to the WebDriver interface. This makes my framework browser-independent, because if I want to run the same test on Firefox, I only change the object creation, not the rest of the test logic. This architecture is what gives Selenium its flexibility and power for cross-browser testing.
+
+## 
 
 
 
-**In TestNG, listeners are implemented to perform actions automatically when certain events occur during the test lifecycle, such as when a test starts, passes, fails, or gets skipped. To implement a listener, we first create a separate class that implements the ITestListener interface and override its methods like onTestStart, onTestSuccess, onTestFailure, and onTestSkipped. For example, in the onTestFailure method, we can add code to capture a screenshot whenever a test fails.**
-
-
-
-**There are two ways to attach a listener to the test:**
-
-
-
-**1. Using the @Listeners Annotation – This approach allows us to specify the listener class directly at the test class level using the @Listeners annotation. When the test runs, TestNG will automatically trigger the listener methods.**
-
-**2. Using the testng.xml File – In this method, we configure the listener inside the testng.xml file by defining the fully qualified class name under the <listeners> tag. This is useful when we want to apply listeners globally across multiple test classes.**
-
-
-
-**After attaching the listener through either of these two ways, when we run the tests, the listener methods will automatically get triggered, and we will see logs such as “Test Started,” “Test Passed,” “Test Failed,” or “Test Skipped” in the console. Apart from logging, listeners can also be enhanced to integrate with reporting tools like Extent Reports or to capture screenshots for failed cases, making them very useful for real-time reporting and debugging.**
-
-
-
-
-
-| No. | Interview Question                                                         | Simple Interview Answer                                                                                                                          |
-| --- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | **What types of reports do you generate after testing?**                   | I generate test execution reports that show total test cases, passed, failed, skipped, and defect details.                                       |
-| 2   | **Why is reporting important in testing?**                                 | Reporting helps to communicate testing progress, quality of the product, and highlights issues clearly to the team and management.               |
-| 3   | **What details do you include in your test report?**                       | I include test summary, total test cases executed, pass/fail count, defect summary, environment details, and tester’s comments.                  |
-| 4   | **How do you share your test execution reports with your team or client?** | I usually share reports through Jenkins links, email, or upload them on shared drives or project management tools like Jira or Confluence.       |
-| 5   | **How do you view or download test reports from Jenkins?**                 | After the build is completed, I go to the Jenkins build console → click on “Test Result” or “Extent Report” link to view or download the report. |
-| 6   | **What kind of reports can Jenkins generate after a build?**               | Jenkins can generate JUnit, TestNG, Extent, or Allure reports depending on the project configuration.                                            |
-| 7   | **What are Extent Reports and why do you use them?**                       | Extent Reports provide a detailed, colorful, and easy-to-read HTML report of automation execution with logs, screenshots, and test status.       |
-| 8   | **How do you integrate Extent Reports with Selenium or TestNG?**           | I add the Extent Report dependency in the pom.xml, create a report object in my test listener, and log pass/fail status after each test.         |
-| 9   | **What is Allure Report and how do you generate it?**                      | Allure Report is a visually rich reporting tool. It’s generated using Maven commands or Jenkins plugins after running test cases.                |
-| 10  | **What kind of reports does TestNG generate by default?**                  | TestNG generates HTML and XML reports by default in the “test-output” folder after execution.                                                    |
-| 11  | **Have you ever customized your test reports? If yes, how?**               | Yes, I’ve customized Extent Reports by adding project name, browser details, screenshots, and execution time for better readability.             |
-| 12  | **What do you include in a defect or bug report?**                         | I include defect ID, summary, steps to reproduce, expected and actual results, screenshots, severity, and environment details.                   |
-| 13  | **What key metrics do you track in your test reports?**                    | I track total test cases executed, pass/fail ratio, defect density, and execution progress.                                                      |
-| 14  | **How do you handle report sharing in CI/CD pipelines?**                   | Reports are automatically generated and uploaded by Jenkins after every build, and links are shared with the team via Slack or email.            |
-| 15  | **Which reporting tools or plugins have you worked with?**                 | I have worked with TestNG default reports, Extent Reports, and Allure Reports integrated with Jenkins for automation test execution.             |
-
+Which vergion control tool you have used in your project
+Write the git command to create branch, switch branch.
+Write the git commands that you used frequently.
+Explain how you handle the conflicts.
+How you create the pull request.
+Script to handle disabled element
+16. Script to take screenshot 
+17. Script to perform scroll actions
+Write the syntax for Explicitly wait
+ automation frameworks.
+What is rate limiter
+What we limit in rate limiter.
+11.what Exceptions you are getting in Fluent Wait?
+explain factory design pattern?
+explain fluent wait? write syntax?
+4. What exception you get when you use explicit wait 
+5. Why do you get NoSuchElement exception , how to overcome 
+6. Why do you get StaleElementException and how to overcome.
+8 
+why listeners  used in test ng
+what are method in listeners
+how to save the update in GitHub.
+which version control tool you are using
+how did resolve the merge conflicts
+- What is git fetch
+- Difference between git fetch and git merge
+Diff btw POM and PageFactory.
+have u  used maven and why?
+maven lifecycle
+Dynamic locator 
+Dynamic xpath
+What is the use of all the xpath axes
+)Use of constructor in POM pages
+Github how u used it n what all commands u used
+How to identify Dynamic x path
+GitHub how u used to share code from local to master is there any branching done 
+Design pattren in your frame work
+Explain testNG framework with all the annotations
 
