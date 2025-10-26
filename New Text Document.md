@@ -2017,6 +2017,8 @@ Cross-browser testing is the process of executing the same test cases on differe
 
 </suite>
 ```
+
+
 INTERVIEW QUESTION
 ## 1 GIT AND GITHUB
 
@@ -2041,7 +2043,7 @@ A conflict in Git occurs when two or more people (or branches) change the same l
 A Git conflict happens when two branches change the same part of a file and Git doesn’t know which one to keep. I resolve conflicts by opening the file, checking the conflict markers, manually correcting the code, then staging and committing the resolved file
 Yes, I always pull the latest code before pushing mine. This ensures I have the latest updates and helps identify any conflicts early. If a conflict arises, I resolve it locally and commit the changes before pushing.
 
-4 Write all git commands and explain them?
+4 Write all git bash commands and explain them or  What are the git bash command used in your project.
 
 | **Category**         | **Command**                              | **Description**                                                |
 | -------------------- | ---------------------------------------- | -------------------------------------------------------------- |
@@ -2087,30 +2089,20 @@ Yes, I always pull the latest code before pushing mine. This ensures I have the 
 5 Explain Git branching.
 
 In Git, branching is a way to create separate lines of development within the same project. It allows multiple people to work on different features or bug fixes without affecting the main codebase.
-
 For example, we usually have a main (or master) branch that holds the stable production code. When we want to add a new feature or make changes, we create a new branch from the main branch — say, feature/login — and work there independently.
-
 Once the work is completed and tested, we merge the branch back into the main branch using a pull request (PR) or merge command.
-
 This process helps in parallel development, code isolation, and easy collaboration among team members.
 
 6 How to add master branch data to other branch
 
 If I need to add or update the latest code from the master branch into another branch, I usually use the merge or rebase command in Git. First, I switch to the branch where I want the updates — for example, if I’m working on the feature/login branch, I check out that branch. Then I run git merge master, which brings all the latest changes from the master branch into my current branch.
-
 Sometimes, instead of merge, I use git rebase master. Rebase is helpful when I want a cleaner and linear commit history because it applies my branch changes on top of the latest master commits.
-
 So, in short, I use merge when I want to keep both histories and rebase when I prefer a more streamlined commit structure. Both commands help me keep my branch updated with the latest code from master.
 
 8 How do you handle conflicts in GIT?
 
 When a conflict happens in Git, it usually means two branches have modified the same part of a file differently. In such cases, Git can’t decide which change to keep, so I resolve it manually.
-
-What I do is first run a pull or merge command, and when the conflict appears, Git clearly marks the conflicting sections in the file using <<<<<<, ======, and >>>>>> symbols. I open that file, review both versions of the code, and then keep or combine the correct changes as per the requirement.
-
-Once the conflict is resolved, I remove those conflict markers, save the file, and then run the commands — git add, git commit, and git push — to finalize the merge.
-
-In short, I handle Git conflicts by manually reviewing, editing, and committing the corrected code to ensure both sets of changes are properly merged.
+What I do is first run a pull or merge command, and when the conflict appears, Git clearly marks the conflicting sections in the file using <<<<<<, ======, and >>>>>> symbols. I open that file, review both versions of the code, and then keep or combine the correct changes as per the requirement, Once the conflict is resolved, I remove those conflict markers, save the file, and then run the commands — git add, git commit, and git push — to finalize the merge, In short, I handle Git conflicts by manually reviewing, editing, and committing the corrected code to ensure both sets of changes are properly merged.
 
 9 Which branch the git will be by default
 
@@ -2118,9 +2110,7 @@ By default, Git creates a branch called “main” when you initialize a new rep
 
 10 What is git bash
 
-Git Bash is a command-line tool that allows you to use Git commands in a Unix-like terminal on Windows.
-
-In simple terms, it provides a Linux-style command interface where you can run Git commands such as git init, git clone, git add, git commit, and many more. It also supports basic Linux commands like ls, cd, and mkdir, which makes working with Git easier for Windows users.
+Git Bash is a command-line tool that allows you to use Git commands in a Unix-like terminal on Windows, In simple terms, it provides a Linux-style command interface where you can run Git commands such as git init, git clone, git add, git commit, and many more. It also supports basic Linux commands like ls, cd, and mkdir, which makes working with Git easier for Windows users.
 
 11 What is the process of branching in a release?
 
@@ -2131,8 +2121,6 @@ In a release process, branching helps in managing different stages of developmen
 
 If we make a wrong commit in Git, we can undo it using the git revert command. This command doesn’t delete the commit but instead creates a new commit that reverses the changes from the previous one, keeping history safe. by using git revert <commit_id>.
 
-12 What are the git bash command used in your project.
-how did resolve the merge conflicts
 
 ## 2 MAVEN
 
@@ -2177,12 +2165,12 @@ Profiling in Maven is used to define different configurations for different envi
 I have used profiling in my Maven project to avoid manual changes in configuration files every time we switch environments. By activating the required profile using a simple command like mvn test -Pdev, the appropriate settings automatically get applied, making the build process smoother and error-free.
 
 7 Which build tool you are using
+
 I am using Maven as the build tool in my project. It helps in managing dependencies, building, testing, and packaging the project efficiently. Maven also automates the build process and ensures consistency across different environments. I use commands like mvn clean, mvn test, and mvn install for different stages of the build lifecycle."
 
 8 What does mvn compile does and mvn package does.
 
 mvn compile command compiles the source code of the project and converts the .java files into .class files inside the target folder.
-
 mvn package command goes one step further — it compiles the code, runs the tests, and then packages the compiled code into a distributable format like a .jar or .war file inside the target folder."
 
 9 How can we execute the testcases using maven commands
@@ -2500,7 +2488,7 @@ Here’s how it works in simple terms — when you run your test script, Seleniu
 So basically, Selenium acts as a bridge between your automation code and the browser, ensuring your script can perform all operations — like opening URLs, clicking buttons, or verifying text — just as a user would, but automatically and much faster.
  
 
-6Difference between get() and navigate().
+6 Difference between get() and navigate().
 The get() and navigate() methods in Selenium are both used to open web pages, but they differ slightly in usage and functionality.
 
 The get() method is used to launch a new web page in the current browser window. It simply loads the specified URL and waits until the page is completely loaded before performing the next action.
@@ -2536,46 +2524,818 @@ The getWindowHandles() method returns a Set<String>, which contains the unique w
 
 In my experience, the Selenium Java architecture is designed using OOP concepts like abstraction, inheritance, and runtime polymorphism. At the base, we have the SearchContext interface, which provides the fundamental methods like findElement() and findElements(). On top of that, the WebDriver interface extends SearchContext and adds browser-level methods such as get(), getTitle(), navigate(), close(), and quit(). Since WebDriver is just an interface, it only defines the behavior, but the actual implementation is provided by the RemoteWebDriver class. Browser-specific drivers like ChromeDriver or FirefoxDriver extend RemoteWebDriver and handle the communication with their respective browsers. In real projects, we usually use runtime polymorphism — for example, when I write WebDriver driver = new ChromeDriver();, I’m upcasting the ChromeDriver object to the WebDriver interface. This makes my framework browser-independent, because if I want to run the same test on Firefox, I only change the object creation, not the rest of the test logic. This architecture is what gives Selenium its flexibility and power for cross-browser testing.
 
-## 
+## 8 Assertion Reporting
+
+
+1 What is Assertion.
+
+Assertion in testing is a way to verify that the actual result of the application matches the expected result. In Selenium automation, we use assertions to check conditions like page titles, element visibility, text values, or messages. If the assertion passes, the test continues; if it fails, the test is marked as failed. Assertions basically help us confirm whether the application is working as expected.
+
+2 Why we use Assertion
+In my framework, I used assertions to validate whether the actual behavior of the application matches the expected result. For example, I used assertions to check if a page title is correct after login, if a success message appears after submitting a form, or if an element is displayed on the screen. I mostly worked with hard assertions, where the test fails immediately if the condition is not met, but I also used soft assertions when I wanted to continue the execution and collect multiple failures in a single test run. By using assertions properly, I made sure the automation scripts were not only performing actions but also verifying outcomes, which improved the reliability of the tests.
+
+
+3 Explain about soft assert and hard assert?
+There are two types of assertions – Hard Assertion and Soft Assertion. Hard assertions stop the test execution immediately when a validation fails, while soft assertions allow the test to continue even after a failure and finally collect all the results when we call assertAll(). The commonly used hard assertion methods like assertEquals, assertTrue, assertFalse are static methods from the TestNG Assert class, which means we can call them directly without creating an object. On the other hand, soft assertions are non-static because we need to create an object of the SoftAssert class to use them, and then finally call assertAll() to validate all collected results. In my framework, I mainly used hard assertions for critical checks like login or navigation validation, and soft assertions when verifying multiple UI elements on the same page without stopping at the first failure.
+
+4 What is the difference between verify and assert in testing?
+
+The main difference between verify and assert is how they handle test failures.
+With assert, if a condition fails, the test execution stops immediately — the remaining steps in that test will not run.
+With verify, even if the condition fails, the test continues to execute the remaining steps.
+
+In simple words, assert is used for critical validations where failure should stop the test, while verify is used for non-critical checks where we still want to continue the execution and collect all results.
+
+5 How do you validate in automation testing?
+
+
+I usually perform validation by using assertions in my test scripts. Assertions help me compare the actual result from the application with the expected result. If both match, the test passes; if not, it fails.
+
+In Selenium with TestNG, I commonly use methods like Assert.assertEquals(), Assert.assertTrue(), or Assert.assertFalse() for validation. For example, I might validate a page title, URL, message, or element visibility after performing an action. So basically, I use assertions to ensure that the application’s behavior is correct as per the requirement.
+
+6 What is the role of assertions in automation testing?
+
+Assertions play a key role in verifying that the actual output of the application matches the expected result. I use assertions to validate critical checkpoints in a test — for example, checking whether a message, title, or element is displayed correctly. They help determine if a test case passes or fails automatically without manual verification. In short, assertions make automated tests meaningful and reliable because they confirm that the application behaves as expected
+
+7 What is the difference between Assert and Verify in automation scripts?
+
+The main difference is in how they handle failures. An assert immediately stops the test execution when a condition fails, meaning the rest of the steps in that test won’t run. On the other hand, a verify or soft assert allows the test to continue execution even if one condition fails. This is useful when I want to validate multiple conditions within a single test and still get a complete report of all failures at the end.
+
+8 How do you integrate assertions with your test reporting framework?
+
+In my framework, I combine assertions with reporting tools like Extent Reports or Allure Reports. Each assertion result, whether pass or fail, is automatically logged in the report. If any assertion fails, it captures a screenshot and includes the error message in the report. This way, the report clearly shows where and why a particular test step failed, which helps in faster debugging and analysis.
+
+9 What key components do you include in your automated test report?
+
+A well-designed report should give complete visibility into test results. I make sure the report includes the total number of test cases executed, passed, failed, and skipped. It also contains detailed logs for each test case, execution time, environment details, browser and OS used, and screenshots attached for failed steps. These components help the team quickly identify problem areas and understand the overall test health.
+
+10 How do you handle failed tests in your reporting strategy?
+
+Whenever a test fails, I log the exact reason for failure and attach a screenshot for better clarity. I also capture exception details and include them in the report. Sometimes, I configure retry logic for flaky tests, and if they still fail, they are marked as failed in the final report. This process ensures that the report gives a realistic view of test quality and makes troubleshooting easy for developers.
+
+11 How have you customized or extended standard test reports in your framework?
+
+I have customized my reports using Extent Reports to make them more detailed and user-friendly. I added extra information such as test categories, execution time, tester name, and business module name. I also implemented a listener class that automatically takes screenshots on failure and attaches them to the report. This customization makes the report visually appealing and more informative for both testers and management.
+
+12 Why is it important to share automation reports with stakeholders, and how do you do it?
+
+Sharing reports helps maintain transparency and keeps everyone updated on the project’s test progress. In my setup, Jenkins automatically publishes HTML or Extent reports after every build. I configure it to send email notifications to the team with a summary of results and a link to the full report. This ensures developers, testers, and managers can all review the outcomes and take quick action if any issues are found.
+
+13  What metrics do you track in automation reports, and why?
+
+I focus on metrics like total test count, pass percentage, fail percentage, test execution time, and defect count detected through automation. I also monitor flaky test rates and coverage of automated modules. These metrics help assess the stability of automation scripts and give a clear picture of product quality and testing efficiency over time.
+
+14 How do you handle assertions when dealing with dynamic content or timing issues?
+
+When dealing with dynamic web elements or slow-loading pages, I use Explicit Waits before performing assertions. This ensures the element or text is fully loaded before validation. If there are multiple checks in a single test, I use Soft Assertions to collect all results before failing the test. This approach minimizes false failures caused by timing issues and improves script stability.
+
+15 Can you explain how you generate and access reports in CI/CD pipelines like Jenkins?
+
+In Jenkins, after test execution through Maven or TestNG, I configure post-build actions to publish reports automatically. For example, I use the “Publish HTML Report” plugin or integrate Extent Reports within the project. The report path is provided in Jenkins, and once the build completes, a link appears in the Jenkins dashboard where I can view the full report. This automation helps in continuous monitoring without manual intervention.
+
+How do you handle assertion failures in a CI/CD pipeline when tests are running automatically?
+In CI/CD pipelines, if an assertion fails, the test is automatically marked as failed and reflected in the report. I handle such failures by capturing screenshots, logging the error details, and attaching them to the report for better debugging. I also review whether the failure is due to application issues, timing problems, or test instability, and then fix or re-run accordingly.
+
+What strategy do you use to reduce or manage flaky tests that affect your test reports?
+I reduce flaky tests by implementing proper synchronization using explicit or fluent waits instead of Thread.sleep. I also ensure that test data is consistent, environment is stable, and elements are properly located. For rare flaky cases, I use a retry analyzer in TestNG, which re-runs failed tests before marking them as failed in the report.
+
+How do you ensure that your test reports remain readable and useful when many tests fail simultaneously?
+I use structured reporting tools like Extent Reports or Allure Reports, which provide detailed logs, screenshots, and error stacks for each test. I also categorize tests by module or functionality, so even if multiple tests fail, the report clearly highlights which area of the application is affected.
+
+How do you integrate screenshots, retry logic, or logs into your reports for failures in automated frameworks?
+In my framework, I use listeners (like TestNG listeners or ITestListener interface) to capture screenshots whenever a test fails. I integrate these with Extent Reports so that each failed test case has an attached image and log message. Retry logic is implemented using TestNG’s RetryAnalyzer to re-run failed tests automatically and show both attempts in the report.
+
+How do you validate that your automation framework is producing accurate coverage and meaningful reports (beyond just pass/fail counts)?
+I validate framework effectiveness by checking that reports include key metrics like execution time, environment details, pass/fail ratio, skipped tests, and root cause summaries. I also ensure reports are consistent with manual test results and business priorities — meaning we’re testing high-risk areas effectively.
+
+What metrics do you track in your test reports to identify test or framework health in CI/CD environments?
+I track metrics like pass/fail rate, skipped tests, execution time per test suite, and flaky test frequency. These metrics help identify unstable modules, performance bottlenecks, or unreliable tests. Over time, analyzing these reports helps me improve framework stability and CI performance.
+
+How do you debug and resolve test failures shown in your CI report which passed locally but failed in the pipeline?
+When a test passes locally but fails in CI, I first check for environment differences — like browser versions, network latency, or timing issues. Then I review the CI logs and screenshots to pinpoint the issue. I may add extra waits, handle dynamic elements better, or mock unstable dependencies to make the tests environment-independent.
+
+How do you handle dependencies between tests (assertions) when running in parallel in CI/CD and how this reflects in reports?
+I design my tests to be independent using unique data sets and setup methods. If dependencies exist, I manage them with TestNG groups or “dependsOnMethods.” In reports, each test still appears separately, but the dependency relationship helps in understanding cascaded failures.
+
+When your build pipeline fails due to test assertions, how do you communicate or escalate this to the development or QA team?
+When a pipeline fails, I share the detailed test report and failure logs with the development or QA team. I highlight whether it’s a genuine application defect or an automation issue. For recurring failures, I log them in Jira with the evidence (screenshots, logs, and report snippet).
+
+How do you maintain historical test report data so you can track trends (e.g., failure rates, flakiness) over time and use that for continuous improvement?
+I maintain historical reports in Jenkins or a centralized reporting dashboard like Allure or ELK. This helps me compare past executions, identify modules with frequent failures, and measure improvements over time. Trend analysis supports better release decisions and helps in identifying flaky or unstable test areas.
+
+## 9 Locators 
+
+1 What are Locators?
+
+Locators in Selenium are used to uniquely identify elements on a web page, such as buttons, text boxes, images, links, and dropdowns, so that we can perform actions on them like clicking, typing, or retrieving text. They are the backbone of Selenium automation, because without identifying elements, no interaction or testing can be performed. Selenium provides different types of locators such as ID, Name, Class Name, Tag Name, Link Text, Partial Link Text, CSS Selector, and XPath. Among these, ID is the most reliable and fastest because it is usually unique, while XPath and CSS Selector are more powerful when elements don’t have proper attributes. Choosing the right locator is very important for writing stable automation scripts, as poor locators can cause frequent failures when the application UI changes. In real-time projects, testers often use a combination of locators depending on the application’s structure, ensuring that scripts are both reusable and easy to maintain.
+
+By is a Selenium class that provides different locator strategies to find elements on a web page. It has static methods such as id, name, xpath, and cssSelector, which we use with Selenium to locate elements and perform actions on them.
+
+
+2 What are the locators you use in selenium
+
+Selenium provides different types of locators such as ID, Name, Class Name, Tag Name, Link Text, Partial Link Text, CSS Selector, and XPath. Among these, ID is the most reliable and fastest because it is usually unique, while XPath and CSS Selector are more powerful when elements don’t have proper attributes.
+
+
+3 What is the difference between Absolute XPath and Relative XPath in Selenium
+
+The main difference between Absolute and Relative XPath is in the way they locate elements in the HTML structure. Absolute XPath provides the complete path from the root element (HTML) to the desired element, starting with a single slash (/). It is long, less flexible, and can easily break if there are any changes in the webpage structure. For example, /html/body/div[1]/div[2]/input is an Absolute XPath.
+
+On the other hand, Relative XPath starts from any node in the HTML structure, not necessarily from the root, and it begins with a double slash (//). It is shorter, more reliable, and commonly used in automation because it is less affected by minor changes in the DOM structure. For example, //input[@id='username'] is a Relative XPath.
+
+In short, I prefer using Relative XPath in automation testing because it is more robust, easy to maintain, and less likely to fail when the UI or structure of the page changes.
+
+4 Difference between find element and find elements?
+
+The main difference between findElement() and findElements() in Selenium lies in the number of elements they return and how they behave when no element is found,
+In simple terms — findElement() returns a single WebElement, whereas findElements() returns a list of WebElements, When you use findElement(), Selenium searches for the first matching element based on the locator provided. If it finds one, it returns that element. However, if no matching element is found, it throws a NoSuchElementException.
+
+On the other hand, findElements() is used when you expect multiple elements to match the locator. It returns a List<WebElement> containing all matching elements. If no element is found, it doesn’t throw an exception — instead, it simply returns an empty list.
+
+5 How do you handle dynamic web elements in Selenium or How do you identify or create dynamic XPath in Selenium?
+
+Dynamic web elements are those whose attributes like ID, name, or class keep changing whenever the page reloads or refreshes. To handle such elements in Selenium, I avoid using static locators like direct IDs or names. Instead, I prefer using Relative XPath with functions such as contains(), starts-with(), or text() to identify elements based on partially stable attributes. For example, I might use //input[contains(@id,'username')] to handle an element whose ID changes dynamically.
+
+Additionally, I make use of XPath axes to locate elements in relation to other stable elements in the DOM. Some commonly used axes include following-sibling, preceding-sibling, parent, child, ancestor, and descendant. For example, if a label near a textbox is stable but the textbox ID changes, I can write an XPath like //label[text()='Username']/following-sibling::input to find the textbox dynamically. Similarly, ancestor::div or parent::form can help locate elements based on their structure rather than changing attributes.
+
+Along with this, I use explicit waits like WebDriverWait with conditions such as visibilityOfElementLocated() or elementToBeClickable() to ensure Selenium interacts with the element only after it’s ready. By combining relative XPath, XPath axes, and proper waits, my test scripts remain stable, flexible, and reliable, even when the DOM structure or attributes change frequently.
+
+6 Have you ever encountered pseudo elements in your application? If yes, how did you handle them in Selenium?
+
+Yes, I have come across pseudo elements while testing web applications. Pseudo elements are not actual DOM elements — they are virtual elements defined in CSS, like ::before, ::after, or ::placeholder, which are used for styling or adding content dynamically. Since these elements are not part of the DOM, Selenium cannot directly locate or interact with them using normal locators like XPath or CSS selectors. To handle such cases, I use JavaScriptExecutor in Selenium to fetch or verify their content or style properties. For example, I execute a JavaScript command like window.getComputedStyle(element, '::before').getPropertyValue('content') to read pseudo-element text or color. In some situations, if it’s just a visual effect, I handle it through CSS validation or by checking the parent element’s properties instead of the pseudo element itself. This approach helps me test the UI behavior accurately even when pseudo elements are involved.
+
+7 What is the difference between XPath and CSS Selector?
+XPath and CSS Selector are both used to locate elements in Selenium, but they work differently. XPath can navigate both forward and backward in the DOM and allows locating elements based on text or attributes using functions like contains() or starts-with(). CSS Selector, on the other hand, is faster and preferred when working with static elements. It cannot move backward in the DOM and doesn’t support text-based search. In general, I use CSS selectors for speed and simplicity, and XPath when dealing with complex or dynamic structures.
+
+8 How do you identify stable locators in your framework, especially when dealing with dynamic elements?
+To identify stable locators, I focus on using unique and non-changing attributes like id, name, or data-* attributes. If those are dynamic, I switch to Relative XPath with functions such as contains(), starts-with(), or by using parent-child or sibling relationships. I also check if there are static elements around the dynamic one and build locators based on their relative position. Additionally, I always verify locators in browser dev tools to ensure they are unique and consistent across sessions.
+
+9 What is the priority order of using locators such as ID, Name, ClassName, CSS, XPath?
+The priority order I follow for locators is: ID → Name → ClassName → LinkText → PartialLinkText → TagName → CSS Selector → XPath. This is because ID is the fastest and most reliable, as it is unique for each element. If ID is not available, I go for Name or ClassName. XPath and CSS are used as the last options, mainly when no unique attribute is available or when handling dynamic elements.
+
+10 Can you explain how you handle locators when the element’s attributes are dynamic (for example, IDs change each time)?
+When dealing with dynamic attributes, I never use the complete ID or name directly since it changes on every reload. Instead, I use partial matching in XPath like contains(@id,'partialValue') or starts-with(@id,'prefix'). I also use parent-child or sibling relationships, or even text-based XPath when applicable. In CSS selectors, I use substring matches like [id*='partial']. These techniques help create flexible and stable locators that remain valid even when dynamic attributes change.
+
+11 What are XPath axes and when would you use them in locator strategies?
+XPath axes are keywords that help navigate through the DOM structure relative to the current element. Common axes include parent, child, ancestor, following-sibling, and preceding-sibling. I use axes when I need to locate an element in relation to another — for example, finding a checkbox next to a label or identifying a button following a specific text. XPath axes make locators powerful and dynamic, especially in complex HTML structures where direct attributes are not reliable.
+
+12 When would you choose CSS selectors over XPath and vice versa?
+I choose CSS selectors when I need faster execution and simpler locators, especially for static or well-structured pages. CSS is lightweight and generally performs better. However, I prefer XPath when I need to locate elements using text, navigate both forward and backward in the DOM, or handle complex relationships between elements. In short, CSS is ideal for speed and simplicity, while XPath is more flexible for handling dynamic or deeply nested elements.
+
+13 How do you find elements that are not visible in the UI?
+
+If an element is present in the DOM but not visible on the screen, I use JavaScriptExecutor to interact with it or to scroll it into view. For example, using ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element); helps make it visible before performing actions.
+Sometimes, I also check whether the element exists in the DOM using findElements(), because it doesn’t throw an exception even if the element is hidden — it just returns an empty list if not found, Additionally, I can verify its visibility by checking element.isDisplayed() — if it returns false, the element exists but is not visible on the UI.
+
+when we use relative xpath
+What is xpath and types of xpath
+How you are going to generate Robust Locator?
+What is nbsp and random xpath of Google search bar
+9.How you are going to generate Robust Locator?
+
+
+## 10 Handling multiple window
+
+1 How to handle multiple windows
+
+To handle multiple windows in Selenium, we use getWindowHandles() and switchTo() methods.
+
+2 When multiple windows or tabs are opened, getWindowHandles() returns a set of all window IDs. We can then use a loop or iterator to switch between them using driver.switchTo().window(windowID).
+
+In Selenium, a window or tab represents a separate browser instance or page that opens while interacting with the application. When a new window or tab is opened, Selenium by default continues to point to the parent window, and it cannot directly interact with elements in the newly opened window. If you try to locate elements without switching, Selenium will throw a NoSuchElementException. To work with elements inside another window or tab, you must first switch the driver’s focus from the parent window to the desired child window using driver.switchTo().window(windowHandle). Once the focus is switched, you can interact with the elements inside that window normally. After completing the operations, it is important to switch back to the parent window using driver.switchTo().window(parentHandle) to continue working on the original page.
+
+Selenium provides getWindowHandle() to fetch the unique ID (handle) of the current window and getWindowHandles() to fetch all opened window handles. By looping through these handles, we can switch to the required window or tab. Once the work is completed, we can switch back to the parent window or continue working in the newly focused window.
+
+3What does getWindowHandle() return, and how is it used in window switching scenarios?
+
+getWindowHandle() returns a unique ID (or handle) of the current browser window as a String. Each window opened by Selenium WebDriver has its own unique handle. This method is usually used when I want to store the parent window’s handle before switching to another window, so that I can come back to the original one later. For example, I first get the parent window handle using driver.getWindowHandle(), then switch to the child window using driver.switchTo().window(handleId) when required.
+
+4 What does getWindowHandles() return, and when would you use it over getWindowHandle()?
+getWindowHandles() returns a set of all unique window IDs that are currently open. I use this method when there are multiple browser windows or tabs opened during test execution. By iterating through the set of window handles, I can switch to each one and perform specific actions — for example, verifying a popup message or interacting with an external page opened in a new tab.
+
+5 What is the difference between getWindowHandle() and getWindowHandles()?
+
+The main difference is that getWindowHandle() is used to get the handle of a single, currently active window, whereas getWindowHandles() returns the handles of all open windows or tabs in the browser session. getWindowHandle() gives one handle (a string), while getWindowHandles() gives a set of handles, allowing me to switch between multiple windows.
+
+6 How do you switch from the main browser window to a newly opened child window using WebDriver?
+
+To switch from the main browser window to a child window, I first store the parent handle using driver.getWindowHandle(). Then I call driver.getWindowHandles() to get all the open window handles and iterate through them. Whenever the handle doesn’t match the parent, I switch to it using driver.switchTo().window(childHandle). This way, I can perform actions on the new window. After completing the operations, I switch back to the parent window for the remaining steps.
+
+7 How would you load a particular window out of multiple open browser windows and perform an action on it?
+
+When there are multiple windows open, I get all handles using driver.getWindowHandles(). Then, I loop through each handle, switch to each window, and check for a specific title or URL that matches the expected one. Once I find the correct window, I perform the required actions like clicking or validating text. This ensures I’m interacting with the correct window rather than switching blindly.
+
+8 What challenges can arise when handling multiple browser windows, and how do you ensure stable switching?
+
+The main challenges include timing issues (window not fully loaded), unexpected popups, or multiple windows opening in parallel. To handle these, I use explicit waits before switching, verify the window title after switching, and always store the parent handle to avoid losing control. This helps ensure stability and prevents Selenium from throwing “NoSuchWindowException”.
+
+if I have opened 10windows then I have switch some specific wind write the code and explain
+
+
+9 Can we open multiple tab in same window
+
+Yes, we can open multiple tabs within the same browser window in Selenium. From Selenium 4 onwards, this can be done using the newWindow() method with the WindowType.TAB parameter. For example, we can open one website in the first tab, then use driver.switchTo().newWindow(WindowType.TAB) to open a new tab in the same window and navigate to another website. This feature is helpful when we need to handle multiple pages in the same session, such as verifying links or comparing data between tabs. We can also manage and switch between tabs using getWindowHandles() and switchTo().window(handle) methods.
+
+## 11 Frames
+
+What is Frames in selenium?
+
+In Selenium, a frame (or iframe) is an HTML document that is embedded inside another web page. It acts like a separate webpage within the main page. Elements inside a frame are not part of the main DOM, which means Selenium cannot access them directly. If you try to locate an element inside a frame without switching, Selenium will throw a NoSuchElementException. To work with these elements, you must first switch the driver’s focus from the main page to the desired frame using methods like driver.switchTo().frame(). Once the focus is on the frame, you can locate and interact with elements inside it as usual. After completing the operations, it is important to switch back to the default content using driver.switchTo().defaultContent() to continue interacting with elements on the main page.
+
+How do you switch to a frame in Selenium?
+
+Selenium provides three ways to switch into a frame: by using the index of the frame, by using the name or ID attribute of the frame, or by using the WebElement of the frame. Once the work inside the frame is completed, we can switch back either to the parent frame or directly to the main page (default content).
+
+How do you come out of a frame and go back to the main page?
+To come out of a frame and return to the main page in Selenium, we use driver.switchTo().defaultContent(). It shifts control from the current frame back to the main web page. If the page has nested frames and we want to go one level up, we use driver.switchTo().parentFrame(). This helps continue actions outside the frame smoothly after working inside it.
+
+## 12 Actions class
+
+1 Tell me about Action class methods
+
+The Action Class in Selenium is a special utility provided in the org.openqa.selenium.interactions package that allows us to handle complex user interactions such as mouse hover, drag and drop, right click, double click, click and hold, releasing a key, or sending multiple key combinations. While methods like click() and sendKeys() work for simple operations, many real-time scenarios need advanced interactions, like hovering over a menu to see sub-options, dragging an item from one section to another, or simulating keyboard shortcuts like Ctrl + A or Ctrl + C. For this, we create an Actions object, pass the WebDriver instance, and then use the required method, followed by .perform() to execute.
+
+2 What are the different methods of the Actions class in Selenium?
+
+| Method                                                | Description                                                | Example                                                                     |
+| ----------------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `click()`                                             | Clicks on the current mouse location                       | `act.click().perform();`                                                    |
+| `click(WebElement element)`                           | Clicks on a specific element                               | `act.click(button).perform();`                                              |
+| `doubleClick()`                                       | Double clicks at current mouse location                    | `act.doubleClick().perform();`                                              |
+| `doubleClick(WebElement element)`                     | Double clicks on an element                                | `act.doubleClick(button).perform();`                                        |
+| `contextClick()`                                      | Right click at current mouse location                      | `act.contextClick().perform();`                                             |
+| `contextClick(WebElement element)`                    | Right click on an element                                  | `act.contextClick(button).perform();`                                       |
+| `moveToElement(WebElement element)`                   | Moves mouse to an element (hover)                          | `act.moveToElement(menu).perform();`                                        |
+| `moveByOffset(int x, int y)`                          | Moves mouse by x,y offset                                  | `act.moveByOffset(50, 100).perform();`                                      |
+| `dragAndDrop(source, target)`                         | Drag source element and drop on target                     | `act.dragAndDrop(source, target).perform();`                                |
+| `dragAndDropBy(source, xOffset, yOffset)`             | Drag element by x,y offset                                 | `act.dragAndDropBy(source, 100, 50).perform();`                             |
+| `keyDown(Keys key)`                                   | Press a key (like Ctrl, Shift)                             | `act.keyDown(Keys.CONTROL).perform();`                                      |
+| `keyUp(Keys key)`                                     | Release a key                                              | `act.keyUp(Keys.CONTROL).perform();`                                        |
+| `sendKeys(CharSequence keys)`                         | Type keys at current focus                                 | `act.sendKeys("Hello").perform();`                                          |
+| `sendKeys(WebElement element, CharSequence keys)`     | Type keys into an element                                  | `act.sendKeys(inputBox, "Hello").perform();`                                |
+| `clickAndHold()`                                      | Click and hold at current mouse location                   | `act.clickAndHold().perform();`                                             |
+| `clickAndHold(WebElement element)`                    | Click and hold on an element                               | `act.clickAndHold(element).perform();`                                      |
+| `release()`                                           | Release mouse button at current location                   | `act.release().perform();`                                                  |
+| `pause(Duration duration)`                            | Pause between actions                                      | `act.pause(Duration.ofSeconds(2)).perform();`                               |
+| `build()`                                             | Builds the sequence of actions                             | `act.moveToElement(el).click().build().perform();`                          |
+| `scrollToElement(WebElement element)`                 | Scrolls the page until the element is visible              | `act.scrollToElement(footer).perform();`                                    |
+| `scrollByAmount(int x, int y)`                        | Scrolls by x (horizontal) and y (vertical) offset          | `act.scrollByAmount(0, 500).perform();`                                     |
+| `scrollFromOrigin(ScrollOrigin origin, int x, int y)` | Scrolls from a defined origin (element/viewport) by offset | `act.scrollFromOrigin(ScrollOrigin.fromElement(header), 0, 300).perform();` |
+
+3 How to perform mouse hover action
+
+To perform a mouse hover action in Selenium, we use the Actions class. First, we create an instance of the Actions class and then use the moveToElement() method to hover over a specific element. For example:
+
+``` java
+Actions action = new Actions(driver);
+action.moveToElement(element).perform();
+
+```
+4 Explain what is contextClick()
+
+The contextClick() method in Selenium is used to perform a right-click action on a web element. It’s part of the Actions class and helps when you want to open a context menu or perform operations available on right-click.
+```java
+
+Actions action = new Actions(driver);
+action.contextClick(element).perform();
+```
+
+5 What is perform method in action class
+
+The perform() method in the Actions class is used to execute the series of actions that have been built using the Actions class methods.
+
+In simple terms, all the actions like click(), doubleClick(), moveToElement(), or contextClick() are first stored as a sequence, and when you call perform(), Selenium executes those actions on the browser.
+
+5 Where we action class use in your project
+
+In my project, I used the Actions class mainly to handle advanced user interactions that can’t be done using simple click() or sendKeys() methods. For example, I used it to perform mouse hover actions on menu options where sub-menus appear only after hovering. I also used it for drag and drop operations, double-clicking elements, right-click (context click) for opening context menus, and click-and-hold actions for sliders.
+
+In some cases, I used Actions class when normal click didn’t work due to hidden elements or JavaScript-based events. Using Actions.moveToElement() followed by click() helped perform actions smoothly. Overall, it made my automation more reliable for handling real user-like interactions in the application.
+
+## 13 Select class
+
+
+1 What is select class
+
+The Select class in Selenium is a built-in class used to handle dropdown menus that are created using HTML select tags. Normally, Selenium WebDriver cannot directly select options from dropdowns, so we use the Select class to interact with them. With this class, we can select options in three ways: by index, by visible text, or by value.
+
+In companies, the Select class is important because dropdowns are very common in real-time applications, such as selecting a country, state, role, or payment type. Using the Select class makes automation scripts simple, readable, and reusable for such scenarios, and avoids writing complex code to handle dropdowns manually.
+
+
+2 What are the method present in select class
+
+| **Method**                           | **Description**                                                     | **Example Code**                                         |
+| ------------------------------------ | ------------------------------------------------------------------- | -------------------------------------------------------- |
+| `Select(WebElement element)`         | Constructor → Creates a Select object for the given dropdown.       | `Select select = new Select(countryDropdown);`           |
+| `selectByIndex(int index)`           | Selects option by index (0-based, first option = 0).                | `select.selectByIndex(2);`                               |
+| `selectByValue(String value)`        | Selects option using the `value` attribute in HTML.                 | `select.selectByValue("IND");`                           |
+| `selectByVisibleText(String text)`   | Selects option using the visible text shown to the user.            | `select.selectByVisibleText("India");`                   |
+| `deselectByIndex(int index)`         | Deselects option by index. *(Works only for multi-select)*          | `select.deselectByIndex(1);`                             |
+| `deselectByValue(String value)`      | Deselects option using the `value` attribute. *(Multi-select only)* | `select.deselectByValue("USA");`                         |
+| `deselectByVisibleText(String text)` | Deselects option using visible text. *(Multi-select only)*          | `select.deselectByVisibleText("Canada");`                |
+| `deselectAll()`                      | Deselects all selected options. *(Multi-select only)*               | `select.deselectAll();`                                  |
+| `getFirstSelectedOption()`           | Returns the first selected option from the dropdown.                | `WebElement first = select.getFirstSelectedOption();`    |
+| `getAllSelectedOptions()`            | Returns all selected options. *(Works only for multi-select)*       | `List<WebElement> all = select.getAllSelectedOptions();` |
+| `getOptions()`                       | Returns all available options in the dropdown.                      | `List<WebElement> options = select.getOptions();`        |
+| `isMultiple()`                       | Checks if the dropdown allows multiple selections.                  | `boolean multi = select.isMultiple();`                   |
+
+
+3 If Dropdown is not developed using select tag then what is your approach
+
+If a dropdown is not developed using the <select> tag, then we can’t use the Select class in Selenium. In that case, I handle it by locating and clicking the dropdown element first to open the list of options, and then selecting the desired option using normal locators like XPath or CSS selectors.
+
+For example, I use XPath with text() or contains() functions to identify the option, such as:
+```java
+driver.findElement(By.xpath("//div[@class='dropdown']")).click();
+driver.findElement(By.xpath("//li[text()='Option 2']")).click();
+```
+
+Sometimes, if the dropdown options appear only after scrolling or hovering, I use Actions class or JavaScriptExecutor to perform click or scroll operations, This approach works for custom dropdowns built using <div>, <ul>, or <li> elements instead of the standard <select> tag.
+
+
+## 14 Exceptions in Selenium
+
+1 What is exception in selenium
+
+In Selenium, an exception is an error that occurs during the execution of a script when Selenium is unable to perform a particular action. It usually happens when the element is not found, not visible, or when the browser behaves unexpectedly, for example if an element is not found or the page doesn’t load properly. Selenium provides different types of exceptions like NoSuchElementException, TimeoutException, StaleElementReferenceException, and ElementNotInteractableException. I handle these exceptions using try-catch blocks, or by applying explicit waits to make the script more stable. Proper exception handling helps prevent script failures and ensures smooth execution of automation tests.
+
+2 What types of exceptions have you encountered in Selenium?
+
+In Selenium, I’ve encountered several types of exceptions during automation testing, and I handle them based on the situation. The most common one is NoSuchElementException, which occurs when the element is not found in the DOM — usually due to a wrong locator or page not fully loaded, so I fix it by verifying the locator or applying explicit waits. Another is ElementNotInteractableException, which happens when an element is present but not clickable or visible, so I wait until it becomes visible or scroll it into view. I’ve also faced StaleElementReferenceException, especially after page reloads, where I re-locate the element before interacting again. TimeoutException occurs when the expected condition isn’t met within the given time in explicit wait — in that case, I increase the wait or check the condition. Other exceptions I’ve handled include NoSuchFrameException, NoAlertPresentException, and ElementClickInterceptedException when pop-ups block the click. I’ve also seen SessionNotCreatedException due to version mismatches between WebDriver and browser, and InvalidSelectorException for incorrect XPath or CSS. In some cases, WebDriverException or FileNotFoundException occurs due to setup or missing file issues. I handle all these exceptions using proper waits, try-catch blocks, and framework-level error handling to make the automation suite more stable and reliable.
+
+What types of exceptions have you encountered in Selenium?
+I’ve faced several exceptions in Selenium like NoSuchElementException, StaleElementReferenceException, TimeoutException, ElementClickInterceptedException, and NoSuchFrameException. These usually occur due to synchronization or locator issues.
+
+How do you handle exceptions in your Selenium framework?
+To handle exceptions in my framework, I generally use try-catch blocks, explicit waits, and custom utility methods. I also use TestNG listeners to automatically capture screenshots and log errors whenever a test fails.
+
+What is a StaleElementReferenceException, and how do you resolve it?
+A StaleElementReferenceException occurs when the DOM changes after locating an element, usually after a page reload. I handle it by re-locating the element and using explicit waits to ensure the page is stable before performing any action.
+
+What causes a NoSuchElementException, and how do you fix it?
+NoSuchElementException occurs when the element is not found in the DOM, mostly because of wrong locators or delayed loading. To fix it, I verify the locator and use WebDriverWait for proper synchronization.
+
+How do you handle TimeoutException in Selenium?
+TimeoutException happens when an explicit wait condition is not met within the given time. In that case, I increase the wait time, verify the locator, or ensure that the element is visible and clickable before proceeding.
+
+What is the difference between NoSuchElementException and ElementNotInteractableException?
+The difference between NoSuchElementException and ElementNotInteractableException is that NoSuchElementException means the element doesn’t exist in the DOM, while ElementNotInteractableException means the element is present but hidden or disabled.
+
+Have you ever faced ElementClickInterceptedException? How did you handle it?
+I have faced ElementClickInterceptedException when another element, like a popup or banner, covers the element I’m trying to click. I usually wait for the overlay to disappear, scroll into view, or use a JavaScript executor to perform the click.
+
+What is a NoSuchFrameException or NoAlertPresentException, and when do they occur?
+NoSuchFrameException occurs when you try to switch to a frame that doesn’t exist, and NoAlertPresentException happens when you attempt to handle an alert that hasn’t appeared yet. I handle them by verifying the presence of the frame or alert before switching.
+
+How do you prevent flaky tests caused by Selenium exceptions?
+To prevent flaky tests caused by Selenium exceptions, I always use proper synchronization with explicit or fluent waits, stable locators, and retry logic for rare test failures. I also maintain consistent test data and environments.
+
+How do you ensure your automation framework handles unexpected exceptions gracefully?
+I make sure my automation framework handles unexpected exceptions gracefully by having a base class for common exception handling and using listeners to log and capture screenshots automatically. This helps in debugging and ensures smooth execution of all tests.
 
 
 
-Which vergion control tool you have used in your project
+What are checked and unchecked exception
+
+| **Type**                             | **Exception Name**                   | **When It Occurs / Description**                                                        |
+| ------------------------------------ | ------------------------------------ | --------------------------------------------------------------------------------------- |
+| ✅ **Checked Exceptions**             | **IOException**                      | When there’s an issue reading/writing external files (e.g., property or Excel files).   |
+|                                      | **InterruptedException**             | When a thread is interrupted while sleeping or waiting (e.g., during `Thread.sleep()`). |
+| ❌ **Unchecked Exceptions (Runtime)** | **NoSuchElementException**           | When an element is not found in the DOM.                                                |
+|                                      | **StaleElementReferenceException**   | When the element is detached from the DOM after page refresh or reload.                 |
+|                                      | **TimeoutException**                 | When an explicit wait exceeds the defined timeout period.                               |
+|                                      | **ElementNotInteractableException**  | When an element is present but not visible or enabled for interaction.                  |
+|                                      | **NoSuchFrameException**             | When switching to a frame that does not exist.                                          |
+|                                      | **NoAlertPresentException**          | When trying to switch to an alert that isn’t displayed.                                 |
+|                                      | **ElementClickInterceptedException** | When another element (like a popup) blocks the click action.                            |
+|                                      | **InvalidSelectorException**         | When the XPath or CSS selector syntax is invalid.                                       |
+|                                      | **WebDriverException**               | When the browser or driver session crashes or becomes unreachable.                      |
+
+
+In short, checked exceptions in Selenium are very few and mostly related to external resources, while unchecked exceptions are the majority and occur during runtime while interacting with web elements.
+
+## 15 Robot class 
+
+1 What is Robot class
+
+
+The Robot class in Java (under the java.awt package) is used to simulate keyboard and mouse events. In Selenium WebDriver, we use it when we need to handle OS-level popups, file upload/download windows, print dialogs, or authentication popups that WebDriver cannot interact with directly since WebDriver works only with HTML DOM elements inside the browser. Robot class bridges this gap by allowing us to perform native keyboard and mouse operations, making it very useful in automation where Selenium alone is not sufficient.
+
+
+2 What are the methods are there in robot class
+
+| **Method**                            | **Description**                                   | **Example Code**                                                             |
+| ------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `keyPress(int keycode)`               | Presses a key (key stays pressed until released). | `robot.keyPress(KeyEvent.VK_ENTER);`                                         |
+| `keyRelease(int keycode)`             | Releases a pressed key.                           | `robot.keyRelease(KeyEvent.VK_ENTER);`                                       |
+| `mousePress(int buttons)`             | Presses a mouse button.                           | `robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);`                            |
+| `mouseRelease(int buttons)`           | Releases a pressed mouse button.                  | `robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);`                          |
+| `mouseMove(int x, int y)`             | Moves mouse pointer to given screen coordinates.  | `robot.mouseMove(300, 200);`                                                 |
+| `mouseWheel(int wheelAmt)`            | Scrolls the mouse wheel up/down.                  | `robot.mouseWheel(5);`                                                       |
+| `delay(int ms)`                       | Pauses execution for given milliseconds.          | `robot.delay(2000); // wait 2 sec`                                           |
+| `createScreenCapture(Rectangle rect)` | Captures screenshot of the given screen area.     | `BufferedImage img = robot.createScreenCapture(new Rectangle(0,0,500,500));` |
+
+3 What is the Robot class in Selenium and what are its uses?
+Robot class is a part of the java.awt package. It is used to handle keyboard and mouse events that Selenium WebDriver cannot control directly, such as OS-level pop-ups, file upload dialogs, or print windows. It simulates real user interactions at the operating system level.
+
+Which package does the Robot class belong to?
+The Robot class belongs to the java.awt package in Java. This package provides classes for creating user interface elements and handling system-level events.
+
+How do you perform keyboard events using the Robot class?
+Keyboard events are handled using methods like keyPress() and keyRelease(). For example, if you want to press the Enter key, you can use:
+
+robot.keyPress(KeyEvent.VK_ENTER);
+robot.keyRelease(KeyEvent.VK_ENTER);
+
+
+This helps in automating actions like form submission or dialog confirmation.
+
+How do you perform mouse events using the Robot class?
+Mouse actions such as clicking or moving the cursor can be done using methods like mouseMove(), mousePress(), and mouseRelease(). For example:
+
+robot.mouseMove(300, 400);
+robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
+
+This is useful when elements cannot be handled using standard Selenium locators.
+
+Can you give an example of using the Robot class to handle OS-level dialogs that Selenium cannot handle directly?
+Yes, for example, while uploading a file through a system window, Selenium cannot interact with the OS file chooser. So, we use the Robot class to type the file path and press Enter:
+
+robot.keyPress(KeyEvent.VK_CONTROL);
+robot.keyPress(KeyEvent.VK_V);
+robot.keyRelease(KeyEvent.VK_V);
+robot.keyRelease(KeyEvent.VK_CONTROL);
+robot.keyPress(KeyEvent.VK_ENTER);
+robot.keyRelease(KeyEvent.VK_ENTER);
+
+
+This pastes the file path into the dialog box and uploads it.
+
+What are some limitations or challenges you faced when using the Robot class?
+Robot class depends on the system’s focus, so if another window appears during execution, it can interrupt the automation flow. It also works based on screen coordinates, which may vary from one system to another, making scripts less reliable in distributed environments.
+
+Which alternative techniques or classes do you use instead of Robot when possible?
+Instead of using Robot, I prefer using the Actions class for web-level mouse and keyboard interactions or JavaScriptExecutor for interacting directly with web elements. For file uploads, using sendKeys() with the file path is a better and more stable approach whenever possible.
+
+## 16 Listener
+
+What is Listeners in testNG
+
+
+Listeners in Selenium (especially with TestNG) are special interfaces that “listen” to the events that happen during test execution. They act like observers—whenever a specific event occurs (like a test starting, passing, failing, or skipping), the listener automatically executes the code you define for that event.
+
+
+Why we use listeners in selenium or automation
+
+In TestNG, listeners are implemented to perform actions automatically when certain events occur during the test lifecycle, such as when a test starts, passes, fails, or gets skipped. To implement a listener, we first create a separate class that implements the ITestListener interface and override its methods like onTestStart, onTestSuccess, onTestFailure, and onTestSkipped. For example, in the onTestFailure method, we can add code to capture a screenshot whenever a test fails.
+
+
+What are the ways to attach listeners
+
+There are two ways to attach a listener to the test:
+
+1. Using the @Listeners Annotation – This approach allows us to specify the listener class directly at the test class level using the @Listeners annotation. When the test runs, TestNG will automatically trigger the listener methods.
+
+2. Using the testng.xml File – In this method, we configure the listener inside the testng.xml file by defining the fully qualified class name under the <listeners> tag. This is useful when we want to apply listeners globally across multiple test classes.
+
+After attaching the listener through either of these two ways, when we run the tests, the listener methods will automatically get triggered, and we will see logs such as “Test Started,” “Test Passed,” “Test Failed,” or “Test Skipped” in the console. Apart from logging, listeners can also be enhanced to integrate with reporting tools like Extent Reports or to capture screenshots for failed cases, making them very useful for real-time reporting and debugging.
+
+What are method in listeners
+
+The main listener interfaces include ITestListener, ISuiteListener, and IInvokedMethodListener. Among these, the ITestListener interface is most commonly used and provides several useful methods such as onTestStart(), which executes before each test method begins; onTestSuccess(), which runs when a test passes successfully; onTestFailure(), which executes when a test fails and is often used to capture screenshots or log error details; and onTestSkipped(), which runs when a test is skipped. Additionally, onStart() executes before the test suite begins, and onFinish() executes after all tests in the suite have completed. These methods help monitor the test execution flow, generate detailed reports, capture screenshots for failures, and maintain logs, making the Selenium framework more efficient, informative, and maintainable.
+
+
+What are the different listener interfaces available in TestNG and how have you used them?
+→ In TestNG, commonly used listeners are ITestListener, ISuiteListener, and IInvokedMethodListener. I’ve mainly used ITestListener for logging, taking screenshots on failure, and updating reports automatically.
+
+Can you describe a scenario in your project where you implemented a custom listener and what value it added?
+→ In my project, I created a custom listener to capture screenshots whenever a test failed and automatically attached them to the extent report. It helped identify UI failures quickly and improved debugging efficiency.
+
+How do you configure listeners in TestNG—through annotations or the XML file—and why would you choose one approach over the other?
+→ We can configure listeners using the @Listeners annotation in the test class or by adding them in the testng.xml file. I prefer XML configuration for better reusability across multiple test classes.
+
+Which listener method do you use to capture screenshots on test failure, and how do you integrate that into your report?
+→ I use the onTestFailure() method of ITestListener to capture screenshots when a test fails, then attach the image path or embed it directly into my extent or allure report.
+
+How do listeners help when executing tests in parallel or across suites in CI/CD pipelines?
+→ Listeners automatically handle logging, reporting, and failure capture for each test thread, which helps maintain consistent reporting even when tests run in parallel through Jenkins or Maven.
+
+Have you ever used the IInvokedMethodListener or IAnnotationTransformer interfaces? If yes, give an example of how they improved your framework.
+→ Yes, I used IAnnotationTransformer to dynamically assign retry logic to failed tests and IInvokedMethodListener to log method-level execution, which helped manage flaky tests more effectively.
+
+What are the differences between an ITestListener and an ISuiteListener in terms of execution context?
+→ ITestListener works at the individual test method level, while ISuiteListener executes before and after the entire test suite, making it useful for setup or cleanup at the suite level.
+
+How do you ensure your listener-based logging and reporting remains stable when your tests grow in number or complexity?
+→ I maintain a centralized listener utility class with thread-safe operations and integrate it with Extent Reports, ensuring consistent logs even when tests are executed in parallel or across multiple environments.
+
+
+## 17 UtilityClassObject
+
+1 What is UtilityClassObject
+
+UtilityClassObject is designed to manage WebDriver and ExtentTest objects in a thread-safe manner, which is especially important during parallel test execution. When multiple tests run simultaneously, sharing the same WebDriver or ExtentTest instances can cause conflicts, such as overlapping commands, mixed logs, or inconsistent results. To prevent this, UtilityClassObject uses ThreadLocal, which ensures that each test thread gets its own independent copy of WebDriver and ExtentTest. Setter methods store these objects in the thread-local storage at the start of the test, and getter methods retrieve them during execution. This approach isolates each test, keeping reports, logs, and browser actions separate, making parallel execution reliable and maintaining clean, accurate test reports. Essentially, it provides each test thread with its own private workspace, avoiding interference between tests.
+
+
+2 What is ThreadLocal
+
+ThreadLocal in Java is a special class used to create variables that are local to each thread. In other words, every thread that accesses a ThreadLocal variable gets its own separate copy, so the variable is not shared between threads.
+
+In Selenium automation, ThreadLocal is often used when running tests in parallel (for example, using TestNG parallel execution). It helps ensure that each test thread has its own WebDriver instance, preventing conflicts and making the framework thread-safe.
+
+we often use listeners (like ITestListener) along with ThreadLocal to track the test status for each thread separately. This helps in logging, taking screenshots, and generating accurate reports for every test execution, even when tests are running concurrently.
+
+3 How to implement UtilityClassObject
+
+To implement UtilityClassObject, you first create a utility class that contains two ThreadLocal variables—one for WebDriver and one for ExtentTest. These variables ensure that each test thread gets its own independent copy, preventing interference when tests run in parallel. You then create getter and setter methods for both WebDriver and ExtentTest so that you can assign and retrieve these objects for the current thread during test execution. In your test setup, you assign a WebDriver instance and an ExtentTest instance to the current thread using the setter methods. During the test, whenever you need to interact with the browser or log test information, you retrieve the thread-specific instances using the getter methods. This approach ensures that each test has its own isolated browser session and reporting object, avoiding conflicts, maintaining clean logs, and making parallel execution reliable and thread-safe.
+
+## 18 ExcelUtility
+1 What is DDT
+
+DDT, or Data-Driven Testing, is a testing approach where test data is separated from the test scripts, allowing the same test case to run multiple times with different sets of input data. In Selenium, we use DDT to validate the functionality of an application for various data combinations without writing multiple test cases.
+
+2 What is ExcelUtility
+ExcelUtility is a reusable utility class used in Selenium frameworks to handle reading and writing data from Excel files. In real-time automation projects, test data is usually kept in Excel sheets instead of hardcoding it in the script, because Excel makes it easier to maintain, modify, and share test data. The ExcelUtility class helps us fetch data, count rows, and insert or update values into Excel, which makes data-driven testing possible.
+
+In companies, this is very useful because it supports data-driven testing, where the same test can run with multiple sets of data. It also improves maintainability, since if any value changes, we just update the Excel file instead of changing the code. The utility class centralizes all Excel operations like reading cell data, writing results back, and getting row counts, making it reusable and consistent across the whole framework.
+
+2 How to implement ExcelUtility
+To implement ExcelUtility, first we need to import the Apache POI library because Java itself does not provide direct support for Excel handling. Inside the utility class, we create methods for different operations. For example, a method like getDataFromExcel() is used to fetch cell data from a given sheet by passing the file path, sheet name, row index, and cell index. Similarly, getLastRow() helps us find the total number of rows in a sheet, which is useful when running tests with multiple sets of data. Another method like setDataIntoExcel() allows us to insert or update values into specific cells, which can be used to store test results or logs back into the Excel file.
+
+The actual implementation uses FileInputStream to open the Excel file and WorkbookFactory to create the workbook instance. From there, we fetch the required sheet, row, and cell. To write into Excel, we use FileOutputStream after updating the cell value. It’s also important to close the workbook to avoid memory leaks.
+
+In test cases, instead of hardcoding values like usernames or passwords, we can call ExcelUtility.getDataFromExcel() to fetch them dynamically from the Excel sheet. This makes our framework data-driven, more flexible, and easier to maintain. In short, ExcelUtility separates test data from test scripts, improves reusability, and supports large-scale testing where test data frequently changes.
+
+How do you implement data-driven testing in your automation framework?
+In my framework, I’ve implemented data-driven testing using TestNG’s @DataProvider annotation and external files like Excel or JSON. I fetch input values from these files using Apache POI or simple file readers and pass the data to test methods dynamically. This helps me test multiple data combinations without hardcoding any values in the script.
+
+What types of external data sources have you used for DDT, and why?
+I’ve mainly used Excel sheets with Apache POI, as they are easy for testers or business teams to maintain. I’ve also used CSV and JSON files when working with API or configuration-based data because they are lightweight and easily readable by automation scripts.
+
+What key benefits and challenges have you experienced with DDT?
+The main benefit is reusability — the same test logic can validate multiple datasets. It also improves coverage and reduces duplication. However, the challenge is maintaining large datasets and ensuring synchronization between the test logic and changing data formats.
+
+How do you design test cases so that data is separated from logic?
+I follow a modular framework structure — all test data is stored in a dedicated folder (like Excel or JSON files), and scripts just read data at runtime. This keeps scripts clean, readable, and easier to maintain when data changes.
+
+How do you handle large datasets in DDT without slowing down regression?
+I categorize test data — only critical or high-priority data sets are executed in smoke runs. For full regression, I use batch or parallel execution in TestNG and Jenkins pipelines to balance performance and coverage.
+
+How have you handled negative or invalid data scenarios through DDT?
+I maintain separate sheets or flags for invalid or boundary data. During execution, my test logic reads the “valid/invalid” tag and verifies whether the application shows correct error messages or validation alerts.
+
+What tools or libraries do you use in Java/Selenium to read test data?
+For Excel, I use the Apache POI library. For JSON, I use JSON-simple or Jackson. For CSV files, I use the built-in Java IO or OpenCSV. These help me fetch and parse external data easily for runtime execution.
+
+How do you ensure maintainability when test data changes frequently?
+I store all test data in a single source file and map it with keys. So if a value changes, it only needs to be updated once. I also implement version control (Git) for tracking data changes over time.
+
+How do you integrate DDT with TestNG and ensure each iteration is reported separately?
+Using @DataProvider, I pass multiple data sets to one test method. TestNG automatically logs each iteration separately in the report, showing which data set passed or failed. I also attach screenshots and logs per iteration for clarity.
+
+How do you manage test data for DDT in CI/CD environments?
+In Jenkins, I store data files in the project workspace or link them through Git so that every pipeline run uses the latest version. I also ensure cleanup scripts reset or recreate data before each run to maintain consistency.
+
+## 19 PropertyFile
+
+1 What is common data
+In automation testing, common data refers to the set of values or inputs that are shared across multiple test cases. These include reusable information like URLs, usernames, passwords, browser names, or environment details that don’t change frequently. Instead of hardcoding these values in every script, I store them in a centralized location such as a properties file, Excel sheet, or configuration class. This makes the framework more maintainable and reduces duplication — so if any common value changes, I just update it once and all related tests automatically use the new data.
+
+2 What is property file
+A property file is a simple text file that stores configuration data in key–value pairs. In Selenium, we use it to store common test data like URL, browser, username, password, and timeouts. This helps avoid hardcoding, makes the framework more flexible, and allows us to maintain environment-specific data easily. If any value changes, we just update the property file instead of touching the code.
+
+
+3 How you implemented 
+In my framework, I implemented a property file to store all the common configuration data like URL, browser name, username, password, and timeouts. This helps to avoid hardcoding values in the test scripts. I created a FileUtility class that reads the property file using FileInputStream and the Properties class provided by Java. Inside this utility, I used the getProperty() method to fetch values based on the key. For example, if I need the application URL or browser name in my test script, I just call the utility method with the key instead of hardcoding it. This makes the framework more flexible and easy to maintain because whenever there is a change, like a new URL or credentials, I only need to update the property file and not the test code. Overall, it centralizes common data, improves reusability, and makes the framework more professional.
+
+
+## 20 Extent Report
+
+What is Extent Report
+Extent Reports is a popular reporting library used in automation testing, especially with Selenium and TestNG, to generate interactive and visually appealing HTML reports. Unlike the default TestNG reports, which are basic and plain, Extent Reports allows testers to log detailed test execution steps, including pass/fail status, informational messages, and even screenshots for failed steps. It provides a clear, structured, and easy-to-read report that helps both testers and stakeholders understand the test results quickly.
+
+Have you used Extent Report
+In my projects, I have used Extent Reports to generate HTML reports of Selenium test execution. It shows test steps with pass/fail/skip status, environment details like OS and browser, and I can also attach screenshots for failed cases.
+
+What are advantage of extent reports
+The advantages of Extent Reports over default TestNG reports are significant. First, it allows step-by-step logging, so you can see exactly which actions passed or failed during the test execution. Second, it supports attaching screenshots, which is very useful for debugging failed test cases. Third, it is highly customizable—you can add themes, set report names, authors, categories, and organize tests by modules or priority. Fourth, it supports multiple tests in a single report, giving a consolidated view of the entire test suite. Overall, Extent Reports makes test reporting more professional, interactive, and easier to analyze compared to standard TestNG reports.
+
+
+How to implement extent reports.
+
+In my framework, I generate reports using Extent Reports library. First, I create an object of the ExtentSparkReporter class, which is used to define the report file path, title, name, and theme. Then I create an object of the ExtentReports class, which is the main class responsible for report generation, and attach the reporter to it.
+
+For each test case, I use the ExtentTest interface (returned by the createTest() method of ExtentReports) to log execution steps. While logging, I use the Status enum (like Status.INFO, Status.PASS, Status.FAIL, Status.SKIP) to specify the test step result. At the end, I call the flush() method of ExtentReports to actually write all the logs into the HTML report.
+
+
+How have you integrated ExtentReports into your automation framework?
+I have integrated ExtentReports in my Selenium framework by initializing the ExtentReports and ExtentTest objects in the test setup, usually through a listener or base class. During execution, each test’s status—pass, fail, or skip—is logged using extentTest.log(). Finally, I flush the report at the end of the execution so that the HTML report is generated automatically with detailed logs and screenshots.
+
+What are the key features of ExtentReports that you use?
+I use ExtentReports for its detailed logging, categorized test reporting, and screenshot integration. It provides a clear visual representation of test results, including pass/fail counts, execution time, and stack traces. I also use features like adding custom logs, system information, and attaching screenshots on failure for better debugging.
+
+How do you configure ExtentReports for parallel execution?
+In parallel execution, I use ThreadLocal with ExtentTest to ensure that each thread logs its own test results without overlapping. This helps maintain report accuracy when multiple tests run simultaneously. Each thread stores a unique ExtentTest instance, and at the end of execution, all reports are merged into a single HTML report.
+
+How do you attach screenshots or logs to test steps in ExtentReport?
+I capture screenshots whenever a test fails and attach them using extentTest.addScreenCaptureFromPath(). Logs are added using extentTest.log(Status.INFO, “message”) to provide step-by-step details. This helps in identifying exactly where and why a test failed.
+
+What information do you include in the report?
+My ExtentReports include details like test name, status, execution time, exception message (if any), and screenshots. I also include environment details such as browser, OS, and tester name using extent.setSystemInfo(). This makes the report complete and easy to analyze.
+
+How do you manage historical reports?
+I maintain historical reports by saving them with unique names—usually based on the timestamp of execution. In Jenkins, I configure it to archive these reports so that I can compare previous and current build results to track progress and failure trends.
+
+How do you customize ExtentReports?
+I customize reports by setting themes (dark or standard), adding custom logos, project names, and system information. I also add categories or tags to group test cases by module or functionality, making the report more readable and professional.
+
+What challenges have you faced with ExtentReports in CI/CD and how did you solve them?
+One challenge I faced was reports not showing up correctly after parallel execution. I solved it by using ThreadLocal and proper synchronization of ExtentTest objects. In Jenkins, I configured the build to generate and archive the report after the test run so it’s easily accessible to the team.
+
+How do you ensure failed tests are clearly reported?
+For failed tests, I capture a screenshot, log the exception message, and mark the test with Status.FAIL. The screenshot is attached directly to the failed test node in the report. This makes it easy to identify the cause of the failure quickly.
+
+How do you generate and publish the report in Jenkins?
+After test execution, my framework automatically generates the Extent HTML report in the target folder. In Jenkins, I use the “HTML Publisher Plugin” to publish this report after the build completes. This allows stakeholders to view the detailed report directly from Jenkins.
+
+Where you are keeping your reports and what tool you are using for reporting and how you are generating report 
+
+In my automation framework, I use Extent Reports as the reporting tool because it provides a detailed, visually appealing, and interactive HTML report. The reports are automatically generated after every test execution and stored inside a dedicated Reports folder within the project directory (for example, ProjectName/Reports/ExtentReport.html). I have integrated Extent Reports with TestNG Listeners, so whenever a test passes, fails, or gets skipped, the report is automatically updated with the test status, execution time, screenshots for failed cases, and detailed logs. After execution, I can directly open the HTML file in a browser to review the results and share it with the team.
+
+
+
+## 21 JavaScript Executor
+
+What is JavaScript
+
+
+JavaScript Executor in Selenium is an interface that lets us run JavaScript code directly inside the browser. Normally, we rely on WebDriver methods like click() and sendKeys() to interact with elements, but sometimes these methods fail. For example, if an element is hidden behind another element, overlapped by a pop-up, not yet in the visible viewport, or dynamically loaded after AJAX calls, the normal WebDriver methods may throw exceptions like ElementNotInteractableException or ElementClickInterceptedException. In such cases, JavaScript Executor comes to the rescue because it interacts directly with the DOM rather than relying only on Selenium’s native methods.
+
+How to use JavaScript executor
+Technically, WebDriver is cast to the JavascriptExecutor interface, and then we can call two main methods: executeScript() for synchronous execution and executeAsyncScript() for asynchronous execution. With this, we can perform actions such as clicking on elements, entering values into input fields, scrolling up and down, scrolling an element into view, generating alerts, highlighting elements for debugging, or even retrieving information like page title, URL, or inner text.
+
+
+| Method                                                                                  | Description                        | Example                                                                                |
+| --------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------- |
+| `executeScript("arguments[0].click();", element)`                                       | Click an element <br> using JS     | `js.executeScript("arguments[0].click();", button);`                                   |
+| `executeScript("arguments[0].value='text';", element)`                                  | Enter text <br> into a field       | `js.executeScript("arguments[0].value='Saddam';", inputBox);`                          |
+| `executeScript("return arguments[0].value;", element)`                                  | Get the value <br> of an input     | `String val = (String) js.executeScript("return arguments[0].value;", inputBox);`      |
+| `executeScript("window.scrollBy(x, y)");`                                               | Scroll the page <br> by x,y pixels | `js.executeScript("window.scrollBy(0, 500)");`                                         |
+| `executeScript("window.scrollTo(0, document.body.scrollHeight);");`                     | Scroll to the <br> bottom of page  | `js.executeScript("window.scrollTo(0, document.body.scrollHeight);");`                 |
+| `executeScript("arguments[0].scrollIntoView(true);", element);`                         | Scroll until <br> element visible  | `js.executeScript("arguments[0].scrollIntoView(true);", myElement);`                   |
+| `executeScript("return document.title;");`                                              | Get page <br> title                | `String title = (String) js.executeScript("return document.title;");`                  |
+| `executeScript("return document.readyState;");`                                         | Get page load <br> state           | `String state = (String) js.executeScript("return document.readyState;");`             |
+| `executeScript("return document.domain;");`                                             | Get domain <br> name               | `String domain = (String) js.executeScript("return document.domain;");`                |
+| `executeScript("return document.URL;");`                                                | Get current <br> URL               | `String url = (String) js.executeScript("return document.URL;");`                      |
+| `executeScript("history.back();");`                                                     | Navigate <br> back                 | `js.executeScript("history.back();");`                                                 |
+| `executeScript("history.forward();");`                                                  | Navigate <br> forward              | `js.executeScript("history.forward();");`                                              |
+| `executeScript("arguments[0].setAttribute('style','border:2px solid red');", element);` | Highlight element <br> with border | `js.executeScript("arguments[0].setAttribute('style','border:2px solid red');", btn);` |
+| `executeScript("alert('Hello World!');");`                                              | Display <br> alert popup           | `js.executeScript("alert('Hello World!');");`                                          |
+| `executeScript("arguments[0].disabled=false;", element);`                               | Enable a <br> disabled element     | `js.executeScript("arguments[0].disabled=false;", inputBox);`                          |
+| `executeScript("return navigator.userAgent;");`                                         | Get browser <br> details (agent)   | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
+
+Why we use JavaScript executor
+
+We use JavaScriptExecutor in automation when certain web elements are not easily handled by regular Selenium commands. It allows direct interaction with the browser’s JavaScript engine, helping perform advanced actions like clicking hidden elements, entering text into fields, scrolling the page, or fetching values that Selenium might not access directly.
+
+It is especially useful when elements are covered by another layer, not visible on the screen, or when synchronization issues occur. With JavaScriptExecutor, we can scroll into view, highlight elements, get page information like title, URL, domain, or trigger browser actions like navigating back, forward, or showing alerts, In short, JavaScriptExecutor helps improve automation stability and flexibility by directly executing JavaScript code when traditional Selenium methods fail.
+
+## Version of Tool
+
+## 22 CHALLENGES
+
+What are the automation challenges you faced in your previous project
+
+
+
+In my 3.5 years of experience, I’ve faced several challenges during automation testing that helped me grow technically. One of the common issues was when the requirements kept changing. This made it hard to plan test cases in advance. I also faced bugs that didn’t always happen—like they appeared once and then never again. These were hard to reproduce and took extra time to investigate and raised.
+
+
+
+One technical challenge I faced was synchronization issues, where elements took time to load and caused test failures. To handle this, I implemented implicit waits for global delays, explicit waits for specific conditions, and custom waits for dynamic content. This helped improve the stability and reliability of our automation scripts.
+
+
+At one point, I  faced tool version compatibility issues — for example, after upgrading the browser or WebDriver, some scripts started failing due to mismatches between the browser version, Selenium WebDriver, and dependencies. To fix this, we ensured all tools and libraries were compatible, updated the required versions in the pom.xml, and used WebDriverManager to handle driver versions dynamically. This helped restore stability and avoided manual driver setup issues.
+
+
+
+One of the challenges I faced was dealing with dynamic elements whose attributes like IDs or classes changed frequently, leading to script failures. To overcome this, I avoided direct static locators and instead used stable strategies like relative XPath and CSS selectors. I also applied advanced XPath axes such as ancestor, descendant, parent, child, and sibling to locate elements based on their relationship with nearby stable elements. This approach helped me build more robust and maintainable test scripts, especially for pages with complex or dynamic DOM structures.
+
+
+
+Apart from that, I regularly worked under tight deadlines, so that's why I had to prioritize testing and focus on critical areas first. Also, sometimes I had to clearly explain the impact of a bug to developers to make them understand why it needed to be fixed. Good communication really helped in such cases. These challenges taught me to stay flexible, improve communication, and manage my time better during testing.
+
+
+
+Sometimes developers and testers had different understanding of a feature. A developer might developed implement a feature with a certain logic in mind, but the tester might expect it to behave differently based on their understanding of the requirements. This caused chaos confusion and delays. What lessened I have acquired that If I'm having any sort of confusion but learned to ask questions early, get clear understanding, and keep proper documentation to avoid such gaps.
+
+## 23 AUTOMATION ROLES AND RESPONSIBILITIES
+
+I closely worked in an Agile environment, where I actively participated in all Agile ceremonies like sprint planning, daily stand-ups, and retrospectives.
+I made sure to understand the project requirements, user stories clearly and manual test cases so that I could plan and prioritize my testing activities effectively within each sprint and to get clarity over functionality.
+I was actively involved in the script development process by analyzing manual test cases and functional requirements. Based on that, I designed and executed test scripts to ensure coverage of key business areas, scenarios and functionality.
+I also maintained a Requirement Traceability Matrix (RTM) to ensure that all the test cases were properly mapped to the corresponding requirements. This helped in tracking test case coverage and ensured that no requirement was left untested.
+I was contributing in creating and maintaining POM (Page Object Model) classes to store web elements in a centralized object repository, which helped in improving code reusability and maintainability in our automation framework.
+I ensured all test scripts were executed and validated locally for accuracy and correctness before adding them to the shared automation framework for further execution.
+If a valid defect was identified during local execution, I analyzed the issue thoroughly and logged it in JIRA with complete details including steps to reproduce, screenshots, and logs. As a Test Engineer, my goal was to ensure that every defect was clearly documented and visible to the entire team for quick understanding and resolution.
+I was involved in retesting for resolved defects and executing regression test suites to ensure the overall stability and functionality of the application after code changes.
+I used Git commands to manage all our automation scripts. I regularly committed changes, I worked on separate branches for new feature testing, and my code got merged after proper review. This helped our team to collaborate efficiently without overwriting each other’s work.
+I’ve used Maven commands to run our test suites, mainly during regression cycles and before releases. It helped us ensure the application was stable and to make sure everything is working fine and to catch bugs early.
+I was involved in debugging process of the failed test scripts by checking logs, screenshots, and error messages. I fixed issues in scripts like broken locators or synchronizations.
+I also collaborated with developers to confirm whether the issue was due to a script error or an actual defect in the application.
+I also used breakpoints and step-by-step execution in the IDE to trace the flow of the test script.
+
+
+## 24 OOPS concept in your project
+
+In my Selenium framework, I have implemented all four OOPs concepts—Encapsulation, Inheritance, Abstraction, and Polymorphism. I used encapsulation by creating page classes (like LoginPage, HomePage) where all WebElements are declared as private and accessed using public methods. This helps keep the element locators and actions safe and reusable. For inheritance, I created a BaseClass that includes common setup methods like browser launch, teardown, and waits. Other test classes extend this BaseClass to reuse those methods, reducing code duplication. I applied abstraction by creating an interface called BrowserActions which includes abstract methods like clickElement(), enterText(), and waitForElement(). These are then implemented in a utility class, so the actual Selenium code stays hidden from the test logic. Lastly, I used polymorphism by method overloading in utility classes—for example, I created multiple click() methods: one that accepts a By locator and another that accepts a WebElement. This way, I can use the same method name for different situations, making my framework more flexible and readable.
+
+## 25 Which tools and technologies did you use in your Selenium framework?
+
+In my current Selenium framework, I’ve used Java 17, which is the latest long-term support version commonly used in the industry. I’m using Selenium 4.13.0 with TestNG 7.11.0 for test execution and reporting structure. For reporting, I’ve integrated Extent Reports version 5.1.1, For Excel data handling, I use Apache POI 5.2.5, and WebDriverManager 5.2.0 for automatic browser driver setup. I also use Apache Commons IO for screenshot utilities and file handling. In case of mobile testing, I work with Appium 8.6.0.
+
+| **Tool / Technology**                     | **Version** | **Description / Usage**                                        |
+| ----------------------------------------- | ----------- | -------------------------------------------------------------- |
+| **Java**                                  | 17 (LTS)    | Widely used current industry version for automation frameworks |
+| **Selenium**                              | 4.13.0      | For web automation testing                                     |
+| **TestNG**                                | 7.11.0      | For test execution, grouping, and reporting                    |
+| **Appium**                                | 8.6.0       | For mobile application automation                              |
+| **Rest Assured**                          | 5.4.0       | For API testing (validating RESTful web services)              |
+| **Apache POI**                            | 5.2.5       | For handling Excel files in Data-Driven Testing                |
+| **Extent Reports**                        | 5.1.1       | For generating detailed HTML test reports                      |
+| **WebDriverManager**                      | 5.2.0       | For automatic driver management (no manual setup needed)       |
+| **Apache Commons IO**                     | 2.8.0       | For file handling and I/O operations                           |
+| **Screenshot Utility (Commons IO based)** | 5.2.0       | For capturing and storing screenshots during test execution    |
+
+
+## 26 Screenshot 
+
+1 What is screenshot
+
+In Selenium, a screenshot is basically a captured image of the browser at a particular point during test execution. It is very useful because it helps in bug reporting—when a test fails, a screenshot gives developers a clear idea of what went wrong. It also serves as evidence that a test was executed on a specific page or functionality, and it helps in debugging by showing the exact UI state when something unexpected happens. Many teams also include screenshots in reports like ExtentReports or Allure to provide visual proof of the test run. Screenshots can be taken in two main ways: one is a full-page screenshot, where we capture the entire visible browser window, and the other is an element screenshot, where we capture only a specific element like a button, logo, or text field. Depending on the requirement, we use either of these approaches to make our testing more effective and reliable.
+
+2 How to implement screenshot
+
+In Selenium, we capture screenshots using the TakesScreenshot interface. Since WebDriver itself doesn’t have a direct method to take screenshots, we first cast our driver object to TakesScreenshot. Then we call the getScreenshotAs() method, which captures the current state of the browser and returns it in the format we specify, usually as a file. Finally, we save that file to a permanent location on our system using the File class and FileHandler.copy(). This way we can preserve the screenshot and use it for bug reporting, debugging, or attaching in test reports. Depending on the need, we can capture the full browser window or even a specific element by calling getScreenshotAs() on a WebElement
+
+3 If the screenshot is not valid then what will you do.
+
+If the screenshot captured in the report is not valid or doesn’t show the correct state of the application, I first verify whether the screenshot was taken before or after the failure. Sometimes, timing issues or asynchronous actions cause incorrect captures. To fix this, I make sure the screenshot is captured exactly at the moment of failure using the onTestFailure() method in the TestNG Listener.
+
+If the issue still persists, I debug the screenshot utility method — checking whether the driver instance is active and the correct window or tab is in focus. I also ensure proper synchronization so that the page is fully loaded before taking the screenshot. After correction, I re-run the failed test to confirm that valid screenshots are now attached to the report.
+
+
+## 27 Framework Explanation 
+
+
+how will u upload file and download file
+Which vergion control tool you have used in your project.
 Write the git command to create branch, switch branch.
 Write the git commands that you used frequently.
 Explain how you handle the conflicts.
 How you create the pull request.
 Script to handle disabled element
-16. Script to take screenshot 
-17. Script to perform scroll actions
-Write the syntax for Explicitly wait
- automation frameworks.
+
+
+automation frameworks.
 What is rate limiter
 What we limit in rate limiter.
-11.what Exceptions you are getting in Fluent Wait?
-explain factory design pattern?
-explain fluent wait? write syntax?
-4. What exception you get when you use explicit wait 
-5. Why do you get NoSuchElement exception , how to overcome 
-6. Why do you get StaleElementException and how to overcome.
-8 
-why listeners  used in test ng
-what are method in listeners
+
+
 how to save the update in GitHub.
 which version control tool you are using
 how did resolve the merge conflicts
 - What is git fetch
 - Difference between git fetch and git merge
-Diff btw POM and PageFactory.
-have u  used maven and why?
+
 maven lifecycle
 Dynamic locator 
 Dynamic xpath
-What is the use of all the xpath axes
-)Use of constructor in POM pages
-Github how u used it n what all commands u used
-How to identify Dynamic x path
-GitHub how u used to share code from local to master is there any branching done 
-Design pattren in your frame work
-Explain testNG framework with all the annotations
 
+
+GitHub how u used to share code from local to master is there any branching done 
+8)What is Deadlock
+Use of JavaScriptExecutor
+how to automate images
+Why have preferred excel to store the data why not other files
+
+do you know how to upload the excelfile
+how you handled the test data
+9.What is multithreading? Where you will use? How to use it Explain?
+8)What is Deadlock
+Any other approach to create a branch
+9. Difference between isDisplayed and isAccessible
+7. Can yu handle colour in webpage
+
+10)how you handeled file upload popup and file download popup?
+11)what are the ways to perform click?
+6)what exceptions you encountered in your project?
+7)Explain about soft assert and hard assert?
+8)How you handled frames?
+9)how you handled alert?
+
+5. What is the Selenium Version that you have been using? Explain what are enhancements in Selenium 4 w.r.to Selenium 3
+6. How do you set up your webdriver in Selenium 3? What has changed in Selenium 4?
+2. Framework / Tools and Stack
