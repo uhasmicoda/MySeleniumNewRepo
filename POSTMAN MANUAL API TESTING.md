@@ -821,10 +821,9 @@ For a GET or DELETE request, I generally write around 1 to 2 test cases. These w
 For POST, PUT, and PATCH requests, I usually write about 7 to 8 test cases. These include positive cases (valid data submission), various negative cases (missing or incorrect data, invalid formats, unauthorized access), and edge cases (like testing with boundary values, null values, and large payloads). Additionally, I include security and performance-related tests for these methods."
 
 
-What is state full and state less
+What is state full and state less.
 
-Stateful means the server keeps track of the client's previous activities — like login session details, shopping cart items, etc.
-after a user logs into an application, the server stores the session information. This way, the user doesn’t have to log in again for every action. 
+Stateful means the server keeps track of the client's previous activities — like login session details, shopping cart items, etc, after a user logs into an application, the server stores the session information. This way, the user doesn’t have to log in again for every action. 
 
 Stateless means the server treats each request as a completely new one without any memory of past interactions — the client must send all necessary information every time.
 In my experience with APIs and mobile application testing, REST APIs are mostly stateless , which are designed to be stateless. because each API call should be independent, which improves scalability and performance.
@@ -833,4 +832,16 @@ In my experience with APIs and mobile application testing, REST APIs are mostly 
 What is WSDL.
 
 WSDL stands for Web Services Description Language, It is basically an XML document that describes the details about a web service — like what operations it provides, what request it expects, and what response it gives back, As per my knowledge, while working with APIs, especially in SOAP API testing, WSDL files were used to understand the complete structure of the service before starting the testing.
+
+What is the structure of http request and response.
+
+So when comes http request , it request which being sent by client to the server it may be by using browser when we have the UI of application is developed or back end.. Now if tell you about the structure of http request it consist several thing in header part we have http method, web URL, content type, cookies and in body part we have from data row data which is nothing but your payload
+when it's comes to http response, it response which is being received by client from the server, now http response also consist of several things, in header we have status code , content type response time cookies and in the body part we have actual data.
+
+
+
+
+
+
+
 
