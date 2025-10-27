@@ -516,4 +516,321 @@ pm.test("Response array contains item", function () {
 | 11  | Revision + Mock interview + weak topic practice                  |
 
 
+Interview Question
+
+
+
+Explain What are the http methods you used in your previous project.
+What is CRUD
+How to perform API response validation?
+Hoy u fetch data for api
+How u conclude the api defect
+What are the things you will do in back end
+How you pass the query parameter
+
+What are the status codes you got in api automation
+
+Tell me what is API and what are the actions to be performed on APIs?
+
+I have data in excel and I want to use that data in one request how you fetched the data
+How you have done debugging
+
+How do you perform API testing?
+difference between post and get method?
+how did you use authentication?
+10.Explain how you will traverse to json array? By using which method you will verify it?
+
+10. How will you connect device with charles
+11.
+
+
+What is an API
+
+An API, or Application Programming Interface, is a communication link between two software systems that allows them to exchange data and perform operations. In simple terms, it acts as a or bridge messenger between the client and the server. When a client, such as a web or mobile application, sends a request for some data, the API delivers that request to the server. The server then processes it and sends back the required response to the client through the same API.
+
+For example, when we use an application like Zomato to search for restaurants, the app doesn’t directly connect to the database. Instead, it sends the request to Zomato’s API, which fetches the restaurant details from the server and returns them in a structured format, usually in JSON or XML. In manual testing, we mainly validate these API requests and responses to ensure that the data is correct, the functionality works as expected, and the response time and status codes are proper.
+
+What is API testing?
+
+API testing is a type of software testing that focuses on verifying whether the APIs of an application are working correctly and reliably. Instead of testing the user interface, API testing is done at the backend level to check the communication between the client and the server. The main goal is to ensure that the API returns the correct responses for different requests, follows the expected format (like JSON or XML), handles errors properly, and performs well under various conditions.
+
+In manual API testing, we usually send requests like GET, POST, PUT, and DELETE using tools such as Postman, and then validate the response status codes, response body, headers, and response time. For example, if we test a login API, we verify whether valid credentials allow successful login and invalid credentials show the proper error message. This type of testing helps in identifying issues early in the backend logic before the user interface is developed.
+
+## Validation
+Explain all the validations you did in your project for API
+
+
+In my project, I used Postman to perform backend API testing and validated several things to ensure the APIs were working correctly.
+
+Firstly, I verified the response status codes like 200 for success, 201 for creation, 400 for bad requests, 401 for unauthorized access, 404 for not found, and 500 for server errors. This helped in confirming whether the API was behaving as expected in different scenarios
+
+Let’s say I was testing a login API — if I entered correct credentials, I expected a 200 status code. If I entered wrong credentials, then a 401 code should be returned. This helped me ensure that the API was responding correctly based on different situations."
+
+
+Secondly, I validated the response body, after sending the API request,  I validate that expected fields or data were coming back correctly in the response, for that I have used postman snippets something call json value check for need to how to fetch the json xpath For example, I checked if certain keys existed in the JSON response and confirmed that their values were accurate as per the requirements. This helped me ensure that the backend was functioning properly and returning the right data.
+
+Then I validated the response time to make sure the API was working fast enough. For example, if the system expects a reply within 2 seconds, I verified how long the API actually took using postman snippets tools. If it was slow or took longer than expected, I reported it to the development team along with the timing details and logs. This helped them identify where the delay was and improve the performance.
+
+While testing the API, I also checked the Content-Type in the response header. This tells us what format the data is coming in. Most of the time, it should be application/json, especially if the response contains structured data like product details or user info.
+
+If the Content-Type is wrong, the application might not understand the data, and it could cause errors. So, I make sure the format is correct. For example, if I’m expecting product data in JSON format, I check that the Content-Type is set to application/json. If it shows something else, I report it to the development team.
+
+
+| Validation Type   | What I Checked                                 | Example                                            |
+| ----------------- | ---------------------------------------------- | -------------------------------------------------- |
+| **Status Code**   | Correct response code for each scenario        | 200 (Success), 401 (Unauthorized), 404 (Not Found) |
+| **Response Body** | Data accuracy, key presence, value correctness | Checked `userId`, `token` fields                   |
+| **Response Time** | Performance and speed of API                   | Verified if response came under 2 seconds          |
+| **Headers**       | Correct data format (Content-Type)             | Ensured `application/json` for JSON data           |
+
+What is Request chaining
+
+In my experience, request chaining in Postman or API testing means using the response of one API request as an input for another request.
+This approach is especially useful when APIs are dependent on each other and need to be executed in sequence.
+
+For example, in one of my projects, I made a POST request to create a new user, and the response returned a userId. I then used that userId in the next GET request to fetch the details of that same user.
+To achieve this, I stored the userId using the Postman script command:
+
+Then, in the next request, I simply used {{userId}} as a variable.
+This process helped me test complete workflows step-by-step, similar to how a real user interacts with the system — ensuring data consistency and flow between related APIs.
+
+What is status code
+
+A status code in API testing represents the result of the client’s request to the server. It’s part of the HTTP response and helps testers understand whether the request was successfully processed or if there was an error. These codes are divided into different categories based on their first digit — for example, 2xx indicates success, 4xx indicates client-side errors, and 5xx indicates server-side errors.
+
+200 Series – Success Codes
+
+These indicate that the request was successfully received, understood, and processed by the server.
+
+| **Code**                              | **Meaning**      | **Explanation / Use Case**                                                                                |
+| ------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| **200 OK**                            | Success          | Request completed successfully and server returned the expected response. Example: Fetching user details. |
+| **201 Created**                       | Resource Created | A new resource has been successfully created. Example: Creating a new user account.                       |
+| **202 Accepted**                      | Request Accepted | The request is accepted but still being processed (asynchronous). Example: File upload queued.            |
+| **203 Non-Authoritative Information** | Partial Info     | Response returned from a third-party or cached source, not directly from the origin server.               |
+| **204 No Content**                    | Success, No Data | Request was successful but there’s no content to return. Example: Deleting a record.                      |
+
+
+300 Series – Redirection Codes
+
+These indicate that further action is needed — like following a redirect to another URL.
+
+| **Code**                               | **Meaning**        | **Explanation / Use Case**                            |
+| -------------------------------------- | ------------------ | ----------------------------------------------------- |
+| **301 Moved Permanently**              | Permanent Redirect | Resource has been permanently moved to a new URL.     |
+| **302 Found (Temporarily Redirected)** | Temporary Redirect | Resource is temporarily available at a different URL. |
+
+
+400 Series – Client Error Codes
+
+These mean there’s an issue with the request sent by the client (like invalid input or missing authorization).
+
+
+| **Code**                       | **Meaning**             | **Explanation / Use Case**                                                              |
+| ------------------------------ | ----------------------- | --------------------------------------------------------------------------------------- |
+| **400 Bad Request**            | Invalid Request         | Server can’t process the request due to syntax or missing data.                         |
+| **401 Unauthorized**           | Authentication Required | Missing or invalid authentication token.                                                |
+| **403 Forbidden**              | Access Denied           | User is authenticated but doesn’t have permission to access the resource.               |
+| **404 Not Found**              | Resource Not Found      | The requested resource doesn’t exist.                                                   |
+| **405 Method Not Allowed**     | Invalid Method          | The HTTP method (GET, POST, etc.) is not allowed for this endpoint.                     |
+| **409 Conflict**               | Request Conflict        | Request conflicts with current state of the resource. Example: Duplicate record.        |
+| **415 Unsupported Media Type** | Wrong Format            | Server doesn’t support the format of the request body (e.g., wrong Content-Type).       |
+| **422 Unprocessable Entity**   | Invalid Data            | The request is well-formed but contains semantic errors. Example: Invalid email format. |
+| **429 Too Many Requests**      | Rate Limit Exceeded     | Too many requests in a short time — throttling applied.                                 |
+| **499 Client Closed Request**  | Client Cancelled        | Client closed the connection before the server could respond.                           |
+
+
+500 Series – Server Error Codes
+These indicate that the server failed to process a valid request due to internal problems.
+
+Code
+
+| **Code**                        | **Meaning**                    | **Explanation / Use Case**                                         |
+| ------------------------------- | ------------------------------ | ------------------------------------------------------------------ |
+| **500 Internal Server Error**   | General Server Error           | The server encountered an unexpected condition.                    |
+| **501 Not Implemented**         | Not Supported                  | The request method or feature is not implemented by the server.    |
+| **502 Bad Gateway**             | Invalid Response from Upstream | The server received an invalid response from another server.       |
+| **503 Service Unavailable**     | Temporary Downtime             | Server is overloaded or down for maintenance.                      |
+| **504 Gateway Timeout**         | Timeout Error                  | The server didn’t receive a response in time from another service. |
+| **599 Network Connect Timeout** | Network Timeout                | The network connection timed out before completing the request.    |
+
+What is endpoint, Explain it?
+
+An endpoint is the specific URL path on a server where an API request is sent to perform an action or access data.
+
+During my experience with Postman, I understood that an endpoint is the specific path or address in an API where a request is sent to interact with a particular web resource. For example, in REST APIs, the base URL points to the main API service, such as https://api.example.com, and the endpoint is appended to it—like /users, /products, or /orders—to access specific data or functionalities. Each endpoint is linked with an HTTP method such as GET, POST, PUT, or DELETE, depending on the operation being performed. In simple terms, endpoints help testers communicate with the exact feature or resource of the API that needs to be tested or validated.
+
+| **Term**         | **Description**                                                                            | **Example**                      | **Purpose**                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------ | -------------------------------- | -------------------------------------------------------------------- |
+| **Base URL**     | The main domain or root address of the API server.                                         | `https://api.example.com`        | Identifies the main location of the API service.                     |
+| **Endpoint**     | A specific path appended to the base URL to access a particular resource or functionality. | `/users`, `/products`, `/orders` | Defines which resource or feature the client wants to interact with. |
+| **Full API URL** | Combination of base URL and endpoint.                                                      | `https://api.example.com/users`  | Used to send the actual request to the server.                       |
+| **HTTP Method**  | Defines the type of operation to perform on the resource.                                  | GET, POST, PUT, DELETE           | Specifies the action — fetch, create, update, or delete.             |
+
+
+Charles proxy
+
+What Charles proxy
+Charles Proxy is a network debugging tool used to monitor and analyze API calls between a client (like a mobile app) and the server. I use it to capture requests and responses, check headers, verify parameters, debug failed APIs, and sometimes modify responses using Map Local or Rewrite features.
+
+What are features of Charles proxy
+
+In my testing experience, I’ve used Charles Proxy mainly for capturing and analyzing network traffic between the mobile app and the server. It helps me monitor all HTTP and HTTPS requests and responses, showing complete details like URLs, headers, parameters, and response data. By installing its SSL certificate, I can also decrypt secure HTTPS traffic, which allows me to check encrypted API calls and verify if the data sent and received is correct.
+
+Charles provides a Request and Response Viewer, where I can view data in different formats like JSON or XML—this is really helpful for debugging payloads and verifying API responses. I’ve also used features like Map Local to redirect a request to a local file, especially when the backend wasn’t ready, and Map Remote to switch environments easily, for example, testing staging instead of production.
+
+The Rewrite Tool is another useful feature that lets me modify requests or responses on the fly, which is great for testing different error codes or conditions. Using Throttling, I can simulate slow network connections such as 2G or 3G, to check how the app performs in poor network conditions. The Breakpoint feature helps pause and edit requests before they reach the server, which is useful for negative or boundary testing.
+
+Additionally, Charles allows recording and exporting sessions, so I can share logs with developers while reporting bugs. And I often use the Repeat and Edit Request option to retest a particular API without running the full test flow again. Overall, Charles Proxy is a powerful tool for debugging, analyzing, and validating app-to-server communication in real-time.
+
+
+What is Map Local in charles
+In Charles Proxy, the Map Local feature allows you to redirect a network request to a local file stored on your computer instead of sending it to the actual server.
+
+For example, if an API or backend service isn’t ready yet, you can create a mock JSON response file on your system and map it to that particular request URL. When the app or browser sends that request, Charles will return your local file’s data as the response instead of hitting the real server.
+
+In simple terms, Map Local is used to test with mock data or to check how the application behaves with specific responses without depending on the live backend. This is especially helpful during early testing or when the backend is under maintenance.
+
+What is SSL
+SSL (Secure Sockets Layer) is a security protocol that helps establish a secure and encrypted connection between a web browser (or app) and a server. It ensures that all the data transferred — like login details, payment information, or personal data — remains private and cannot be read or modified by hackers.
+
+In simple terms, SSL keeps your communication safe over the internet. You can easily identify a secure connection by looking for “https://” in the website URL — the “s” stands for secure.
+
+In tools like Charles Proxy, SSL is used for HTTPS decryption (called SSL Proxying). By installing the Charles SSL certificate, we can view and debug encrypted HTTPS traffic safely to analyze requests and responses during testing.
+
+
+Difference between uri and url?
+both are used to identify resources on the internet, but there’s a small difference between them. A URI, or Uniform Resource Identifier, is a broader concept — it’s used just to identify a resource, either by name, location, or both. A URL, or Uniform Resource Locator, is actually a type of URI that not only identifies the resource but also gives the address to access it, including the protocol like HTTP or HTTPS. In simple words, every URL is a URI, but not every URI is a URL.
+
+Explain me whole url and why we need domain name?
+a URL, which stands for Uniform Resource Locator, is basically the complete web address that we type in the browser to reach a specific webpage. It tells the browser where to find a resource on the internet and how to access it. A typical URL has different parts — like the protocol (for example, https://), which defines how data will be transferred; the domain name (like www.google.com), which tells the browser which website to connect to; and sometimes a path or query parameters that point to a specific page or data within that site.
+
+Now, about the domain name — we need it because it’s a user-friendly way to access websites. Computers use IP addresses (like 142.250.183.78) to identify servers, but those numbers are hard for humans to remember. So, the domain name acts like a nickname or readable label for an IP address. For example, instead of remembering Google’s IP, we just type google.com, and the DNS (Domain Name System) converts that domain name into the actual IP address of the server. This makes it much easier for people to browse and access websites.
+
+What are the things present in swagger document
+Swagger UI, is basically a detailed and interactive representation of an API. It gives complete information about the API like its title, version, and base URL. It lists all the available endpoints such as /login or /users, along with the supported HTTP methods like GET, POST, PUT, and DELETE. It also shows request parameters, request body structure (usually in JSON), and the type of responses with status codes like 200 or 400. Swagger also includes authentication details, like where to pass tokens or API keys, and even provides example requests and responses. Overall, it helps testers and developers understand and test APIs easily without needing backend access.
+
+Difference between SOAP and Rest.
+SOAP and REST are two different ways of designing web services. SOAP (Simple Object Access Protocol) is more rigid and follows a strict XML-based format for sending and receiving data. It has built-in security and standards but is heavier and slower. On the other hand, REST (Representational State Transfer) is lightweight, faster, and more flexible — it supports multiple data formats like JSON, XML, or plain text. REST works through standard HTTP methods like GET, POST, PUT, and DELETE, making it easier to use and more common in modern APIs. In short, SOAP is protocol-based and formal, while REST is architecture-based and simple.
+
+What is the use of performing API Testing?
+
+API testing helps to verify whether the backend logic of an application is working correctly without involving the user interface. It ensures that different software systems communicate properly through requests and responses. By testing APIs, we can check if the data is sent and received correctly, validate response time, security, and error handling. It also helps us find issues early in development since APIs are tested before the UI is built. Overall, API testing improves reliability, performance, and stability of the application.
+
+
+What is the difference between PUT and PATCH
+Both PUT and PATHCH are used to update resources in an API, but the main difference is in how they update data. PUT replaces the entire resource with the new data you send, meaning all fields must be provided. If any field is missing, it might get overwritten or removed. On the other hand, PATCH is used for partial updates — you only send the specific fields you want to change, and the rest of the data remains unchanged. So, PUT is a complete update, while PATCH is a partial update.
+
+What is the difference between query and form parameter
+A query parameter is usually part of the URL and is used to send data in GET requests. It appears after a question mark (?) in the URL, like /users?id=101&status=active, and is mainly used for filtering or searching data.
+
+On the other hand, a form parameter is sent in the body of a POST request, not visible in the URL. It’s commonly used when submitting forms, like login details or registration data, because it can handle sensitive or large data more securely.
+
+What is Authentication and authorization
+Authentication is the process of verifying who the user or client is, In simple words, it confirms the identity of the person or system trying to access the API.
+
+In API testing, authentication ensures that only valid users or systems can send requests to the server, When I worked with Postman, I often used different authentication types like Basic Auth, Bearer Token, or API Key depending on the project’s setup.
+
+Authorization, on the other hand, decides what actions an authenticated user is allowed to perform, Once the identity is confirmed, authorization checks whether the user has permission to access certain data or perform specific operations, After login, I might be allowed to view user data (GET request) but not delete it (DELETE request), If I tried to delete without proper permission, I’d get a 403 Forbidden error.
+
+
+Have you ever faced the 204 issue, what does it mean
+Yes, I’ve faced the 204 issue during API testing. A 204 status code means “No Content.” It indicates that the request was successfully processed by the server, but there’s no response body returned.
+
+For example, it often happens with DELETE requests — the resource is deleted successfully, so the server doesn’t need to send any data back. Sometimes it can also appear in PUT or POST requests if the server doesn’t return a confirmation body.
+
+In short, 204 isn’t an error — it’s a successful response without content. But if I was expecting some data (like a success message or response body) and got 204 instead, I’d recheck with the backend team whether that’s the expected behavior or a missing response from the server.
+
+what authentication you used in your project?
+In my experience, I’ve mostly worked with OAuth 2.0 and Bearer Tokens, OAuth 2.0 is simpler, more flexible, and widely used in modern web and mobile applications. It uses access tokens (typically bearer tokens) instead of complex signatures to authenticate and authorize requests, As for the Bearer Token, it’s actually a part of OAuth 2.0. Once the user is authenticated successfully, the server issues a bearer token, which is then passed in the request header.
+
+Explain all the crud operation or http methods
+
+
+In my experience working on a language learning mobile and web application, I actively tested all CRUD operations using REST APIs. Each HTTP method mapped directly to a specific feature or functionality of the application.
+
+POST (Create):
+I used POST requests whenever new data needed to be created. For example, when a new user registers on the app, a POST API is triggered to send user details like name, email, selected language, etc., to the backend. I tested this by validating the response code (usually 201 Created) and ensuring the data is correctly stored in the database.
+
+GET (Read):
+I used GET requests to retrieve data, such as when a user logs in and their profile details need to be fetched, or when loading available courses and vocabulary lists for a selected language. I ensured the API returned the correct data set, with proper status codes (200 OK) and no performance delays.
+
+PUT (Update full resource):
+PUT APIs were used when the user wanted to completely update their profile information, such as changing their name, email, or selected language. Since PUT replaces the entire record, I ensured that all previous data fields were updated correctly in the database, not just the modified ones.
+
+PATCH (Update partial resource):
+PATCH was used for partial updates. For example, if the user only wanted to update their email address or progress in one language course, the PATCH API allowed updating just that particular field without affecting other data. I validated that only the intended field changed, and the rest remained unchanged.
+
+DELETE (Remove):
+I tested DELETE APIs for features like removing a user’s account or deleting a saved vocabulary list. Once the request was sent, I verified that the data was removed from the database and the response returned with status code 204 No Content or appropriate success confirmation.
+
+What is the difference between 401 and 403.
+
+In my experience during API testing using Postman or while validating mobile app backend behavior, I frequently encountered both 401 and 403 status codes, and I always made sure to distinguish between them clearly during debugging and defect logging.
+
+A 401 Unauthorized error typically means that the request has not been applied because it lacks valid authentication credentials. This usually occurs when the bearer token is missing, expired, or invalid. For example, in our language learning platform, if a user tries to fetch their profile without logging in or with an expired token, the backend returns a 401 status code. I used this response to ensure the app properly prompted the user to log in again.
+
+On the other hand, a 403 Forbidden status means that the server understood the request and the user is authenticated, but they do not have permission to perform that specific action. For example, even if a user is logged in, they shouldn’t be able to access premium features like native speaker sessions unless they are a paid subscriber. In this case, I tested by logging in as a free user and intentionally accessing restricted APIs—if the API returned a 403, it confirmed that authorization was correctly implemented.
+
+1 Difference between put, patch and post.
+In my project, while working on API testing , I frequently dealt with POST, PUT, and PATCH methods for different operations, and I learned how each one is used based on the business requirement.
+
+POST (Create):
+I used POST requests whenever new data needed to be created. For example, when a new user registers on the app, a POST API is triggered to send user details like name, email, selected language, etc., to the backend. I tested this by validating the response code (usually 201 Created) and ensuring the data is correctly stored in the database.
+
+PUT (Update full resource):
+PUT APIs were used when the user wanted to completely update their profile information, such as changing their name, email, or selected language. Since PUT replaces the entire record, I ensured that all previous data fields were updated correctly in the database, not just the modified ones.
+
+PATCH (Update partial resource):
+PATCH was used for partial updates. For example, if the user only wanted to update their email address or progress in one language course, the PATCH API allowed updating just that particular field without affecting other data. I validated that only the intended field changed, and the rest remained unchanged.
+
+
+What is difference between authentication and authorization
+
+Authentication is about verifying who the user is. For example, when a user logs into the language learning app using their email and password, the backend checks whether the credentials are valid. I tested this process thoroughly by validating login API responses
+
+Authorization, on the other hand, determines what the authenticated user is allowed to do. After login, if the user is a paid subscriber, they should have access to premium features like native speaker interaction, quizzes, or certification. I tested authorization by checking if users without valid roles or permissions were restricted from accessing these protected resources. This included verifying correct HTTP status codes like 403 Forbidden and checking role-based access through the APIs.
+
+If the defect is in backend how will you log it 
+
+In my experience as a mobile app tester, if I encounter a defect that seems to originate from the backend, my first step is to reproduce the issue and carefully observe the API request and response using Charles Proxy. Charles acts as a network debugging tool.
+
+If the request from the app is correct but the response contains an error like a 500 Internal Server Error or incorrect data, I capture the full request-response details using Charles and take a screenshot or export the session.
+
+I then log the defect in the bug tracking tool (like JIRA), clearly mentioning the endpoint, request type (GET/POST), request payload, response status code, and the issue observed. Including the Charles logs as attachments helps the backend team quickly identify and resolve the problem. This approach ensures clear communication and faster debugging from both testing and development sides.
+
+How would you expose SOAP API 
+
+SOAP APIs are exposed using a WSDL file, which stands for Web Services Description Language. The backend team usually shares the WSDL URL.. This WSDL defines the structure of the request and response, including all the CRUD operations supported by the service. One limitation of SOAP is that it strictly accepts and returns only XML format. In my experience, SOAP is not widely used nowadays as most systems have shifted to REST APIs due to their simplicity and support for JSON and some others language too.
+
+How would you expose REST API
+
+REST APIs are exposed using URIs, which are made up of a base URL and specific endpoints. The base URL is the address of the API, like https://api.example.com/, and the endpoints are added to this base URL to access different resources, In my experience while testing the Busuu language learning app, REST APIs were exposed using URIs,For example, the base URL could be something like https://api.busuu.com/, and different endpoints were added to access specific resources. For instance, to fetch user profile data, an endpoint like https://api.busuu.com/users/{userId} was used. Similarly, for login, the API endpoint might be https://api.busuu.com/auth/login.
+Each of these endpoints supported standard HTTP methods — GET to retrieve user data or lessons, POST to submit login credentials or save progress, PUT to update user settings, and DELETE to remove unwanted saved items or history.
+
+What is protocol.
+
+In my experience, a protocol acts as a common language between different systems or applications. It is a defined set of rules and regulations that ensures accurate communication over a network. For example, while testing APIs in mobile applications, I worked with HTTP , which define how requests and responses should be formatted and transmitted. These protocols ensure that both client and server understand each other, even if they’re built on different technologies. Without protocols, smooth data exchange between systems wouldn't be possible. So, for me as a tester, understanding protocols helps in debugging issues and verifying whether data flow is happening correctly between client and server. 
+
+For one API how many test cases you have written 
+The number of test cases we can write for an API depends on various factors, such as the complexity of the API, the different input parameters, possible error conditions, and the expected outputs. Here's a rough breakdown of test cases you might consider for a single API:
+
+For a GET or DELETE request, I generally write around 1 to 2 test cases. These would typically cover the positive scenario (successful request with valid data) and a negative scenario (invalid input or unauthorized access).
+
+ 
+For POST, PUT, and PATCH requests, I usually write about 7 to 8 test cases. These include positive cases (valid data submission), various negative cases (missing or incorrect data, invalid formats, unauthorized access), and edge cases (like testing with boundary values, null values, and large payloads). Additionally, I include security and performance-related tests for these methods."
+
+
+What is state full and state less
+
+Stateful means the server keeps track of the client's previous activities — like login session details, shopping cart items, etc.
+after a user logs into an application, the server stores the session information. This way, the user doesn’t have to log in again for every action. 
+
+Stateless means the server treats each request as a completely new one without any memory of past interactions — the client must send all necessary information every time.
+In my experience with APIs and mobile application testing, REST APIs are mostly stateless , which are designed to be stateless. because each API call should be independent, which improves scalability and performance.
+
+
+What is WSDL.
+
+WSDL stands for Web Services Description Language, It is basically an XML document that describes the details about a web service — like what operations it provides, what request it expects, and what response it gives back, As per my knowledge, while working with APIs, especially in SOAP API testing, WSDL files were used to understand the complete structure of the service before starting the testing.
 
