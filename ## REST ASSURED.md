@@ -1368,7 +1368,7 @@ given()
 ```
 So, in short — queryParam() is used mainly for GET requests to filter data in the URL, while param() is more flexible and can adjust based on the request type.
 
-
+## Interview Questions
 
 1 What is REST Assured?
 
