@@ -1272,29 +1272,7 @@ To achieve serialization in Java, the class must implement the Serializable inte
 
 
 
-1 What is a POJO class in REST Assured?
 
-In REST Assured, a POJO class stands for Plain Old Java Object. It’s basically a simple Java class that we use to represent the request or response data in a structured way. Instead of writing raw JSON directly in our code, we create a POJO class with variables, constructors, getters, and setters. REST Assured then automatically converts this POJO into JSON when sending the request body and also converts the JSON response back into a POJO object. This makes the code cleaner, easier to maintain, and more readable during API automation.
-
-2 What is serialization and deserialization in API testing? 
-
-Serialization is the process of converting a Java object into a format like JSON or XML so that it can be easily sent over the network. In API testing, we usually use serialization when we need to send request data in JSON format. Instead of manually creating a JSON string, we create a Java object and let the serialization process automatically convert it into JSON. This makes our code cleaner, easier to maintain, and reduces chances of human error. For example, in Rest Assured, when we pass a Java object in the .body() method, it gets automatically serialized into JSON before sending the API request.
-
-Deserialization is the reverse process of serialization. It means converting a JSON or XML response from the API back into a Java object. In simple terms, when we receive a response from the server, instead of reading raw JSON data, we can map that response directly to a Java class (POJO). This makes it easier to extract and validate specific fields like name, id, or status. In Rest Assured, deserialization happens automatically when we use methods like .as(ClassName.class) to convert the response body into a Java object. It helps in writing clean, readable, and easily maintainable test scripts.
-
-3 How do you send a POJO class as a request body in REST Assured?  
-To send a POJO class as a request body in REST Assured, we first create a POJO class that represents our JSON structure — with variables, constructors, and getter-setter methods. Then we create an object of that POJO and simply pass it inside the .body() method. REST Assured automatically converts the POJO object into JSON format before sending the request.
-
-
-4 How do you deserialize JSON response to a POJO in REST Assured?
-In REST Assured, deserialization means converting the JSON response into a Java object. We just create a matching POJO class and use response.as(POJOClass.class). REST Assured handles the conversion internally using the Jackson library
-
-
-5 How do you integrate REST Assured with TestNG or JUnit?
-
-To integrate REST Assured with TestNG, I first add both the REST Assured and TestNG dependencies in the Maven pom.xml file. Then, I create a Java class for my test cases and import both REST Assured and TestNG packages. Inside that class, I use TestNG annotations like @BeforeClass to set up the base URI and @Test to write the actual API test methods using REST Assured.
-
-Finally, I execute the test cases either directly from the IDE or through the testng.xml file, which helps in grouping and managing multiple API test classes. The results are automatically displayed in TestNG’s HTML report.
 
 6 How do you pass Content-Type and Accept headers?
 In REST Assured, I pass the Content-Type and Accept headers to define the type of data I’m sending and the type of data I want in the response. The Content-Type header tells the server the format of the request body, like application/json, and the Accept header tells the server what kind of response format I expect.
@@ -1389,3 +1367,820 @@ given()
     .post("https://example.com/login");
 ```
 So, in short — queryParam() is used mainly for GET requests to filter data in the URL, while param() is more flexible and can adjust based on the request type.
+
+
+
+1 What is REST Assured?
+
+Rest Assured is a Java-based library used for automating RESTful API testing. It provides a simple and readable syntax for sending HTTP requests (like GET, POST, PUT, DELETE) and validating responses without needing to write complex code. It’s built on top of Java and integrates easily with tools like Maven, TestNG, and Jenkins, which makes it suitable for CI/CD pipelines
+Rest Assured provides a simple and powerful way to test REST APIs by sending HTTP requests and validating responses. It supports features like validating status codes, response body, headers, and response time. This makes it one of the most widely used tools for API automation testing.
+
+Rest Assured can be used with multiple programming languages such as Java, Kotlin, Scala, and Groovy. It is especially popular among testers using Java for automation.
+
+In my project, we used Rest Assured to validate backend APIs. It helped us automate test cases for both positive and negative scenarios — for example, verifying response status codes, headers, response body, and JSON schema validation.
+We also parameterized test data using TestNG DataProviders, and integrated Rest Assured scripts with Jenkins for continuous testing after each deployment.
+It’s especially useful because it works seamlessly with JSONPath and XMLPath, which makes it easy to extract and validate data from API responses.
+
+2 List the types of methods used in Rest Assured or What are the API calls you have used.
+
+In my project, I’ve worked with different types of API calls depending on the functionality we were testing. I’ve mainly used GET calls to fetch data from the server, POST calls to create new records like user registration or login, PUT calls to update existing data, and DELETE calls to remove records. Sometimes, I also worked with PATCH calls for partial updates. All these API calls were validated through Rest Assured scripts or Postman, where I checked the status codes, response time, and body validation to ensure the APIs were working as expected.
+
+In Rest Assured, we commonly use different HTTP methods depending on the purpose of our API testing. For example, we use GET to fetch data, POST to create new records, PUT when we need to update the complete data, and PATCH for partial updates. We also use DELETE to remove records from the server. Apart from these, HEAD and OPTIONS methods are sometimes used to check headers and supported methods of an endpoint. So overall, these methods help us validate the full functionality of the API — from creating and updating to fetching and deleting data — ensuring the back-end services work as expected.
+
+3 How to perform API testing using Rest Assured?
+
+In our project, we perform API testing using Rest Assured, which is a Java-based library. First, we set the base URI and then specify the endpoints we want to test. After that, we create a request using methods like given(), where we can pass headers, authentication details, parameters, or request bodies as needed. Then we send the request using HTTP methods like GET, POST, PUT, or DELETE. Once we get the response, we validate it by checking the status code, response body, headers, and response time. We also use TestNG assertions to compare actual and expected results. Finally, we integrate reports using Extent Reports to track the execution results. Overall, Rest Assured makes API testing easier by allowing automation of end-to-end API validation in a simple and readable way.
+
+4 How will you use assertion in api script
+
+In API testing, I use assertions to validate that the actual response matches the expected result. For example, after getting the response using Rest Assured, I verify the status code, response message, or specific values inside the JSON body. I usually use TestNG assertions like Assert.assertEquals() or Rest Assured built-in validations like then().statusCode(200) or then().body("key", equalTo("value")). This helps confirm that the API is behaving as expected and returning the correct data. Basically, assertions act as checkpoints in the script to make sure our test passes only if the response is correct.
+
+5 If you got 500 instead of 200 series what will you do
+If I get a 500 status code instead of a 200, it means there’s a server-side issue. First, I’ll recheck my request details — like the endpoint URL, request body, headers, and parameters — to make sure everything is correct from my end. If everything looks fine, then I’ll capture the request and response logs and share them with the developer team along with the error details. Sometimes, I’ll also use Charles Proxy or Postman console to verify if the request is actually reaching the server and what exact error message is coming in the response body. Basically, I’ll try to identify whether the issue is from the testing side or the backend side before escalating it
+
+6 How do you integrate REST Assured with TestNG or JUnit?
+
+I’ve integrated REST Assured with TestNG to structure my API tests in a proper test framework. Basically, I create a Maven project where I add REST Assured and TestNG dependencies in the pom.xml file. Then, I write my test scripts inside a TestNG class and use @Test annotations to define test cases. REST Assured handles the API request and response part, while TestNG helps in assertions, test grouping, parallel execution, and report generation. This integration makes the framework more reusable and maintainable. Similarly, if we use JUnit, the concept remains the same — only the annotations change like using @Test, @BeforeEach, etc
+
+7 Explain RestAssured BDD approach
+
+In our project, we followed the BDD approach while working with REST Assured because it makes the API test scripts more readable and easy to understand. It mainly follows the Given–When–Then structure, where ‘Given’ is used to define all the preconditions like base URI, headers, or request body, ‘When’ represents the actual API action such as sending a GET, POST, PUT, or DELETE request, and ‘Then’ is used to verify the expected results like status code, response body, or headers. This approach makes the tests more structured and aligns well with TestNG or Cucumber frameworks. It also helps team members — including non-technical ones — easily understand the test flow just by reading the script
+How do you add REST Assured to your project?
+
+8 What is Authentication and authorization
+Authentication is the process of verifying who the user or client is, In simple words, it confirms the identity of the person or system trying to access the API.
+
+In API testing, authentication ensures that only valid users or systems can send requests to the server, When I worked with Postman, I often used different authentication types like Basic Auth, Bearer Token, or API Key depending on the project’s setup.
+
+Authorization, on the other hand, decides what actions an authenticated user is allowed to perform, Once the identity is confirmed, authorization checks whether the user has permission to access certain data or perform specific operations, After login, I might be allowed to view user data (GET request) but not delete it (DELETE request), If I tried to delete without proper permission, I’d get a 403 Forbidden error.
+
+9 Difference between client side error and server side error
+
+The main difference between client-side and server-side errors is based on where the issue occurs. Client-side errors are represented by the 400 series status codes, like 400 Bad Request or 404 Not Found — these usually happen because of a mistake from the client’s end, such as wrong input data, invalid parameters, or missing authentication. On the other hand, server-side errors are shown by 500 series status codes, like 500 Internal Server Error or 503 Service Unavailable — these occur when something goes wrong on the server, such as a crash, exception, or configuration issue. In simple terms, 400 means the client request was incorrect, and 500 means the server failed to process a valid request properly.
+
+10 How do you get the APIs that you need to test or How you get the api calls
+
+I usually get the API calls from the Swagger document or Postman collection that the backend team shares with us. Swagger helps me understand all the available endpoints, their request methods, parameters, and expected responses. Sometimes, if the API details are not fully documented, I use Charles Proxy to capture live API calls from the app and check what requests are being sent to the server.
+
+Once I have the endpoint details, I import them into Postman or use them directly in my Rest Assured scripts for validation. So basically, I either get them from Swagger, Postman collections, or intercept them using Charles Proxy depending on the situation.
+
+11 How you pass the query parameter  in restassured
+In Rest Assured, I usually pass query parameters using the queryParam() method. For example, if I need to pass parameters like page=2 or status=active, I include them before the request method, In this way, the query parameters are automatically appended to the API URL, and it makes the request look cleaner and easy to maintain. In real projects, I sometimes fetch these parameters dynamically from Excel or property files, especially when doing data-driven testing.
+
+12 What is status code
+
+A status code in API testing represents the result of the client’s request to the server. It’s part of the HTTP response and helps testers understand whether the request was successfully processed or if there was an error. These codes are divided into different categories based on their first digit — for example, 2xx indicates success, 4xx indicates client-side errors, and 5xx indicates server-side errors.
+
+13 How you fetch data for api
+
+In my project, I usually fetch API test data from different sources depending on the need. Most of the time, I use an Excel sheet or a properties file to store input data like query parameters, request bodies, or tokens. For Excel, I use the Apache POI library to read values dynamically, which helps in data-driven testing. If the data is small or configuration-based, like base URLs or authentication keys, I keep them in a .properties file and fetch them using the Properties class. In some cases, I also get request payloads from JSON files, especially when dealing with large or complex data structures. This approach keeps my test scripts flexible, reusable, and easy to maintain without hardcoding values.
+
+14 Explain the difference between 'given()', 'when()', and 'then()' in REST Assured.
+The given() part is where I set up all the preconditions, such as headers, authentication details, parameters, request body, or base URI.
+The when() part defines the action or event, meaning the actual API request — like a GET, POST, PUT, or DELETE call.
+The then() part is where I write my validations or assertions, such as checking the response status code, verifying specific fields, or validating response time.
+
+15 What is Authentication standards
+
+Authentication standards are basically methods used to verify the identity of a user or system before giving access to an API. In my experience, I’ve worked with Basic Authentication, where we send the username and password in Base64 format, and Bearer Token or OAuth 2.0, which is more secure and uses a token in the header. I’ve also used API Key Authentication, where an API key is passed in the header or query parameter. These standards help ensure that only authorized users can access the API securely.
+
+16 What are the things present in swagger document
+
+Swagger UI, is basically a detailed and interactive representation of an API. It gives complete information about the API like its title, version, and base URL. It lists all the available endpoints such as /login or /users, along with the supported HTTP methods like GET, POST, PUT, and DELETE. It also shows request parameters, request body structure (usually in JSON), and the type of responses with status codes like 200 or 400. Swagger also includes authentication details, like where to pass tokens or API keys, and even provides example requests and responses. Overall, it helps testers and developers understand and test APIs easily without needing backend access.
+
+17  How do you manage cookies in REST Assured?
+
+In REST Assured, cookies can be managed easily using the built-in methods. When we send a request and the server responds with cookies, we can capture them using Response.getCookies() or Response.getDetailedCookies(). Then, we can pass those cookies in the next request using .cookie() or .cookies() methods.
+
+For example, after login, if the API returns a session cookie, I usually store it and reuse it in subsequent requests to maintain the same session. This helps simulate real user behavior across multiple API calls.
+
+18 Explain how to log requests and responses in REST Assured.
+
+“In REST Assured, logging helps in debugging and understanding the flow of API requests and responses. I usually use methods like .log().all() to print complete details of the request, including headers, parameters, and body. Similarly, I use .then().log().all() to log the full response after execution.
+
+We can also log specific parts using .log().body(), .log().headers(), or .log().status() depending on what we want to see. This logging feature helps a lot during debugging or when a test case fails
+
+
+19 What is api or Do you have knowledge on API?
+ 
+API stands for Application Programming Interface. In simple words, it acts as a bridge that allows two different software systems to communicate with each other. 
+The EdTech mobile apps I tested, when a user logged in or fetched their course content, the app communicated with the backend through APIs. I used tools like Postman to verify these API requests and responses. APIs typically use methods like GET, POST, PUT, and DELETE to perform operations.
+A well-structured API helps us test backend functionality independently from the UI, improves debugging, and ensures smooth data exchange between the client and server systems
+
+
+20 What is difference between JSON and XML
+
+In my experience with API testing, I’ve worked with  mainly JSON but I can tell the major difference XML formats. JSON (JavaScript Object Notation) is a lightweight and easy-to-read format, mainly used in REST APIs. It uses key-value pairs and supports data types like strings, numbers, arrays, and booleans, making it faster to parse and more efficient in terms of data size.
+
+On the other hand, XML (extensible Markup Language) is more structured and tag-based, often used in older or SOAP-based APIs. While XML is more powerful in terms of schema validation and supports comments, it tends to be more verbose and slower to process. Overall, JSON is more common today due to its simplicity and better performance in modern web and mobile applications.
+
+21 How to pass bearer token in RestAssured?
+
+we usually get a Bearer Token after hitting a login or authentication API — for example, by sending credentials (username and password) to an endpoint like /login or /auth. The response returns a token, which we extract dynamically using response.jsonPath().getString("token").
+Then, we pass this token in the header of subsequent API requests using the Authorization key with the value Bearer <token>.
+We normally store this token in a variable or use it in request chaining so that the next requests automatically use the same token.
+This approach simulates how APIs are secured with JWT (JSON Web Token) or OAuth tokens in real projects.
+
+22 what is diff b/w  path parameters and query parameters
+
+The main difference between path parameters and query parameters is how and where they are used in the URL. Path parameters are part of the URL itself and are used to identify a specific resource — for example, /users/101 means user with ID 101. On the other hand, query parameters are added after a ‘?’ in the URL and are mainly used to filter or sort data — like /users?city=Delhi&age=25, So basically, path parameters help locate a specific resource, while query parameters help customize or filter the result
+
+23. What is BDD?
+
+In testing, BDD or Behavior Driven Development is an approach where we focus on testing the behavior of an API or application from the user’s perspective. In REST Assured, we follow the BDD style using given(), when(), and then() methods, which make our test scripts more readable and easy to understand. For example, given() is used to set up preconditions like headers or request body, when() is used to perform the API action such as GET or POST, and then() is used to validate the response. This approach helps in maintaining clear, behavior-based test cases that can be easily understood by both technical and non-technical team members
+
+
+24 How to pass payload in POST request without POJO?
+
+In REST Assured, if I don’t want to use a POJO class, I usually pass the payload in different ways like using a HashMap, a JSONObject, or by directly writing the JSON body as a string. For example, I can create a HashMap with key-value pairs and pass it inside the body, or I can use new JSONObject() to build the request dynamically. In some cases, if the payload is large or frequently reused, I prefer keeping it in an external JSON file and reading it using File or FileReader. This gives flexibility and helps manage payloads without always creating POJO classes.
+
+25 If you don't provide path parameter what happens?
+
+If we don’t provide a required path parameter in the API endpoint, the request will fail because the server won’t know which specific resource we’re trying to access. For example, if the API endpoint is /users/{id} and I send /users/ without the ID, it will usually return a 404 Not Found or 400 Bad Request error. That’s because the path parameter is mandatory for identifying a specific record
+
+26 What is the difference between API and Web Servic
+API and Web Service are closely related, but not the same. An API is a broader concept — it allows two different software systems to communicate with each other. It can work over any protocol like HTTP, HTTPS, or even offline methods. A Web Service, on the other hand, is a specific type of API that works only over the web using network protocols like HTTP or SOAP. In short, all web services are APIs, but not all APIs are web services
+
+
+27 Difference between oauth1.0 and Oauth2.0
+
+OAuth 1.0 and OAuth 2.0 are both authorization frameworks, but OAuth 2.0 is a more advanced and simplified version. In OAuth 1.0, the client and server used complex signature-based authentication, which required both sides to generate and verify cryptographic signatures — making it harder to implement. In OAuth 2.0, it became much simpler and more flexible, as it uses access tokens (like Bearer tokens) instead of signatures. OAuth 2.0 also supports multiple grant types like authorization code, client credentials, and refresh tokens, which makes it more suitable for modern web and mobile applications
+
+
+28 How to handle dynamic parameter in restAssured
+
+In real-time API testing, we often deal with dynamic parameters — like user IDs, tokens, or order IDs — that keep changing with each request. In REST Assured, I usually handle these dynamically by first capturing the value from one API response and then passing it into the next API request. For example, I extract the value using response.jsonPath().get("id") and store it in a variable. Then I use that variable in the next API call, like in the path or query parameter. Sometimes, I also fetch dynamic data from external files like Excel, JSON, or property files when doing data-driven testing. This approach helps to make the tests reusable and handle real-time data efficiently.
+
+29 Tell me difference between basic auth and JWT Token
+In Basic Authentication, we send the username and password encoded in Base64 format with every API request. It’s simple to use but less secure because credentials are exposed in each call.
+
+Whereas in JWT (JSON Web Token), we use a token-based authentication system. After login, the server generates a token, and we use that token in the header (as ‘Authorization: Bearer <token>’) for all subsequent requests. It’s more secure because the username and password aren’t shared repeatedly — only the token is used until it expires, So, Basic Auth is mainly for simple or internal APIs, while JWT is preferred in real-time projects for better security and scalability.”
+
+30 How to validate response body using restAssured
+In REST Assured, I usually validate the response body using assertions with the then() section. After sending the request, I use methods like body() along with Hamcrest matchers to verify specific values. For example, I might write something like then().body("status", equalTo("success")) to check if the response status matches the expected value.
+
+In real-time, I also validate fields like user IDs, names, or messages returned by the API to make sure the response data is correct and in the expected format. Sometimes I convert the response to a string or JSON object and use JSONPath to extract specific values for comparison.
+
+So overall, I use then().body(), JSONPath, or sometimes Java assertions to make sure the API response matches the expected output.
+
+31 How will you use assertion in api scripts
+In my API scripts, I use assertions to validate that the API response is correct and meets the expected result. For example, I use REST Assured assertions with the then() section to check the response status code, headers, and body, This helps me make sure the API is returning the correct status and data. In real-time, I usually validate important fields like user ID, name, or response messages. I also use TestNG assertions like Assert.assertEquals() when I need custom validation logic, So basically, assertions help ensure that the API is behaving as expected and the response data is accurate before marking the test as passed.
+then().statusCode(200).body("message", equalTo("Success"));
+
+32 Difference between then.assertThat and status code
+
+When I use then().assertThat(), it’s a more general way to start writing multiple assertions together. For example, I can write:
+then().assertThat().statusCode(200).body("status", equalTo("success"));Here, I can chain multiple checks like status code, response body, headers, etc., under one assertion block, But if I just write then().statusCode(200), it’s a shorthand way to check only the response status code. It’s simpler when I only want to validate that the API returned 200 or 201, without checking other fields, So basically, then().assertThat() gives me more flexibility for multiple validations, while statusCode() is used when I just want to check the HTTP status.”
+
+
+33 What you validate in backend testing.
+
+In backend testing, I usually validate whether the data flow between the frontend, API, and database is working correctly. I check if the data sent through the API request is correctly stored or updated in the database. For example, after performing a POST or PUT request, I verify the response body, status codes, and database records to make sure the values are correct.
+
+I also validate things like response time, headers, schema structure, error codes, and data integrity. If it’s an e-commerce or learning app, I make sure actions like login, purchase, or course progress are reflecting properly in the backend. Basically, my focus is on ensuring that the API logic and database updates are consistent, accurate, and secure
+
+34 What is the difference between 401 and 403.
+In my experience during API testing using Postman or while validating mobile app backend behavior, I frequently encountered both 401 and 403 status codes, and I always made sure to distinguish between them clearly during debugging and defect logging.
+
+A 401 Unauthorized error typically means that the request has not been applied because it lacks valid authentication credentials. This usually occurs when the bearer token is missing, expired, or invalid. For example, in our language learning platform, if a user tries to fetch their profile without logging in or with an expired token, the backend returns a 401 status code. I used this response to ensure the app properly prompted the user to log in again.
+
+On the other hand, a 403 Forbidden status means that the server understood the request and the user is authenticated, but they do not have permission to perform that specific action. For example, even if a user is logged in, they shouldn’t be able to access premium features like native speaker sessions unless they are a paid subscriber. In this case, I tested by logging in as a free user and intentionally accessing restricted APIs—if the API returned a 403, it confirmed that authorization was correctly implemented.
+
+35 What are all the status codes you have come across in your project and how to handle?
+
+200 Series – Success Codes
+
+These indicate that the request was successfully received, understood, and processed by the server.
+
+| **Code**                              | **Meaning**      | **Explanation / Use Case**                                                                                |
+| ------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| **200 OK**                            | Success          | Request completed successfully and server returned the expected response. Example: Fetching user details. |
+| **201 Created**                       | Resource Created | A new resource has been successfully created. Example: Creating a new user account.                       |
+| **202 Accepted**                      | Request Accepted | The request is accepted but still being processed (asynchronous). Example: File upload queued.            |
+| **203 Non-Authoritative Information** | Partial Info     | Response returned from a third-party or cached source, not directly from the origin server.               |
+| **204 No Content**                    | Success, No Data | Request was successful but there’s no content to return. Example: Deleting a record.                      |
+
+
+300 Series – Redirection Codes
+
+These indicate that further action is needed — like following a redirect to another URL.
+
+| **Code**                               | **Meaning**        | **Explanation / Use Case**                            |
+| -------------------------------------- | ------------------ | ----------------------------------------------------- |
+| **301 Moved Permanently**              | Permanent Redirect | Resource has been permanently moved to a new URL.     |
+| **302 Found (Temporarily Redirected)** | Temporary Redirect | Resource is temporarily available at a different URL. |
+
+
+400 Series – Client Error Codes
+
+These mean there’s an issue with the request sent by the client (like invalid input or missing authorization).
+
+
+| **Code**                       | **Meaning**             | **Explanation / Use Case**                                                              |
+| ------------------------------ | ----------------------- | --------------------------------------------------------------------------------------- |
+| **400 Bad Request**            | Invalid Request         | Server can’t process the request due to syntax or missing data.                         |
+| **401 Unauthorized**           | Authentication Required | Missing or invalid authentication token.                                                |
+| **403 Forbidden**              | Access Denied           | User is authenticated but doesn’t have permission to access the resource.               |
+| **404 Not Found**              | Resource Not Found      | The requested resource doesn’t exist.                                                   |
+| **405 Method Not Allowed**     | Invalid Method          | The HTTP method (GET, POST, etc.) is not allowed for this endpoint.                     |
+| **409 Conflict**               | Request Conflict        | Request conflicts with current state of the resource. Example: Duplicate record.        |
+| **415 Unsupported Media Type** | Wrong Format            | Server doesn’t support the format of the request body (e.g., wrong Content-Type).       |
+| **422 Unprocessable Entity**   | Invalid Data            | The request is well-formed but contains semantic errors. Example: Invalid email format. |
+| **429 Too Many Requests**      | Rate Limit Exceeded     | Too many requests in a short time — throttling applied.                                 |
+| **499 Client Closed Request**  | Client Cancelled        | Client closed the connection before the server could respond.                           |
+
+
+500 Series – Server Error Codes
+These indicate that the server failed to process a valid request due to internal problems.
+
+Code
+
+| **Code**                        | **Meaning**                    | **Explanation / Use Case**                                         |
+| ------------------------------- | ------------------------------ | ------------------------------------------------------------------ |
+| **500 Internal Server Error**   | General Server Error           | The server encountered an unexpected condition.                    |
+| **501 Not Implemented**         | Not Supported                  | The request method or feature is not implemented by the server.    |
+| **502 Bad Gateway**             | Invalid Response from Upstream | The server received an invalid response from another server.       |
+| **503 Service Unavailable**     | Temporary Downtime             | Server is overloaded or down for maintenance.                      |
+| **504 Gateway Timeout**         | Timeout Error                  | The server didn’t receive a response in time from another service. |
+| **599 Network Connect Timeout** | Network Timeout                | The network connection timed out before completing the request.    |
+
+36 What is CRUD
+
+CRUD basically stands for Create, Read, Update, and Delete — which are the four main operations we perform on data in any application or API. In simple terms, Create is used to add new data (using a POST request), Read is used to retrieve data (using GET), Update is used to modify existing data (using PUT or PATCH), and Delete is used to remove data (using DELETE). So, whenever we perform API testing, these CRUD operations form the base to verify if the API is correctly handling data at every level.
+
+37 1 Difference between put, patch and post.
+In my project, while working on API testing , I frequently dealt with POST, PUT, and PATCH methods for different operations, and I learned how each one is used based on the business requirement.
+
+POST (Create):
+I used POST requests whenever new data needed to be created. For example, when a new user registers on the app, a POST API is triggered to send user details like name, email, selected language, etc., to the backend. I tested this by validating the response code (usually 201 Created) and ensuring the data is correctly stored in the database.
+
+PUT (Update full resource):
+PUT APIs were used when the user wanted to completely update their profile information, such as changing their name, email, or selected language. Since PUT replaces the entire record, I ensured that all previous data fields were updated correctly in the database, not just the modified ones.
+
+PATCH (Update partial resource):
+PATCH was used for partial updates. For example, if the user only wanted to update their email address or progress in one language course, the PATCH API allowed updating just that particular field without affecting other data. I validated that only the intended field changed, and the rest remained unchanged.
+
+38 What's the difference between POST and GET
+
+The main difference between POST and GET lies in how they send and handle data.
+In simple terms, GET is used to retrieve data from the server — it sends information through the URL, which makes it visible in the browser and less secure. It’s mostly used for fetching or viewing data without making any changes to the server.
+On the other hand, POST is used to send data to the server to create or update something — the data is sent in the request body, making it more secure and suitable for sensitive or large amounts of data. So, in API testing, we generally use GET to check if the API is fetching correct data and POST to verify if it’s creating or submitting data properly.
+
+39 Can we create resources with the help of get() or not?
+
+The GET method is only meant for retrieving or reading data from the server — it should never modify or create any resource. It’s considered a safe and idempotent operation, meaning that calling it multiple times won’t change the state of the server.
+To create new resources, we use the POST() method, as it allows us to send data in the request body to the server, which then processes it and creates a new record or resource.
+
+40 Can you use do post using put
+
+No, we shouldn’t use a PUT request to perform a POST operation.
+In real-time API design, both have different purposes — POST is used to create a new resource, while PUT is used to update or replace an existing one. When you send a POST request, the server usually generates a new resource ID, but with PUT, you specify the resource ID yourself and update that specific record.
+So even though technically you can send data with both, using PUT for creation goes against REST principles and can lead to confusion or unexpected results. It’s always best to use POST for creation and PUT for updates.
+
+41 Delete request present in rest-Assured or not.
+
+Yes, the DELETE request is present in Rest Assured.
+In real-time testing, we use the DELETE method when we want to remove a specific resource from the server, like deleting a user or an order by its ID. In Rest Assured, it’s done using the .delete() method, just like we use .get() or .post(), This sends a DELETE request to remove the user with ID 101. It’s mainly used to verify whether the API correctly deletes data and returns the proper response code (like 200, 202, or 204).
+
+42 No, I never hardcode the bearer token directly in my test scripts because it’s not a good practice — tokens can expire and it also creates a security risk, In my framework, I maintain the bearer token in a generic and reusable way. Usually, I create a separate utility class or a method in the BaseClass that fetches the token dynamically before test execution. For example, I first hit the authentication API (like a login endpoint) using Rest Assured to get the token, store it in a variable or a static field, and then reuse that token across all API requests.
+Sometimes, I also keep the token in a properties file or environment file if it’s valid for a longer duration. But in most real-time projects, I prefer fetching it dynamically before test execution using a @BeforeSuite method in TestNG, so it’s available globally for all tests, This makes the framework flexible, avoids manual token updates, and keeps the code more maintainable and secure.
+
+43 How you were getting bearer token from developer?
+
+Usually, I get the bearer token from the backend or developer team, who share either the authentication API details or the token generation API with me. Sometimes, they provide the client ID and client secret, and I use those credentials in Postman or in my automation script to hit the auth endpoint and generate a fresh token dynamically.
+
+In real-time projects, we often automate this process by writing a small utility method in the framework that first calls the token API, extracts the token from the response, and then passes it automatically to all the other API requests — so we don’t have to depend on developers every time.
+
+
+44 when authentication fail what status code you will get
+
+When authentication fails, you typically get a 401 Unauthorized status code, This means the request didn’t include valid authentication credentials — either the token is missing, expired, or invalid. Sometimes, if access is restricted even with valid credentials, you might get a 403 Forbidden, but for failed authentication specifically
+
+45 Explain oauth2.0 and bear token
+
+OAuth 2.0 is an authentication and authorization framework that allows secure access to resources without sharing the user’s actual credentials. Instead of passing a username and password every time, the user first logs in through an authentication server, which then provides an access token — commonly known as a Bearer Token.
+
+This token is then used in every API request as proof of authentication. In REST Assured or Postman, we usually pass it in the header as:
+Authorization: Bearer <token>.
+
+The server verifies this token to ensure the request is coming from an authorized user. The main benefit of OAuth 2.0 and Bearer Token is that it adds a strong security layer — tokens are temporary, can be refreshed, and don’t expose the user’s credentials in every request. This is the most commonly used authentication method in modern APIs.
+
+46 How can you test the performance in API
+
+In real-time projects, I usually test API performance by checking how fast the API responds and whether it can handle multiple requests efficiently. I start by using Postman or REST Assured to manually observe the response time for each request — this gives an initial idea of performance. For more detailed load or stress testing, tools like JMeter or K6 are used to simulate multiple users hitting the same API at once.
+
+In REST Assured, we can also measure performance by capturing the response time using methods like response.time() and validating if it meets the expected SLA (Service Level Agreement). So basically, I check how quickly the API responds under normal and heavy loads, whether it’s consistent, and if the server can handle the expected traffic smoothly.
+
+47 Difference between soap and rest and Which is best and why and which one is more secure?
+
+SOAP and REST are two different approaches for building and testing APIs.
+
+SOAP (Simple Object Access Protocol) is a protocol that uses XML format for sending and receiving data. It’s very strict, has predefined standards, and supports features like security (WS-Security), transactions, and reliable messaging. However, it’s heavier because it requires more bandwidth and is slower due to XML formatting.
+
+REST (Representational State Transfer) is an architectural style that uses lightweight formats like JSON or XML. It works over standard HTTP methods like GET, POST, PUT, and DELETE, making it faster and easier to use. REST APIs are stateless, simple, and widely used in modern web and mobile applications.
+
+In the current industry, REST is preferred over SOAP because it’s faster, easier to implement, supports multiple formats, and integrates smoothly with web and mobile apps. It’s also developer-friendly and better suited for microservices-based applications.
+
+SOAP is generally considered more secure than REST because it has built-in security features like WS-Security, which supports encryption, digital signatures, and authentication at the message level. This makes it suitable for enterprise-level or banking applications where high security is required.
+
+However, REST can also be made secure using HTTPS and OAuth 2.0 for authentication, but those are external implementations, not built-in.
+
+
+48 Why we use api
+
+We use APIs because they act as a bridge between different software systems, allowing them to communicate and share data seamlessly. In simple terms, an API helps one application talk to another without needing to know how the other system works internally.
+
+For example, in testing or automation, we use APIs to validate whether data is being correctly sent to and received from the backend without depending on the user interface. It saves time, makes testing faster, and helps identify backend issues early.
+
+In real-time projects, APIs are used for things like login, fetching product details, making payments, or updating user profiles — all these actions happen through API calls.
+
+
+49 What is api automation approach or What you do in API testing 
+
+In our project, we followed a structured API automation approach to ensure accuracy and maintainability. First, I understood the API documentation (mostly from Swagger) to get details like endpoints, request types, headers, parameters, and responses. Then, I manually tested the APIs in Postman to verify their behavior and confirm expected responses from the backend.
+
+Once the manual verification was done, I automated the same APIs using Rest Assured with TestNG. I created reusable methods for different HTTP methods like GET, POST, PUT, and DELETE, and handled authentication like Bearer Tokens or Basic Auth dynamically from configuration files. I also used data-driven testing by fetching input values from Excel or JSON files, so the same script could run with multiple data sets.
+
+During execution, I validated status codes, response times, headers, and response bodies using assertions to ensure the APIs worked as expected. I also integrated reporting tools like Extent Reports to capture the results clearly.
+
+So, overall in API testing, I verify both functional and non-functional aspects of the API — ensuring that the backend logic, data flow, and integrations between different systems work correctly — and through automation, I make this process faster and repeatable.
+
+50 Why you are doing api testing?
+
+I perform API testing to make sure the communication between the frontend and backend works correctly before the UI is even ready. It helps identify defects early in the development cycle since APIs handle most of the business logic and data transfer between systems.
+
+By testing APIs, I can validate whether the data is sent, processed, and received properly — including checking status codes, response time, headers, and the response body. It also ensures that the application’s functionality is stable, secure, and performs well under different conditions.
+
+In short, API testing helps improve overall product quality, reduces UI-related testing effort, and ensures smooth integration between services before they reach the end user.
+I perform API testing to make sure the communication between the frontend and backend works correctly before the UI is even ready. It helps identify defects early in the development cycle since APIs handle most of the business logic and data transfer between systems.
+
+By testing APIs, I can validate whether the data is sent, processed, and received properly — including checking status codes, response time, headers, and the response body. It also ensures that the application’s functionality is stable, secure, and performs well under different conditions.
+
+In short, API testing helps improve overall product quality, reduces UI-related testing effort, and ensures smooth integration between services before they reach the end user.
+
+
+51 How do you test APIs when requirements are missing?
+
+If proper requirements are not available, I first try to get information from the Swagger document, Postman collections, or by discussing directly with the developers or backend team to understand the API’s purpose and expected behavior.
+
+If that’s also not available, I use tools like Charles Proxy or network logs to capture live API calls made by the application. From there, I analyze the endpoints, request parameters, and responses to understand what each API does.
+
+Once I have that understanding, I perform exploratory API testing — where I send different combinations of input values, observe responses, and validate if the API behaves logically. This helps uncover unexpected behavior or defects even without formal documentation.
+
+So even without requirements, I rely on technical investigation, discussion with the team, and my understanding of the system flow to test APIs effectively.
+
+
+52 What is the purpose of request header?
+
+In API testing, the request header plays an important role because it carries additional information that helps the server understand how to handle the request. For example, it may include authentication details like a bearer token, content type to specify the data format (such as JSON or XML), and accept type to tell the server what kind of response format the client expects. Sometimes, custom headers are also used, depending on the API’s requirements. In simple terms, headers act like instructions or metadata for the request, ensuring secure and proper communication between the client and the server.
+
+53 What is cURL and Which format cURL uses?
+
+In API testing, cURL (Client URL) is a command-line tool used to send requests and receive responses from APIs. It’s mainly used to test endpoints quickly without using tools like Postman. Testers and developers often use it to verify API behavior, check headers, or debug network issues.
+
+cURL uses command-line syntax (text format) and supports various protocols like HTTP, HTTPS, FTP, etc. When interacting with APIs, it usually deals with data in JSON format for request and response bodies, though it can handle XML and form data as well.
+
+54 What is endpoint, Explain it?
+
+An endpoint is the specific URL path on a server where an API request is sent to perform an action or access data.
+
+During my experience with Postman, I understood that an endpoint is the specific path or address in an API where a request is sent to interact with a particular web resource. For example, in REST APIs, the base URL points to the main API service, such as https://api.example.com, and the endpoint is appended to it—like /users, /products, or /orders—to access specific data or functionalities. Each endpoint is linked with an HTTP method such as GET, POST, PUT, or DELETE, depending on the operation being performed. In simple terms, endpoints help testers communicate with the exact feature or resource of the API that needs to be tested or validated.
+
+55 What do you mean by request chaining can u give on example
+
+
+Request chaining in API testing means using the response of one API request as the input for another. It’s mainly used when APIs are dependent on each other. For example, in a real-time scenario, first, I might send a POST request to create a new user, and the response will return a user ID. Then I’ll use that same user ID in the next API, like a GET or PUT request, to fetch or update the user details. This helps to validate the flow between multiple APIs and ensures that the integration between them is working correctly. In Rest Assured, we usually extract the value (like an ID or token) from the first response and pass it dynamically into the next request.
+
+
+56 Why you are using pojo class?
+
+In API testing, I use a POJO (Plain Old Java Object) class to handle request payloads and responses in a clean and structured way. Instead of hardcoding JSON data directly inside the script, I map the data to a POJO class using variables and getters/setters. This makes the code more readable, reusable, and easier to maintain.
+
+For example, when I send a POST request to create a user, I create a POJO class with fields like name, email, and job. I just set the values in that object, and Rest Assured automatically converts it into JSON. It’s very useful when working with large or frequently changing payloads because
+
+57 How will you send dynamic payload for API through Restassured.
+
+In real-time API testing, I usually send dynamic payloads in Rest Assured when the data keeps changing, like user IDs, names, or project details. To handle this, I don’t hardcode the values — instead, I generate them dynamically using Java logic (like Random class or System.currentTimeMillis()) or fetch them from external sources such as Excel, property files, or JSON files.
+
+For example, if I need to send a unique employee name each time, I might create it like "emp_" + System.currentTimeMillis(). Then I pass that value into the JSON body using a HashMap, JSONObject, or POJO class. This approach helps make my scripts more flexible and data-driven, avoiding duplicate or hardcoded data during API automation.
+
+58 Explain how you created a payload for in your project?
+In my project, I created the payloads in different ways depending on the scenario. For simple APIs, I used a HashMap or JSONObject to build the payload directly inside the test script. But for larger or more complex APIs, I used a POJO class to make the payload more structured and reusable.
+
+For example, if I had to create a new employee, I created a POJO class with variables like empName, empId, designation, and used getter and setter methods. Then, in my test script, I just created an object of that POJO class, set the values dynamically, and passed it to the body() method in Rest Assured.
+
+In some cases, I also fetched the test data from Excel sheets or property files using utility methods, so that the payload values
+
+59 How to set request in rest assured?
+
+In Rest Assured, we set up a request using the BDD style — starting with the given() method. Inside given(), we can set all the request details like headers, parameters, authentication, and payload before sending it to the server, Here, inside given(), we define everything required to make the request — like base URI, headers, and body. Then under when(), we specify which HTTP method to use (GET, POST, PUT, DELETE, etc.), and finally under then(), we write validations or assertions.
+
+
+60 Explain how you created a payload for in your project?
+
+In my project, I created payloads in different ways depending on the requirement. For small or simple APIs, I directly created the payload using HashMap or JSONObject inside the test script. But for more complex APIs, I preferred using a POJO class because it made the code cleaner, reusable, and easier to maintain.
+For example, in one of my APIs, I had to create a new user. So, I created a POJO class named UserPojo with variables like name, email, and role, along with getter and setter methods. Then, in my Rest Assured script, I created an object of that POJO class, set values dynamically, and passed it to the body() method — like body(userObject).
+In some cases, I also fetched test data from Excel sheets or property files so that the payload values were not hardcoded and could be easily changed for different test scenarios. This approach made the API testing more flexible and closer to real-time project practices.
+
+
+61 How to modify payload?
+
+In real-time API testing, we often need to modify payloads to test different scenarios or update certain fields dynamically. I usually modify the payload in a few simple ways depending on how it’s created.
+If the payload is created using a POJO class, I just update the field values by using setter methods before sending the request. For example, if I want to change a user’s name or email, I simply call setName("NewName") or setEmail("new@email.com") on the POJO object.
+If the payload is in JSON format, I modify it using a JSONObject or a HashMap by updating the key-value pairs. For example, json.put("name", "UpdatedName") or map.put("age", 30) before passing it into the body.
+Sometimes, when I get the payload from an external file like Excel or a JSON file, I read it and replace only the specific values that need to change. This helps keep the test data dynamic and reusable.
+So, in short, modifying a payload means updating its content — either by using POJO setters, changing JSON key values, or editing external test data — before sending it in the API request.
+
+
+62 What is sslcertification error, Have you ever faced sslCertification error in your project and how you handled SSL certificate exception  ? 
+
+Yes, I’ve faced SSL certification errors during API testing in my project, especially when testing APIs in staging or QA environments where the SSL certificates were either self-signed or not trusted.
+
+Basically, an SSL certification error happens when the server’s SSL certificate cannot be verified by the client — for example, if it’s expired, self-signed, or doesn’t match the domain. This usually prevents the request from going through because the connection isn’t considered secure.
+
+In Rest Assured, when I faced this issue, I handled it by using the method relaxedHTTPSValidation(). This method allows Rest Assured to bypass SSL certificate validation temporarily and continue testing without security interruptions. For example:
+In real-world testing, we usually inform the backend or DevOps team if the SSL issue is from the server side. But for testing purposes, using relaxedHTTPSValidation() is a common and safe workaround in non-production environments.
+
+
+63 Do you know Data Mocking?
+
+Yes, I’m familiar with data mocking. In simple terms, data mocking means creating fake or simulated data that looks real but isn’t fetched from the actual backend or database. It’s mainly used during testing when the real API, server, or database is not ready or available.
+
+For example, in API testing, if the backend endpoint is still under development, we use data mocking tools like Postman Mock Server, WireMock, or Mockoon to simulate API responses. This helps us test how the frontend or automation scripts behave without waiting for the actual API.
+
+In my project, I’ve used data mocking to verify API integration and UI flows even before the backend was fully functional. It helps save time, reduce dependency on backend teams, and ensures early validation of functionalities.
+
+
+63 What is wiremocking and Did you work on wiremocking in api?
+
+WireMock is a tool used for API mocking and service virtualization. It helps simulate (or fake) REST APIs so that we can test our applications even if the real backend or third-party APIs are not available. Basically, it allows us to create mock endpoints that return predefined responses — like success, error, or timeout — without needing the actual server.
+
+For example, if the developer hasn’t completed the API or the third-party service is down, we can use WireMock to mimic those APIs and continue our testing. It also allows us to test how our system behaves under different conditions, like when
+
+64 Have you used excel to for simulating or mocking data?
+
+Yes, I’ve used Excel both for simulating and mocking data during API testing. In some cases, I store test data like user details, product information, or token values in Excel sheets, and then fetch that data dynamically using Apache POI in my Rest Assured scripts. This helps in performing data-driven testing without hardcoding values.
+
+I’ve also used Excel for mocking data, especially when the backend was not ready. For example, if an API expected a response body in a specific format, I created dummy data in Excel to simulate real responses and used that while testing request validation or payload structures. This approach makes the testing more flexible and reusable across different environments.
+
+65 Can you tell how we can create random data using APIs?
+
+Yes, we can create random data in APIs to make testing more dynamic and realistic. In Rest Assured, I usually use Java’s built-in classes like Random, UUID, or even Faker library for this purpose.
+
+For example, if I’m testing a user creation API, instead of hardcoding names or emails, I generate random values like:
+
+``` java
+String randomName = "User_" + UUID.randomUUID().toString();
+String randomEmail = "user" + new Random().nextInt(1000) + "@gmail.com";
+```
+Or if I’m using the Faker library, I can directly get realistic data such as names, addresses, and phone numbers using simple methods like:
+
+```java
+Faker faker = new Faker();
+String name = faker.name().fullName();
+String email = faker.internet().emailAddress();
+```
+This helps ensure that every API request is unique and prevents duplication errors — especially useful when creating resources like users, products, or orders during automation runs. In real-time projects, I often combine this random data with payloads to simulate real-world test scenarios.
+
+
+
+
+66 What is a POJO class in REST Assured?
+
+In REST Assured, a POJO class stands for Plain Old Java Object. It’s basically a simple Java class that we use to represent the request or response data in a structured way. Instead of writing raw JSON directly in our code, we create a POJO class with variables, constructors, getters, and setters. REST Assured then automatically converts this POJO into JSON when sending the request body and also converts the JSON response back into a POJO object. This makes the code cleaner, easier to maintain, and more readable during API automation.
+
+67 What is serialization and deserialization in API testing? 
+
+Serialization is the process of converting a Java object into a format like JSON or XML so that it can be easily sent over the network. In API testing, we usually use serialization when we need to send request data in JSON format. Instead of manually creating a JSON string, we create a Java object and let the serialization process automatically convert it into JSON. This makes our code cleaner, easier to maintain, and reduces chances of human error. For example, in Rest Assured, when we pass a Java object in the .body() method, it gets automatically serialized into JSON before sending the API request.
+
+Deserialization is the reverse process of serialization. It means converting a JSON or XML response from the API back into a Java object. In simple terms, when we receive a response from the server, instead of reading raw JSON data, we can map that response directly to a Java class (POJO). This makes it easier to extract and validate specific fields like name, id, or status. In Rest Assured, deserialization happens automatically when we use methods like .as(ClassName.class) to convert the response body into a Java object. It helps in writing clean, readable, and easily maintainable test scripts.
+
+67 How do you send a POJO class as a request body in REST Assured?  
+To send a POJO class as a request body in REST Assured, we first create a POJO class that represents our JSON structure — with variables, constructors, and getter-setter methods. Then we create an object of that POJO and simply pass it inside the .body() method. REST Assured automatically converts the POJO object into JSON format before sending the request.
+
+
+68 How do you deserialize JSON response to a POJO in REST Assured?
+In REST Assured, deserialization means converting the JSON response into a Java object. We just create a matching POJO class and use response.as(POJOClass.class). REST Assured handles the conversion internally using the Jackson library
+
+
+69 How do you integrate REST Assured with TestNG or JUnit?
+
+To integrate REST Assured with TestNG, I first add both the REST Assured and TestNG dependencies in the Maven pom.xml file. Then, I create a Java class for my test cases and import both REST Assured and TestNG packages. Inside that class, I use TestNG annotations like @BeforeClass to set up the base URI and @Test to write the actual API test methods using REST Assured.
+
+Finally, I execute the test cases either directly from the IDE or through the testng.xml file, which helps in grouping and managing multiple API test classes. The results are automatically displayed in TestNG’s HTML report.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Explain the main components of a REST Assured test script.
+What are the various HTTP methods supported by REST Assured?
+How do you send a GET request using REST Assured?
+Explain REST Assured method chaining.
+Explain the difference between 'given()', 'when()', and 'then()' in REST Assured.
+ What is the request specification, and how is it initiated?
+How do you handle authentication in REST Assured?
+What is the role of the 'baseURL' and 'basePath' methods in REST Assured?
+ How do you validate responses in REST Assured?
+Describe how to extract data from a response in REST Assured.
+ What is GPath in REST Assured, and how is it used?
+Explain how to handle parameters in REST Assured.
+
+Parameters in REST Assured can be handled using methods like param(), queryParams(), and formParams(). These methods allow you to add parameters to your request, whether they are query parameters, form parameters, or path parameters.
+
+ How do you manage cookies in REST Assured?
+Cookies can be managed using the ‘cookie()’ method for adding cookies to requests and the ‘cookies()’ method for extracting cookies from responses. REST Assured also allows for detailed cookie specifications, including setting their name, value, path, and expiry.
+ Discuss the use of filters in REST Assured.
+Filters in REST Assured are used to intercept and modify requests and responses. They can be used for logging, authentication, or cust
+17. What is JSONPath in REST Assured, and how do you use it?
+JSONPath is a query language for JSON, similar to XPath for XML. In REST Assured, JSONPath expressions are used to extract specific parts from a JSON response. This is done using the ‘JsonPath’ class or the ‘path()’ method in the response.
+
+18. How do you perform path parameterization in REST Assured?
+Path parameterization in REST Assured is done using the ‘pathParam()’ method. This allows for dynamic URLs where certain parts of the path can be set at runtime. For example, given().pathParam(“id”, 123).when().get(“/users/{id}”).
+19. Explain the concept of serialization and deserialization in REST Assured.
+Serialization in REST Assured refers to converting a Java object into a JSON or XML payload to send with a request. Deserialization is the opposite, where a JSON or XML response is converted back into a Java object. This is typically handled automatically by REST Assured using libraries like Jackson or Gson.
+
+20. How do you integrate REST Assured with TestNG or JUnit?
+
+21. Discuss the importance of the ContentType enum in REST Assured.
+The ContentType enum in REST Assured is used to specify the content type of the request and response. It’s important to ensure that the API correctly interprets the data format being sent and received, such as JSON, XML, or HTML.
+
+22. 
+Logging in REST Assured can be done using the ‘log()’ method. You can log requests, responses, or both, and it can be configured to log only when the test fails. This is useful for debugging and verifying the details of API interactions.
+
+
+23. What are the common assertions used in REST Assured?
+
+
+
+
+24 Explain authentication method in restassured
+
+In REST Assured, there are multiple authentication methods available based on how the API is secured. The most common ones are Basic, Digestive, Preemptive, and Bearer Token (OAuth 2.0).
+
+Basic Authentication sends the username and password encoded in Base64 format with each request. It’s simple but less secure unless used over HTTPS.
+
+Preemptive Authentication is a type of Basic Authentication where credentials are sent immediately with the request — so it doesn’t wait for the server’s challenge, which makes it faster.
+
+Digestive Authentication is more secure than Basic because it uses hashing; the credentials aren’t sent directly but in an encrypted form.
+
+Then we have Bearer Token or OAuth 2.0, which is the most commonly used in real-time projects. Here, a token is passed in the request header like Authorization: Bearer <token> to verify the user.
+
+All these methods can be implemented in REST Assured using the .auth() method depending on what kind of authentication the API requires.
+
+
+
+
+
+
+What type of code you write in the API Asked about api's used in project and operations performed on it. Again cross questions on it.
+
+
+
+
+On which Framework did you work on for APIs, POSTMAN or RestAssured?
+
+if you're a developer, can you configure post method to retrieve data from the back-end?
+open notepad and write a get request to fetch a particular invoice id
+
+
+
+now collected
+
+
+
+
+
+
+
+create method to launch the browser which is generic
+
+
+
+
+suppose I have token for authoraization and it expires in one day and I want execute api test scripts every day what is your approach
+in api automation how did you handle dynamic data in post request
+suppose I have 1000 api scripts will you create 1000 pojoclasses for post request(No for complex reqest and handling dynamic data we create pojo classes and for simple post request we have used jsonfiles and hashmaps )
+
+
+
+suppose I have 1000 api scripts will you create 1000 pojoclasses for post request(No for complex reqest and handling dynamic data we create pojo classes and for simple post request we have used jsonfiles and hashmaps )
+
+
+
+
+Others Question
+⁠How did you handle 3rd party api
+
+
+Have you used excel to for simulating or mocking data?
+Can you tell how we can create random data using APIs?
+How u conclude the api defect
+
+What is sign off
+Who will sign off the defect report
+Have 
+
+How u identify backend and frontend issue
+
+Tell me a scenario where you have used put and delete http method in your project
+I give an API What is your approach What all the fields you check for
+I have data in excel and I want to use that data in one request how you fetched the data
+
+suppose I have token for authoraization and it expires in one day and I want execute api test scripts every day what is your approach
+
+what is header part contains in api test cases
+7)what is rate limit
+8)what api contract
+
+
+If I am sending the request for first time through API, the time is less,. But if I send the same type of request again, it is taking more time.. So what are all the possible reasons for it to take more time.
+how to integrates restAssured with ci/cd tool
+Assume that I have a book_title in response body. Write a Restassured script to assert that.
+can you write excel or json code to store the variable from script
+
+
+About schema validation
+API testcases.
+how many module expose to api?
+how many api you have expose?
+
+
+
+
+
+
+
+
+how to handle the response body in API?
+Tell about given() when() then()
+
+Script based
+
+Sample Post request in rest assured program 
+Write the Delete Request for by taking any endpoint.
+Write a post method and fetch the value from the body.
+write script for restAssured api for post method?
+restAssured Use Get Method and Give Endpoint in previous Project
+Write a Script to send Api request and validate the response.
+Gave one url and asked to say which is query and which is path parameter.
+Find the JSONpath for "employeeId": "E003"?
+9.fetch username and password from a JSON file without adding Jackson dependency(deserialization) and put in POST request?
+He gave one response body and asked me to write jsonPath to fetch all the id.
+Write RestAssured code for the POST method.
+Fetch firstName from POST method and use that for PUT method.
+
+
+
+BDD
+Do you know BDD
+What do you know about bdd
+Where you have used bdd
+Do you have any idea about BDD Framework
+whats the flow of BDD
+Do you gerkin language
+
+API
+
+            
+
+
+Did you work on API testing?
+Why u are doing api testing?
+
+
+
+
+
+Validation
+Rest assured employee verification
+
+
+
+
+Authentication and authorization
+
+
+which authentication techniques have you used?
+How you used baerer token in postman and RestAssured?
+How you were handling the token in framework 
+
+
+
+
+
+
+
+Crud operation
+Diff between put and patch with example  
+What all api testing you used to do?
+
+
+
+
+
+
+
+
+status code
+
+
+
+
+Assume there is a web table all datas are dynamic write a xpath for it.
+what is the diff between the verify and assertion
+how did resolve the merge conflicts
+maven command to fetch the dependencies that you have in your project
+framework explanation
+in api automation how did you handle dynamic data in post request
+suppose I have 1000 api scripts will you create 1000 pojoclasses for post request(No for complex reqest and handling dynamic data we create pojo classes and for simple post request we have used jsonfiles and hashmaps )
+3.Where you are used in your project
+4.Explain positive and negative scenario of api
+Given one scenario with nested frame and asked to write script 
+
+How to upload a file write the script 
+How to fetch data from excelsheet
+Occurance of duplicates in a string program, I/p - yr name
+How to find Webtable elements for admin and user
+How u perform Functionality testing in last project
+Exception
+implicit, explicit wait
+Explain End-to-end scenario of your project
+testng annotations
+Have you worked on any payment options.
+If user cancel the product have you return the amount.
+you have tested in all the env and build is released in the production but client found a bug after 5days of the release, how do you handle this situation.
+What is Epic
+explain me agile characteristics
+define a test() funtion to find unique element from the array int a[]={1,3,1,9,0,10,6,4,9,1}; 
+I have written logic by using Linkedhashset but he asked to write logic without using collection. I have Written logic by using Ascii value
+Write a logic to move mouse cursor on the element and click on the 3rd data from the dropdown
+Previous project explanation and asked to explain with 
+I want to delete particular resourse in the DB...Tell me on what bases you will delete the resourse
+Introduce yourself he stopped me while explaining API experience.
+Difference between isDisplayed and isAccessible
+program print no divisible by 2 in an array and add one string and integer.
+adb commands to connect devices,interruption testing, connect to specific device.
+adb commands for install the app. 
+program take two user inputs and give a^b  .
+if logo is not visible on web application which type defect it is ?
+what is join in sql?
+In database Which query you worked on more? Have you work with delete query?
+Have u worked on the bdd framework 
+Difference between git fetch and git merge
+
+
