@@ -1396,6 +1396,7 @@ In our project, we perform API testing using Rest Assured, which is a Java-based
 In API testing, I use assertions to validate that the actual response matches the expected result. For example, after getting the response using Rest Assured, I verify the status code, response message, or specific values inside the JSON body. I usually use TestNG assertions like Assert.assertEquals() or Rest Assured built-in validations like then().statusCode(200) or then().body("key", equalTo("value")). This helps confirm that the API is behaving as expected and returning the correct data. Basically, assertions act as checkpoints in the script to make sure our test passes only if the response is correct.
 
 5 If you got 500 instead of 200 series what will you do
+
 If I get a 500 status code instead of a 200, it means there’s a server-side issue. First, I’ll recheck my request details — like the endpoint URL, request body, headers, and parameters — to make sure everything is correct from my end. If everything looks fine, then I’ll capture the request and response logs and share them with the developer team along with the error details. Sometimes, I’ll also use Charles Proxy or Postman console to verify if the request is actually reaching the server and what exact error message is coming in the response body. Basically, I’ll try to identify whether the issue is from the testing side or the backend side before escalating it
 
 6 How do you integrate REST Assured with TestNG or JUnit?
@@ -1408,9 +1409,11 @@ In our project, we followed the BDD approach while working with REST Assured bec
 How do you add REST Assured to your project?
 
 8 What is Authentication and authorization
+
+
 Authentication is the process of verifying who the user or client is, In simple words, it confirms the identity of the person or system trying to access the API.
 
-In API testing, authentication ensures that only valid users or systems can send requests to the server, When I worked with Postman, I often used different authentication types like Basic Auth, Bearer Token, or API Key depending on the project’s setup.
+In API testing, authentication ensures that only valid users or systems can send requests to the server, I often used different authentication types like Basic Auth, Auth 2.0, Bearer Token, or API Key depending on the project’s setup.
 
 Authorization, on the other hand, decides what actions an authenticated user is allowed to perform, Once the identity is confirmed, authorization checks whether the user has permission to access certain data or perform specific operations, After login, I might be allowed to view user data (GET request) but not delete it (DELETE request), If I tried to delete without proper permission, I’d get a 403 Forbidden error.
 
@@ -1424,7 +1427,8 @@ I usually get the API calls from the Swagger document or Postman collection that
 
 Once I have the endpoint details, I import them into Postman or use them directly in my Rest Assured scripts for validation. So basically, I either get them from Swagger, Postman collections, or intercept them using Charles Proxy depending on the situation.
 
-11 How you pass the query parameter  in restassured
+11 How you pass the query parameter  in restassured.
+
 In Rest Assured, I usually pass query parameters using the queryParam() method. For example, if I need to pass parameters like page=2 or status=active, I include them before the request method, In this way, the query parameters are automatically appended to the API URL, and it makes the request look cleaner and easy to maintain. In real projects, I sometimes fetch these parameters dynamically from Excel or property files, especially when doing data-driven testing.
 
 12 What is status code
