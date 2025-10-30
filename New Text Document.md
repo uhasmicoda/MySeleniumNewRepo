@@ -3434,7 +3434,7 @@ public class ScreenShote {
     }
 }
 ```
-**4 Write and explain the syntax of explicit wait.**
+**5 Write and explain the syntax of explicit wait.**
 
 ```java 
 // Import statements
