@@ -2700,17 +2700,20 @@ What is nbsp and random xpath of Google search bar
 
 To handle multiple windows in Selenium, we use getWindowHandles() and switchTo() methods.
 
-2 When multiple windows or tabs are opened, getWindowHandles() returns a set of all window IDs. We can then use a loop or iterator to switch between them using driver.switchTo().window(windowID).
+Selenium provides getWindowHandle() to fetch the unique ID (handle) of the current window and getWindowHandles() to fetch all opened window handles. By looping through these handles, we can switch to the required window or tab. Once the work is completed, we can switch back to the parent window or continue working in the newly focused window.
+
+2 What happens when new window opens
 
 In Selenium, a window or tab represents a separate browser instance or page that opens while interacting with the application. When a new window or tab is opened, Selenium by default continues to point to the parent window, and it cannot directly interact with elements in the newly opened window. If you try to locate elements without switching, Selenium will throw a NoSuchElementException. To work with elements inside another window or tab, you must first switch the driver’s focus from the parent window to the desired child window using driver.switchTo().window(windowHandle). Once the focus is switched, you can interact with the elements inside that window normally. After completing the operations, it is important to switch back to the parent window using driver.switchTo().window(parentHandle) to continue working on the original page.
 
 Selenium provides getWindowHandle() to fetch the unique ID (handle) of the current window and getWindowHandles() to fetch all opened window handles. By looping through these handles, we can switch to the required window or tab. Once the work is completed, we can switch back to the parent window or continue working in the newly focused window.
 
-3What does getWindowHandle() return, and how is it used in window switching scenarios?
+3 What does getWindowHandle() return, and how is it used in window switching scenarios?
 
 getWindowHandle() returns a unique ID (or handle) of the current browser window as a String. Each window opened by Selenium WebDriver has its own unique handle. This method is usually used when I want to store the parent window’s handle before switching to another window, so that I can come back to the original one later. For example, I first get the parent window handle using driver.getWindowHandle(), then switch to the child window using driver.switchTo().window(handleId) when required.
 
 4 What does getWindowHandles() return, and when would you use it over getWindowHandle()?
+
 getWindowHandles() returns a set of all unique window IDs that are currently open. I use this method when there are multiple browser windows or tabs opened during test execution. By iterating through the set of window handles, I can switch to each one and perform specific actions — for example, verifying a popup message or interacting with an external page opened in a new tab.
 
 5 What is the difference between getWindowHandle() and getWindowHandles()?
@@ -2729,12 +2732,10 @@ When there are multiple windows open, I get all handles using driver.getWindowHa
 
 The main challenges include timing issues (window not fully loaded), unexpected popups, or multiple windows opening in parallel. To handle these, I use explicit waits before switching, verify the window title after switching, and always store the parent handle to avoid losing control. This helps ensure stability and prevents Selenium from throwing “NoSuchWindowException”.
 
-if I have opened 10windows then I have switch some specific wind write the code and explain
-
-
 9 Can we open multiple tab in same window
 
 Yes, we can open multiple tabs within the same browser window in Selenium. From Selenium 4 onwards, this can be done using the newWindow() method with the WindowType.TAB parameter. For example, we can open one website in the first tab, then use driver.switchTo().newWindow(WindowType.TAB) to open a new tab in the same window and navigate to another website. This feature is helpful when we need to handle multiple pages in the same session, such as verifying links or comparing data between tabs. We can also manage and switch between tabs using getWindowHandles() and switchTo().window(handle) methods.
+if I have opened 10windows then I have switch some specific wind write the code and explain
 
 ## 11 Frames
 
@@ -3335,6 +3336,7 @@ Any other approach to create a branch
 7)Explain about soft assert and hard assert?
 8)How you handled frames?
 9)how you handled alert?
+Tools which are used for RestAssured framework devlopment.
 
 5. What is the Selenium Version that you have been using? Explain what are enhancements in Selenium 4 w.r.to Selenium 3
 6. How do you set up your webdriver in Selenium 3? What has changed in Selenium 4?
