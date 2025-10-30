@@ -1399,14 +1399,14 @@ In API testing, I use assertions to validate that the actual response matches th
 
 If I get a 500 status code instead of a 200, it means there’s a server-side issue. First, I’ll recheck my request details — like the endpoint URL, request body, headers, and parameters — to make sure everything is correct from my end. If everything looks fine, then I’ll capture the request and response logs and share them with the developer team along with the error details. Sometimes, I’ll also use Charles Proxy or Postman console to verify if the request is actually reaching the server and what exact error message is coming in the response body. Basically, I’ll try to identify whether the issue is from the testing side or the backend side before escalating it
 
-6 How do you integrate REST Assured with TestNG or JUnit?
+6 How do you integrate REST Assured with TestNG or JUnit or How do you add REST Assured to your project??
 
 I’ve integrated REST Assured with TestNG to structure my API tests in a proper test framework. Basically, I create a Maven project where I add REST Assured and TestNG dependencies in the pom.xml file. Then, I write my test scripts inside a TestNG class and use @Test annotations to define test cases. REST Assured handles the API request and response part, while TestNG helps in assertions, test grouping, parallel execution, and report generation. This integration makes the framework more reusable and maintainable. Similarly, if we use JUnit, the concept remains the same — only the annotations change like using @Test, @BeforeEach, etc
 
 7 Explain RestAssured BDD approach
 
 In our project, we followed the BDD approach while working with REST Assured because it makes the API test scripts more readable and easy to understand. It mainly follows the Given–When–Then structure, where ‘Given’ is used to define all the preconditions like base URI, headers, or request body, ‘When’ represents the actual API action such as sending a GET, POST, PUT, or DELETE request, and ‘Then’ is used to verify the expected results like status code, response body, or headers. This approach makes the tests more structured and aligns well with TestNG or Cucumber frameworks. It also helps team members — including non-technical ones — easily understand the test flow just by reading the script
-How do you add REST Assured to your project?
+
 
 8 What is Authentication and authorization
 
