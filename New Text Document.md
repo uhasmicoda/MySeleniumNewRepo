@@ -3289,8 +3289,168 @@ If the issue still persists, I debug the screenshot utility method — checking 
 
 
 ## 27 Framework Explanation 
+## Script based practical Question
 
+**1 Write Generic code for Read Data From Excel.**
 
+```java
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.*;
+
+public class ExcelUtility {
+
+    public String getDataFromExcel(String path, String sheet, int indexRow, int indexCell) 
+            throws EncryptedDocumentException, IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        Workbook wb = WorkbookFactory.create(fis);
+        Sheet sh = wb.getSheet(sheet);
+        Row row = sh.getRow(indexRow);
+        String data = row.getCell(indexCell).toString();
+        wb.close();
+        return data;
+    }
+
+    public int getLastRow(String path, String sheet) 
+            throws EncryptedDocumentException, IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        Workbook wb = WorkbookFactory.create(fis);
+        int rowNum = wb.getSheet(sheet).getLastRowNum();
+        wb.close();
+        return rowNum;
+    }
+
+    public void setDataIntoExcel(String path, String sheet, int index, String value) 
+            throws EncryptedDocumentException, IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        Workbook wb = WorkbookFactory.create(fis);
+        Sheet sh = wb.getSheet(sheet);
+        Row row = sh.getRow(index);
+        Cell cell = row.createCell(index);
+        cell.setCellValue(value);
+        wb.close();
+
+        FileOutputStream fos = new FileOutputStream(path);
+        wb.write(fos);
+        wb.close();
+    }
+}
+
+```
+**2 Write Generic Code for Properties Class.**
+
+``` java
+
+public class FileUtility {
+
+    public String getCommonDataFromPropertyFile(String key) throws IOException {
+        FileInputStream fis = new FileInputStream("./commdata.properties");
+        Properties p = new Properties();
+        p.load(fis);
+        return p.getProperty(key);
+    }
+}
+
+FileUtility fUtil = new FileUtility();
+String url = fUtil.getCommonDataFromPropertyFile("url");
+driver.get(url);
+
+```
+**3 Write syntax for taking screenshot of an element.**
+
+``` java
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+
+import java.io.File;
+import java.io.IOException;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+
+public class ElementScreenShot {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.amazon.in/");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement englishBtn = driver.findElement(By.xpath("//div[@class='icp-button']"));
+
+        Thread.sleep(4000);
+        js.executeScript("arguments[0].scrollIntoView(true);", englishBtn);
+
+        File src = englishBtn.getScreenshotAs(OutputType.FILE);
+        File target = new File("./Screenshots/logo1.png");
+        FileHandler.copy(src, target);
+
+        driver.quit();
+    }
+}
+
+```
+**4 Write syntax for taking screenshot of an webpage.**
+
+```java
+
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+
+public class ScreenShote {
+    public static void main(String[] args) throws InterruptedException, IOException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.amazon.in");
+
+        Thread.sleep(6000);
+
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File src = ts.getScreenshotAs(OutputType.FILE);
+        File f = new File("./Screenshots/screenshot.jpeg");
+        FileHandler.copy(src, f);
+
+        driver.quit();
+    }
+}
+```
+**4 Write and explain the syntax of explicit wait.**
+
+```java 
+// Import statements
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+// Create WebDriverWait object with max 10 seconds wait
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+// Wait until the login button is clickable, then click it
+WebElement loginBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("login")));
+loginBtn.click();
+
+```
 how will u upload file and download file
 Which vergion control tool you have used in your project.
 Write the git command to create branch, switch branch.
@@ -3341,3 +3501,7 @@ Tools which are used for RestAssured framework devlopment.
 5. What is the Selenium Version that you have been using? Explain what are enhancements in Selenium 4 w.r.to Selenium 3
 6. How do you set up your webdriver in Selenium 3? What has changed in Selenium 4?
 2. Framework / Tools and Stack
+
+
+
+
