@@ -1507,10 +1507,13 @@ If we don’t provide a required path parameter in the API endpoint, the request
 API and Web Service are closely related, but not the same. An API is a broader concept — it allows two different software systems to communicate with each other. It can work over any protocol like HTTP, HTTPS, or even offline methods. A Web Service, on the other hand, is a specific type of API that works only over the web using network protocols like HTTP or SOAP. In short, all web services are APIs, but not all APIs are web services
 
 
-27 Difference between oauth1.0 and Oauth2.0
+27 Difference between oauth1.0, Oauth2.0 and bearer token
 
-OAuth 1.0 and OAuth 2.0 are both authorization frameworks, but OAuth 2.0 is a more advanced and simplified version. In OAuth 1.0, the client and server used complex signature-based authentication, which required both sides to generate and verify cryptographic signatures — making it harder to implement. In OAuth 2.0, it became much simpler and more flexible, as it uses access tokens (like Bearer tokens) instead of signatures. OAuth 2.0 also supports multiple grant types like authorization code, client credentials, and refresh tokens, which makes it more suitable for modern web and mobile applications
+OAuth 1.0 is more complex because it requires multiple credentials like access key, access secret, client ID, and client secret. It uses cryptographic signatures for every request, which makes it secure but harder to implement and maintain.
 
+On the other hand, OAuth 2.0 is simpler, more flexible, and widely used in modern web and mobile applications. It uses access tokens (typically bearer tokens) instead of complex signatures to authenticate and authorize requests.
+
+As for the Bearer Token, it’s actually a part of OAuth 2.0. Once the user is authenticated successfully, the server issues a bearer token, which is then passed in the request header.
 
 28 How to handle dynamic parameter in restAssured.
 
