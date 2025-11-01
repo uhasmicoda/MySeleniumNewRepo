@@ -1502,7 +1502,8 @@ In REST Assured, if I don’t want to use a POJO class, I usually pass the paylo
 
 If we don’t provide a required path parameter in the API endpoint, the request will fail because the server won’t know which specific resource we’re trying to access. For example, if the API endpoint is /users/{id} and I send /users/ without the ID, it will usually return a 404 Not Found or 400 Bad Request error. That’s because the path parameter is mandatory for identifying a specific record
 
-26 What is the difference between API and Web Servic
+26 What is the difference between API and Web Service
+
 API and Web Service are closely related, but not the same. An API is a broader concept — it allows two different software systems to communicate with each other. It can work over any protocol like HTTP, HTTPS, or even offline methods. A Web Service, on the other hand, is a specific type of API that works only over the web using network protocols like HTTP or SOAP. In short, all web services are APIs, but not all APIs are web services
 
 
