@@ -1511,23 +1511,25 @@ API and Web Service are closely related, but not the same. An API is a broader c
 OAuth 1.0 and OAuth 2.0 are both authorization frameworks, but OAuth 2.0 is a more advanced and simplified version. In OAuth 1.0, the client and server used complex signature-based authentication, which required both sides to generate and verify cryptographic signatures — making it harder to implement. In OAuth 2.0, it became much simpler and more flexible, as it uses access tokens (like Bearer tokens) instead of signatures. OAuth 2.0 also supports multiple grant types like authorization code, client credentials, and refresh tokens, which makes it more suitable for modern web and mobile applications
 
 
-28 How to handle dynamic parameter in restAssured
+28 How to handle dynamic parameter in restAssured.
 
 In real-time API testing, we often deal with dynamic parameters — like user IDs, tokens, or order IDs — that keep changing with each request. In REST Assured, I usually handle these dynamically by first capturing the value from one API response and then passing it into the next API request. For example, I extract the value using response.jsonPath().get("id") and store it in a variable. Then I use that variable in the next API call, like in the path or query parameter. Sometimes, I also fetch dynamic data from external files like Excel, JSON, or property files when doing data-driven testing. This approach helps to make the tests reusable and handle real-time data efficiently.
 
 29 Tell me difference between basic auth and JWT Token
+
 In Basic Authentication, we send the username and password encoded in Base64 format with every API request. It’s simple to use but less secure because credentials are exposed in each call.
 
 Whereas in JWT (JSON Web Token), we use a token-based authentication system. After login, the server generates a token, and we use that token in the header (as ‘Authorization: Bearer <token>’) for all subsequent requests. It’s more secure because the username and password aren’t shared repeatedly — only the token is used until it expires, So, Basic Auth is mainly for simple or internal APIs, while JWT is preferred in real-time projects for better security and scalability.”
 
-30 How to validate response body using restAssured
+30 How to validate response body using restAssured.
+
 In REST Assured, I usually validate the response body using assertions with the then() section. After sending the request, I use methods like body() along with Hamcrest matchers to verify specific values. For example, I might write something like then().body("status", equalTo("success")) to check if the response status matches the expected value.
 
 In real-time, I also validate fields like user IDs, names, or messages returned by the API to make sure the response data is correct and in the expected format. Sometimes I convert the response to a string or JSON object and use JSONPath to extract specific values for comparison.
-
 So overall, I use then().body(), JSONPath, or sometimes Java assertions to make sure the API response matches the expected output.
 
 31 How will you use assertion in api scripts
+
 In my API scripts, I use assertions to validate that the API response is correct and meets the expected result. For example, I use REST Assured assertions with the then() section to check the response status code, headers, and body, This helps me make sure the API is returning the correct status and data. In real-time, I usually validate important fields like user ID, name, or response messages. I also use TestNG assertions like Assert.assertEquals() when I need custom validation logic, So basically, assertions help ensure that the API is behaving as expected and the response data is accurate before marking the test as passed.
 then().statusCode(200).body("message", equalTo("Success"));
 
@@ -1544,6 +1546,7 @@ In backend testing, I usually validate whether the data flow between the fronten
 I also validate things like response time, headers, schema structure, error codes, and data integrity. If it’s an e-commerce or learning app, I make sure actions like login, purchase, or course progress are reflecting properly in the backend. Basically, my focus is on ensuring that the API logic and database updates are consistent, accurate, and secure
 
 34 What is the difference between 401 and 403.
+
 In my experience during API testing using Postman or while validating mobile app backend behavior, I frequently encountered both 401 and 403 status codes, and I always made sure to distinguish between them clearly during debugging and defect logging.
 
 A 401 Unauthorized error typically means that the request has not been applied because it lacks valid authentication credentials. This usually occurs when the bearer token is missing, expired, or invalid. For example, in our language learning platform, if a user tries to fetch their profile without logging in or with an expired token, the backend returns a 401 status code. I used this response to ensure the app properly prompted the user to log in again.
@@ -1595,6 +1598,7 @@ These mean there’s an issue with the request sent by the client (like invalid 
 
 
 500 Series – Server Error Codes
+
 These indicate that the server failed to process a valid request due to internal problems.
 
 Code
@@ -1613,6 +1617,7 @@ Code
 CRUD basically stands for Create, Read, Update, and Delete — which are the four main operations we perform on data in any application or API. In simple terms, Create is used to add new data (using a POST request), Read is used to retrieve data (using GET), Update is used to modify existing data (using PUT or PATCH), and Delete is used to remove data (using DELETE). So, whenever we perform API testing, these CRUD operations form the base to verify if the API is correctly handling data at every level.
 
 37 1 Difference between put, patch and post.
+
 In my project, while working on API testing , I frequently dealt with POST, PUT, and PATCH methods for different operations, and I learned how each one is used based on the business requirement.
 
 POST (Create):
@@ -2075,18 +2080,16 @@ Tell about given() when() then()
 
 Script based
 
-Sample Post request in rest assured program 
-Write the Delete Request for by taking any endpoint.
-Write a post method and fetch the value from the body.
-write script for restAssured api for post method?
-restAssured Use Get Method and Give Endpoint in previous Project
-Write a Script to send Api request and validate the response.
-Gave one url and asked to say which is query and which is path parameter.
+Write a Sample Post request in rest assured program by taking any previous Project endpoint and validate the response..
+Write a Sample Put request in rest assured program by taking any previous Project endpoint and validate the response..
+Write a Sample Delete request in rest assured program by taking any previous Project endpoint and validate the response..
+Write a Sample Delete request in rest assured program by taking any previous Project endpoint and validate the response..
+Write a Sample Post request in rest assured program by taking any endpoint and fetch the value from the body and validate the response.
+Gave one URL and asked to say which is query and which is path parameter.
+Write json Path to fetch all the id from response body.
 Find the JSONpath for "employeeId": "E003"?
-9.fetch username and password from a JSON file without adding Jackson dependency(deserialization) and put in POST request?
-He gave one response body and asked me to write jsonPath to fetch all the id.
-Write RestAssured code for the POST method.
-Fetch firstName from POST method and use that for PUT method.
+Fetch username and password from a JSON file without adding Jackson dependency(deserialization) and put in POST request?
+Fetch first Name from POST method and use that for PUT method.
 
 
 
@@ -2186,5 +2189,6 @@ what is join in sql?
 In database Which query you worked on more? Have you work with delete query?
 Have u worked on the bdd framework 
 Difference between git fetch and git merge
+
 
 
