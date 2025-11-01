@@ -1509,11 +1509,11 @@ API and Web Service are closely related, but not the same. An API is a broader c
 
 27 Difference between oauth1.0, Oauth2.0 and bearer token
 
-OAuth 1.0 is more complex because it requires multiple credentials like access key, access secret, client ID, and client secret. It uses cryptographic signatures for every request, which makes it secure but harder to implement and maintain.
+OAuth 1.0 is more complex because it requires multiple credentials like access key, access secret, client ID, and client secret. It also uses cryptographic signatures for every request, which makes it secure but quite difficult to implement and maintain.
 
-On the other hand, OAuth 2.0 is simpler, more flexible, and widely used in modern web and mobile applications. It uses access tokens (typically bearer tokens) instead of complex signatures to authenticate and authorize requests.
+OAuth 2.0, on the other hand, is simpler, more flexible, and widely used in modern web and mobile applications. It uses access tokens (mostly bearer tokens) instead of complex signatures to authorize API requests.
 
-As for the Bearer Token, it’s actually a part of OAuth 2.0. Once the user is authenticated successfully, the server issues a bearer token, which is then passed in the request header.
+A Bearer Token is actually a part of OAuth 2.0 — once the user is successfully authenticated, the authorization server issues a bearer token, which is then sent in the request header to access protected resources.
 
 28 How to handle dynamic parameter in restAssured.
 
