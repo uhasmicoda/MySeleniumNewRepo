@@ -2299,9 +2299,11 @@ TestNG annotations work by controlling the order and flow of test execution auto
 In TestNG, the dependsOn keyword is used when one test method depends on the successful execution of another. For example, if I have a test for login and another for booking, I can make the booking test depend on the login test. So, if the login fails, the booking test will be skipped automatically. It helps maintain a logical execution flow between dependent test cases.
 
 6 What is dataprovider
+
 In TestNG, a DataProvider is used to run the same test case multiple times with different sets of data. It helps in achieving data-driven testing. For example, if I have a login test that needs to check multiple usernames and passwords, instead of writing separate test cases, I can use a DataProvider to supply all the data. The test will automatically execute once for each data set. It makes testing more efficient and reduces code repetition.
 
 7 How do you make one group depend on another group in TestNG?
+
 In TestNG, we can make one group depend on another group using the dependsOnGroups attribute. This means that the tests in one group will only run after the dependent group has completed successfully. For example, if I have a group named ‘login’ and another named ‘dashboard’, I can make the ‘dashboard’ group depend on the ‘login’ group using @Test(dependsOnGroups = {"login"}). This helps maintain a proper execution flow between related test groups.
 
 8 Other than @Before and @After annotations, what other TestNG annotations have you used in your framework?
@@ -2313,9 +2315,12 @@ The @Test annotation is the main one that marks a method as a test case.
 @Parameters allows passing values from the TestNG XML file to test methods.
 And @DependsOnMethods or @DependsOnGroups are useful for setting dependencies between tests to maintain execution order
 
-9 TestNg Annotations Order of execution like(@BS,@AS,@TEST@BC,@AC,BM,AM,BT,AT).
+9 What is invocationCont
 
-In TestNG, the annotations are executed in a specific order to maintain a structured testing flow. The execution starts with @BeforeSuite, which runs only once before all tests in the entire suite. Next comes @BeforeTest, which executes before any test tag in the TestNG XML file. After that, @BeforeClass runs once before any test method in the current class. Then, @BeforeMethod runs before each individual test method to handle setup tasks like launching a browser or logging in. Once that’s done, the actual @Test method runs. After every test method, @AfterMethod executes to perform cleanup actions like closing the browser or logging out. Then, after all test methods in a class have finished, @AfterClass runs once. Following that, @AfterTest runs after all the test tags in the XML are completed. Finally, @AfterSuite executes once at the end of the entire suite to wrap up final tasks like generating reports.
+In TestNG, the invocationCount attribute is used when you want to run the same test method multiple times automatically without writing it again and again, For example, if you set invocationCount = 3, that particular test method will execute three times continuously during the test run. This is useful when you want to check the stability or consistency of a test, especially for performance testing, retry scenarios, or when verifying that a feature works the same way on multiple executions.
+
+So, in simple terms — invocationCount helps you repeat the same test multiple times with a single line of configuration.
+
 
 10 PRIORITY ORDER OF EXECUTION (-1,-2,0,1).
 
@@ -2324,15 +2329,12 @@ In TestNG, when you assign priorities to test methods using the priority attribu
 For example, a test with priority = -2 will run before one with priority = -1, and a test with priority = -1 will run before priority = 0, followed by priority = 1.
 
 👉 Order of execution:
-priority = -2 → priority = -1 → priority = 0 → priority = 1
+priority = -2 → priority = -1 → priority = 0 → priority = 1, In simple words, the smaller the number, the higher the execution priority.
 
-In simple words, the smaller the number, the higher the execution priority.
+11 TestNg Annotations Order of execution like(@BS,@AS,@TEST@BC,@AC,BM,AM,BT,AT).
 
-11 What is invocationCont
+In TestNG, the annotations are executed in a specific order to maintain a structured testing flow. The execution starts with @BeforeSuite, which runs only once before all tests in the entire suite. Next comes @BeforeTest, which executes before any test tag in the TestNG XML file. After that, @BeforeClass runs once before any test method in the current class. Then, @BeforeMethod runs before each individual test method to handle setup tasks like launching a browser or logging in. Once that’s done, the actual @Test method runs. After every test method, @AfterMethod executes to perform cleanup actions like closing the browser or logging out. Then, after all test methods in a class have finished, @AfterClass runs once. Following that, @AfterTest runs after all the test tags in the XML are completed. Finally, @AfterSuite executes once at the end of the entire suite to wrap up final tasks like generating reports.
 
-In TestNG, the invocationCount attribute is used when you want to run the same test method multiple times automatically without writing it again and again, For example, if you set invocationCount = 3, that particular test method will execute three times continuously during the test run. This is useful when you want to check the stability or consistency of a test, especially for performance testing, retry scenarios, or when verifying that a feature works the same way on multiple executions.
-
-So, in simple terms — invocationCount helps you repeat the same test multiple times with a single line of configuration.
 
 ## 5 POM
 
@@ -2372,7 +2374,7 @@ In POM, we create a separate class for each webpage, store the locators using By
 
 In Page Factory, it’s an advanced version of POM that provides lazy initialization of elements using @FindBy annotations and the PageFactory.initElements() method. It automatically initializes the elements when they are used, reducing code and improving readability.
 
-7 What is the use of constructor POM
+7 What is the use of constructor POM.
 
 
 In Page Object Model (POM), a constructor is used to initialize the web elements and the WebDriver instance for that particular page class, When we create a POM class, we usually define a constructor that takes the WebDriver as a parameter. Inside this constructor, we assign that driver to the local driver variable and initialize all the elements using PageFactory.initElements(driver, this), This ensures that whenever we create an object of the page class in our test, all the elements on that page are properly initialized and ready to use.
@@ -2392,6 +2394,7 @@ On the other hand, PageFactory is a concept in Selenium that helps in implementi
 In short, POM.xml is used for project setup and dependency management, while PageFactory is used for initializing and managing web elements inside page classes in Selenium automation.
 
 10 Can we store the dynamic Xpath in POM class?
+
 Yes, we can store dynamic XPath in a POM (Page Object Model) class, In real-time projects, some elements change dynamically based on user actions or data. To handle such elements, we can use parameterized or dynamic XPath inside the POM class by storing it as a String and replacing the variable part at runtime, For example, we can write a method in the POM class that builds the XPath dynamically:
 
 
