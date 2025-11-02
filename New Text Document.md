@@ -2315,7 +2315,7 @@ The @Test annotation is the main one that marks a method as a test case.
 @Parameters allows passing values from the TestNG XML file to test methods.
 And @DependsOnMethods or @DependsOnGroups are useful for setting dependencies between tests to maintain execution order
 
-9 What is invocationCont
+9 What is invocationCount attribute?
 
 In TestNG, the invocationCount attribute is used when you want to run the same test method multiple times automatically without writing it again and again, For example, if you set invocationCount = 3, that particular test method will execute three times continuously during the test run. This is useful when you want to check the stability or consistency of a test, especially for performance testing, retry scenarios, or when verifying that a feature works the same way on multiple executions.
 
