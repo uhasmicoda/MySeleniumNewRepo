@@ -2124,16 +2124,18 @@ If we make a wrong commit in Git, we can undo it using the git revert command. T
 
 ## 2 MAVEN
 
-1 What is Maven how it Supports in Jenkins.
+
 
 1 What is Maven and what is the use of the Maven?
 
 Maven is a build automation and project management tool mainly used for Java projects. It helps in compiling the source code, running the tests, packaging the application, and generating reports. The main advantage of Maven is dependency management — instead of manually adding jar files, we just declare them in the pom.xml and Maven automatically downloads them from the central repository. It also follows a standard project structure and uses plugins like the Compiler plugin and Surefire plugin to handle builds and test execution. In real-time projects, we use Maven not only to run tests but also to integrate with CI/CD pipelines like Jenkins.
 
 2 Explain Maven life cycle.
+
 In Maven, we use different lifecycle commands. The most common ones are mvn clean to remove the target folder, mvn compile to compile the source code, mvn test to execute test cases, mvn package to build the project into a JAR or WAR, and mvn install to place the package into the local repository. We also use mvn deploy to send the build to a remote repository. Additionally, commands like mvn dependency:tree and mvn help:effective-pom are useful for debugging dependencies.
 
-3 What is the Work process of maven
+3 What is the Work process of maven.
+
 In my experience, Maven plays a very important role in managing Java projects smoothly. It uses a configuration file called pom.xml, where we define the entire structure of the project—like its dependencies, plugins, and build steps. I mostly use it to handle all project dependencies and to automate the build process.
 
 When I run a command like mvn clean install, Maven follows a specific lifecycle. It starts by checking the project structure, then compiles the code, runs tests, and finally packages everything into a .jar or .war file. If needed, it can also deploy the final output to a remote repository.
@@ -2142,7 +2144,7 @@ One thing I really like about Maven is that it takes care of downloading all req
 
 Overall, Maven makes project setup and builds very straightforward. It also works really well with Jenkins. In my projects, I’ve used them together in CI/CD pipelines to automate builds and run regression tests, which has made the whole process much faster and more reliable.
 
-4 Maven command 
+4  What are the Maven commands
 
 | Phase    | Command        | Easy Meaning                   | Technical Meaning                                                                 |
 | -------- | -------------- | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -2160,6 +2162,7 @@ Overall, Maven makes project setup and builds very straightforward. It also work
 I use Maven commands through the command prompt or terminal to perform various build-related tasks. For example, I use mvn clean to delete the target folder and remove previously compiled files, mvn compile to compile the source code, mvn test to run the test cases, mvn package to build the project into a JAR or WAR file, and mvn install to install the package into the local repository. These commands help in automating and managing the entire build and testing process efficiently.
 
 6 What is profiling and why you have used profiling in your maven project.
+
 Profiling in Maven is used to define different configurations for different environments like dev, test, and production within the same project. It allows us to customize settings such as URLs, database connections, or dependencies based on the environment we are working in.
 
 I have used profiling in my Maven project to avoid manual changes in configuration files every time we switch environments. By activating the required profile using a simple command like mvn test -Pdev, the appropriate settings automatically get applied, making the build process smoother and error-free.
@@ -2177,7 +2180,15 @@ mvn package command goes one step further — it compiles the code, runs the tes
 
 In my project, we execute the test cases using Maven commands through the Maven Surefire plugin. I usually use the command mvn test, which automatically identifies and runs all the test cases written in TestNG or JUnit. If I want to run a specific test class, I use mvn -Dtest=ClassName test, and for multiple classes, I can specify them separated by commas. This approach allows me to execute the tests directly from the command line without opening any IDE, making the process faster and more convenient during CI/CD execution.
 
+10 What is the role of maven surefire plugin in your automation framework.
 
+In our automation framework, the Maven Surefire Plugin plays an important role in running the test cases automatically. It’s mainly used to execute test cases written in TestNG or JUnit during the Maven build process. When we run the command like mvn test, the Surefire plugin identifies and runs all the test classes, and then it also generates detailed HTML and XML reports of the test execution.
+
+Basically, it helps in integrating test execution with the build lifecycle — so whenever a build is triggered, the tests run automatically before deployment. This ensures that any failure is caught early in the process.
+
+
+
+10 What is Maven how it Supports in Jenkins.
 
 ## 3 Jenkins
 
