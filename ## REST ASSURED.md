@@ -1527,7 +1527,57 @@ Whereas in JWT (JSON Web Token), we use a token-based authentication system. Aft
 
 30 How to validate response body using restAssured.
 
-In REST Assured, I usually validate the response body using assertions with the then() section. After sending the request, I use methods like body() along with Hamcrest matchers to verify specific values. For example, I might write something like then().body("status", equalTo("success")) to check if the response status matches the expected value.
+In our API testing using Rest Assured, I validate the response body mainly by checking specific keys and their values returned by the API is corret. After sending the request, I extract the response and then use assertions to verify that the data is correct.
+
+In our framework, we use Rest Assured’s in-built validation with the then() and body() methods, but we make it completely data-driven. Before running the test, we fetch all the expected values — like the user’s name, email, and city — from an external source such as an Excel file using our utility class.
+
+Then, in the validation part, we pass those variables instead of hardcoding any data. So for example, we compare the actual response fields like name, email, and address.city with expectedName, expectedEmail, and expectedCity that come dynamically from Excel.
+
+Anther way to validate is that In our framework, once I get the API response, I extract the actual value from the response body — for example, the user’s name — using JsonPath. Then, instead of hardcoding the expected data, I fetch it dynamically from an Excel file through our utility method. Finally, I compare both the actual and expected values using an assertion to make sure the API is returning the correct data.
+
+ 
+``` java 
+Response response = given()
+    .when()
+        .get("https://api.ourapp.com/users/101")
+    .then()
+        .statusCode(200)
+        .extract().response();
+
+String actualName = response.jsonPath().getString("name");
+String expectedName = ExcelUtils.getCellValue("UserData.xlsx", "Sheet1", 1, 0);
+Assert.assertEquals(actualName, expectedName, "User name validation failed");
+```
+``` java
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+import org.testng.annotations.Test;
+
+public class DataDrivenValidation {
+
+    @Test
+    public void validateUserDetails() throws Exception {
+
+        // Fetch expected data dynamically from Excel (using your utility class)
+        String expectedName = ExcelUtils.getCellValue("UserData.xlsx", "Sheet1", 1, 0);
+        String expectedEmail = ExcelUtils.getCellValue("UserData.xlsx", "Sheet1", 1, 1);
+        String expectedCity = ExcelUtils.getCellValue("UserData.xlsx", "Sheet1", 1, 2);
+
+        // API validation using Rest Assured’s in-built method
+        given()
+            .when()
+                .get("https://api.example.com/users/1")
+            .then()
+                .statusCode(200)
+                .body("name", equalTo(expectedName))
+                .body("email", containsString(expectedEmail))
+                .body("address.city", equalTo(expectedCity));
+    }
+}
+```
+
+I use methods like body() along with Hamcrest matchers to verify specific values. For example, I might write something like then().body("status", equalTo("success")) to check if the response status matches the expected value.
 
 In real-time, I also validate fields like user IDs, names, or messages returned by the API to make sure the response data is correct and in the expected format. Sometimes I convert the response to a string or JSON object and use JSONPath to extract specific values for comparison.
 So overall, I use then().body(), JSONPath, or sometimes Java assertions to make sure the API response matches the expected output.
