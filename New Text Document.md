@@ -3116,7 +3116,8 @@ In Jenkins, I store data files in the project workspace or link them through Git
 ## 19 PropertyFile
 
 1 What is common data
-In automation testing, common data refers to the set of values or inputs that are shared across multiple test cases. These include reusable information like URLs, usernames, passwords, browser names, or environment details that don’t change frequently. Instead of hardcoding these values in every script, I store them in a centralized location such as a properties file, Excel sheet, or configuration class. This makes the framework more maintainable and reduces duplication — so if any common value changes, I just update it once and all related tests automatically use the new data.
+In automation testing, 
+Common data refers to the set of values or inputs that are shared across multiple test cases. These include reusable information like URLs, usernames, passwords, browser names, or environment details that don’t change frequently. Instead of hardcoding these values in every script, I store them in a centralized location such as a properties file, Excel sheet, or configuration class. This makes the framework more maintainable and reduces duplication — so if any common value changes, I just update it once and all related tests automatically use the new data.
 
 2 What is property file
 A property file is a simple text file that stores configuration data in key–value pairs. In Selenium, we use it to store common test data like URL, browser, username, password, and timeouts. This helps avoid hardcoding, makes the framework more flexible, and allows us to maintain environment-specific data easily. If any value changes, we just update the property file instead of touching the code.
@@ -3128,54 +3129,67 @@ In my framework, I implemented a property file to store all the common configura
 
 ## 20 Extent Report
 
-What is Extent Report
+1 What is Extent Report
+
 Extent Reports is a popular reporting library used in automation testing, especially with Selenium and TestNG, to generate interactive and visually appealing HTML reports. Unlike the default TestNG reports, which are basic and plain, Extent Reports allows testers to log detailed test execution steps, including pass/fail status, informational messages, and even screenshots for failed steps. It provides a clear, structured, and easy-to-read report that helps both testers and stakeholders understand the test results quickly.
 
-Have you used Extent Report
+2 Have you used Extent Report
+
 In my projects, I have used Extent Reports to generate HTML reports of Selenium test execution. It shows test steps with pass/fail/skip status, environment details like OS and browser, and I can also attach screenshots for failed cases.
 
-What are advantage of extent reports
+3 What are advantage of extent reports
+
 The advantages of Extent Reports over default TestNG reports are significant. First, it allows step-by-step logging, so you can see exactly which actions passed or failed during the test execution. Second, it supports attaching screenshots, which is very useful for debugging failed test cases. Third, it is highly customizable—you can add themes, set report names, authors, categories, and organize tests by modules or priority. Fourth, it supports multiple tests in a single report, giving a consolidated view of the entire test suite. Overall, Extent Reports makes test reporting more professional, interactive, and easier to analyze compared to standard TestNG reports.
 
 
-How to implement extent reports.
+3 How to implement extent reports.
 
 In my framework, I generate reports using Extent Reports library. First, I create an object of the ExtentSparkReporter class, which is used to define the report file path, title, name, and theme. Then I create an object of the ExtentReports class, which is the main class responsible for report generation, and attach the reporter to it.
 
 For each test case, I use the ExtentTest interface (returned by the createTest() method of ExtentReports) to log execution steps. While logging, I use the Status enum (like Status.INFO, Status.PASS, Status.FAIL, Status.SKIP) to specify the test step result. At the end, I call the flush() method of ExtentReports to actually write all the logs into the HTML report.
 
 
-How have you integrated ExtentReports into your automation framework?
+4 How have you integrated ExtentReports into your automation framework?
+
 I have integrated ExtentReports in my Selenium framework by initializing the ExtentReports and ExtentTest objects in the test setup, usually through a listener or base class. During execution, each test’s status—pass, fail, or skip—is logged using extentTest.log(). Finally, I flush the report at the end of the execution so that the HTML report is generated automatically with detailed logs and screenshots.
 
-What are the key features of ExtentReports that you use?
+5 What are the key features of ExtentReports that you use?
+
 I use ExtentReports for its detailed logging, categorized test reporting, and screenshot integration. It provides a clear visual representation of test results, including pass/fail counts, execution time, and stack traces. I also use features like adding custom logs, system information, and attaching screenshots on failure for better debugging.
 
-How do you configure ExtentReports for parallel execution?
+6 How do you configure ExtentReports for parallel execution?
+
 In parallel execution, I use ThreadLocal with ExtentTest to ensure that each thread logs its own test results without overlapping. This helps maintain report accuracy when multiple tests run simultaneously. Each thread stores a unique ExtentTest instance, and at the end of execution, all reports are merged into a single HTML report.
 
-How do you attach screenshots or logs to test steps in ExtentReport?
+7 How do you attach screenshots or logs to test steps in ExtentReport?
+
 I capture screenshots whenever a test fails and attach them using extentTest.addScreenCaptureFromPath(). Logs are added using extentTest.log(Status.INFO, “message”) to provide step-by-step details. This helps in identifying exactly where and why a test failed.
 
-What information do you include in the report?
+8 What information do you include in the report?
+
 My ExtentReports include details like test name, status, execution time, exception message (if any), and screenshots. I also include environment details such as browser, OS, and tester name using extent.setSystemInfo(). This makes the report complete and easy to analyze.
 
-How do you manage historical reports?
+9 How do you manage historical reports?
+
 I maintain historical reports by saving them with unique names—usually based on the timestamp of execution. In Jenkins, I configure it to archive these reports so that I can compare previous and current build results to track progress and failure trends.
 
-How do you customize ExtentReports?
+10 How do you customize ExtentReports?
+
 I customize reports by setting themes (dark or standard), adding custom logos, project names, and system information. I also add categories or tags to group test cases by module or functionality, making the report more readable and professional.
 
-What challenges have you faced with ExtentReports in CI/CD and how did you solve them?
+11 What challenges have you faced with ExtentReports in CI/CD and how did you solve them?
+
 One challenge I faced was reports not showing up correctly after parallel execution. I solved it by using ThreadLocal and proper synchronization of ExtentTest objects. In Jenkins, I configured the build to generate and archive the report after the test run so it’s easily accessible to the team.
 
-How do you ensure failed tests are clearly reported?
+12 How do you ensure failed tests are clearly reported?
+
 For failed tests, I capture a screenshot, log the exception message, and mark the test with Status.FAIL. The screenshot is attached directly to the failed test node in the report. This makes it easy to identify the cause of the failure quickly.
 
-How do you generate and publish the report in Jenkins?
+13 How do you generate and publish the report in Jenkins?
+
 After test execution, my framework automatically generates the Extent HTML report in the target folder. In Jenkins, I use the “HTML Publisher Plugin” to publish this report after the build completes. This allows stakeholders to view the detailed report directly from Jenkins.
 
-Where you are keeping your reports and what tool you are using for reporting and how you are generating report 
+14 Where you are keeping your reports and what tool you are using for reporting and how you are generating report 
 
 In my automation framework, I use Extent Reports as the reporting tool because it provides a detailed, visually appealing, and interactive HTML report. The reports are automatically generated after every test execution and stored inside a dedicated Reports folder within the project directory (for example, ProjectName/Reports/ExtentReport.html). I have integrated Extent Reports with TestNG Listeners, so whenever a test passes, fails, or gets skipped, the report is automatically updated with the test status, execution time, screenshots for failed cases, and detailed logs. After execution, I can directly open the HTML file in a browser to review the results and share it with the team.
 
