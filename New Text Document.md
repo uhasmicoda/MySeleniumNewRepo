@@ -3067,50 +3067,63 @@ we often use listeners (like ITestListener) along with ThreadLocal to track the 
 To implement UtilityClassObject, you first create a utility class that contains two ThreadLocal variables—one for WebDriver and one for ExtentTest. These variables ensure that each test thread gets its own independent copy, preventing interference when tests run in parallel. You then create getter and setter methods for both WebDriver and ExtentTest so that you can assign and retrieve these objects for the current thread during test execution. In your test setup, you assign a WebDriver instance and an ExtentTest instance to the current thread using the setter methods. During the test, whenever you need to interact with the browser or log test information, you retrieve the thread-specific instances using the getter methods. This approach ensures that each test has its own isolated browser session and reporting object, avoiding conflicts, maintaining clean logs, and making parallel execution reliable and thread-safe.
 
 ## 18 ExcelUtility
+
 1 What is DDT
 
 DDT, or Data-Driven Testing, is a testing approach where test data is separated from the test scripts, allowing the same test case to run multiple times with different sets of input data. In Selenium, we use DDT to validate the functionality of an application for various data combinations without writing multiple test cases.
 
 2 What is ExcelUtility
+
 ExcelUtility is a reusable utility class used in Selenium frameworks to handle reading and writing data from Excel files. In real-time automation projects, test data is usually kept in Excel sheets instead of hardcoding it in the script, because Excel makes it easier to maintain, modify, and share test data. The ExcelUtility class helps us fetch data, count rows, and insert or update values into Excel, which makes data-driven testing possible.
 
 In companies, this is very useful because it supports data-driven testing, where the same test can run with multiple sets of data. It also improves maintainability, since if any value changes, we just update the Excel file instead of changing the code. The utility class centralizes all Excel operations like reading cell data, writing results back, and getting row counts, making it reusable and consistent across the whole framework.
 
-2 How to implement ExcelUtility
+2 How to implement ExcelUtility.
+
 To implement ExcelUtility, first we need to import the Apache POI library because Java itself does not provide direct support for Excel handling. Inside the utility class, we create methods for different operations. For example, a method like getDataFromExcel() is used to fetch cell data from a given sheet by passing the file path, sheet name, row index, and cell index. Similarly, getLastRow() helps us find the total number of rows in a sheet, which is useful when running tests with multiple sets of data. Another method like setDataIntoExcel() allows us to insert or update values into specific cells, which can be used to store test results or logs back into the Excel file.
 
 The actual implementation uses FileInputStream to open the Excel file and WorkbookFactory to create the workbook instance. From there, we fetch the required sheet, row, and cell. To write into Excel, we use FileOutputStream after updating the cell value. It’s also important to close the workbook to avoid memory leaks.
 
 In test cases, instead of hardcoding values like usernames or passwords, we can call ExcelUtility.getDataFromExcel() to fetch them dynamically from the Excel sheet. This makes our framework data-driven, more flexible, and easier to maintain. In short, ExcelUtility separates test data from test scripts, improves reusability, and supports large-scale testing where test data frequently changes.
 
-How do you implement data-driven testing in your automation framework?
+4 How do you implement data-driven testing in your automation framework?
+
 In my framework, I’ve implemented data-driven testing using TestNG’s @DataProvider annotation and external files like Excel or JSON. I fetch input values from these files using Apache POI or simple file readers and pass the data to test methods dynamically. This helps me test multiple data combinations without hardcoding any values in the script.
 
-What types of external data sources have you used for DDT, and why?
+5 What types of external data sources have you used for DDT, and why?
+
 I’ve mainly used Excel sheets with Apache POI, as they are easy for testers or business teams to maintain. I’ve also used CSV and JSON files when working with API or configuration-based data because they are lightweight and easily readable by automation scripts.
 
-What key benefits and challenges have you experienced with DDT?
+6 What key benefits and challenges have you experienced with DDT?
+
 The main benefit is reusability — the same test logic can validate multiple datasets. It also improves coverage and reduces duplication. However, the challenge is maintaining large datasets and ensuring synchronization between the test logic and changing data formats.
 
-How do you design test cases so that data is separated from logic?
+7 How do you design test cases so that data is separated from logic?
+
 I follow a modular framework structure — all test data is stored in a dedicated folder (like Excel or JSON files), and scripts just read data at runtime. This keeps scripts clean, readable, and easier to maintain when data changes.
 
-How do you handle large datasets in DDT without slowing down regression?
+8 How do you handle large datasets in DDT without slowing down regression?
+
 I categorize test data — only critical or high-priority data sets are executed in smoke runs. For full regression, I use batch or parallel execution in TestNG and Jenkins pipelines to balance performance and coverage.
 
-How have you handled negative or invalid data scenarios through DDT?
+9 How have you handled negative or invalid data scenarios through DDT?
+
 I maintain separate sheets or flags for invalid or boundary data. During execution, my test logic reads the “valid/invalid” tag and verifies whether the application shows correct error messages or validation alerts.
 
-What tools or libraries do you use in Java/Selenium to read test data?
+10 What tools or libraries do you use in Java/Selenium to read test data?
+
 For Excel, I use the Apache POI library. For JSON, I use JSON-simple or Jackson. For CSV files, I use the built-in Java IO or OpenCSV. These help me fetch and parse external data easily for runtime execution.
 
-How do you ensure maintainability when test data changes frequently?
+11 How do you ensure maintainability when test data changes frequently?
+
 I store all test data in a single source file and map it with keys. So if a value changes, it only needs to be updated once. I also implement version control (Git) for tracking data changes over time.
 
-How do you integrate DDT with TestNG and ensure each iteration is reported separately?
+12 How do you integrate DDT with TestNG and ensure each iteration is reported separately?
+
 Using @DataProvider, I pass multiple data sets to one test method. TestNG automatically logs each iteration separately in the report, showing which data set passed or failed. I also attach screenshots and logs per iteration for clarity.
 
-How do you manage test data for DDT in CI/CD environments?
+13 How do you manage test data for DDT in CI/CD environments?
+
 In Jenkins, I store data files in the project workspace or link them through Git so that every pipeline run uses the latest version. I also ensure cleanup scripts reset or recreate data before each run to maintain consistency.
 
 ## 19 PropertyFile
@@ -3530,6 +3543,6 @@ Tools which are used for RestAssured framework devlopment.
 6. How do you set up your webdriver in Selenium 3? What has changed in Selenium 4?
 2. Framework / Tools and Stack
 
-
+In my automation framework, I’ve used the concept of threads indirectly through TestNG parallel execution. To handle thread safety, I used ThreadLocal with ExtentTest. Each test runs in its own thread, and ThreadLocal ensures that every thread maintains its own copy of the ExtentTest object. This prevents the reports from overlapping and keeps the logs accurate for each test when multiple tests run simultaneously. So even though I didn’t create threads manually using the Thread class or Runnable interface, this implementation is still based on Java’s threading concept.
 
 
