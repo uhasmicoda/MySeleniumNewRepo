@@ -1705,7 +1705,9 @@ So even though technically you can send data with both, using PUT for creation g
 Yes, the DELETE request is present in Rest Assured.
 In real-time testing, we use the DELETE method when we want to remove a specific resource from the server, like deleting a user or an order by its ID. In Rest Assured, it’s done using the .delete() method, just like we use .get() or .post(), This sends a DELETE request to remove the user with ID 101. It’s mainly used to verify whether the API correctly deletes data and returns the proper response code (like 200, 202, or 204).
 
-42 No, I never hardcode the bearer token directly in my test scripts because it’s not a good practice — tokens can expire and it also creates a security risk, In my framework, I maintain the bearer token in a generic and reusable way. Usually, I create a separate utility class or a method in the BaseClass that fetches the token dynamically before test execution. For example, I first hit the authentication API (like a login endpoint) using Rest Assured to get the token, store it in a variable or a static field, and then reuse that token across all API requests.
+42 Were you hardcoding the bearer token?
+
+No, I never hardcode the bearer token directly in my test scripts because it’s not a good practice — tokens can expire and it also creates a security risk, In my framework, I maintain the bearer token in a generic and reusable way. Usually, I create a separate utility class or a method in the BaseClass that fetches the token dynamically before test execution. For example, I first hit the authentication API (like a login endpoint) using Rest Assured to get the token, store it in a variable or a static field, and then reuse that token across all API requests.
 Sometimes, I also keep the token in a properties file or environment file if it’s valid for a longer duration. But in most real-time projects, I prefer fetching it dynamically before test execution using a @BeforeSuite method in TestNG, so it’s available globally for all tests, This makes the framework flexible, avoids manual token updates, and keeps the code more maintainable and secure.
 
 43 How you were getting bearer token from developer?
@@ -1749,7 +1751,7 @@ SOAP is generally considered more secure than REST because it has built-in secur
 However, REST can also be made secure using HTTPS and OAuth 2.0 for authentication, but those are external implementations, not built-in.
 
 
-48 Why we use api
+48 Why we use API
 
 We use APIs because they act as a bridge between different software systems, allowing them to communicate and share data seamlessly. In simple terms, an API helps one application talk to another without needing to know how the other system works internally.
 
@@ -1758,7 +1760,7 @@ For example, in testing or automation, we use APIs to validate whether data is b
 In real-time projects, APIs are used for things like login, fetching product details, making payments, or updating user profiles — all these actions happen through API calls.
 
 
-49 What is api automation approach or What you do in API testing 
+49 What is API automation approach or What you do in API testing 
 
 In our project, we followed a structured API automation approach to ensure accuracy and maintainability. First, I understood the API documentation (mostly from Swagger) to get details like endpoints, request types, headers, parameters, and responses. Then, I manually tested the APIs in Postman to verify their behavior and confirm expected responses from the backend.
 
@@ -1768,19 +1770,13 @@ During execution, I validated status codes, response times, headers, and respons
 
 So, overall in API testing, I verify both functional and non-functional aspects of the API — ensuring that the backend logic, data flow, and integrations between different systems work correctly — and through automation, I make this process faster and repeatable.
 
-50 Why you are doing api testing?
+50 Why you are doing API testing?
 
 I perform API testing to make sure the communication between the frontend and backend works correctly before the UI is even ready. It helps identify defects early in the development cycle since APIs handle most of the business logic and data transfer between systems.
 
 By testing APIs, I can validate whether the data is sent, processed, and received properly — including checking status codes, response time, headers, and the response body. It also ensures that the application’s functionality is stable, secure, and performs well under different conditions.
 
 In short, API testing helps improve overall product quality, reduces UI-related testing effort, and ensures smooth integration between services before they reach the end user.
-I perform API testing to make sure the communication between the frontend and backend works correctly before the UI is even ready. It helps identify defects early in the development cycle since APIs handle most of the business logic and data transfer between systems.
-
-By testing APIs, I can validate whether the data is sent, processed, and received properly — including checking status codes, response time, headers, and the response body. It also ensures that the application’s functionality is stable, secure, and performs well under different conditions.
-
-In short, API testing helps improve overall product quality, reduces UI-related testing effort, and ensures smooth integration between services before they reach the end user.
-
 
 51 How do you test APIs when requirements are missing?
 
