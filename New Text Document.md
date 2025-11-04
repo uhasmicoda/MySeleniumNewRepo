@@ -3004,8 +3004,7 @@ Listeners in Selenium (especially with TestNG) are special interfaces that “li
 
 2 Why we use listeners in selenium or automation
 
-In TestNG, listeners are implemented to perform actions automatically when certain events occur during the test lifecycle, such as when a test starts, passes, fails, or gets skipped. To implement a listener, we first create a separate class that implements the ITestListener interface and override its methods like onTestStart, onTestSuccess, onTestFailure, and onTestSkipped. For example, in the onTestFailure method, we can add code to capture a screenshot whenever a test fails.
-
+In automation, we use listeners to monitor test execution and perform certain actions automatically when specific events happen — like when a test starts, passes, fails, or gets skipped. For example, I’ve used TestNG listeners such as ITestListener to capture screenshots automatically whenever a test fails and attach them to the report. This helps in debugging and improves the overall reporting process. Basically, listeners help make the framework more dynamic, reduce manual effort, and ensure that repeated actions like logging or screenshot capture happen consistently across all tests.
 
 3 What are the ways to attach listeners
 
