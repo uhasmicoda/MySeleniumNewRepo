@@ -2996,55 +2996,62 @@ Instead of using Robot, I prefer using the Actions class for web-level mouse and
 
 ## 16 Listener
 
-What is Listeners in testNG
+1 What is Listeners in testNG
 
 
 Listeners in Selenium (especially with TestNG) are special interfaces that “listen” to the events that happen during test execution. They act like observers—whenever a specific event occurs (like a test starting, passing, failing, or skipping), the listener automatically executes the code you define for that event.
 
 
-Why we use listeners in selenium or automation
+2 Why we use listeners in selenium or automation
 
 In TestNG, listeners are implemented to perform actions automatically when certain events occur during the test lifecycle, such as when a test starts, passes, fails, or gets skipped. To implement a listener, we first create a separate class that implements the ITestListener interface and override its methods like onTestStart, onTestSuccess, onTestFailure, and onTestSkipped. For example, in the onTestFailure method, we can add code to capture a screenshot whenever a test fails.
 
 
-What are the ways to attach listeners
+3 What are the ways to attach listeners
 
 There are two ways to attach a listener to the test:
 
-1. Using the @Listeners Annotation – This approach allows us to specify the listener class directly at the test class level using the @Listeners annotation. When the test runs, TestNG will automatically trigger the listener methods.
+1 Using the @Listeners Annotation – This approach allows us to specify the listener class directly at the test class level using the @Listeners annotation. When the test runs, TestNG will automatically trigger the listener methods.
 
-2. Using the testng.xml File – In this method, we configure the listener inside the testng.xml file by defining the fully qualified class name under the <listeners> tag. This is useful when we want to apply listeners globally across multiple test classes.
+2 Using the testng.xml File – In this method, we configure the listener inside the testng.xml file by defining the fully qualified class name under the <listeners> tag. This is useful when we want to apply listeners globally across multiple test classes.
 
 After attaching the listener through either of these two ways, when we run the tests, the listener methods will automatically get triggered, and we will see logs such as “Test Started,” “Test Passed,” “Test Failed,” or “Test Skipped” in the console. Apart from logging, listeners can also be enhanced to integrate with reporting tools like Extent Reports or to capture screenshots for failed cases, making them very useful for real-time reporting and debugging.
 
-What are method in listeners
+4 What are method in listeners
 
 The main listener interfaces include ITestListener, ISuiteListener, and IInvokedMethodListener. Among these, the ITestListener interface is most commonly used and provides several useful methods such as onTestStart(), which executes before each test method begins; onTestSuccess(), which runs when a test passes successfully; onTestFailure(), which executes when a test fails and is often used to capture screenshots or log error details; and onTestSkipped(), which runs when a test is skipped. Additionally, onStart() executes before the test suite begins, and onFinish() executes after all tests in the suite have completed. These methods help monitor the test execution flow, generate detailed reports, capture screenshots for failures, and maintain logs, making the Selenium framework more efficient, informative, and maintainable.
 
 
-What are the different listener interfaces available in TestNG and how have you used them?
+5 What are the different listener interfaces available in TestNG and how have you used them?
 → In TestNG, commonly used listeners are ITestListener, ISuiteListener, and IInvokedMethodListener. I’ve mainly used ITestListener for logging, taking screenshots on failure, and updating reports automatically.
 
-Can you describe a scenario in your project where you implemented a custom listener and what value it added?
-→ In my project, I created a custom listener to capture screenshots whenever a test failed and automatically attached them to the extent report. It helped identify UI failures quickly and improved debugging efficiency.
+6 Can you describe a scenario in your project where you implemented a custom listener and what value it added?
 
-How do you configure listeners in TestNG—through annotations or the XML file—and why would you choose one approach over the other?
-→ We can configure listeners using the @Listeners annotation in the test class or by adding them in the testng.xml file. I prefer XML configuration for better reusability across multiple test classes.
+In my project, I created a custom listener to capture screenshots whenever a test failed and automatically attached them to the extent report. It helped identify UI failures quickly and improved debugging efficiency.
 
-Which listener method do you use to capture screenshots on test failure, and how do you integrate that into your report?
-→ I use the onTestFailure() method of ITestListener to capture screenshots when a test fails, then attach the image path or embed it directly into my extent or allure report.
+7 How do you configure listeners in TestNG—through annotations or the XML file—and why would you choose one approach over the other?
 
-How do listeners help when executing tests in parallel or across suites in CI/CD pipelines?
-→ Listeners automatically handle logging, reporting, and failure capture for each test thread, which helps maintain consistent reporting even when tests run in parallel through Jenkins or Maven.
+We can configure listeners using the @Listeners annotation in the test class or by adding them in the testng.xml file. I prefer XML configuration for better reusability across multiple test classes.
 
-Have you ever used the IInvokedMethodListener or IAnnotationTransformer interfaces? If yes, give an example of how they improved your framework.
-→ Yes, I used IAnnotationTransformer to dynamically assign retry logic to failed tests and IInvokedMethodListener to log method-level execution, which helped manage flaky tests more effectively.
+8 Which listener method do you use to capture screenshots on test failure, and how do you integrate that into your report?
 
-What are the differences between an ITestListener and an ISuiteListener in terms of execution context?
-→ ITestListener works at the individual test method level, while ISuiteListener executes before and after the entire test suite, making it useful for setup or cleanup at the suite level.
+I use the onTestFailure() method of ITestListener to capture screenshots when a test fails, then attach the image path or embed it directly into my extent or allure report.
 
-How do you ensure your listener-based logging and reporting remains stable when your tests grow in number or complexity?
-→ I maintain a centralized listener utility class with thread-safe operations and integrate it with Extent Reports, ensuring consistent logs even when tests are executed in parallel or across multiple environments.
+9 How do listeners help when executing tests in parallel or across suites in CI/CD pipelines?
+
+Listeners automatically handle logging, reporting, and failure capture for each test thread, which helps maintain consistent reporting even when tests run in parallel through Jenkins or Maven.
+
+10 Have you ever used the IInvokedMethodListener or IAnnotationTransformer interfaces? If yes, give an example of how they improved your framework.
+
+Yes, I used IAnnotationTransformer to dynamically assign retry logic to failed tests and IInvokedMethodListener to log method-level execution, which helped manage flaky tests more effectively.
+
+11 What are the differences between an ITestListener and an ISuiteListener in terms of execution context?
+
+ITestListener works at the individual test method level, while ISuiteListener executes before and after the entire test suite, making it useful for setup or cleanup at the suite level.
+
+12 How do you ensure your listener-based logging and reporting remains stable when your tests grow in number or complexity?
+
+I maintain a centralized listener utility class with thread-safe operations and integrate it with Extent Reports, ensuring consistent logs even when tests are executed in parallel or across multiple environments.
 
 
 ## 17 UtilityClassObject
