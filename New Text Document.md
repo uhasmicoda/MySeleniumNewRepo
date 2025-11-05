@@ -2546,10 +2546,12 @@ In my experience, the Selenium Java architecture is designed using OOP concepts 
 Assertion in testing is a way to verify that the actual result of the application matches the expected result. In Selenium automation, we use assertions to check conditions like page titles, element visibility, text values, or messages. If the assertion passes, the test continues; if it fails, the test is marked as failed. Assertions basically help us confirm whether the application is working as expected.
 
 2 Why we use Assertion
+
 In my framework, I used assertions to validate whether the actual behavior of the application matches the expected result. For example, I used assertions to check if a page title is correct after login, if a success message appears after submitting a form, or if an element is displayed on the screen. I mostly worked with hard assertions, where the test fails immediately if the condition is not met, but I also used soft assertions when I wanted to continue the execution and collect multiple failures in a single test run. By using assertions properly, I made sure the automation scripts were not only performing actions but also verifying outcomes, which improved the reliability of the tests.
 
 
 3 Explain about soft assert and hard assert?
+
 There are two types of assertions – Hard Assertion and Soft Assertion. Hard assertions stop the test execution immediately when a validation fails, while soft assertions allow the test to continue even after a failure and finally collect all the results when we call assertAll(). The commonly used hard assertion methods like assertEquals, assertTrue, assertFalse are static methods from the TestNG Assert class, which means we can call them directly without creating an object. On the other hand, soft assertions are non-static because we need to create an object of the SoftAssert class to use them, and then finally call assertAll() to validate all collected results. In my framework, I mainly used hard assertions for critical checks like login or navigation validation, and soft assertions when verifying multiple UI elements on the same page without stopping at the first failure.
 
 4 What is the difference between verify and assert in testing?
@@ -2607,34 +2609,44 @@ When dealing with dynamic web elements or slow-loading pages, I use Explicit Wai
 
 In Jenkins, after test execution through Maven or TestNG, I configure post-build actions to publish reports automatically. For example, I use the “Publish HTML Report” plugin or integrate Extent Reports within the project. The report path is provided in Jenkins, and once the build completes, a link appears in the Jenkins dashboard where I can view the full report. This automation helps in continuous monitoring without manual intervention.
 
-How do you handle assertion failures in a CI/CD pipeline when tests are running automatically?
+16 How do you handle assertion failures in a CI/CD pipeline when tests are running automatically?
+
 In CI/CD pipelines, if an assertion fails, the test is automatically marked as failed and reflected in the report. I handle such failures by capturing screenshots, logging the error details, and attaching them to the report for better debugging. I also review whether the failure is due to application issues, timing problems, or test instability, and then fix or re-run accordingly.
 
-What strategy do you use to reduce or manage flaky tests that affect your test reports?
+17 What strategy do you use to reduce or manage flaky tests that affect your test reports?
+
 I reduce flaky tests by implementing proper synchronization using explicit or fluent waits instead of Thread.sleep. I also ensure that test data is consistent, environment is stable, and elements are properly located. For rare flaky cases, I use a retry analyzer in TestNG, which re-runs failed tests before marking them as failed in the report.
 
-How do you ensure that your test reports remain readable and useful when many tests fail simultaneously?
+18 How do you ensure that your test reports remain readable and useful when many tests fail simultaneously?
+
 I use structured reporting tools like Extent Reports or Allure Reports, which provide detailed logs, screenshots, and error stacks for each test. I also categorize tests by module or functionality, so even if multiple tests fail, the report clearly highlights which area of the application is affected.
 
-How do you integrate screenshots, retry logic, or logs into your reports for failures in automated frameworks?
+19 How do you integrate screenshots, retry logic, or logs into your reports for failures in automated frameworks?
+
 In my framework, I use listeners (like TestNG listeners or ITestListener interface) to capture screenshots whenever a test fails. I integrate these with Extent Reports so that each failed test case has an attached image and log message. Retry logic is implemented using TestNG’s RetryAnalyzer to re-run failed tests automatically and show both attempts in the report.
 
-How do you validate that your automation framework is producing accurate coverage and meaningful reports (beyond just pass/fail counts)?
+20 How do you validate that your automation framework is producing accurate coverage and meaningful reports (beyond just pass/fail counts)?
+
 I validate framework effectiveness by checking that reports include key metrics like execution time, environment details, pass/fail ratio, skipped tests, and root cause summaries. I also ensure reports are consistent with manual test results and business priorities — meaning we’re testing high-risk areas effectively.
 
-What metrics do you track in your test reports to identify test or framework health in CI/CD environments?
+21 What metrics do you track in your test reports to identify test or framework health in CI/CD environments?
+
 I track metrics like pass/fail rate, skipped tests, execution time per test suite, and flaky test frequency. These metrics help identify unstable modules, performance bottlenecks, or unreliable tests. Over time, analyzing these reports helps me improve framework stability and CI performance.
 
-How do you debug and resolve test failures shown in your CI report which passed locally but failed in the pipeline?
+22 How do you debug and resolve test failures shown in your CI report which passed locally but failed in the pipeline?
+
 When a test passes locally but fails in CI, I first check for environment differences — like browser versions, network latency, or timing issues. Then I review the CI logs and screenshots to pinpoint the issue. I may add extra waits, handle dynamic elements better, or mock unstable dependencies to make the tests environment-independent.
 
-How do you handle dependencies between tests (assertions) when running in parallel in CI/CD and how this reflects in reports?
+23 How do you handle dependencies between tests (assertions) when running in parallel in CI/CD and how this reflects in reports?
+
 I design my tests to be independent using unique data sets and setup methods. If dependencies exist, I manage them with TestNG groups or “dependsOnMethods.” In reports, each test still appears separately, but the dependency relationship helps in understanding cascaded failures.
 
-When your build pipeline fails due to test assertions, how do you communicate or escalate this to the development or QA team?
+24 When your build pipeline fails due to test assertions, how do you communicate or escalate this to the development or QA team?
+
 When a pipeline fails, I share the detailed test report and failure logs with the development or QA team. I highlight whether it’s a genuine application defect or an automation issue. For recurring failures, I log them in Jira with the evidence (screenshots, logs, and report snippet).
 
-How do you maintain historical test report data so you can track trends (e.g., failure rates, flakiness) over time and use that for continuous improvement?
+25 How do you maintain historical test report data so you can track trends (e.g., failure rates, flakiness) over time and use that for continuous improvement?
+
 I maintain historical reports in Jenkins or a centralized reporting dashboard like Allure or ELK. This helps me compare past executions, identify modules with frequent failures, and measure improvements over time. Trend analysis supports better release decisions and helps in identifying flaky or unstable test areas.
 
 ## 9 Locators 
