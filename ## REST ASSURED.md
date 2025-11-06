@@ -1595,9 +1595,10 @@ then().assertThat().statusCode(200).body("status", equalTo("success"));Here, I c
 
 33 What you validate in backend testing.
 
-In backend testing, I usually validate whether the data flow between the frontend, API, and database is working correctly. I check if the data sent through the API request is correctly stored or updated in the database. For example, after performing a POST or PUT request, I verify the response body, status codes, and database records to make sure the values are correct.
+In backend testing, I mainly validate whether the data flow between the frontend, API, and database is working correctly. After performing actions through the UI or APIs, I check if the data is correctly stored, updated, or deleted in the database. For example, if a user registers through the app, I verify that the same user details are correctly reflected in the database. Similarly, after performing an update or delete operation via API, I confirm that the changes are consistent in the backend.
 
-I also validate things like response time, headers, schema structure, error codes, and data integrity. If it’s an e-commerce or learning app, I make sure actions like login, purchase, or course progress are reflecting properly in the backend. Basically, my focus is on ensuring that the API logic and database updates are consistent, accurate, and secure
+Apart from data validation, I also check response codes, response time, headers, and schema structure to ensure that the APIs are returning accurate and well-structured data. I verify that there are no mismatches between the API response and the database records. Basically, backend testing helps ensure data integrity, accuracy, and consistency across the entire system, confirming that everything works as expected even behind the user interface.
+
 
 34 What is the difference between 401 and 403.
 
@@ -1759,7 +1760,6 @@ For example, in testing or automation, we use APIs to validate whether data is b
 
 In real-time projects, APIs are used for things like login, fetching product details, making payments, or updating user profiles — all these actions happen through API calls.
 
-
 49 What is API automation approach or What you do in API testing 
 
 In our project, we followed a structured API automation approach to ensure accuracy and maintainability. First, I understood the API documentation (mostly from Swagger) to get details like endpoints, request types, headers, parameters, and responses. Then, I manually tested the APIs in Postman to verify their behavior and confirm expected responses from the backend.
@@ -1791,7 +1791,9 @@ So even without requirements, I rely on technical investigation, discussion with
 
 52 What is the purpose of request header?
 
-In API testing, the request header plays an important role because it carries additional information that helps the server understand how to handle the request. For example, it may include authentication details like a bearer token, content type to specify the data format (such as JSON or XML), and accept type to tell the server what kind of response format the client expects. Sometimes, custom headers are also used, depending on the API’s requirements. In simple terms, headers act like instructions or metadata for the request, ensuring secure and proper communication between the client and the server.
+In API testing, the request header plays an important role because it carries additional information that helps the server understand how to handle the request. For example, it may include authentication details like a bearer token, Content-Type to specify the format of the data being sent (such as JSON or XML), and Accept type to tell the server what kind of response format the client expects.
+
+Sometimes, custom headers are also used depending on the API’s requirements, such as tracking IDs or client information. In simple terms, headers act like instructions or metadata for the request, ensuring secure, consistent, and proper communication between the client and the server during API interaction.
 
 53 What is cURL and Which format cURL uses?
 
@@ -1806,7 +1808,6 @@ An endpoint is the specific URL path on a server where an API request is sent to
 During my experience with Postman, I understood that an endpoint is the specific path or address in an API where a request is sent to interact with a particular web resource. For example, in REST APIs, the base URL points to the main API service, such as https://api.example.com, and the endpoint is appended to it—like /users, /products, or /orders—to access specific data or functionalities. Each endpoint is linked with an HTTP method such as GET, POST, PUT, or DELETE, depending on the operation being performed. In simple terms, endpoints help testers communicate with the exact feature or resource of the API that needs to be tested or validated.
 
 55 What do you mean by request chaining can u give on example
-
 
 Request chaining in API testing means using the response of one API request as the input for another. It’s mainly used when APIs are dependent on each other. For example, in a real-time scenario, first, I might send a POST request to create a new user, and the response will return a user ID. Then I’ll use that same user ID in the next API, like a GET or PUT request, to fetch or update the user details. This helps to validate the flow between multiple APIs and ensures that the integration between them is working correctly. In Rest Assured, we usually extract the value (like an ID or token) from the first response and pass it dynamically into the next request.
 
@@ -1824,42 +1825,47 @@ In real-time API testing, I usually send dynamic payloads in Rest Assured when t
 For example, if I need to send a unique employee name each time, I might create it like "emp_" + System.currentTimeMillis(). Then I pass that value into the JSON body using a HashMap, JSONObject, or POJO class. This approach helps make my scripts more flexible and data-driven, avoiding duplicate or hardcoded data during API automation.
 
 58 Explain how you created a payload for in your project?
-In my project, I created the payloads in different ways depending on the scenario. For simple APIs, I used a HashMap or JSONObject to build the payload directly inside the test script. But for larger or more complex APIs, I used a POJO class to make the payload more structured and reusable.
 
-For example, if I had to create a new employee, I created a POJO class with variables like empName, empId, designation, and used getter and setter methods. Then, in my test script, I just created an object of that POJO class, set the values dynamically, and passed it to the body() method in Rest Assured.
+In my project, I created payloads in different ways depending on the requirement. For small or simple APIs, I directly created the payload using HashMap or JSONObject inside the test script. But for more complex APIs, I preferred using a POJO class because it made the code cleaner, reusable, and easier to maintain.
 
-In some cases, I also fetched the test data from Excel sheets or property files using utility methods, so that the payload values
+For example, in one of my APIs, I had to create a new user. So, I created a POJO class named UserPojo with variables like name, email, and role, along with getter and setter methods. Then, in my Rest Assured script, I created an object of that POJO class, set values dynamically, and passed it to the body() method — like body(userObject).
+
+In some cases, I also fetched test data from Excel sheets or property files so that the payload values were not hardcoded and could be easily changed for different test scenarios. This approach made the API testing more flexible and closer to real-time project practices.
 
 59 How to set request in rest assured?
 
-In Rest Assured, we set up a request using the BDD style — starting with the given() method. Inside given(), we can set all the request details like headers, parameters, authentication, and payload before sending it to the server, Here, inside given(), we define everything required to make the request — like base URI, headers, and body. Then under when(), we specify which HTTP method to use (GET, POST, PUT, DELETE, etc.), and finally under then(), we write validations or assertions.
+In Rest Assured, we set up a request using the BDD style — using given(), when(), and then() methods, which make our test scripts more readable and easy to understand. For example, given() is used to set up preconditions like headers or request body, when() is used to perform the API action such as GET or POST, and then() is used to validate the response. This approach helps in maintaining clear, behavior-based test cases that can be easily understood by both technical and non-technical team members.
+
 
 
 60 Explain how you created a payload for in your project?
 
 In my project, I created payloads in different ways depending on the requirement. For small or simple APIs, I directly created the payload using HashMap or JSONObject inside the test script. But for more complex APIs, I preferred using a POJO class because it made the code cleaner, reusable, and easier to maintain.
+
 For example, in one of my APIs, I had to create a new user. So, I created a POJO class named UserPojo with variables like name, email, and role, along with getter and setter methods. Then, in my Rest Assured script, I created an object of that POJO class, set values dynamically, and passed it to the body() method — like body(userObject).
+
 In some cases, I also fetched test data from Excel sheets or property files so that the payload values were not hardcoded and could be easily changed for different test scenarios. This approach made the API testing more flexible and closer to real-time project practices.
 
 
 61 How to modify payload?
 
-In real-time API testing, we often need to modify payloads to test different scenarios or update certain fields dynamically. I usually modify the payload in a few simple ways depending on how it’s created.
-If the payload is created using a POJO class, I just update the field values by using setter methods before sending the request. For example, if I want to change a user’s name or email, I simply call setName("NewName") or setEmail("new@email.com") on the POJO object.
+In real-time API testing, we often need to modify payloads to test different scenarios or update certain fields dynamically. I usually modify the payload in a few simple ways depending on how it’s created,  If the payload is created using a POJO class, I just update the field values by using setter methods before sending the request. For example, if I want to change a user’s name or email, I simply call setName("NewName") or setEmail("new@email.com") on the POJO object.
+
 If the payload is in JSON format, I modify it using a JSONObject or a HashMap by updating the key-value pairs. For example, json.put("name", "UpdatedName") or map.put("age", 30) before passing it into the body.
+
 Sometimes, when I get the payload from an external file like Excel or a JSON file, I read it and replace only the specific values that need to change. This helps keep the test data dynamic and reusable.
-So, in short, modifying a payload means updating its content — either by using POJO setters, changing JSON key values, or editing external test data — before sending it in the API request.
+
 
 
 62 What is sslcertification error, Have you ever faced sslCertification error in your project and how you handled SSL certificate exception  ? 
 
-Yes, I’ve faced SSL certification errors during API testing in my project, especially when testing APIs in staging or QA environments where the SSL certificates were either self-signed or not trusted.
+An SSL certification error happens when the client (like Postman, browser, or Rest Assured) cannot verify the SSL certificate provided by the server. This usually occurs when the server is using an expired, invalid, self-signed, or untrusted SSL certificate.
 
-Basically, an SSL certification error happens when the server’s SSL certificate cannot be verified by the client — for example, if it’s expired, self-signed, or doesn’t match the domain. This usually prevents the request from going through because the connection isn’t considered secure.
+In simple terms, SSL (Secure Sockets Layer) is what ensures secure HTTPS communication between the client and server. So if there’s a problem with the certificate, the connection is considered unsafe, and the request fails with an SSL exception.
 
-In Rest Assured, when I faced this issue, I handled it by using the method relaxedHTTPSValidation(). This method allows Rest Assured to bypass SSL certificate validation temporarily and continue testing without security interruptions. For example:
-In real-world testing, we usually inform the backend or DevOps team if the SSL issue is from the server side. But for testing purposes, using relaxedHTTPSValidation() is a common and safe workaround in non-production environments.
+For example, this often happens when we test APIs in QA or staging environments because those environments usually have self-signed certificates instead of valid ones from a trusted authority.
 
+I used the method relaxedHTTPSValidation(), which allows the test to bypass SSL validation temporarily. For example, I wrote it as, given().relaxedHTTPSValidation().when().get(url). This way, I could continue testing the APIs even when the SSL certificate wasn’t verified. However, in such cases, I always informed the backend or DevOps team about the SSL issue, because in production environments we never ignore SSL validation — it’s only bypassed safely in test environments.
 
 63 Do you know Data Mocking?
 
@@ -1870,11 +1876,13 @@ For example, in API testing, if the backend endpoint is still under development,
 In my project, I’ve used data mocking to verify API integration and UI flows even before the backend was fully functional. It helps save time, reduce dependency on backend teams, and ensures early validation of functionalities.
 
 
-63 What is wiremocking and Did you work on wiremocking in api?
+63 What is Wiremocking and Did you work on wiremocking in api?
 
-WireMock is a tool used for API mocking and service virtualization. It helps simulate (or fake) REST APIs so that we can test our applications even if the real backend or third-party APIs are not available. Basically, it allows us to create mock endpoints that return predefined responses — like success, error, or timeout — without needing the actual server.
+WireMock is an API mocking tool used to simulate REST APIs or web services. In simple terms, it lets you create fake APIs (mock servers) that behave like real ones. This is very useful when the actual API is not ready, unstable, or difficult to access — you can still continue your testing or development work without waiting for it.
 
-For example, if the developer hasn’t completed the API or the third-party service is down, we can use WireMock to mimic those APIs and continue our testing. It also allows us to test how our system behaves under different conditions, like when
+It also allows us to test how our system behaves under different conditions, like when the server returns an error response, when there’s a delay or timeout, or when it sends unexpected data. This helps us verify how stable and reliable our application is, even when real services are unavailable or behaving abnormally.
+
+For example, if the developer hasn’t completed the API or the third-party service is down, we can use WireMock to mimic those APIs and continue our testing. 
 
 64 Have you used excel to for simulating or mocking data?
 
@@ -1884,9 +1892,7 @@ I’ve also used Excel for mocking data, especially when the backend was not rea
 
 65 Can you tell how we can create random data using APIs?
 
-Yes, we can create random data in APIs to make testing more dynamic and realistic. In Rest Assured, I usually use Java’s built-in classes like Random, UUID, or even Faker library for this purpose.
-
-For example, if I’m testing a user creation API, instead of hardcoding names or emails, I generate random values like:
+Yes, we can create random data in APIs to make testing more dynamic and realistic. In Rest Assured, I usually use Java’s built-in classes like Random, UUID, or even Faker library for this purpose, For example, if I’m testing a user creation API, instead of hardcoding names or emails, I generate random values like:
 
 ``` java
 String randomName = "User_" + UUID.randomUUID().toString();
@@ -1902,8 +1908,6 @@ String email = faker.internet().emailAddress();
 This helps ensure that every API request is unique and prevents duplication errors — especially useful when creating resources like users, products, or orders during automation runs. In real-time projects, I often combine this random data with payloads to simulate real-world test scenarios.
 
 
-
-
 66 What is a POJO class in REST Assured?
 
 In REST Assured, a POJO class stands for Plain Old Java Object. It’s basically a simple Java class that we use to represent the request or response data in a structured way. Instead of writing raw JSON directly in our code, we create a POJO class with variables, constructors, getters, and setters. REST Assured then automatically converts this POJO into JSON when sending the request body and also converts the JSON response back into a POJO object. This makes the code cleaner, easier to maintain, and more readable during API automation.
@@ -1914,22 +1918,44 @@ Serialization is the process of converting a Java object into a format like JSON
 
 Deserialization is the reverse process of serialization. It means converting a JSON or XML response from the API back into a Java object. In simple terms, when we receive a response from the server, instead of reading raw JSON data, we can map that response directly to a Java class (POJO). This makes it easier to extract and validate specific fields like name, id, or status. In Rest Assured, deserialization happens automatically when we use methods like .as(ClassName.class) to convert the response body into a Java object. It helps in writing clean, readable, and easily maintainable test scripts.
 
-67 How do you send a POJO class as a request body in REST Assured?  
+68 How do you send a POJO class as a request body in REST Assured?  
+
 To send a POJO class as a request body in REST Assured, we first create a POJO class that represents our JSON structure — with variables, constructors, and getter-setter methods. Then we create an object of that POJO and simply pass it inside the .body() method. REST Assured automatically converts the POJO object into JSON format before sending the request.
-
-
-68 How do you deserialize JSON response to a POJO in REST Assured?
-In REST Assured, deserialization means converting the JSON response into a Java object. We just create a matching POJO class and use response.as(POJOClass.class). REST Assured handles the conversion internally using the Jackson library
-
 
 69 How do you integrate REST Assured with TestNG or JUnit?
 
-To integrate REST Assured with TestNG, I first add both the REST Assured and TestNG dependencies in the Maven pom.xml file. Then, I create a Java class for my test cases and import both REST Assured and TestNG packages. Inside that class, I use TestNG annotations like @BeforeClass to set up the base URI and @Test to write the actual API test methods using REST Assured.
-
-Finally, I execute the test cases either directly from the IDE or through the testng.xml file, which helps in grouping and managing multiple API test classes. The results are automatically displayed in TestNG’s HTML report.
+I’ve integrated REST Assured with TestNG to structure my API tests in a proper test framework. Basically, I create a Maven project where I add REST Assured and TestNG dependencies in the pom.xml file. Then, I write my test scripts inside a TestNG class and use @Test annotations to define test cases. REST Assured handles the API request and response part, while TestNG helps in assertions, test grouping, parallel execution, and report generation. This integration makes the framework more reusable and maintainable. Similarly, if we use JUnit, the concept remains the same — only the annotations change like using @Test, @BeforeEach, etc
 
 
+70 What is the request specification, and how is it initiated?
 
+In Rest Assured, a Request Specification is used to define all the common request details that we send repeatedly for multiple API calls — such as the base URI, base path, headers, authentication, query parameters, or content type. Instead of writing these details again and again in every test, we create a RequestSpecification object once and reuse it across all requests.
+
+We usually initialize it using the RequestSpecBuilder class or directly through Rest Assured’s given() method. For example, we can create a reusable specification like this:
+
+```java
+
+RequestSpecification reqSpec = new RequestSpecBuilder()
+        .setBaseUri("https://api.example.com")
+        .addHeader("Content-Type", "application/json")
+        .build();
+``` 
+```java
+given().spec(reqSpec).when().get("/users").then().statusCode(200);
+```
+
+
+69 How do you deserialize JSON response to a POJO in REST Assured?
+
+In REST Assured, deserialization means converting the JSON response into a Java object. We just create a matching POJO class and use response.as(POJOClass.class). REST Assured handles the conversion internally using the Jackson library
+
+
+
+
+
+With WireMock, you can define mock endpoints with specific URLs, request methods (like GET, POST), and responses (like status code, headers, and body). For example, you can mock an API /getUser to always return a predefined JSON response. It can be run as a standalone server or integrated with your automation framework using Java or other languages.
+
+In API testing, we use WireMock mainly for stubbing, simulating failures, latency, or different response scenarios. This helps in verifying how our application behaves under different server conditions, even before the real API goes live.
 
 
 
