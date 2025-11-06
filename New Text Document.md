@@ -2227,13 +2227,20 @@ In Jenkins, I integrate Maven by adding the Maven path under Global Tool Configu
 
 7 How do you pass external data from the Jenkins
 
+In my project, we often needed to run the same test cases in different environments or with different configurations, so we passed external data from Jenkins using parameterized builds. I usually define parameters like browser, environment, or URL in Jenkins under the “This project is parameterized” option. When we trigger the job, Jenkins allows us to enter or select those values, and then it passes them to the test execution as system properties using commands like mvn test -Dbrowser=${browser} or -Denvironment=${environment}. Inside my code, I read those values using System.getProperty() so the same script can run on different browsers or environments without changing the code.
+
+
+Sometimes, we also use environment variables for fixed values like credentials or API keys, which can be accessed in code using System.getenv(). In a few cases, we also maintain external property files for large configurations and pass the file path through Jenkins. This approach makes our test execution flexible, reusable, and easily configurable directly from Jenkins.
+
+8 Can you describe how you set up a Jenkins pipeline in your project?
+
 Yes, I have knowledge of building a pipeline in Jenkins. In my project, I created a Jenkins pipeline using a Jenkinsfile, which defines all the stages of the automation process such as build, test, and deploy. I usually configure it in the project’s Git repository so that Jenkins automatically detects the Jenkinsfile when the job runs.
 
 Inside the Jenkinsfile, I define different stages like “Checkout Code,” “Build using Maven,” “Run Test Cases,” and “Deploy to Server.” Each stage runs step by step, making the process transparent and easy to debug. I use declarative pipelines most of the time because they’re easier to maintain and understand.
 
 This pipeline setup helps in achieving continuous integration and continuous deployment (CI/CD), ensuring that every code change is automatically built, tested, and deployed without manual effort.
 
-8 How can you make a job parameterized in Jenkins
+9 How can you make a job parameterized in Jenkins
 
 To make a job parameterized in Jenkins, I enable the “This project is parameterized” option in the job configuration. After enabling it, I can add different types of parameters like String Parameter, Boolean Parameter, Choice Parameter, or File Parameter depending on what I need.
 
@@ -2243,12 +2250,23 @@ This approach makes the Jenkins job more flexible and reusable because I can run
 
 9 How to fetch the report in Jenkins.
 
+To fetch or view reports in Jenkins, I configure post-build actions in my Jenkins job. After the test execution finishes, the reports, including ExtentReports, get generated in my project workspace. In Jenkins, I go to Post-build Actions and use the Publish HTML Report option because ExtentReports are HTML based. Then I provide the report path, usually something like test-output/ExtentReport.html or Reports/ExtentReport/index.html depending on the project structure.
+
+
+Once the build is complete, Jenkins shows an “HTML Report” link on the build page. Since ExtentReports are HTML-based, I can simply click that link to open the Extent Report directly from the Jenkins dashboard. It displays detailed information about the test execution — including pass/fail status, logs, screenshots, and test duration — all in a clean, interactive format.
+
+9 How to fetch the report in Jenkins.
+
 To fetch or view reports in Jenkins, I usually configure post-build actions in my Jenkins job. After the test execution, the reports (like TestNG, JUnit, or Extent reports) are automatically generated in the project workspace.
+
 
 In Jenkins, I go to “Post-build Actions” and select “Publish HTML Reports” or “Publish JUnit test result report” depending on the type of report. I then provide the path of the report folder (for example, target/surefire-reports or test-output).
 
 Once the build is complete, Jenkins shows a “Test Result” or “HTML Report” link on the build page. I can click that link to view the detailed test execution report directly from the Jenkins dashboard.
 
+10 How do you send or share test reports with developers?
+
+In my project, once the test execution is complete, Jenkins automatically generates the test report, such as the Extent Report. I usually configure Jenkins to send an email notification to the development and QA team using the “Editable Email Notification” or “Email Extension” plugin. The report file or link (like the HTML report URL) is attached or included in the email body. This way, developers can directly open the report from their inbox and review the test results, failed test cases, and screenshots. Sometimes, if the report is large, I simply share the Jenkins build link or the Extent Report URL through our project communication channels like Slack or Microsoft Teams. This ensures developers quickly get visibility of test outcomes without manually fetching reports.
 This helps to monitor build results, track failed tests, and share reports with the team easily.
 
 ## 4 TestNg
