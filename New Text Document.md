@@ -3372,6 +3372,77 @@ We use JavaScriptExecutor in automation when certain web elements are not easily
 
 It is especially useful when elements are covered by another layer, not visible on the screen, or when synchronization issues occur. With JavaScriptExecutor, we can scroll into view, highlight elements, get page information like title, URL, domain, or trigger browser actions like navigating back, forward, or showing alerts, In short, JavaScriptExecutor helps improve automation stability and flexibility by directly executing JavaScript code when traditional Selenium methods fail.
 
+
+4 What is JavaScriptExecutor in Selenium and why do we use it?
+
+JavaScriptExecutor is an interface in Selenium that allows us to execute JavaScript code directly in the browser. We use it when normal WebDriver actions like click(), sendKeys(), or scroll fail due to issues such as hidden elements, disabled elements, synchronization problems, or complex DOM structures. It helps as a fallback mechanism to interact with elements that WebDriver cannot handle reliably.
+
+5 How do you create an instance of JavaScriptExecutor?
+
+JavaScriptExecutor is an interface, not a class, so we create its reference by type casting the WebDriver instance.
+
+Syntax:
+JavascriptExecutor js = (JavascriptExecutor) driver;
+
+This shows that the driver object is capable of executing JavaScript.
+
+6 Difference between executeScript() and executeAsyncScript()
+
+executeScript() executes JavaScript synchronously, meaning Selenium waits until the script execution is completed and then continues.
+
+executeAsyncScript() executes JavaScript asynchronously and waits until a callback function is explicitly called. It is mainly used for AJAX calls or long-running JavaScript operations.
+
+7 How do you scroll the page using JavaScriptExecutor?
+
+We can scroll the page using JavaScript when normal scrolling does not work.
+
+Scroll by pixels:
+js.executeScript("window.scrollBy(0,1000)");
+
+Scroll to a specific element:
+js.executeScript("arguments[0].scrollIntoView(true);", element);
+
+Scroll to the bottom of the page:
+js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+8 How do you click an element using JavaScriptExecutor?
+
+When WebDriver’s click() fails due to overlapping elements or DOM issues, we use JavaScriptExecutor.
+
+js.executeScript("arguments[0].click();", element);
+
+This directly triggers the click event on the element.
+
+9 How do you return a value using JavaScriptExecutor?
+
+JavaScriptExecutor can return values like title, text, or attributes from the page.
+
+Example:
+String title = (String) js.executeScript("return document.title;");
+
+We must explicitly use the return keyword in JavaScript.
+
+10 When would you not use JavaScriptExecutor?
+
+JavaScriptExecutor should not be used as a first approach. It bypasses real user interactions and browser validations, which may hide actual UI issues. It should be used only as a fallback when normal WebDriver actions fail.
+
+11 How do you handle dynamic or hard-to-interact elements using JavaScriptExecutor?
+
+JavaScriptExecutor is used when elements are dynamically loaded, hidden, disabled, or outside the viewport. It helps interact with such elements directly through the DOM without relying on standard WebDriver methods.
+
+12 How do you highlight an element using JavaScriptExecutor?
+
+Highlighting is useful for debugging and reporting.
+
+js.executeScript("arguments[0].style.border='3px solid red'", element);
+
+This visually marks the element during execution.
+
+13 What exceptions can occur when using JavaScriptExecutor?
+
+Exceptions that may occur include JavaScript syntax errors, StaleElementReferenceException if the element is no longer attached to the DOM, and runtime JavaScript errors if the element or object is not found. Improper casting or invalid scripts can also cause failures.
+
+
 ## 22 Which tools and technologies did you use in your Selenium framework?
 
 In my current Selenium framework, I’ve used Java 17, which is the latest long-term support version commonly used in the industry. I’m using Selenium 4.13.0 with TestNG 7.11.0 for test execution and reporting structure. For reporting, I’ve integrated Extent Reports version 5.1.1, For Excel data handling, I use Apache POI 5.2.5, and WebDriverManager 5.2.0 for automatic browser driver setup. I also use Apache Commons IO for screenshot utilities and file handling. In case of mobile testing, I work with Appium 8.6.0.
