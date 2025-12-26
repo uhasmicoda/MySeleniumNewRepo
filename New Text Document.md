@@ -2800,7 +2800,7 @@ Relative XPath: It starts with // and locates elements based on attributes, text
 
 A robust locator is one that does not break easily when UI changes. To generate a robust locator, I first prefer ID, name, or unique attributes. If they are not available, I use relative XPath with stable attributes like id, name, placeholder, or aria-label. I avoid using indexes, dynamic attributes, and absolute paths. I also use XPath functions like contains(), starts-with(), and normalize-space() to make locators more reliable.
 
-17 What is &nbsp; and how does it affect XPath?
+17 What is &nbsp and how does it affect XPath?
 
 &nbsp  stands for non-breaking space. It looks like a normal space but Selenium treats it differently. Because of this, text-based XPath may fail. To handle this, we use normalize-space() in XPath, which removes extra spaces and helps in matching text correctly.
 
