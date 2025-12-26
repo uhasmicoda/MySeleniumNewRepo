@@ -2121,10 +2121,63 @@ In a release process, branching helps in managing different stages of developmen
 
 If we make a wrong commit in Git, we can undo it using the git revert command. This command doesn’t delete the commit but instead creates a new commit that reverses the changes from the previous one, keeping history safe. by using git revert <commit_id>.
 
+12 What is git add and git commit?
+
+git add moves changes to the staging area, and git commit saves those changes permanently in the local repository with a message.
+
+13 What is a branch in Git?
+
+A branch is a separate line of development. It allows us to work on features or fixes independently without affecting the main code.
+
+14 Difference between main/master branch and feature branch
+
+The main branch contains stable production-ready code, while feature branches are used for developing new features or bug fixes.
+
+15 How do you create and switch branches?
+
+We create a branch using git branch branchName and switch using git checkout branchName or git switch branchName.
+
+16 What is a merge conflict?
+
+A merge conflict occurs when Git cannot automatically combine changes because the same file and same line were modified differently in two branches. We resolve it manually.
+
+17 Difference between merge and rebase
+
+Merge preserves history and creates a merge commit, while rebase rewrites commit history and makes it linear. Merge is safer for shared branches.
+
+18 What is git pull vs git fetch?
+
+git fetch downloads changes without merging, while git pull fetches and merges changes automatically.
+
+19 What is git clone?
+
+git clone creates a local copy of a remote repository along with its history.
+
+20 How do you undo a commit?
+
+We can undo commits using git reset or git revert, depending on whether the commit is pushed or not.
+
+21 Difference between git reset and git revert
+
+git reset removes commits from history (used locally), while git revert creates a new commit that reverses changes (safe for remote repos).
+
+22 How do you check Git history?
+
+We use git log to view commit history and git log --oneline for a compact view.
+
+23 What is .gitignore?
+
+.gitignore is used to prevent unwanted files like logs, screenshots, or build files from being tracked by Git.
+
+24 What is a stash in Git?
+
+git stash temporarily saves uncommitted changes so we can switch branches without committing.
+
+25 What is HEAD in Git?
+
+HEAD points to the current branch and latest commit we are working on
 
 ## 2 MAVEN
-
-
 
 1 What is Maven and what is the use of the Maven?
 
@@ -2731,12 +2784,25 @@ I choose CSS selectors when I need faster execution and simpler locators, especi
 If an element is present in the DOM but not visible on the screen, I use JavaScriptExecutor to interact with it or to scroll it into view. For example, using ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element); helps make it visible before performing actions.
 Sometimes, I also check whether the element exists in the DOM using findElements(), because it doesn’t throw an exception even if the element is hidden — it just returns an empty list if not found, Additionally, I can verify its visibility by checking element.isDisplayed() — if it returns false, the element exists but is not visible on the UI.
 
-when we use relative xpath
-What is xpath and types of xpath
-How you are going to generate Robust Locator?
-What is nbsp and random xpath of Google search bar
-9.How you are going to generate Robust Locator?
+14 When do we use Relative XPath?
 
+We use relative XPath when we want a short, flexible, and stable locator. It is mainly used when elements do not have unique IDs or when the DOM structure changes frequently. Relative XPath starts with // and searches elements from anywhere in the page, which makes it faster and more maintainable compared to absolute XPath. In real projects, relative XPath is preferred because it reduces script failures.
+
+
+15 What is XPath and what are the types of XPath?
+
+XPath stands for XML Path. It is used in Selenium to locate web elements in the DOM structure of a webpage.
+There are two types of XPath:
+Absolute XPath: It starts from the root node and uses the full path of elements. It is not reliable because any DOM change breaks it.
+Relative XPath: It starts with // and locates elements based on attributes, text, or relationships. This is the most commonly used XPath in automation.
+
+16 How do you generate a Robust Locator?
+
+A robust locator is one that does not break easily when UI changes. To generate a robust locator, I first prefer ID, name, or unique attributes. If they are not available, I use relative XPath with stable attributes like id, name, placeholder, or aria-label. I avoid using indexes, dynamic attributes, and absolute paths. I also use XPath functions like contains(), starts-with(), and normalize-space() to make locators more reliable.
+
+17 What is &nbsp; and how does it affect XPath?
+
+&nbsp; stands for non-breaking space. It looks like a normal space but Selenium treats it differently. Because of this, text-based XPath may fail. To handle this, we use normalize-space() in XPath, which removes extra spaces and helps in matching text correctly.
 
 ## 10 Handling multiple window
 
@@ -2783,16 +2849,20 @@ if I have opened 10windows then I have switch some specific wind write the code 
 
 ## 11 Frames
 
-What is Frames in selenium?
+1 What is Frames in selenium?
 
 In Selenium, a frame (or iframe) is an HTML document that is embedded inside another web page. It acts like a separate webpage within the main page. Elements inside a frame are not part of the main DOM, which means Selenium cannot access them directly. If you try to locate an element inside a frame without switching, Selenium will throw a NoSuchElementException. To work with these elements, you must first switch the driver’s focus from the main page to the desired frame using methods like driver.switchTo().frame(). Once the focus is on the frame, you can locate and interact with elements inside it as usual. After completing the operations, it is important to switch back to the default content using driver.switchTo().defaultContent() to continue interacting with elements on the main page.
 
-How do you switch to a frame in Selenium?
+3 How do you switch to a frame in Selenium?
 
 Selenium provides three ways to switch into a frame: by using the index of the frame, by using the name or ID attribute of the frame, or by using the WebElement of the frame. Once the work inside the frame is completed, we can switch back either to the parent frame or directly to the main page (default content).
 
-How do you come out of a frame and go back to the main page?
+4 How do you come out of a frame and go back to the main page?
 To come out of a frame and return to the main page in Selenium, we use driver.switchTo().defaultContent(). It shifts control from the current frame back to the main web page. If the page has nested frames and we want to go one level up, we use driver.switchTo().parentFrame(). This helps continue actions outside the frame smoothly after working inside it.
+
+5 How do you handle nested frame?
+
+In Selenium, nested frames are frames that exist inside another frame. To handle nested frames, we must switch step by step from the main page to the outer frame first and then into the inner frame using the driver.switchTo().frame() method. Selenium does not allow jumping directly to an inner frame without switching to its parent frame. We can switch using the frame’s index, name or ID, or by locating it as a WebElement. After completing actions inside the inner frame, we can move one level up using driver.switchTo().parentFrame() or return directly to the main page using driver.switchTo().defaultContent(). Proper frame switching is essential because Selenium can interact only with elements present in the currently focused frame.
 
 ## 12 Actions class
 
@@ -2890,6 +2960,7 @@ In companies, the Select class is important because dropdowns are very common in
 If a dropdown is not developed using the <select> tag, then we can’t use the Select class in Selenium. In that case, I handle it by locating and clicking the dropdown element first to open the list of options, and then selecting the desired option using normal locators like XPath or CSS selectors.
 
 For example, I use XPath with text() or contains() functions to identify the option, such as:
+
 ```java
 driver.findElement(By.xpath("//div[@class='dropdown']")).click();
 driver.findElement(By.xpath("//li[text()='Option 2']")).click();
@@ -2908,34 +2979,44 @@ In Selenium, an exception is an error that occurs during the execution of a scri
 
 In Selenium, I’ve encountered several types of exceptions during automation testing, and I handle them based on the situation. The most common one is NoSuchElementException, which occurs when the element is not found in the DOM — usually due to a wrong locator or page not fully loaded, so I fix it by verifying the locator or applying explicit waits. Another is ElementNotInteractableException, which happens when an element is present but not clickable or visible, so I wait until it becomes visible or scroll it into view. I’ve also faced StaleElementReferenceException, especially after page reloads, where I re-locate the element before interacting again. TimeoutException occurs when the expected condition isn’t met within the given time in explicit wait — in that case, I increase the wait or check the condition. Other exceptions I’ve handled include NoSuchFrameException, NoAlertPresentException, and ElementClickInterceptedException when pop-ups block the click. I’ve also seen SessionNotCreatedException due to version mismatches between WebDriver and browser, and InvalidSelectorException for incorrect XPath or CSS. In some cases, WebDriverException or FileNotFoundException occurs due to setup or missing file issues. I handle all these exceptions using proper waits, try-catch blocks, and framework-level error handling to make the automation suite more stable and reliable.
 
-What types of exceptions have you encountered in Selenium?
+3 What types of exceptions have you encountered in Selenium?
+
 I’ve faced several exceptions in Selenium like NoSuchElementException, StaleElementReferenceException, TimeoutException, ElementClickInterceptedException, and NoSuchFrameException. These usually occur due to synchronization or locator issues.
 
-How do you handle exceptions in your Selenium framework?
+4 How do you handle exceptions in your Selenium framework?
+
 To handle exceptions in my framework, I generally use try-catch blocks, explicit waits, and custom utility methods. I also use TestNG listeners to automatically capture screenshots and log errors whenever a test fails.
 
-What is a StaleElementReferenceException, and how do you resolve it?
+5 What is a StaleElementReferenceException, and how do you resolve it?
+
 A StaleElementReferenceException occurs when the DOM changes after locating an element, usually after a page reload. I handle it by re-locating the element and using explicit waits to ensure the page is stable before performing any action.
 
-What causes a NoSuchElementException, and how do you fix it?
+6 What causes a NoSuchElementException, and how do you fix it?
+
 NoSuchElementException occurs when the element is not found in the DOM, mostly because of wrong locators or delayed loading. To fix it, I verify the locator and use WebDriverWait for proper synchronization.
 
-How do you handle TimeoutException in Selenium?
+7 How do you handle TimeoutException in Selenium?
+
 TimeoutException happens when an explicit wait condition is not met within the given time. In that case, I increase the wait time, verify the locator, or ensure that the element is visible and clickable before proceeding.
 
-What is the difference between NoSuchElementException and ElementNotInteractableException?
+8 What is the difference between NoSuchElementException and ElementNotInteractableException?
+
 The difference between NoSuchElementException and ElementNotInteractableException is that NoSuchElementException means the element doesn’t exist in the DOM, while ElementNotInteractableException means the element is present but hidden or disabled.
 
-Have you ever faced ElementClickInterceptedException? How did you handle it?
+9 Have you ever faced ElementClickInterceptedException? How did you handle it?
+
 I have faced ElementClickInterceptedException when another element, like a popup or banner, covers the element I’m trying to click. I usually wait for the overlay to disappear, scroll into view, or use a JavaScript executor to perform the click.
 
-What is a NoSuchFrameException or NoAlertPresentException, and when do they occur?
+10 What is a NoSuchFrameException or NoAlertPresentException, and when do they occur?
+
 NoSuchFrameException occurs when you try to switch to a frame that doesn’t exist, and NoAlertPresentException happens when you attempt to handle an alert that hasn’t appeared yet. I handle them by verifying the presence of the frame or alert before switching.
 
-How do you prevent flaky tests caused by Selenium exceptions?
+11 How do you prevent flaky tests caused by Selenium exceptions?
+
 To prevent flaky tests caused by Selenium exceptions, I always use proper synchronization with explicit or fluent waits, stable locators, and retry logic for rare test failures. I also maintain consistent test data and environments.
 
-How do you ensure your automation framework handles unexpected exceptions gracefully?
+12 How do you ensure your automation framework handles unexpected exceptions gracefully?
+
 I make sure my automation framework handles unexpected exceptions gracefully by having a base class for common exception handling and using listeners to log and capture screenshots automatically. This helps in debugging and ensures smooth execution of all tests.
 
 
