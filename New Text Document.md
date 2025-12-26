@@ -2981,33 +2981,38 @@ The Robot class in Java (under the java.awt package) is used to simulate keyboar
 | `createScreenCapture(Rectangle rect)` | Captures screenshot of the given screen area.     | `BufferedImage img = robot.createScreenCapture(new Rectangle(0,0,500,500));` |
 
 3 What is the Robot class in Selenium and what are its uses?
+
 Robot class is a part of the java.awt package. It is used to handle keyboard and mouse events that Selenium WebDriver cannot control directly, such as OS-level pop-ups, file upload dialogs, or print windows. It simulates real user interactions at the operating system level.
 
-Which package does the Robot class belong to?
+4 Which package does the Robot class belong to?
+
 The Robot class belongs to the java.awt package in Java. This package provides classes for creating user interface elements and handling system-level events.
 
-How do you perform keyboard events using the Robot class?
+5 How do you perform keyboard events using the Robot class?
+
 Keyboard events are handled using methods like keyPress() and keyRelease(). For example, if you want to press the Enter key, you can use:
 
+```java
 robot.keyPress(KeyEvent.VK_ENTER);
 robot.keyRelease(KeyEvent.VK_ENTER);
-
-
+```
 This helps in automating actions like form submission or dialog confirmation.
 
-How do you perform mouse events using the Robot class?
+6 How do you perform mouse events using the Robot class?
 Mouse actions such as clicking or moving the cursor can be done using methods like mouseMove(), mousePress(), and mouseRelease(). For example:
 
+```java
 robot.mouseMove(300, 400);
 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
+```
 
 This is useful when elements cannot be handled using standard Selenium locators.
 
-Can you give an example of using the Robot class to handle OS-level dialogs that Selenium cannot handle directly?
+7 Can you give an example of using the Robot class to handle OS-level dialogs that Selenium cannot handle directly?
 Yes, for example, while uploading a file through a system window, Selenium cannot interact with the OS file chooser. So, we use the Robot class to type the file path and press Enter:
 
+```java
 robot.keyPress(KeyEvent.VK_CONTROL);
 robot.keyPress(KeyEvent.VK_V);
 robot.keyRelease(KeyEvent.VK_V);
@@ -3015,19 +3020,20 @@ robot.keyRelease(KeyEvent.VK_CONTROL);
 robot.keyPress(KeyEvent.VK_ENTER);
 robot.keyRelease(KeyEvent.VK_ENTER);
 
-
+```
 This pastes the file path into the dialog box and uploads it.
 
-What are some limitations or challenges you faced when using the Robot class?
+8 What are some limitations or challenges you faced when using the Robot class?
+
 Robot class depends on the system’s focus, so if another window appears during execution, it can interrupt the automation flow. It also works based on screen coordinates, which may vary from one system to another, making scripts less reliable in distributed environments.
 
-Which alternative techniques or classes do you use instead of Robot when possible?
+9 Which alternative techniques or classes do you use instead of Robot when possible?
+
 Instead of using Robot, I prefer using the Actions class for web-level mouse and keyboard interactions or JavaScriptExecutor for interacting directly with web elements. For file uploads, using sendKeys() with the file path is a better and more stable approach whenever possible.
 
 ## 16 Listener
 
 1 What is Listeners in testNG
-
 
 Listeners in Selenium (especially with TestNG) are special interfaces that “listen” to the events that happen during test execution. They act like observers—whenever a specific event occurs (like a test starting, passing, failing, or skipping), the listener automatically executes the code you define for that event.
 
@@ -3052,6 +3058,7 @@ The main listener interfaces include ITestListener, ISuiteListener, and IInvoked
 
 
 5 What are the different listener interfaces available in TestNG and how have you used them?
+
 → In TestNG, commonly used listeners are ITestListener, ISuiteListener, and IInvokedMethodListener. I’ve mainly used ITestListener for logging, taking screenshots on failure, and updating reports automatically.
 
 6 Can you describe a scenario in your project where you implemented a custom listener and what value it added?
@@ -3165,14 +3172,16 @@ In Jenkins, I store data files in the project workspace or link them through Git
 ## 19 PropertyFile
 
 1 What is common data
-In automation testing, 
-Common data refers to the set of values or inputs that are shared across multiple test cases. These include reusable information like URLs, usernames, passwords, browser names, or environment details that don’t change frequently. Instead of hardcoding these values in every script, I store them in a centralized location such as a properties file, Excel sheet, or configuration class. This makes the framework more maintainable and reduces duplication — so if any common value changes, I just update it once and all related tests automatically use the new data.
+
+In automation testing, Common data refers to the set of values or inputs that are shared across multiple test cases. These include reusable information like URLs, usernames, passwords, browser names, or environment details that don’t change frequently. Instead of hardcoding these values in every script, I store them in a centralized location such as a properties file, Excel sheet, or configuration class. This makes the framework more maintainable and reduces duplication — so if any common value changes, I just update it once and all related tests automatically use the new data.
 
 2 What is property file
+
 A property file is a simple text file that stores configuration data in key–value pairs. In Selenium, we use it to store common test data like URL, browser, username, password, and timeouts. This helps avoid hardcoding, makes the framework more flexible, and allows us to maintain environment-specific data easily. If any value changes, we just update the property file instead of touching the code.
 
 
-3 How you implemented 
+3 How you implemented property fileUtility
+
 In my framework, I implemented a property file to store all the common configuration data like URL, browser name, username, password, and timeouts. This helps to avoid hardcoding values in the test scripts. I created a FileUtility class that reads the property file using FileInputStream and the Properties class provided by Java. Inside this utility, I used the getProperty() method to fetch values based on the key. For example, if I need the application URL or browser name in my test script, I just call the utility method with the key instead of hardcoding it. This makes the framework more flexible and easy to maintain because whenever there is a change, like a new URL or credentials, I only need to update the property file and not the test code. Overall, it centralizes common data, improves reusability, and makes the framework more professional.
 
 
@@ -3191,52 +3200,53 @@ In my projects, I have used Extent Reports to generate HTML reports of Selenium 
 The advantages of Extent Reports over default TestNG reports are significant. First, it allows step-by-step logging, so you can see exactly which actions passed or failed during the test execution. Second, it supports attaching screenshots, which is very useful for debugging failed test cases. Third, it is highly customizable—you can add themes, set report names, authors, categories, and organize tests by modules or priority. Fourth, it supports multiple tests in a single report, giving a consolidated view of the entire test suite. Overall, Extent Reports makes test reporting more professional, interactive, and easier to analyze compared to standard TestNG reports.
 
 
-3 How to implement extent reports.
+4 How to implement extent reports.
 
 In my framework, I generate reports using Extent Reports library. First, I create an object of the ExtentSparkReporter class, which is used to define the report file path, title, name, and theme. Then I create an object of the ExtentReports class, which is the main class responsible for report generation, and attach the reporter to it.
 
 For each test case, I use the ExtentTest interface (returned by the createTest() method of ExtentReports) to log execution steps. While logging, I use the Status enum (like Status.INFO, Status.PASS, Status.FAIL, Status.SKIP) to specify the test step result. At the end, I call the flush() method of ExtentReports to actually write all the logs into the HTML report.
 
 
-4 How have you integrated ExtentReports into your automation framework?
+5 How have you integrated ExtentReports into your automation framework?
 
 I have integrated ExtentReports in my Selenium framework by initializing the ExtentReports and ExtentTest objects in the test setup, usually through a listener or base class. During execution, each test’s status—pass, fail, or skip—is logged using extentTest.log(). Finally, I flush the report at the end of the execution so that the HTML report is generated automatically with detailed logs and screenshots.
 
-5 What are the key features of ExtentReports that you use?
+6 What are the key features of ExtentReports that you use?
 
 I use ExtentReports for its detailed logging, categorized test reporting, and screenshot integration. It provides a clear visual representation of test results, including pass/fail counts, execution time, and stack traces. I also use features like adding custom logs, system information, and attaching screenshots on failure for better debugging.
 
-6 How do you configure ExtentReports for parallel execution?
+7 How do you configure ExtentReports for parallel execution?
 
 In parallel execution, I use ThreadLocal with ExtentTest to ensure that each thread logs its own test results without overlapping. This helps maintain report accuracy when multiple tests run simultaneously. Each thread stores a unique ExtentTest instance, and at the end of execution, all reports are merged into a single HTML report.
 
-7 How do you attach screenshots or logs to test steps in ExtentReport?
+8 How do you attach screenshots or logs to test steps in ExtentReport?
 
 I capture screenshots whenever a test fails and attach them using extentTest.addScreenCaptureFromPath(). Logs are added using extentTest.log(Status.INFO, “message”) to provide step-by-step details. This helps in identifying exactly where and why a test failed.
 
-8 What information do you include in the report?
+9 What information do you include in the report?
 
 My ExtentReports include details like test name, status, execution time, exception message (if any), and screenshots. I also include environment details such as browser, OS, and tester name using extent.setSystemInfo(). This makes the report complete and easy to analyze.
 
-9 How do you manage historical reports?
+10 How do you manage historical reports?
 
 I maintain historical reports by saving them with unique names—usually based on the timestamp of execution. In Jenkins, I configure it to archive these reports so that I can compare previous and current build results to track progress and failure trends.
 
-10 How do you customize ExtentReports?
+11 How do you customize ExtentReports?
 
 I customize reports by setting themes (dark or standard), adding custom logos, project names, and system information. I also add categories or tags to group test cases by module or functionality, making the report more readable and professional.
 
-11 What challenges have you faced with ExtentReports in CI/CD and how did you solve them?
+12 What challenges have you faced with ExtentReports in CI/CD and how did you solve them?
 
 One challenge I faced was reports not showing up correctly after parallel execution. I solved it by using ThreadLocal and proper synchronization of ExtentTest objects. In Jenkins, I configured the build to generate and archive the report after the test run so it’s easily accessible to the team.
 
-12 How do you ensure failed tests are clearly reported?
+13 How do you ensure failed tests are clearly reported?
 
 For failed tests, I capture a screenshot, log the exception message, and mark the test with Status.FAIL. The screenshot is attached directly to the failed test node in the report. This makes it easy to identify the cause of the failure quickly.
 
-13 How do you generate and publish the report in Jenkins?
+14 How do you generate and publish the report in Jenkins?
 
 After test execution, my framework automatically generates the Extent HTML report in the target folder. In Jenkins, I use the “HTML Publisher Plugin” to publish this report after the build completes. This allows stakeholders to view the detailed report directly from Jenkins.
+
 
 14 Where you are keeping your reports and what tool you are using for reporting and how you are generating report 
 
@@ -3246,12 +3256,13 @@ In my automation framework, I use Extent Reports as the reporting tool because i
 
 ## 21 JavaScript Executor
 
-What is JavaScript
+1 What is JavaScript
 
 
 JavaScript Executor in Selenium is an interface that lets us run JavaScript code directly inside the browser. Normally, we rely on WebDriver methods like click() and sendKeys() to interact with elements, but sometimes these methods fail. For example, if an element is hidden behind another element, overlapped by a pop-up, not yet in the visible viewport, or dynamically loaded after AJAX calls, the normal WebDriver methods may throw exceptions like ElementNotInteractableException or ElementClickInterceptedException. In such cases, JavaScript Executor comes to the rescue because it interacts directly with the DOM rather than relying only on Selenium’s native methods.
 
-How to use JavaScript executor
+2 How to use JavaScript executor
+
 Technically, WebDriver is cast to the JavascriptExecutor interface, and then we can call two main methods: executeScript() for synchronous execution and executeAsyncScript() for asynchronous execution. With this, we can perform actions such as clicking on elements, entering values into input fields, scrolling up and down, scrolling an element into view, generating alerts, highlighting elements for debugging, or even retrieving information like page title, URL, or inner text.
 
 
@@ -3274,11 +3285,30 @@ Technically, WebDriver is cast to the JavascriptExecutor interface, and then we 
 | `executeScript("arguments[0].disabled=false;", element);`                               | Enable a <br> disabled element     | `js.executeScript("arguments[0].disabled=false;", inputBox);`                          |
 | `executeScript("return navigator.userAgent;");`                                         | Get browser <br> details (agent)   | `String ua = (String) js.executeScript("return navigator.userAgent;");`                |
 
-Why we use JavaScript executor
+3 Why we use JavaScript executor
 
 We use JavaScriptExecutor in automation when certain web elements are not easily handled by regular Selenium commands. It allows direct interaction with the browser’s JavaScript engine, helping perform advanced actions like clicking hidden elements, entering text into fields, scrolling the page, or fetching values that Selenium might not access directly.
 
 It is especially useful when elements are covered by another layer, not visible on the screen, or when synchronization issues occur. With JavaScriptExecutor, we can scroll into view, highlight elements, get page information like title, URL, domain, or trigger browser actions like navigating back, forward, or showing alerts, In short, JavaScriptExecutor helps improve automation stability and flexibility by directly executing JavaScript code when traditional Selenium methods fail.
+
+## 22 Which tools and technologies did you use in your Selenium framework?
+
+In my current Selenium framework, I’ve used Java 17, which is the latest long-term support version commonly used in the industry. I’m using Selenium 4.13.0 with TestNG 7.11.0 for test execution and reporting structure. For reporting, I’ve integrated Extent Reports version 5.1.1, For Excel data handling, I use Apache POI 5.2.5, and WebDriverManager 5.2.0 for automatic browser driver setup. I also use Apache Commons IO for screenshot utilities and file handling. In case of mobile testing, I work with Appium 8.6.0.
+
+| **Tool / Technology**                     | **Version** | **Description / Usage**                                        |
+| ----------------------------------------- | ----------- | -------------------------------------------------------------- |
+| **Java**                                  | 17 (LTS)    | Widely used current industry version for automation frameworks |
+| **Selenium**                              | 4.13.0      | For web automation testing                                     |
+| **TestNG**                                | 7.11.0      | For test execution, grouping, and reporting                    |
+| **Appium**                                | 8.6.0       | For mobile application automation                              |
+| **Rest Assured**                          | 5.4.0       | For API testing (validating RESTful web services)              |
+| **Apache POI**                            | 5.2.5       | For handling Excel files in Data-Driven Testing                |
+| **Extent Reports**                        | 5.1.1       | For generating detailed HTML test reports                      |
+| **WebDriverManager**                      | 5.2.0       | For automatic driver management (no manual setup needed)       |
+| **Apache Commons IO**                     | 2.8.0       | For file handling and I/O operations                           |
+| **Screenshot Utility (Commons IO based)** | 5.2.0       | For capturing and storing screenshots during test execution    |
+
+
 
 ## Version of Tool
 

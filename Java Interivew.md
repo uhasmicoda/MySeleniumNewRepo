@@ -9,21 +9,20 @@ Why did you use abstraction itself... Couldn't you use something else?
 Inheritance and one simple program.
 
 Collection
-what are the collection uses in selenium
+
 Why list is used in selenium 
-Explain collections
-difference between collections and Arrays?
-Why will go for array list?
+Where u have used collections in selenium 
+
+Where you used collections in your test scripts
+
 difference between array list and linked list?
 How you used hash map in your project and create one hash map and how will you insert data in hash map.
 Difference between List and linked List and where have you implemented this in your project
-Explain list
-Explain Set
-Explain collections concept in terms of java
-Where you used collections in your test scripts
+
+
 Difference between array and Arraylist.
-Difference between list and linkedList
-Difference between hash set and set 
+
+ 
 What is the difference between HashSet and HashMap?
 What is Hashtable, What is the use
 Difference between hashmap and hashset 
@@ -33,7 +32,7 @@ Difference between arrylist and vectors
 Where you have used hashmap
 Diff b/w Hash map and hash table
 difference between arraylist and linkedarraylist
-Where u have used collections in selenium 
+
 
 
 
@@ -323,3 +322,50 @@ In Java, whenever we define a method or variable, there are three main things in
 
 45 
 
+Collection
+
+What are the collection uses in selenium.
+Difference between collections and Arrays?
+Explain collections
+
+list 
+
+1 Explain list 
+
+In Java, List is a part of the Collection framework and is an interface present in the java.util package. It represents an ordered collection of elements where duplicates are allowed and elements can be accessed using an index. The List interface extends the Collection interface and provides additional methods like get(), set(), indexOf(), and lastIndexOf() to perform positional access and search operations. Since List is an interface, it cannot be instantiated directly; instead, it is implemented by classes such as ArrayList, LinkedList, Vector, and Stack. The main advantage of using List is that it maintains the insertion order and allows duplicate values, which makes it suitable when the sequence of elements matters
+
+2 Explain set 
+
+In Java, Set is a part of the Collection framework and is an interface present in the java.util package. It represents a collection of unique elements, meaning it does not allow duplicates. Unlike the List interface, a Set does not maintain any specific order of elements, although some implementations like LinkedHashSet preserve insertion order, and TreeSet stores elements in a sorted order. The Set interface extends the Collection interface and is implemented by classes such as HashSet, LinkedHashSet, and TreeSet. Sets are commonly used when you need to store distinct values and don’t care about the element order, such as in cases of removing duplicates or maintaining unique entries in a dataset.
+
+3 Explain queue 
+
+In Java, Queue is a part of the Collection framework and is an interface present in the java.util package. It is used to store elements in a FIFO (First In, First Out) order, where the element inserted first is processed first. The Queue interface extends the Collection interface and provides additional methods like offer(), poll(), peek(), and remove() to insert, retrieve, and remove elements efficiently. Common implementations of Queue include LinkedList, PriorityQueue, and ArrayDeque. A Queue is generally used when elements need to be processed in sequence, such as in task scheduling, order processing, or buffering data before execution.
+
+
+4 Explain Map
+
+In Java, Map is a part of the Collections Framework, but it does not extend the Collection interface. It is present in the java.util package and is used to store data in the form of key–value pairs. In a Map, each key is unique, but values can be duplicated. It is mainly used when we want to associate one value with a specific key, similar to a dictionary. Common implementations of the Map interface include HashMap, LinkedHashMap, TreeMap, and Hashtable. HashMap stores elements in random order, LinkedHashMap maintains insertion order, and TreeMap stores elements in sorted order based on keys. Maps are widely used in scenarios like storing user data with unique IDs, caching, or lookup tables where quick access through a key is required.
+
+
+5 Difference between list and linkedList
+
+In Java, List is an interface in the Collection framework that defines an ordered collection allowing duplicate elements and access through indexes. It only specifies the behavior of lists but doesn’t provide any implementation. On the other hand, LinkedList is a class that implements the List interface (and also the Deque interface). It stores elements in a doubly linked list structure, where each element (node) holds data and references to the previous and next elements. This makes insertion and deletion operations faster compared to an ArrayList, but random access (using index) is slower since it requires traversal from the beginning. In short, List defines what a list should do, and LinkedList defines how it does it using a linked structure.
+
+
+6 Difference between hashset and set
+
+In Java, Set is an interface in the Collection framework that represents a collection of unique elements, meaning it does not allow duplicates. It defines the general behavior of sets but does not provide any implementation. HashSet, on the other hand, is a class that implements the Set interface and stores elements using a hash table. It does not maintain any insertion order, and the elements are arranged based on their hash codes for fast access and retrieval. In short, Set defines the rules for storing unique elements, while HashSet provides the actual implementation of those rules using hashing.
+
+Why will go for array list?
+
+Explain collections concept in terms of java 
+
+In Java, Collections refer to a framework that provides classes and interfaces to store, manage, and manipulate groups of objects efficiently. Instead of using arrays that have a fixed size, the Collections Framework allows us to handle dynamic data structures such as lists, sets, and maps. It provides built-in methods to add, remove, search, sort, and iterate through data, making it easier to handle large or changing data sets in automation or real-time projects.
+
+
+Where you used collections in your test scripts
+
+I’ve used Collections in several parts of my automation framework to make my scripts more dynamic and efficient. For example, in Selenium automation, I often use ArrayList to store and compare lists of web elements — like fetching all product names or prices from a page using findElements() and storing them in a List to verify sorting or filtering functionality. Similarly, in API testing with Rest Assured, I use HashMap to build request payloads dynamically for POST or PUT calls instead of hardcoding JSON data.
+
+I’ve also used HashMap and Set to store unique data, such as validating that no duplicate values are displayed in a dropdown or table. In some test cases, I use List to hold expected vs. actual data and then compare them using assertions. Collections like Map and List help me handle multiple pieces of data efficiently, making the scripts reusable and easy to maintain.
