@@ -2147,7 +2147,7 @@ Merge preserves history and creates a merge commit, while rebase rewrites commit
 
 18 What is git pull vs git fetch?
 
-git fetch downloads changes without merging, while git pull fetches and merges changes automatically.
+git fetch downloads changes without merging, while git pull fetches and merges changes automatically. (just to chek git pull)
 
 19 What is git clone?
 
