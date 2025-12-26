@@ -2802,7 +2802,7 @@ A robust locator is one that does not break easily when UI changes. To generate 
 
 17 What is &nbsp; and how does it affect XPath?
 
-&nbsp; stands for non-breaking space. It looks like a normal space but Selenium treats it differently. Because of this, text-based XPath may fail. To handle this, we use normalize-space() in XPath, which removes extra spaces and helps in matching text correctly.
+&nbsp  stands for non-breaking space. It looks like a normal space but Selenium treats it differently. Because of this, text-based XPath may fail. To handle this, we use normalize-space() in XPath, which removes extra spaces and helps in matching text correctly.
 
 ## 10 Handling multiple window
 
