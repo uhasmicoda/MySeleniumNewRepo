@@ -2762,21 +2762,27 @@ Along with this, I use explicit waits like WebDriverWait with conditions such as
 Yes, I have come across pseudo elements while testing web applications. Pseudo elements are not actual DOM elements — they are virtual elements defined in CSS, like ::before, ::after, or ::placeholder, which are used for styling or adding content dynamically. Since these elements are not part of the DOM, Selenium cannot directly locate or interact with them using normal locators like XPath or CSS selectors. To handle such cases, I use JavaScriptExecutor in Selenium to fetch or verify their content or style properties. For example, I execute a JavaScript command like window.getComputedStyle(element, '::before').getPropertyValue('content') to read pseudo-element text or color. In some situations, if it’s just a visual effect, I handle it through CSS validation or by checking the parent element’s properties instead of the pseudo element itself. This approach helps me test the UI behavior accurately even when pseudo elements are involved.
 
 7 What is the difference between XPath and CSS Selector?
+
 XPath and CSS Selector are both used to locate elements in Selenium, but they work differently. XPath can navigate both forward and backward in the DOM and allows locating elements based on text or attributes using functions like contains() or starts-with(). CSS Selector, on the other hand, is faster and preferred when working with static elements. It cannot move backward in the DOM and doesn’t support text-based search. In general, I use CSS selectors for speed and simplicity, and XPath when dealing with complex or dynamic structures.
 
 8 How do you identify stable locators in your framework, especially when dealing with dynamic elements?
+
 To identify stable locators, I focus on using unique and non-changing attributes like id, name, or data-* attributes. If those are dynamic, I switch to Relative XPath with functions such as contains(), starts-with(), or by using parent-child or sibling relationships. I also check if there are static elements around the dynamic one and build locators based on their relative position. Additionally, I always verify locators in browser dev tools to ensure they are unique and consistent across sessions.
 
 9 What is the priority order of using locators such as ID, Name, ClassName, CSS, XPath?
+
 The priority order I follow for locators is: ID → Name → ClassName → LinkText → PartialLinkText → TagName → CSS Selector → XPath. This is because ID is the fastest and most reliable, as it is unique for each element. If ID is not available, I go for Name or ClassName. XPath and CSS are used as the last options, mainly when no unique attribute is available or when handling dynamic elements.
 
 10 Can you explain how you handle locators when the element’s attributes are dynamic (for example, IDs change each time)?
+
 When dealing with dynamic attributes, I never use the complete ID or name directly since it changes on every reload. Instead, I use partial matching in XPath like contains(@id,'partialValue') or starts-with(@id,'prefix'). I also use parent-child or sibling relationships, or even text-based XPath when applicable. In CSS selectors, I use substring matches like [id*='partial']. These techniques help create flexible and stable locators that remain valid even when dynamic attributes change.
 
 11 What are XPath axes and when would you use them in locator strategies?
+
 XPath axes are keywords that help navigate through the DOM structure relative to the current element. Common axes include parent, child, ancestor, following-sibling, and preceding-sibling. I use axes when I need to locate an element in relation to another — for example, finding a checkbox next to a label or identifying a button following a specific text. XPath axes make locators powerful and dynamic, especially in complex HTML structures where direct attributes are not reliable.
 
 12 When would you choose CSS selectors over XPath and vice versa?
+
 I choose CSS selectors when I need faster execution and simpler locators, especially for static or well-structured pages. CSS is lightweight and generally performs better. However, I prefer XPath when I need to locate elements using text, navigate both forward and backward in the DOM, or handle complex relationships between elements. In short, CSS is ideal for speed and simplicity, while XPath is more flexible for handling dynamic or deeply nested elements.
 
 13 How do you find elements that are not visible in the UI?
