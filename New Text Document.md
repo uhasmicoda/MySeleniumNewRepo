@@ -2321,6 +2321,7 @@ Once the build is complete, Jenkins shows a “Test Result” or “HTML Report�
 
 In my project, once the test execution is complete, Jenkins automatically generates the test report, such as the Extent Report. I usually configure Jenkins to send an email notification to the development and QA team using the “Editable Email Notification” or “Email Extension” plugin. The report file or link (like the HTML report URL) is attached or included in the email body. This way, developers can directly open the report from their inbox and review the test results, failed test cases, and screenshots. Sometimes, if the report is large, I simply share the Jenkins build link or the Extent Report URL through our project communication channels like Slack or Microsoft Teams. This ensures developers quickly get visibility of test outcomes without manually fetching reports.
 This helps to monitor build results, track failed tests, and share reports with the team easily.
+It has numerous features like, Annotations, Test Prioritization, Grouping of Test Cases, Data-Driven Testing (@DataProvider), Parallel Execution, Dependency Management, Assertions (Hard & Soft) ,Test Configuration using testng.xml, Listener Support ,Retry Failed Test Cases,Parameterization
 
 ## 4 TestNg
 
@@ -2484,7 +2485,7 @@ Explicit wait or WebDriverWait in Selenium is a type of explicit wait that helps
 2 What is fluent wait
 
 Fluent Wait is a type of explicit wait in Selenium that lets us set how long to wait in total, how often Selenium should keep checking for the element, and which exceptions to ignore during that time.
-              |
+              
 3 How to implement FluentWait
 
 I implemented FluentWait in my framework mainly to handle elements that take unpredictable time to load. I created a FluentWait object on the WebDriver where I set the maximum timeout, the polling frequency, and the exceptions to ignore like NoSuchElementException. After that, I used the wait with ExpectedConditions, for example waiting until an element becomes visible before interacting with it. To make it reusable, I wrapped this logic inside a utility method so that instead of writing the FluentWait code every time, I could simply call the method in my test scripts. This made the framework more reliable and easier to maintain.
@@ -2720,6 +2721,7 @@ When a pipeline fails, I share the detailed test report and failure logs with th
 
 We maintain historical test reports by storing execution reports with build numbers or timestamps instead of overwriting them. These reports are archived in CI tools like Jenkins. By analyzing past reports, we track failure trends and identify flaky tests. This helps us improve test stability and overall automation quality.
 
+Assertion and reporting are two different things. Assertions are used to validate the actual result against the expected result. If the assertion passes or fails, that outcome is then reflected in the test report. Reporting is only for showing the execution results, while assertions decide whether a test case should pass or fail.
 ## 9 Locators 
 
 1 What are Locators?
