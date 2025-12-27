@@ -2718,7 +2718,7 @@ When a pipeline fails, I share the detailed test report and failure logs with th
 
 25 How do you maintain historical test report data so you can track trends (e.g., failure rates, flakiness) over time and use that for continuous improvement?
 
-I maintain historical reports in Jenkins or a centralized reporting dashboard like Allure or ELK. This helps me compare past executions, identify modules with frequent failures, and measure improvements over time. Trend analysis supports better release decisions and helps in identifying flaky or unstable test areas.
+We maintain historical test reports by storing execution reports with build numbers or timestamps instead of overwriting them. These reports are archived in CI tools like Jenkins. By analyzing past reports, we track failure trends and identify flaky tests. This helps us improve test stability and overall automation quality.
 
 ## 9 Locators 
 
