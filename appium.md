@@ -993,8 +993,7 @@ Appium itself doesn’t provide built-in parallel execution, but we can run test
 
 23 How to interact with dropdowns in Appium?
 
-In Appium, interacting with dropdowns depends on whether the app is native, hybrid, or mobile web. For native Android dropdowns, like spinners, we first click on the dropdown to open it and then locate the desired option using text, ID, or accessibility ID, and click to select it. For iOS picker wheels, we can directly use sendKeys() to select the value we want. For hybrid apps or mobile web, if the dropdown is a standard HTML <select> element, we can use Selenium’s Select class to choose an option by visible text, value, or index. Essentially, the approach is to first access the dropdown, ensure the options are visible, and then select the appropriate value, depending on the platform and type of dropdown
-
+In Appium, interacting with dropdowns depends on whether the app is native, hybrid, or mobile web. For native Android dropdowns, like spinners, we first click on the dropdown to open it and then locate the desired option using text, ID, or accessibility ID, and click to select it. For iOS picker wheels, we can directly use sendKeys to select the value we want. For hybrid apps or mobile web, if the dropdown is a standard HTML  select element, we can use Selenium’s Select class to choose an option by visible text, value, or index. Essentially, the approach is to first access the dropdown, ensure the options are visible, and then select the appropriate value, depending on the platform and type of dropdown
 
 25 What is the difference between native context and web context in Appium?
 
