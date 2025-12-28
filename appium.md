@@ -956,61 +956,61 @@ The test scripts remain the same; we just update the desired capabilities to spe
 
 In Appium, we have several types of locators to find elements in mobile applications. The commonly used ones are ID or resource-id, Accessibility ID, XPath, Class Name, and Name or visible text. For Android, we can also use UIAutomator for more advanced element searches, while on iOS, Predicate and Class Chain locators are used for faster and more reliable element identification. Using these locators, we can interact with elements effectively in both Android and iOS ap
 
-16. How do you launch an application in Appium?
+16 How do you launch an application in Appium?
 
 To launch an application in Appium, first we set the desired capabilities or options, where we specify the platform, device, and app details. For Android, we provide the app package and activity, and for iOS, the bundle ID. Then we create a driver instance – AndroidDriver for Android or IOSDriver for iOS. As soon as the driver is created with these capabilities, Appium starts a session and automatically launches the app on the connected device or emulator.
 
-17. What is Appium Inspector?
+17 What is Appium Inspector?
 
 Appium Inspector is a tool that allows testers and developers to inspect and interact with a mobile app’s UI while creating automation. It connects with the Appium server and the target device (real or emulator) to display the app’s UI hierarchy, element properties, and a live screenshot. This makes it easier to find and verify locators before writing test scripts.
 
 Inspector also supports basic interactions like tap, send keys, swipe, or scroll directly from the tool. It can generate locator strings or code snippets to speed up script writing. For hybrid apps, Inspector allows switching between contexts (NATIVE_APP and WEBVIEW) and inspecting web elements, which simplifies debugging across native and web views.
 
 
-18. What is the difference between a real device and a virtual device (emulator/simulator) in Appium?
+18 What is the difference between a real device and a virtual device (emulator/simulator) in Appium?
 
 A real device is an actual physical Android or iOS device, which gives accurate results because it uses real hardware, sensors, and network conditions. A virtual device, like an emulator or simulator, is software-based and mimics a real device on a computer. While emulators are useful for early testing and development because they’re easy to set up and free, they may not always behave exactly like a real device. So, real devices are preferred for final validation before production
 
 
-19. What is Appium client–server architecture?
+19 What is Appium client–server architecture?
 
 Appium follows a client-server architecture. The client is your test script written in Java, Python, or another supported language, which sends commands to the Appium server using HTTP requests. The server receives these commands and translates them into device-specific actions using drivers like UiAutomator2 for Android or XCUITest for iOS. When a test starts, the server creates a session with a unique ID, executes all commands within that session, and sends the results back to the client. This architecture allows us to automate mobile apps across different platforms efficiently.
 
 
-20. How do you set up Appium on a remote server?
+20 How do you set up Appium on a remote server?
 
 A remote server simply means a computer or machine that is located somewhere else, To set up Appium on a remote server, first we install Java, Node.js, and the necessary SDKs like Android SDK or Xcode, and set the environment variables. Then we install Appium globally using NPM. We make sure the server is accessible over the network by opening the Appium port and connecting devices or emulators to the server. Finally, we start the Appium server on the server IP instead of localhost, and in our test scripts, we provide the remote server URL so that our automation scripts can run on devices connected to that server.
 
 
-21. How do you perform parallel testing in Appium?
+21 How do you perform parallel testing in Appium?
 
 In Appium, we can perform parallel testing by running multiple tests at the same time on different devices or emulators. Locally, we usually use TestNG where we set the parallel attribute in the XML file, and each test creates its own driver instance. We can also use Appium Grid by starting multiple server instances on different ports and connecting them to different devices. Alternatively, cloud platforms like BrowserStack or Sauce Labs let us run tests on multiple real devices in parallel without managing the hardware ourselves.
 
 
-22. What is Appium’s approach to parallel testing?
+22 What is Appium’s approach to parallel testing?
 
 Appium itself doesn’t provide built-in parallel execution, but we can run tests in parallel by using multiple Appium server instances, test frameworks like TestNG, or cloud platforms. Locally, we can start multiple Appium servers on different ports, and each server connects to a separate device or emulator. Each test script creates its own driver instance that points to a specific server, so multiple tests can run simultaneously. On cloud platforms like BrowserStack or Sauce Labs, we can run the same or different test scripts on multiple real devices at the same time, which helps save execution time, increases test coverage, and eliminates the need to manage many physical devices ourselves. This approach is very helpful in large-scale mobile automation projects where we want faster feedback and efficient testing
 
-23. How to interact with dropdowns in Appium?
+23 How to interact with dropdowns in Appium?
 
 In Appium, interacting with dropdowns depends on whether the app is native, hybrid, or mobile web. For native Android dropdowns, like spinners, we first click on the dropdown to open it and then locate the desired option using text, ID, or accessibility ID, and click to select it. For iOS picker wheels, we can directly use sendKeys() to select the value we want. For hybrid apps or mobile web, if the dropdown is a standard HTML <select> element, we can use Selenium’s Select class to choose an option by visible text, value, or index. Essentially, the approach is to first access the dropdown, ensure the options are visible, and then select the appropriate value, depending on the platform and type of dropdown
 
 
-25. What is the difference between native context and web context in Appium?
+25 What is the difference between native context and web context in Appium?
 
 In Appium, a context is basically the environment in which the automation script is working. The native context, called NATIVE_APP, is used to interact with the app’s native UI elements like buttons, text fields, switches, or any view created using the platform’s SDK. The web context, called WEBVIEW, is used to interact with web content inside hybrid apps, such as HTML pages, forms, or payment screens. In hybrid apps, we often need to switch between these contexts using driver.context(), depending on whether we want to automate native elements or web elements. This flexibility allows us to handle both parts of a hybrid app within a single test script, making automation more efficient and reducing the need for separate tests for native and web portions
 
 
-26. How to locate an element in Appium?
+26 How to locate an element in Appium?
 
 In Appium, we locate elements using different locator strategies based on the application type and stability of the element. Commonly, we use accessibility ID, ID, XPath, class name, and UIAutomator for Android or predicate and class chain for iOS. I usually prefer accessibility ID or ID because they are faster and more reliable. XPath is used only when other locators are not available. To identify elements, we use tools like Appium Inspector or Android UIAutomator Viewer, and then apply the appropriate locator in the script
 
-27. What is the use of Appium client libraries?
+27 What is the use of Appium client libraries?
 
 Appium client libraries are used to write automation test scripts in different programming languages like Java, Python, JavaScript, or C#. They act as a bridge between our test code and the Appium server. Using these libraries, we can send commands like click, send keys, swipe, or get text to the Appium server in a language-friendly way. The Appium server then executes these commands on the mobile device. Without client libraries, it would be difficult to communicate with the Appium server directly 
 
 
-28. What is the difference between Appium Server and Appium Client?
+28 What is the difference between Appium Server and Appium Client?
 
 Appium Client and Appium Server work together in mobile automation.
 The Appium Client is the library we use in our test scripts, like Java or Python, to write automation code and send commands such as click, swipe, or enter text, The Appium Server is a Node.js–based server that receives these commands from the client, converts them into mobile automation actions, and executes them on the real device or emulator using platform-specific drivers like UiAutomator2 for Android or XCUITest for iOS, In short, the client sends commands, and the server executes them on the device
@@ -1085,32 +1085,31 @@ In mobile automation, context switching in Appium refers to switching between th
 
 Animations and transitions in mobile apps can make elements appear slowly or not immediately interactable. In Appium, we handle this using explicit waits or WebDriverWait to wait for elements to be visible or clickable. We can also use the TouchAction class to simulate gestures during animations. Additionally, animations can be disabled on the device through Developer Options, and tools like Appium Inspector or visual validation tools like Applitools help ensure that the UI remains stable and consistent during testing.
 
-42. How to handle application crashes in Appium?
-
+42 How to handle application crashes in Appium?
 
 In Appium, handling application crashes is crucial to keep tests robust and avoid interruptions. One way to handle crashes is by monitoring driver logs, which capture device logs, crash information, exceptions, and stack traces, helping us understand what went wrong during execution. Another approach is using try-catch blocks in test scripts to catch exceptions when the app crashes, allowing the test to log the error and continue or fail gracefully. It’s also important to check the app state before interacting with it using methods like driver.isAppInstalled(), driver.launchApp(), or driver.resetApp() to ensure the app is in a valid state. If a crash occurs, we can restart the app using driver.launchApp() or reinstall it with driver.installApp() to resume testing. Additionally, integrating with TestNG or JUnit allows us to define hooks like @AfterMethod or @AfterTest to capture screenshots, logs, and automatically relaunch the app after a crash, ensuring smooth test execution.
 
-43. What is the difference between driver.quit() and driver.close() methods in Appium?
+43 What is the difference between driver.quit() and driver.close() methods in Appium?
 
 driver.quit() ends the entire Appium session and closes all windows or app instances, releasing the device and resources completely. In contrast, driver.close() only closes the currently active window or app, while keeping the session alive so we can continue interacting with other windows, tabs, or app activities. We usually use quit() at the end of a test suite to clean up everything, whereas close() is used when multiple windows or activities are open and we want to close only one without stopping the session
 
-44. How do you handle alerts and pop-ups in Appium?
+44 How do you handle alerts and pop-ups in Appium?
 
 In Appium, we handle alerts and pop-ups by switching to them using driver.switchTo().alert(). For native alerts, we can accept, dismiss, get the text, or enter input. We use explicit waits to ensure the alert is present before interacting. For system pop-ups, we can enable autoGrantPermissions or locate the elements using XPath or ID. For custom in-app pop-ups, we find the elements and perform actions accordingly.
 
-44. What is the difference between XPath and CSS Selectors?
+45 What is the difference between XPath and CSS Selectors?
 
 In Appium, XPath and CSS selectors are used to locate elements, but they work differently. XPath is very flexible and powerful, allowing selection based on attributes, hierarchy, or text, which makes it ideal for complex or dynamic elements. However, it’s slower on mobile devices because it traverses the full XML structure. CSS selectors, on the other hand, work with attributes, classes, and IDs in the HTML structure, making them faster and less resource-intensive, though they are limited in navigating hierarchies. For native Android or iOS apps, XPath is mostly used since CSS selectors don’t apply, while for mobile web automation, CSS selectors are preferred for speed, but XPath is used when elements are complex.
 
-45. How to launch the Appium Inspector?
+46 How to launch the Appium Inspector?
 
 To launch Appium Inspector, I first start the Appium server either through the command line or programmatically using Java code. Then, I open Appium Inspector and provide the required desired capabilities, such as platformName, platformVersion, deviceName, and appPackage and appActivity for Android, or bundleId for iOS. After starting the session, the Inspector connects to the device or emulator, allowing me to inspect the app’s UI, view elements, and get locators for automation.
 
-46. What mobile device settings can be automated using Appium?
+47 What mobile device settings can be automated using Appium?
 
 In Appium, we can automate several mobile device settings to simulate real user interactions or prepare the device for testing. These include network settings, such as enabling or disabling Wi-Fi, mobile data, or airplane mode. Battery and power settings can also be controlled, allowing us to check battery status or simulate low battery conditions. Screen settings like rotation, locking/unlocking the device, and adjusting brightness can be automated as well. Additionally, Appium can handle notifications, allowing us to manage system notifications and permissions. App settings, including installing, uninstalling, resetting, or launching apps automatically, can be controlled. Device location can be mocked by setting GPS coordinates or enabling/disabling location services. Finally, keyboard input can be managed by enabling or disabling the Unicode keyboard and resetting the keyboard when needed.
 
-47. How do you debug Appium scripts?
+48 How do you debug Appium scripts?
 
 To debug Appium scripts, first I check the Appium server logs because they show detailed information about each command and any errors. I also use breakpoints in my IDE to step through the code and see if the driver is interacting with elements correctly. Appium Inspector helps me verify element locators, and I make sure elements are visible and enabled before interacting. I add explicit waits to handle timing issues, and I also check device or emulator logs, like adb logcat for Android or Xcode logs for iOS. Finally, I always validate my desired capabilities to ensure the session starts correctly. This combination helps me quickly identify and fix issues in my automation scripts
 
