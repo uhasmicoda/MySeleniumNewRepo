@@ -995,6 +995,10 @@ Appium itself doesn’t provide built-in parallel execution, but we can run test
 
 In Appium, interacting with dropdowns depends on whether the app is native, hybrid, or mobile web. For native Android dropdowns, like spinners, we first click on the dropdown to open it and then locate the desired option using text, ID, or accessibility ID, and click to select it. For iOS picker wheels, we can directly use sendKeys to select the value we want. For hybrid apps or mobile web, if the dropdown is a standard HTML  select element, we can use Selenium’s Select class to choose an option by visible text, value, or index. Essentially, the approach is to first access the dropdown, ensure the options are visible, and then select the appropriate value, depending on the platform and type of dropdown
 
+24 How do you run Appium tests on a real device?
+
+To run Appium tests on a real device, first enable Developer Options on the mobile phone and turn on USB debugging. Then connect the device to the system using a USB cable and verify the connection using the adb devices command. Start the Appium server from the command line or code. In the desired capabilities, provide details such as platformName, deviceName, platformVersion, udid, automationName, and the app details (appPackage and appActivity for Android). Once the capabilities are set, initialize the Appium driver and run the test. Appium will then install or launch the app on the real device and execute the automation scripts.
+
 25 What is the difference between native context and web context in Appium?
 
 In Appium, a context is basically the environment in which the automation script is working. The native context, called NATIVE_APP, is used to interact with the app’s native UI elements like buttons, text fields, switches, or any view created using the platform’s SDK. The web context, called WEBVIEW, is used to interact with web content inside hybrid apps, such as HTML pages, forms, or payment screens. In hybrid apps, we often need to switch between these contexts using driver.context(), depending on whether we want to automate native elements or web elements. This flexibility allows us to handle both parts of a hybrid app within a single test script, making automation more efficient and reducing the need for separate tests for native and web portions
@@ -1112,7 +1116,7 @@ In Appium, we can automate several mobile device settings to simulate real user 
 
 To debug Appium scripts, first I check the Appium server logs because they show detailed information about each command and any errors. I also use breakpoints in my IDE to step through the code and see if the driver is interacting with elements correctly. Appium Inspector helps me verify element locators, and I make sure elements are visible and enabled before interacting. I add explicit waits to handle timing issues, and I also check device or emulator logs, like adb logcat for Android or Xcode logs for iOS. Finally, I always validate my desired capabilities to ensure the session starts correctly. This combination helps me quickly identify and fix issues in my automation scripts
 
-25. How do you run Appium tests on a real device?
+25. 
 31. How do you automate native applications using Appium?
 32. How do you automate hybrid applications using Appium? 
 33. How do you automate mobile web applications using Appium?
