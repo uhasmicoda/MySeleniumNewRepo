@@ -871,17 +871,17 @@ public class StartAppiumServer {
 ```
 ## Interview Questions
 
-1. What is Appium?
+1 What is Appium?
 
 Appium is an open-source mobile automation testing tool used to automate native, hybrid, and mobile web applications on Android and iOS platforms.
 In my project, I used Appium with Java and TestNG to automate Android applications. Appium follows the WebDriver protocol, so it is easy to integrate with Selenium-based frameworks. It does not require any app code changes and allows us to run tests on real devices, emulators, and cloud platforms.
 
-2. Why is Appium used for mobile application testing?
+2 Why is Appium used for mobile application testing?
 
 Appium is used for mobile application testing because it allows us to automate native, hybrid, and mobile web applications on both Android and iOS using a single tool.
 In my project, we used Appium to reduce manual testing effort, improve test coverage, and ensure the app works correctly across different devices, screen sizes, and OS versions. Appium supports multiple programming languages, does not require any modification to the application, and can be easily integrated with TestNG, Maven, Jenkins, and cloud platforms.
 
-3. What is the difference between native, hybrid, and web applications in Appium?
+3 What is the difference between native, hybrid, and web applications in Appium?
 
 Native applications are built specifically for a particular platform like Android or iOS using platform-specific languages. They are installed from the Play Store or App Store and have full access to device features. In Appium, native apps are automated using the NATIVE_APP context.
 
@@ -889,7 +889,7 @@ Hybrid applications are a combination of native and web applications. They are i
 
 Mobile web applications run inside the mobile browser like Chrome or Safari and are not installed on the device. In Appium, mobile web apps are automated using browser capabilities and the WEBVIEW or browser context.
 
-4. Which programming languages are supported by Appium?
+4 Which programming languages are supported by Appium?
 
 Appium supports multiple programming languages because it follows the WebDriver protocol. Commonly supported languages include Java, Python, JavaScript, C#, Ruby, and PHP.
 
@@ -901,22 +901,22 @@ In my project, I used Java with TestNG and Maven to write and manage Appium auto
 The Appium server acts as a bridge between the test script and the mobile device, In my project, the test scripts send commands to the Appium server using the WebDriver protocol. The Appium server interprets these commands and communicates with the mobile device (Android or iOS) using platform-specific automation tools like UIAutomator2 for Android and XCUITest for iOS.
 
 
-6. What are Desired Capabilities in Appium?
+6 What are Desired Capabilities in Appium?
 
 In Appium, Desired Capabilities are basically a set of key–value pairs that act like instructions for the Appium server, telling it what kind of automation session we want to start. Whenever we write a test script, before executing any action, our client script sends these capabilities to the Appium server in the form of a JSON object. The server then uses this information to launch the right platform, the right device, and the right application.
 
 For example, in Android automation, we usually define capabilities such as the platform name, platform version, device name, automation engine (like UiAutomator2), and the details of the application under test such as app package and app activity. Similarly, for iOS we provide capabilities like platform name, platform version, device UDID, automation engine (like XCUITest), and the bundle ID of the app. Desired Capabilities make the framework flexible because by changing these values we can run the same test scripts on different devices, OS versions, or even on real devices and emulators without changing the core logic of our test. In short, they act as the bridge between our test scripts and the mobile environment by defining all the necessary configurations for a successful session.
 
 
-7. What is an Appium session?
+7 What is an Appium session?
 
 An Appium session is a connection between the Appium server and your test script, established when the client sends desired capabilities like platform, device, and app details. Appium creates a session with a unique session ID, and during this session, all automation commands—such as click, swipe, or send keys—are sent from the client to the server and executed on the device or emulator. Once the test is complete, the session is terminated, releasing the device or emulator for future use.
 
-8. What is the difference between Appium and TestNG?
+8 What is the difference between Appium and TestNG?
 
 Appium is a mobile automation tool used to automate both Android and iOS applications. It allows us to perform actions on the app like clicks, swipes, scrolling, entering text, and gestures. TestNG, on the other hand, is a Java-based testing framework that helps organize test cases, manage their execution order, handle dependencies, and generate detailed reports. In practice, we often use TestNG together with Appium so that we can run multiple tests efficiently, handle different scenarios with annotations, and get structured reports of the test execution
 
-9. What is the difference between iOS automation and Android automation?
+9 What is the difference between iOS automation and Android automation?
 
 The main difference between Android and iOS automation lies in the platform architecture, drivers, and setup. For Android, we typically use the UiAutomator2 driver with Appium, and automation can run on real devices or emulators. APK files are installed directly, and permissions can often be granted automatically. Locators like resource-id, content-desc, and text are commonly used for finding elements.
 
@@ -925,35 +925,34 @@ For iOS, automation is done using the XCUITest driver with Appium, and tests run
 Overall, Android automation is generally easier to set up and more flexible, while iOS automation has more restrictions but is stable once configured properly. In my experience, handling provisioning and certificates carefully is key to running iOS tests successfully."*
 
 
-10. How do you install and use Appium on Windows?
+10 How do you install and use Appium on Windows?
 
 To install Appium on Windows, first we install the Java JDK and set the JAVA_HOME environment variable. Then we install Node.js, and using NPM we can install Appium globally, or use Appium Desktop for the GUI version. For Android automation, we install Android Studio for SDK, ADB, and emulator setup. After connecting a real device or creating an emulator, we start the Appium server and use Appium Inspector to inspect elements. Finally, we write and run automation scripts in an IDE like Eclipse or IntelliJ."
 
-11. How do you install and use Appium on Mac?
+11 How do you install and use Appium on Mac?
 
 On Mac, the steps are similar. We install Java JDK, Node.js, and Appium. For Android, we use Android Studio as usual. For iOS automation, we also need Xcode, a simulator or real device, and provisioning profiles for signing. After setting up the environment, we start the Appium server, inspect elements using Appium Inspector, and write tests in an IDE.
 
-
-12. What is the difference between Implicit Wait and Explicit Wait in Appium?
+12 What is the difference between Implicit Wait and Explicit Wait in Appium?
 
 In Appium, Implicit Wait and Explicit Wait are both used for synchronization, but they work differently. Implicit Wait is a global wait that tells Appium to wait for a specified time before throwing an exception if an element is not found, and it applies to all elements throughout the test. It is simple to use but less flexible. Explicit Wait, on the other hand, waits for a specific condition to occur for a particular element, such as visibility or clickability. It is more precise, reliable, and preferred in real projects because it reduces flaky tests and handles dynamic elements better.
 
 
-13. How is Appium used for cross-platform testing?
+13 How is Appium used for cross-platform testing?
 
 Appium is a cross-platform mobile automation tool, which means we can automate both Android and iOS apps using the same API. This allows us to write a single set of test scripts that can run on multiple platforms, which reduces duplicate work.
 
 Under the hood, Appium uses different drivers: UiAutomator2 for Android and XCUITest for iOS. By setting desired capabilities like platform, device, and app details, the same script can run on either platform. It supports native apps, hybrid apps, and mobile web apps, so it’s very flexible. In practice, we can maintain one test framework and just change platform-specific capabilities to run tests on both Android and iOS."
 
 
-14. How is Appium used for cloud testing?
+14 How is Appium used for cloud testing?
 
 Appium can be used for cloud testing by running automation tests on real devices hosted on cloud platforms instead of local devices or emulators. Platforms like BrowserStack, Sauce Labs, Kobiton, or LambdaTest provide access to multiple Android and iOS devices with different OS versions and screen sizes.
 
 The test scripts remain the same; we just update the desired capabilities to specify the cloud device and app. The Appium server communicates with the cloud platform, which executes the commands on the selected device. Cloud testing also allows running tests in parallel on multiple devices, which improves coverage and saves time, and it removes the need to maintain a large number of physical devices locally.
 
 
-15. What are the different types of locators in Appium?
+15 What are the different types of locators in Appium?
 
 In Appium, we have several types of locators to find elements in mobile applications. The commonly used ones are ID or resource-id, Accessibility ID, XPath, Class Name, and Name or visible text. For Android, we can also use UIAutomator for more advanced element searches, while on iOS, Predicate and Class Chain locators are used for faster and more reliable element identification. Using these locators, we can interact with elements effectively in both Android and iOS ap
 
