@@ -2163,7 +2163,8 @@ git reset removes commits from history (used locally), while git revert creates 
 
 22 How do you check Git history?
 
-We use git log to view commit history and git log --oneline for a compact view.
+To check Git history, we use the git log command. It shows the commit history with details like commit ID, author, date, and commit message.
+If we want a short and clean view, we use git log --oneline.
 
 23 What is .gitignore?
 
@@ -3771,4 +3772,7 @@ Tools which are used for RestAssured framework devlopment.
 
 In my automation framework, I’ve used the concept of threads indirectly through TestNG parallel execution. To handle thread safety, I used ThreadLocal with ExtentTest. Each test runs in its own thread, and ThreadLocal ensures that every thread maintains its own copy of the ExtentTest object. This prevents the reports from overlapping and keeps the logs accurate for each test when multiple tests run simultaneously. So even though I didn’t create threads manually using the Thread class or Runnable interface, this implementation is still based on Java’s threading concept.
 
+Topic or question need to be focused
 
+10 What is git bash
+22 How do you check Git history?
