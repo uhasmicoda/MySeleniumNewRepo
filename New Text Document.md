@@ -3095,6 +3095,7 @@ robot.keyRelease(KeyEvent.VK_ENTER);
 This helps in automating actions like form submission or dialog confirmation.
 
 6 How do you perform mouse events using the Robot class?
+
 Mouse actions such as clicking or moving the cursor can be done using methods like mouseMove(), mousePress(), and mouseRelease(). For example:
 
 ```java
@@ -3786,5 +3787,9 @@ Topic or question need to be focused
 What is profiling and why you have used profiling in your maven project.
 10 Can we store the dynamic Xpath in POM class?
 Return type of getOptions method and get window handles
+
+12 How do you ensure your automation framework handles unexpected exceptions gracefully?
+
+I make sure my automation framework handles unexpected exceptions gracefully by having a base class for common exception handling and using listeners to log and capture screenshots automatically. This helps in debugging and ensures smooth execution of all tests.
 
 To use Maven, first we install Maven and configure it by setting MAVEN_HOME and adding it to the system PATH. After that, we create a Maven project (or convert an existing project) and manage dependencies and build using the pom.xml.
