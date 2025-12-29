@@ -1031,6 +1031,23 @@ These logs are very important for debugging because when a test fails, they help
 
 We can start the Appium server in three ways. First, using Appium Desktop, where we simply open the tool and click on Start Server. This method is mainly used for learning, debugging, and quick test execution. Second, by using the command line or terminal, where we start the server using the appium command along with required flags. This approach is widely used in real-time projects, especially in CI/CD pipelines and for parallel execution. Third, we can start and stop the Appium server programmatically using Java code with AppiumDriverLocalService. This method gives us full control over the server lifecycle and is commonly used in automation frameworks to make execution more flexible and reliable.
 
+```java
+// Import
+import org.openqa.selenium.ScreenOrientation;
+
+// Change to Landscape
+driver.rotate(ScreenOrientation.LANDSCAPE);
+
+// Small wait for UI to settle
+Thread.sleep(2000);
+
+// Re-validate UI elements
+driver.findElement(By.id("element_id")).isDisplayed();
+
+// Change back to Portrait
+driver.rotate(ScreenOrientation.PORTRAIT);
+
+```
 
 Appium server flags are used to control the behavior of the Appium server while starting it. Using flags, we can define settings such as the port number, IP address, logging level, and session handling. For example, the -p flag is used to start the server on a specific port, which is especially useful for parallel execution. The -a flag is used to specify the IP address, usually 127.0.0.1. In Appium 2, the --base-path flag is important to define the endpoint, commonly /wd/hub. The --log-level flag helps in debugging by controlling the level of logs, while --session-override automatically closes any existing sessions before starting a new one. The --allow-insecure flag is used to enable certain restricted features like chromedriver auto-download. Overall, Appium server flags help us customize and manage the server efficiently based on project needs.
 
