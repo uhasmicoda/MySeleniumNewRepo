@@ -2872,6 +2872,7 @@ In Selenium, a frame (or iframe) is an HTML document that is embedded inside ano
 Selenium provides three ways to switch into a frame: by using the index of the frame, by using the name or ID attribute of the frame, or by using the WebElement of the frame. Once the work inside the frame is completed, we can switch back either to the parent frame or directly to the main page (default content).
 
 4 How do you come out of a frame and go back to the main page?
+
 To come out of a frame and return to the main page in Selenium, we use driver.switchTo().defaultContent(). It shifts control from the current frame back to the main web page. If the page has nested frames and we want to go one level up, we use driver.switchTo().parentFrame(). This helps continue actions outside the frame smoothly after working inside it.
 
 5 How do you handle nested frame?
@@ -3770,6 +3771,7 @@ Any other approach to create a branch
 8)How you handled frames?
 9)how you handled alert?
 Tools which are used for RestAssured framework devlopment.
+Have you ever encountered pseudo elements in your application? If yes, how did you handle them in Selenium?
 
 5. What is the Selenium Version that you have been using? Explain what are enhancements in Selenium 4 w.r.to Selenium 3
 6. How do you set up your webdriver in Selenium 3? What has changed in Selenium 4?
