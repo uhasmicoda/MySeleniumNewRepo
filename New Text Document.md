@@ -2576,6 +2576,7 @@ So basically, Selenium acts as a bridge between your automation code and the bro
  
 
 6 Difference between get() and navigate().
+
 The get() and navigate() methods in Selenium are both used to open web pages, but they differ slightly in usage and functionality.
 
 The get() method is used to launch a new web page in the current browser window. It simply loads the specified URL and waits until the page is completely loaded before performing the next action.
@@ -2585,6 +2586,7 @@ On the other hand, the navigate() method (used as driver.navigate().to(url)) off
 In short, get() is straightforward and used for directly loading a page, while navigate() provides more advanced navigation options within the same browser session.
 
 7 Difference between close and quite
+
 The close() and quit() methods in Selenium are both used to close browser windows, but they serve different purposes.
 
 The close() method is used to close the current active browser window or tab where the driver is currently focused. If multiple browser windows are open, only that specific one will be closed, and the rest will remain open.
@@ -2593,6 +2595,7 @@ The quit() method, on the other hand, is used to close all browser windows opene
 
 
 8 Explain WebDriver driver=new ChromeDriver();
+
 The statement WebDriver driver = new ChromeDriver(); is used to launch the Chrome browser in Selenium.
 
 Here, WebDriver is an interface in Selenium that defines all the methods required to interact with a browser, such as get(), click(), sendKeys(), etc.
@@ -2603,6 +2606,8 @@ This approach is useful because it makes the code browser-independent — later,
 
 
 9 Return type of getOptions method and get window handles
+
+
 The getOptions() method returns an Options interface, which provides methods to manage browser settings such as cookies, timeouts, and windows.
 The getWindowHandles() method returns a Set<String>, which contains the unique window IDs (also called handles) of all the open browser windows. Each window handle can be used to switch between multiple browser windows or tabs during automation.
 
@@ -3776,3 +3781,8 @@ Topic or question need to be focused
 
 10 What is git bash
 22 How do you check Git history?
+What is profiling and why you have used profiling in your maven project.
+10 Can we store the dynamic Xpath in POM class?
+Return type of getOptions method and get window handles
+
+To use Maven, first we install Maven and configure it by setting MAVEN_HOME and adding it to the system PATH. After that, we create a Maven project (or convert an existing project) and manage dependencies and build using the pom.xml.
