@@ -1082,6 +1082,36 @@ alert.sendKeys("Test input");
 
 In Appium, multiple window handling is mainly used for mobile web or hybrid apps. First, we get the current window using getWindowHandle(). Then, we fetch all open windows using getWindowHandles(). After that, we switch to the required window using driver.switchTo().window(windowHandle) and perform actions on it. Once the work is done, we switch back to the original window. Since window handles are not returned in a fixed order, we usually iterate through them and use waits to make sure the window is fully loaded before interacting.
 
+```java
+// Store the current window
+String parentWindow = driver.getWindowHandle();
+
+// Perform action that opens a new window/tab
+// e.g., click on a link
+driver.findElement(By.id("openWindow")).click();
+
+// Get all window handles
+Set<String> allWindows = driver.getWindowHandles();
+
+// Switch to the new window
+for (String window : allWindows) {
+    if (!window.equals(parentWindow)) {
+        driver.switchTo().window(window);
+        break;
+    }
+}
+
+// Wait until the new window is loaded (example)
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+wait.until(ExpectedConditions.titleContains("Expected Title"));
+
+// Perform actions on the new window
+driver.findElement(By.id("someElement")).click();
+
+// Switch back to the parent window
+driver.switchTo().window(parentWindow);
+```
+
 34 How to handle network errors in Appium?
 
 In Appium, handling network errors is important to ensure app stability under different conditions. We can simulate network scenarios using desired capabilities like networkSpeed and networkType to test slow connectivity, delays, or network loss. Along with this, we use explicit waits, retry logic, and proper logging to handle temporary network failures gracefully. Tools like Charles Proxy can also be used to monitor API requests and debug network issues effectively. This approach helps validate that the app behaves correctly and recovers well under different network conditions.
