@@ -1031,6 +1031,14 @@ These logs are very important for debugging because when a test fails, they help
 
 We can start the Appium server in three ways. First, using Appium Desktop, where we simply open the tool and click on Start Server. This method is mainly used for learning, debugging, and quick test execution. Second, by using the command line or terminal, where we start the server using the appium command along with required flags. This approach is widely used in real-time projects, especially in CI/CD pipelines and for parallel execution. Third, we can start and stop the Appium server programmatically using Java code with AppiumDriverLocalService. This method gives us full control over the server lifecycle and is commonly used in automation frameworks to make execution more flexible and reliable.
 
+
+Appium server flags are used to control the behavior of the Appium server while starting it. Using flags, we can define settings such as the port number, IP address, logging level, and session handling. For example, the -p flag is used to start the server on a specific port, which is especially useful for parallel execution. The -a flag is used to specify the IP address, usually 127.0.0.1. In Appium 2, the --base-path flag is important to define the endpoint, commonly /wd/hub. The --log-level flag helps in debugging by controlling the level of logs, while --session-override automatically closes any existing sessions before starting a new one. The --allow-insecure flag is used to enable certain restricted features like chromedriver auto-download. Overall, Appium server flags help us customize and manage the server efficiently based on project needs.
+
+
+31 How do you handle orientation changes in Appium?
+
+In Appium, we handle orientation changes by using driver methods to switch between portrait and landscape modes. Appium provides built-in support to change the device orientation during test execution, which helps us validate whether the app behaves correctly when the screen rotates. After changing the orientation, we usually re-validate the UI elements because their positions or layouts may change. It’s also important to handle synchronization properly, as orientation change can cause the screen to reload. In real projects, we include orientation testing to ensure the app is responsive and stable in both portrait and landscape modes.
+
 ```java
 // Import
 import org.openqa.selenium.ScreenOrientation;
@@ -1048,13 +1056,6 @@ driver.findElement(By.id("element_id")).isDisplayed();
 driver.rotate(ScreenOrientation.PORTRAIT);
 
 ```
-
-Appium server flags are used to control the behavior of the Appium server while starting it. Using flags, we can define settings such as the port number, IP address, logging level, and session handling. For example, the -p flag is used to start the server on a specific port, which is especially useful for parallel execution. The -a flag is used to specify the IP address, usually 127.0.0.1. In Appium 2, the --base-path flag is important to define the endpoint, commonly /wd/hub. The --log-level flag helps in debugging by controlling the level of logs, while --session-override automatically closes any existing sessions before starting a new one. The --allow-insecure flag is used to enable certain restricted features like chromedriver auto-download. Overall, Appium server flags help us customize and manage the server efficiently based on project needs.
-
-
-31 How do you handle orientation changes in Appium?
-
-In Appium, we handle orientation changes by using driver methods to switch between portrait and landscape modes. Appium provides built-in support to change the device orientation during test execution, which helps us validate whether the app behaves correctly when the screen rotates. After changing the orientation, we usually re-validate the UI elements because their positions or layouts may change. It’s also important to handle synchronization properly, as orientation change can cause the screen to reload. In real projects, we include orientation testing to ensure the app is responsive and stable in both portrait and landscape modes.
 
 32 How to handle alerts in Appium?
 
