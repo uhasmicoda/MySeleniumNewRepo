@@ -1061,6 +1061,22 @@ driver.rotate(ScreenOrientation.PORTRAIT);
 
 In Appium, alerts are handled using the same approach as Selenium. When a system or app alert appears, we first switch the driver’s focus to the alert and then perform actions like accept, dismiss, or get the alert text. This is commonly used for permission pop-ups, confirmation dialogs, or warning messages. In real projects, we also add waits before handling alerts because they may not appear immediately. Proper alert handling ensures the test flow does not break due to unexpected pop-ups
 
+```java
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+
+// Accept the alert (OK / Allow)
+alert.accept();
+
+// Dismiss the alert (Cancel / Deny)
+alert.dismiss();
+
+// Get alert text
+String alertText = alert.getText();
+
+// Send input to alert (only for prompt alerts)
+alert.sendKeys("Test input");
+```
 
 33 How do you handle multiple windows in Appium?
 
