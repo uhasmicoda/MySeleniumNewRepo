@@ -3107,6 +3107,7 @@ robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 This is useful when elements cannot be handled using standard Selenium locators.
 
 7 Can you give an example of using the Robot class to handle OS-level dialogs that Selenium cannot handle directly?
+
 Yes, for example, while uploading a file through a system window, Selenium cannot interact with the OS file chooser. So, we use the Robot class to type the file path and press Enter:
 
 ```java
