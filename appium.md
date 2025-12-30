@@ -1312,6 +1312,22 @@ Appium Desktop is a GUI tool built on top of the Appium Server. It helps testers
 
 Appium handles multiple languages in mobile automation by supporting Unicode input and platform-specific localization. For Android, we can set the device language and locale using desired capabilities like language and locale, which allows tests to run in different languages. For iOS, similar capabilities are used to switch the simulator or device language. Appium can also interact with text fields and elements in any language because it supports Unicode characters, making it possible to automate applications with multilingual content without changing the test scripts.
 
+```java
+//Android
+caps.setCapability("language", "fr");
+caps.setCapability("locale", "FR");
+
+```
+
+```java
+//Ios
+caps.setCapability("language", "fr");
+caps.setCapability("locale", "FR");
+
+```
+
+
+
 70 What is the role of Appium's server-side hooks in mobile automation?
 
 In Appium, server-side hooks allow us to execute custom code before or after the Appium server processes a request. They are useful for tasks like logging, modifying requests, capturing additional data, or implementing custom behaviors without changing the client-side scripts. Essentially, server-side hooks provide a way to intercept and extend the Appium server functionality, which helps in debugging, monitoring, or adding extra automation logic during test execution.
