@@ -1223,13 +1223,13 @@ In practice, the test code remains the same. We only update the desired capabili
 
 BrowserStack also allows parallel execution, so we can run the same tests on multiple devices at the same time, which improves coverage and reduces execution time. This setup helps validate the app behavior in real-world conditions without maintaining physical devices locally.
 
-55. What is the use of mobile gestures in Appium?
+55 What is the use of mobile gestures in Appium?
 
 Mobile gestures in Appium are used to simulate real user interactions on a mobile device that cannot be handled by simple click or sendKeys actions. These gestures help us automate actions such as tap, swipe, scroll, long press, drag and drop, pinch, and zoom, which are very common in mobile apps.
 
 In real projects, we use mobile gestures to interact with elements that are off-screen, scroll through lists, swipe between screens, perform pull-to-refresh actions, or handle custom UI components. By using gestures, Appium automation becomes more realistic, reliable, and closer to actual user behavior, especially for mobile-specific interactions.
 
-56. How do you use Appium with JUnit? (Interview-safe answer)
+56 How do you use Appium with JUnit? (Interview-safe answer)
 
 
 Appium can be integrated with JUnit in a similar way to TestNG. We add Appium and Selenium dependencies, create a JUnit test class, and initialize the AppiumDriver in setup methods like @Before or @BeforeClass. Test cases are written using @Test, and cleanup is done in @After.
