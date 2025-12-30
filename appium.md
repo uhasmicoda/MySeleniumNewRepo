@@ -1156,7 +1156,11 @@ Animations and transitions in mobile apps can make elements appear slowly or not
 
 42 How to handle application crashes in Appium?
 
-In Appium, handling application crashes is crucial to keep tests robust and avoid interruptions. One way to handle crashes is by monitoring driver logs, which capture device logs, crash information, exceptions, and stack traces, helping us understand what went wrong during execution. Another approach is using try-catch blocks in test scripts to catch exceptions when the app crashes, allowing the test to log the error and continue or fail gracefully. It’s also important to check the app state before interacting with it using methods like driver.isAppInstalled(), driver.launchApp(), or driver.resetApp() to ensure the app is in a valid state. If a crash occurs, we can restart the app using driver.launchApp() or reinstall it with driver.installApp() to resume testing. Additionally, integrating with TestNG or JUnit allows us to define hooks like @AfterMethod or @AfterTest to capture screenshots, logs, and automatically relaunch the app after a crash, ensuring smooth test execution.
+In Appium, handling application crashes is crucial to keep tests robust and avoid interruptions. One way to handle crashes is by monitoring driver logs, which capture device logs, crash information, exceptions, and stack traces which shows It shows error type (exception),It shows file name, It shows line number, It shows call sequence (which method called which), helping us understand what went wrong during execution. 
+
+Another approach is using try-catch blocks in test scripts to catch exceptions when the app crashes, allowing the test to log the error and continue or fail gracefully. It’s also important to check the app state before interacting with it using methods like driver.isAppInstalled(), driver.launchApp(), or driver.resetApp() to ensure the app is in a valid state. If a crash occurs, we can restart the app using driver.launchApp() or reinstall it with driver.installApp() to resume testing.
+
+Additionally, integrating with TestNG or JUnit allows us to define hooks like @AfterMethod or @AfterTest to capture screenshots, logs, and automatically relaunch the app after a crash, ensuring smooth test execution.
 
 43 What is the difference between driver.quit() and driver.close() methods in Appium?
 
