@@ -2241,9 +2241,6 @@ In our automation framework, the Maven Surefire Plugin plays an important role i
 Basically, it helps in integrating test execution with the build lifecycle — so whenever a build is triggered, the tests run automatically before deployment. This ensures that any failure is caught early in the process.
 
 
-
-10 What is Maven how it Supports in Jenkins.
-
 ## 3 Jenkins
 
 1 Why you use Jenkins, explain how you perform On Scheduling execution in Jenkin?
@@ -2323,6 +2320,39 @@ Once the build is complete, Jenkins shows a “Test Result” or “HTML Report�
 In my project, once the test execution is complete, Jenkins automatically generates the test report, such as the Extent Report. I usually configure Jenkins to send an email notification to the development and QA team using the “Editable Email Notification” or “Email Extension” plugin. The report file or link (like the HTML report URL) is attached or included in the email body. This way, developers can directly open the report from their inbox and review the test results, failed test cases, and screenshots. Sometimes, if the report is large, I simply share the Jenkins build link or the Extent Report URL through our project communication channels like Slack or Microsoft Teams. This ensures developers quickly get visibility of test outcomes without manually fetching reports.
 This helps to monitor build results, track failed tests, and share reports with the team easily.
 It has numerous features like, Annotations, Test Prioritization, Grouping of Test Cases, Data-Driven Testing (@DataProvider), Parallel Execution, Dependency Management, Assertions (Hard & Soft) ,Test Configuration using testng.xml, Listener Support ,Retry Failed Test Cases,Parameterization
+
+11 How do you troubleshoot Jenkins failures?
+
+To troubleshoot Jenkins failures, I first check the console output to understand the exact error and identify where the build failed. Then I verify the environment configuration on the Jenkins agent, such as Java, Maven, browser drivers, or Appium setup, because many issues occur due to environment mismatch. I also check plugin compatibility and dependency-related issues, especially Maven dependency failures. If required, I analyze the stack trace to find the root cause of test or code failures. Additionally, I ensure that the Jenkins agent is connected and running properly. Finally, I rerun the failed job to confirm whether the failure was due to a temporary issue or a genuine problem.
+
+12  How do you trigger a Jenkins job automatically?
+
+Jenkins jobs can be triggered automatically in multiple ways. The most common approach is using webhooks, where tools like GitHub or GitLab notify Jenkins immediately whenever code is pushed to the repository. Another method is SCM polling, where Jenkins periodically checks the repository for changes at fixed intervals. We can also use scheduled triggers with cron expressions to run jobs at specific times, such as nightly or weekly builds. In real projects, webhooks are preferred because they are faster and more efficient than polling.
+
+13 How do you integrate Git with Jenkins?
+
+To integrate Git with Jenkins, we first install and configure the Git plugin in Jenkins. Then, we create a Jenkins job or pipeline and provide the Git repository URL where the source code is stored. If the repository is private, we add the required credentials such as username/password or SSH key using Jenkins Credentials Manager and link them to the job securely. After configuring the repository, we set up build triggers like Git webhooks or SCM polling so that Jenkins automatically pulls the latest code whenever changes are pushed. During job execution, Jenkins checks out the code from Git and performs the configured build and test steps, such as running Maven commands for automation. This integration enables continuous integration by ensuring that every code change is automatically built and tested.
+
+14  Difference between Poll SCM and Webhook?
+
+Poll SCM works by Jenkins periodically checking the source code repository at fixed intervals to detect any changes, which can consume more system resources and may cause delays. Webhooks, on the other hand, are event-driven, where the repository immediately notifies Jenkins whenever a code change is pushed. Because of this, webhooks are faster, more efficient, and preferred in real projects compared to SCM polling.
+
+15 How do you publish test reports in Jenkins?
+
+In Jenkins, I publish test reports using Extent Reports generated in HTML format. During test execution, the automation framework generates an Extent HTML report in a specific directory, usually inside the project workspace. After the tests are completed, Jenkins is configured to archive the HTML report using the HTML Publisher Plugin.
+
+In the Jenkins job or Jenkinsfile, I specify the report path, report name, and index file (for example, index.html). Once the build finishes, Jenkins displays a direct link to the Extent HTML report on the job dashboard.
+
+This approach helps stakeholders easily view detailed test execution results, including pass/fail status, screenshots on failure, logs, and execution steps, without downloading any files. Using Extent HTML reports improves visibility, debugging, and reporting quality in CI pipelines.
+
+16 How do you handle failed builds in Jenkins?
+
+In Jenkins, I handle failed builds by first analyzing the console output and logs to identify the exact reason for failure, such as test failures, compilation errors, environment issues, or dependency problems. I configure Jenkins to mark the build as FAILED when any critical stage does not pass.
+
+In my projects, I also set up notifications (email or Slack) so the team is immediately informed when a build fails. For unstable or flaky tests, I use retry logic at the test or pipeline level to re-execute failed tests. Additionally, I capture screenshots, logs, and Extent HTML reports for failed test cases to make debugging easier.
+
+After fixing the issue, I re-run the build to verify the fix. This structured approach helps reduce downtime, improves build stability, and ensures quick resolution of failures in the CI/CD pipeline.
+
 
 ## 4 TestNg
 
@@ -3794,3 +3824,6 @@ Return type of getOptions method and get window handles
 I make sure my automation framework handles unexpected exceptions gracefully by having a base class for common exception handling and using listeners to log and capture screenshots automatically. This helps in debugging and ensures smooth execution of all tests.
 
 To use Maven, first we install Maven and configure it by setting MAVEN_HOME and adding it to the system PATH. After that, we create a Maven project (or convert an existing project) and manage dependencies and build using the pom.xml.
+7 Can you give an example of using the Robot class to handle OS-level dialogs that Selenium cannot handle directly? Yes, for example, while uploading a file through a system window, Selenium cannot interact with the OS file chooser. So, we use the Robot class to type the file path and press Enter:
+
+10 Have you ever used the IInvokedMethodListener or IAnnotationTransformer interfaces? If yes, give an example of how they improved your framework.
