@@ -83,7 +83,7 @@ Apart from that, I regularly worked under tight deadlines, so that's why I had t
 Sometimes developers and testers had different understanding of a feature. A developer might developed implement a feature with a certain logic in mind, but the tester might expect it to behave differently based on their understanding of the requirements. This caused chaos confusion and delays. What lessened I have acquired that If I'm having any sort of confusion but learned to ask questions early, get clear understanding, and keep proper documentation to avoid such gaps.
 
 
-## 6 FRAMEWORD EXPLAINATION
+## 6 FRAMEWORK EXPLAINATION
 
 In our Purplle automation framework, we followed a modular and maintainable structure using TestNG as the core test execution engine. Test scripts were developed module-wise, and I converted manual test cases into automated scripts, ensuring coverage of key business flows. We grouped test cases for sanity, smoke, and regression runs and controlled execution through TestNG XML files, enabling parallel execution and suite-level configurations.
 
