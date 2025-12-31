@@ -13,7 +13,7 @@ Along with automation, I have strong experience in manual testing, which include
 I am always eager to learn new tools and technologies to improve my technical skills, and I stay focused on delivering high-quality products within specified timelines while continuing to grow in my career.
 
 
-## 2 PROJECT EXPLAINATION-1
+## 2 PROJECT EXPLANATION-1
 
 I worked on the Purplle project, an e-commerce platform in the beauty and cosmetics segment, for about 13 months. The application provides mobile and web interfaces for users to conveniently browse and purchase beauty and personal care products, offering features like product search, filtering, secure payments, cart and wishlist management, order tracking, and personalized recommendations.
 
@@ -22,7 +22,7 @@ My role involved manual testing, mobile testing, and supporting automation. I de
 During testing, I identified critical defects including app crashes during scrolling, filter reset issues, unresponsive Add to Cart functionality, and OTP-related problems. By thoroughly testing and collaborating with developers, I ensured the application was stable, reliable, and delivered a smooth and engaging shopping experience to users.
 
 
-## 3 PROJECT EXPLAINATION-2
+## 3 PROJECT EXPLANATION-2
 
 I worked on the Busuu project, which is an EdTech platform focused on language learning, for around 29 months. The application provides a user-friendly mobile and web interface for learning international languages such as English, Spanish, French, German, Italian, and Portuguese. It consists of multiple modules, including User Management, Courses and Lessons, Progress Tracking, Vocabulary Builder, Live Interaction, Certification, Offline Access, and Notifications.
 
@@ -64,8 +64,6 @@ I also collaborated with developers to confirm whether the issue was due to a sc
 
 I also used breakpoints and step-by-step execution in the IDE to trace the flow of the test script,
 
-
-
 ## 5 CHALLENGES
 
 What are the automation challenges you faced in your previous project.
@@ -83,7 +81,7 @@ Apart from that, I regularly worked under tight deadlines, so that's why I had t
 Sometimes developers and testers had different understanding of a feature. A developer might developed implement a feature with a certain logic in mind, but the tester might expect it to behave differently based on their understanding of the requirements. This caused chaos confusion and delays. What lessened I have acquired that If I'm having any sort of confusion but learned to ask questions early, get clear understanding, and keep proper documentation to avoid such gaps.
 
 
-## 6 FRAMEWORK EXPLAINATION
+## 6 FRAMEWORK EXPLANATION
 
 In our Purplle automation framework, we followed a modular and maintainable structure using TestNG as the core test execution engine. Test scripts were developed module-wise, and I converted manual test cases into automated scripts, ensuring coverage of key business flows. We grouped test cases for sanity, smoke, and regression runs and controlled execution through TestNG XML files, enabling parallel execution and suite-level configurations.
 
