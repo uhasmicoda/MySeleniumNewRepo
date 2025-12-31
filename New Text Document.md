@@ -2301,23 +2301,16 @@ This approach makes the Jenkins job more flexible and reusable because I can run
 
 9 How to fetch the report in Jenkins.
 
-To fetch or view reports in Jenkins, I configure post-build actions in my Jenkins job. After the test execution finishes, the reports, including ExtentReports, get generated in my project workspace. In Jenkins, I go to Post-build Actions and use the Publish HTML Report option because ExtentReports are HTML based. Then I provide the report path, usually something like test-output/ExtentReport.html or Reports/ExtentReport/index.html depending on the project structure.
-
-
-Once the build is complete, Jenkins shows an “HTML Report” link on the build page. Since ExtentReports are HTML-based, I can simply click that link to open the Extent Report directly from the Jenkins dashboard. It displays detailed information about the test execution — including pass/fail status, logs, screenshots, and test duration — all in a clean, interactive format.
-
-9 How to fetch the report in Jenkins.
-
-To fetch or view reports in Jenkins, I usually configure post-build actions in my Jenkins job. After the test execution, the reports (like TestNG, JUnit, or Extent reports) are automatically generated in the project workspace.
-
+To fetch or view reports in Jenkins, I configure post-build actions in my Jenkins job. After the test execution finishes, the reports, including ExtentReports, get generated in my project workspace. 
 
 In Jenkins, I go to “Post-build Actions” and select “Publish HTML Reports” or “Publish JUnit test result report” depending on the type of report. I then provide the path of the report folder (for example, target/surefire-reports or test-output).
 
-Once the build is complete, Jenkins shows a “Test Result” or “HTML Report” link on the build page. I can click that link to view the detailed test execution report directly from the Jenkins dashboard.
+Once the build is complete, Jenkins shows an “HTML Report” link on the build page. Since ExtentReports are HTML-based, I can simply click that link to open the Extent Report directly from the Jenkins dashboard. It displays detailed information about the test execution — including pass/fail status, logs, screenshots, and test duration — all in a clean, interactive format.
 
 10 How do you send or share test reports with developers?
 
 In my project, once the test execution is complete, Jenkins automatically generates the test report, such as the Extent Report. I usually configure Jenkins to send an email notification to the development and QA team using the “Editable Email Notification” or “Email Extension” plugin. The report file or link (like the HTML report URL) is attached or included in the email body. This way, developers can directly open the report from their inbox and review the test results, failed test cases, and screenshots. Sometimes, if the report is large, I simply share the Jenkins build link or the Extent Report URL through our project communication channels like Slack or Microsoft Teams. This ensures developers quickly get visibility of test outcomes without manually fetching reports.
+
 This helps to monitor build results, track failed tests, and share reports with the team easily.
 It has numerous features like, Annotations, Test Prioritization, Grouping of Test Cases, Data-Driven Testing (@DataProvider), Parallel Execution, Dependency Management, Assertions (Hard & Soft) ,Test Configuration using testng.xml, Listener Support ,Retry Failed Test Cases,Parameterization
 
