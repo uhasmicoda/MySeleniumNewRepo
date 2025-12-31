@@ -2,7 +2,7 @@
 
 
 
-**Hi / Good morning / afternoon / evening,**
+
 
 
 
@@ -138,63 +138,51 @@
 
 
 
-**\*\*CHALLENGES\*\***
+**## 5 CHALLENGES**
 
 
 
-**\*\*What are the automation challenges you faced in your previous project\*\***
+**What are the automation challenges you faced in your previous project**
 
 
 
+**In my 3 years of experience, I’ve faced several challenges during automation testing that helped me grow technically. One of the common issues was when the requirements kept changing. This made it hard to plan test cases in advance. I also faced bugs that didn’t always happen—like they appeared once and then never again. These were hard to reproduce and took extra time to investigate and raised.**
 
 
 
-
-**\*\*In my 3.5 years of experience, I’ve faced several challenges during automation testing that helped me grow technically. One of the common issues was when the requirements kept changing. This made it hard to plan test cases in advance. I also faced bugs that didn’t always happen—like they appeared once and then never again. These were hard to reproduce and took extra time to investigate and raised.\*\***
-
+**One technical challenge I faced was synchronization issues, where elements took time to load and caused test failures. To handle this, I implemented implicit waits for global delays, explicit waits for specific conditions, and custom waits for dynamic content. This helped improve the stability and reliability of our automation scripts.**
 
 
 
+**At one point, I  faced tool version compatibility issues — for example, after upgrading the browser or WebDriver, some scripts started failing due to mismatches between the browser version, Selenium WebDriver, and dependencies. To fix this, we ensured all tools and libraries were compatible, updated the required versions in the pom.xml, and used WebDriverManager to handle driver versions dynamically. This helped restore stability and avoided manual driver setup issues.**
 
 
 
-**\*\*One technical challenge I faced was synchronization issues, where elements took time to load and caused test failures. To handle this, I implemented implicit waits for global delays, explicit waits for specific conditions, and custom waits for dynamic content. This helped improve the stability and reliability of our automation scripts.\*\***
+**One of the challenges I faced was dealing with dynamic elements whose attributes like IDs or classes changed frequently, leading to script failures. To overcome this, I avoided direct static locators and instead used stable strategies like relative XPath and CSS selectors. I also applied advanced XPath axes such as ancestor, descendant, parent, child, and sibling to locate elements based on their relationship with nearby stable elements. This approach helped me build more robust and maintainable test scripts, especially for pages with complex or dynamic DOM structures.**
 
 
 
-
-
-**\*\*At one point, I  faced tool version compatibility issues — for example, after upgrading the browser or WebDriver, some scripts started failing due to mismatches between the browser version, Selenium WebDriver, and dependencies. To fix this, we ensured all tools and libraries were compatible, updated the required versions in the pom.xml, and used WebDriverManager to handle driver versions dynamically. This helped restore stability and avoided manual driver setup issues.\*\***
-
+**Apart from that, I regularly worked under tight deadlines, so that's why I had to prioritize testing and focus on critical areas first. Also, sometimes I had to clearly explain the impact of a bug to developers to make them understand why it needed to be fixed. Good communication really helped in such cases. These challenges taught me to stay flexible, improve communication, and manage my time better during testing.**
 
 
 
-
-
-
-**\*\*One of the challenges I faced was dealing with dynamic elements whose attributes like IDs or classes changed frequently, leading to script failures. To overcome this, I avoided direct static locators and instead used stable strategies like relative XPath and CSS selectors. I also applied advanced XPath axes such as ancestor, descendant, parent, child, and sibling to locate elements based on their relationship with nearby stable elements. This approach helped me build more robust and maintainable test scripts, especially for pages with complex or dynamic DOM structures.\*\***
+**Sometimes developers and testers had different understanding of a feature. A developer might developed implement a feature with a certain logic in mind, but the tester might expect it to behave differently based on their understanding of the requirements. This caused chaos confusion and delays. What lessened I have acquired that If I'm having any sort of confusion but learned to ask questions early, get clear understanding, and keep proper documentation to avoid such gaps.**
 
 
 
 
 
-
-
-**\*\*Apart from that, I regularly worked under tight deadlines, so that's why I had to prioritize testing and focus on critical areas first. Also, sometimes I had to clearly explain the impact of a bug to developers to make them understand why it needed to be fixed. Good communication really helped in such cases. These challenges taught me to stay flexible, improve communication, and manage my time better during testing.\*\***
-
+**## 6 FRAMEWORD EXPLAINATION**
 
 
 
+**In our Purplle automation framework, we followed a modular and maintainable structure using TestNG as the core test execution engine. Test scripts were developed module-wise, and I converted manual test cases into automated scripts, ensuring coverage of key business flows. We grouped test cases for sanity, smoke, and regression runs and controlled execution through TestNG XML files, enabling parallel execution and suite-level configurations.**
 
 
 
-**\*\*Sometimes developers and testers had different understanding of a feature. A developer might developed implement a feature with a certain logic in mind, but the tester might expect it to behave differently based on their understanding of the requirements. This caused chaos confusion and delays. What lessened I have acquired that If I'm having any sort of confusion but learned to ask questions early, get clear understanding, and keep proper documentation to avoid such gaps.\*\***
+**The framework followed Page Object Model (POM) to separate locators from test logic, improving reusability and maintainability. We implemented data-driven testing using TestNG’s @DataProvider and used listeners to capture test events, generate logs, and take screenshots on failures. Maven managed dependencies like Selenium, TestNG, WebDriverManager, Apache POI, and ExtentReports, while ExtentReports provided detailed and stakeholder-friendly HTML reports.**
 
 
 
-
-
-
-
-
+**We had a WebDriverUtility class for reusable browser operations and a base class with @BeforeClass, @BeforeMethod, @AfterMethod, and @AfterClass methods to set up browsers, initialize page classes, and manage pre/post-test configurations. I also executed and validated test scripts locally, debugged failures, and ensured smooth execution in the shared framework**
 
