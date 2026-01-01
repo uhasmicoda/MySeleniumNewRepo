@@ -1246,7 +1246,6 @@ Appium can also be used with Pytest for Python-based automation. We install Appi
 
 Personally, I worked with Appium using Java and TestNG, but I understand that Pytest follows the same setup–execute–teardown approach.
 
-
 58 What are the best practices for writing maintainable Appium tests?
 
 To write maintainable Appium tests, I design my framework using the Page Object Model, where UI locators are separated from test logic. This helps reduce rework when there are UI changes. I use reliable and stable locators, preferably accessibility IDs, and avoid hard-coded or absolute XPaths. I avoid hard waits like Thread.sleep and instead use proper synchronization techniques such as explicit waits to handle dynamic content. I create reusable utility methods for common actions like login, scrolling, swiping, and OTP handling, which keeps the code clean and reduces duplication. I also handle different device screen sizes dynamically to ensure tests run smoothly across devices. Finally, I maintain clean test data management, capture screenshots and logs on failure, and integrate proper reporting, which makes debugging easier and improves long-term test maintenance.
@@ -1277,8 +1276,6 @@ We can also start and stop the server using Appium Desktop by clicking the Start
 
 In real automation frameworks, especially when using CI/CD tools like Jenkins, we usually start and stop the Appium server programmatically using Java. This helps in avoiding manual steps, supports automation execution, and is useful for scheduled or parallel test runs.
 
-
-
 63 Difference between Appium's UIAutomator2 and UIAutomator (Android)
 
 UIAutomator is the older Android automation framework, which only works on Android versions below 5.0 and has limitations in stability and performance.
@@ -1299,7 +1296,6 @@ Short version: Single-touch = one finger; multi-touch = multiple fingers simulta
 66 Difference between Mobile Web Automation and Native App Automation in Appium.
 
 In Appium, mobile web automation and native app automation are different in terms of platform and approach. Mobile web automation is performed on a mobile browser, like Chrome or Safari, and interacts with HTML DOM elements, so we can even use JavaScriptExecutor for certain actions. On the other hand, native app automation is performed on an installed app and uses mobile-specific locators like accessibility IDs or XPath, and we cannot use JavaScript. Native automation also allows testing app-specific features, gestures, and interactions that are not available in a browser. Essentially, mobile web automation is for testing web applications on mobile devices, while native automation is for testing the actual mobile app functionality.
-
 
 67 How to automate location-based testing in Appium?
 
@@ -1330,8 +1326,6 @@ caps.setCapability("locale", "FR");
 
 ```
 
-
-
 70 What is the role of Appium's server-side hooks in mobile automation?
 
 In Appium, server-side hooks allow us to execute custom code before or after the Appium server processes a request. They are useful for tasks like logging, modifying requests, capturing additional data, or implementing custom behaviors without changing the client-side scripts. Essentially, server-side hooks provide a way to intercept and extend the Appium server functionality, which helps in debugging, monitoring, or adding extra automation logic during test execution.
@@ -1346,7 +1340,53 @@ Automating mobile games with Appium is similar to automating regular mobile apps
 
 
 
+## Appium W3C Actions
 
+```java
+import java.time.Duration;
+import java.util.Arrays;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
+public class TapGestureExample {
+
+    public static void main(String[] args) {
+        // Step 0: Initialize driver (already connected to Appium)
+        AppiumDriver<MobileElement> driver = /* your driver initialization */;
+
+        // Step 1: Find the element using locator
+        WebElement tapElement = driver.findElementById("loginBtn"); // replace with your locator
+
+        // Step 2: Create a virtual finger
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "fingerTap");
+
+        // Step 3: Create a sequence for tap
+        Sequence tap = new Sequence(finger, 1);
+
+        // Step 4: Move finger to the center of the element
+        tap.addAction(finger.createPointerMove(Duration.ZERO,
+                PointerInput.Origin.viewport(),
+                tapElement.getLocation().x + tapElement.getSize().width / 2,
+                tapElement.getLocation().y + tapElement.getSize().height / 2));
+
+        // Step 5: Finger down and up (tap)
+        tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        // Step 6: Perform the gesture
+        driver.perform(Arrays.asList(tap));
+
+        System.out.println("Tap performed successfully!");
+    }
+}
+
+
+```
 
 
 
@@ -1359,6 +1399,37 @@ Automating mobile games with Appium is similar to automating regular mobile apps
 
 
 
+import java.util.*;
+import java.io.*;
+
+
+
+
+presenceOfElementLocated
+
+Used when waiting for an element to appear after network response
+
+Example: waiting for API-loaded content
+
+visibilityOfElementLocated
+
+Used when element is present and visible to user
+
+Very common after slow network calls
+
+elementToBeClickable
+
+Used when buttons are disabled until network response completes
+
+invisibilityOfElementLocated
+
+Used to wait for loaders, spinners, or progress bars to disappear
+
+textToBePresentInElement
+
+Used when validating error messages like “No Internet Connection”
+
+how will u upload file and download file
 
 
 
@@ -1367,19 +1438,173 @@ Automating mobile games with Appium is similar to automating regular mobile apps
 
 
 
+Explain how you can debug the tests in Selenium IDE?
+Selenium IDE offers several debugging features to help identify and fix errors in tests. You can set breakpoints by clicking the line number next to a command, pausing execution to inspect variables step-by-step. The log view shows detailed information about each executed command, making it easier to spot errors. The Find command helps locate and highlight elements on the page, ensuring the correct targets are used in tests. Adding Echo commands displays messages in the log to track test flow. Finally, the Run to Here command lets you execute the test up to a specific command, which is helpful for debugging individual test sections without running the entire script.
+
+In Selenium IDE, can you generate random numbers and dates for test data?
+Yes, Selenium IDE has a built-in feature to generate random numbers and dates for test data. To generate a random number, you can use the "\${random}" variable with the "Math.floor(Math.random()*max)" expression, where "max" is the maximum value for the random number. To generate a random date, you can use the "\${now }" variable with the "new Date()" expression, which can be formatted as a date string or a timestamp. Using these variables can help create unique test data for each test run..
+
+133. How to handle images in Selenium ?
+Images are an integral part of websites and how they are handled in Selenium can impact website functionality and the user experience. To handle images in Selenium Firstly, you need to locate the image element on the page by using the appropriate find_element_by_* method. For instance, you can find an image by its ID by calling driver.find_element_by_id('image_id'). Next, you can access the image's source URL using the get_attribute() method and the src attribute. For example, image_src = driver.find_element_by_id('image_id').get_attribute('src').
+
+136. How to handle browser cookies in Selenium?
+In Selenium, managing cookies is crucial for simulating interactions on websites that require session data or logins. The Cookie class and WebDriver’s Options interface allow you to create, modify, and delete cookies. To create a cookie, instantiate a Cookie object and add it with addCookie(). To alter a cookie, retrieve it with getCookieNamed(), modify its value, and re-add it. To delete a specific cookie, use getCookieNamed() followed by deleteCookie(). Additionally, the Options interface provides methods like deleteAllCookies() to clear all cookies and getCookies() to retrieve them, with customizable attributes like path, domain, and expiration.
+
+
+. Can Captcha be automated?
+In general, Captcha is intended to prevent automated bots from completing particular actions on a website, hence automating Captcha contradicts its purpose. However, there are some techniques and tools available that attempt to automate Captcha, such as OCR (optical character recognition) or third-party Captcha services.
+
+While some Captcha challenges may be resistant to these techniques, they are not always effective and may not be reliable. Furthermore, automating Captcha may violate the terms of service of the website or application being tested, and in some jurisdictions may be illegal.
+
+
+ Explain how you can handle colors in Selenium WebDriver?
+In Selenium WebDriver, handle colors by using getCssValue("color") to retrieve an element's color, then compare it to expected values. For example:
+
+
+WebElement element = driver.findElement(By.id("myElement"));
+String color = element.getCssValue("color");
+assertEquals(color, "rgba(255, 0, 0, 1)"); // Checks if the color is red
+
+. How many test cases you have automated per day?
+The number of test cases that can be automated per day depends upon various factors, that includes the complexity of the test cases, the experience and expertise of the automation tester, the tools and frameworks being used, and the general testing environment. The execution of repeated and complex test cases can be done much more quickly thanks to automated testing. However, the actual number of test cases that can be automated per day would vary widely depending on the specific project requirements and circumstances.
+
+
+169. What type of test cases to be automated?
+Test cases that are repetitive, time-consuming, complex, or require precise execution are ideal for automation, including regression testing, smoke testing, data-driven testing, GUI testing, performance testing, cross-platform and cross-browser testing, and integration testing.
+
+170. What type of test cases not to be automated?
+Certain test cases are not suitable for automation, including exploratory testing, ad-hoc testing, usability testing, infrequently executed cases, and features that are unstable or frequently changing, where manual testing may be more effective.
+
+
+176. Where you have applied OOPS in Automation Framework ?
+OOP principles can be effectively applied in automation frameworks in several areas. Page Object Model (POM) utilizes OOP by representing each web page or component as a class, encapsulating actions and properties, which enhances code readability and maintainability. Test Data Management employs OOP to create classes for managing test data, facilitating easy validation, transformation, and retrieval. Test Configuration Management uses OOP to represent environment and test settings as classes, centralizing management for easier updates. Finally, Test Utilities leverage OOP to create reusable utility classes for common functions like logging and error handling, enhancing modularity and efficiency in the automation framework.
+
+
+177. How will you select a date from a datepicker in a webpage using Selenium for automated testing? Explain with a proper code.
+
+
+206. How to integrate Selenium with Maven?
+To integrate Selenium with Maven, first create a new Maven project in your preferred IDE (like Eclipse or IntelliJ) or use an existing one, then add the Selenium dependency to your pom.xml file with the following code: <dependency><groupId>org.seleniumhq.selenium</groupId><artifactId>selenium-java</artifactId><version>3.141.59</version></dependency>, which will download the necessary Selenium Java bindings and dependencies. Next, create a new Java class to include your Selenium test code; for example, you might set the ChromeDriver path, create a ChromeDriver instance, navigate to a website, and close the browser. Here's a simple example:
+
+
+242. How to login to any site if it is showing an Authentication Pop-Up for Username and Password?
+To log in to a website displaying an authentication pop-up for username and password using Selenium, first, launch a web browser and navigate to the site with driver.get('https://www.example.com'). Then, locate the authentication pop-up fields using methods like find_element_by_id, for instance, username_field = driver.find_element_by_id('username') and password_field = driver.find_element_by_id('password'). Next, enter your credentials using send_keys(), such as username_field.send_keys('your_username') and password_field.send_keys('your_password'), followed by submitting the form with password_field.submit(). Finally, wait for the next page to load using WebDriverWait, like wait = WebDriverWait(driver, 10) and element = wait.until(EC.visibility_of_element_located((By.ID, 'next_page_element_id'))), replacing 'next_page_element_id' with the ID of an element on the next page. Following these steps allows for automated login via authentication pop-ups using Selenium.
+
+
+A Jenkins job is a task or project configured to perform actions like building code, running tests, or deploying applications. Freestyle jobs are simple and UI-based, suitable for basic tasks. Pipeline jobs are more advanced and use code to define the entire CI/CD process, making them more flexible, scalable, and suitable for complex workflows.
+A Jenkins job is a task or project configured to perform actions like building code, running tests, or deploying applications. Freestyle jobs are simple and UI-based, suitable for basic tasks. Pipeline jobs are more advanced and use code to define the entire CI/CD process, making them more flexible, scalable, and suitable for complex workflows.
+
+
+A Jenkins Pipeline is a collection of steps written as code that defines the entire build, test, and deployment process. Scripted pipelines use Groovy syntax and offer more flexibility, while Declarative pipelines are simpler, structured, and easier to maintain. Pipeline as code using a Jenkinsfile is preferred because it is version-controlled, reusable, and ensures consistency across environments.
+
+
+How do you trigger a Jenkins job automatically?
+
+Webhooks (GitHub/GitLab)
+
+SCM Polling
+
+Scheduler cron expressions 
+GeeksforGeeks
+
+Difference between Poll SCM and Webhook?
+
+Poll SCM periodically checks
+
+Webhook is event-driven push trigger 
+GeeksforGeeks
+
+How do you integrate Git with Jenkins?
+Plugin setup, repo URL, credentials, triggers. 
+iScalePro
+
+
+✅1️⃣ How do you trigger a Jenkins job automatically?
+
+Interview Answer:
+
+Jenkins jobs can be triggered automatically in multiple ways. We can use webhooks from GitHub or GitLab to trigger a build whenever code is pushed. Another method is SCM polling, where Jenkins periodically checks the repository for changes. We can also schedule jobs using cron expressions to run at specific times, such as nightly or weekly builds.
+
+✅3️⃣ How do you integrate Git with Jenkins?
+
+Interview Answer:
+
+To integrate Git with Jenkins, we first install the Git plugin in Jenkins. Then we configure the repository URL in the Jenkins job and add the required credentials for authentication. After that, we configure triggers such as webhooks or SCM polling to automatically start the job whenever code changes are pushed to the repository.
+
+
+
+✅2️⃣ Difference between Poll SCM and Webhook?
+
+Interview Answer:
+
+Poll SCM works by Jenkins periodically checking the repository for changes at fixed intervals, which can consume more resources. Webhooks are event-driven, where the repository notifies Jenkins immediately when a code change occurs, making webhooks more efficient and faster than polling.
 
 
 
 
+✅1️⃣ How do you run automated test scripts (Selenium/Appium) in Jenkins?
+
+Interview Answer:
+
+In Jenkins, we run Selenium or Appium automated tests by configuring the job to execute Maven commands such as mvn clean test. The automation code is pulled from the Git repository, and the tests are executed either through a build step in a Freestyle job or inside a stage defined in a Jenkins pipeline using a Jenkinsfile.
+
+✅ 2️⃣ How do you publish test reports in Jenkins?
+
+Interview Answer:
+
+Test reports are published in Jenkins using reporting plugins. For unit and automation tests, we use TestNG or JUnit report plugins. For detailed execution reports, we integrate Extent Reports or Allure, and Jenkins is configured to archive and display these reports after test execution.
+
+✅ 3️⃣ 
+
+Interview Answer:
+
+When a build fails, Jenkins marks the job as failed and captures logs for analysis. We configure notifications such as email alerts to inform the team. In case of flaky tests, we use retry logic or rerun failed tests. This helps quickly identify issues and maintain build stability.
+
+🎯 Interview Tip
+
+Always add:
+
+“In our project, Jenkins helped us identify failures early and maintain continuous testing.”
 
 
 
 
+✅1️⃣ How do you write a Jenkinsfile?
 
+Interview Answer:
 
+A Jenkinsfile is written using a declarative pipeline syntax and stored in the project repository. It defines different stages such as Build, Test, and Deploy. Each stage contains steps to execute specific tasks. We also use post actions like always, success, and failure to perform actions such as generating reports or sending notifications after the build.
 
+✅ 2️⃣ How do you run parallel stages in Jenkins?
 
+Interview Answer:
 
+In Jenkins, we run parallel stages using the parallel block in a declarative pipeline. This allows multiple stages or test suites to execute simultaneously, which helps reduce overall execution time and supports parallel test execution across different environments or devices.
 
+✅ 3️⃣ How do you pass parameters to a Jenkins job?
 
+Interview Answer:
 
+Jenkins allows passing parameters to a job using parameterized builds. We can define parameters like string, boolean, or choice parameters in the job configuration and access them inside the Jenkinsfile or build steps during execution.
+
+✅ 4️⃣ How do you use credentials securely in Jenkins?
+
+Interview Answer:
+
+Jenkins stores sensitive information like usernames, passwords, and tokens in the Credentials Manager. These credentials are securely referenced in jobs or Jenkinsfiles using credential IDs, ensuring that sensitive data is not hardcoded in the scripts or exposed in logs.
+
+🎯 Interview Tip
+
+You can end with:
+
+“In my project, we used parameterized Jenkins pipelines with secure credentials to manage different environments safely.”
+
+This shows real project experience.
+
+If you want next:
+
+Master–Agent architecture
+
+Jenkins troubleshooting questions
+
+Sample Jenkinsfile (Appium + Maven + Extent Reports)
