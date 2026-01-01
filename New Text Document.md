@@ -2143,7 +2143,8 @@ A merge conflict occurs when Git cannot automatically combine changes because th
 
 17 Difference between merge and rebase
 
-Merge preserves history and creates a merge commit, while rebase rewrites commit history and makes it linear. Merge is safer for shared branches.
+Git merge joins two branches and keeps all old commits safe, Git rebase also joins branches but rewrites old commits, so history changes.
+That’s why merge is safer for shared branches, Merge keeps the existing commit history, Rebase rewrites or changes the commit history.
 
 18 What is git pull vs git fetch?
 
@@ -3820,3 +3821,7 @@ To use Maven, first we install Maven and configure it by setting MAVEN_HOME and 
 7 Can you give an example of using the Robot class to handle OS-level dialogs that Selenium cannot handle directly? Yes, for example, while uploading a file through a system window, Selenium cannot interact with the OS file chooser. So, we use the Robot class to type the file path and press Enter:
 
 10 Have you ever used the IInvokedMethodListener or IAnnotationTransformer interfaces? If yes, give an example of how they improved your framework.
+
+
+
+From 27 Oct 2022 → 25 Nov 2025
