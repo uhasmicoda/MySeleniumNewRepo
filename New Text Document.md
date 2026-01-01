@@ -2179,6 +2179,10 @@ git stash temporarily saves uncommitted changes so we can switch branches withou
 
 HEAD points to the current branch and latest commit we are working on
 
+26 How to pull request
+
+After pushing my code to the feature branch, I go to GitHub and create a pull request. I select my feature branch as the source branch and the main or develop branch as the target branch. I add a proper title and description explaining my changes. Then the team reviews the code and gives comments if required. I fix the comments and push the updated code, which automatically updates the pull request. After approval, the pull request is merged into the target branch, and the feature branch can be deleted.
+
 ## 2 MAVEN
 
 1 What is Maven and what is the use of the Maven?
