@@ -1014,7 +1014,7 @@ Overall, handling SSL certificate errors ensures that automation is not blocked 
 
 Appium is a cross-platform mobile automation tool, which means we can automate both Android and iOS apps using the same API. This allows us to write a single set of test scripts that can run on multiple platforms, which reduces duplicate work.
 
-Under the hood, Appium uses different drivers: UiAutomator2 for Android and XCUITest for iOS. By setting desired capabilities like platform, device, and app details, the same script can run on either platform. It supports native apps, hybrid apps, and mobile web apps, so it’s very flexible. In practice, we can maintain one test framework and just change platform-specific capabilities to run tests on both Android and iOS."
+internally, Appium uses different drivers: UiAutomator2 for Android and XCUITest for iOS. By setting desired capabilities like platform, device, and app details, the same script can run on either platform. It supports native apps, hybrid apps, and mobile web apps, so it’s very flexible. In practice, we can maintain one test framework and just change platform-specific capabilities to run tests on both Android and iOS."
 
 2 How do you perform parallel testing in Appium?
 
