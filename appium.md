@@ -887,11 +887,11 @@ In my project, we used Appium to reduce manual testing effort, improve test cove
 
 3 What is the difference between native, hybrid, and web applications in Appium?
 
-Native applications are built specifically for a particular platform like Android or iOS using platform-specific languages. They are installed from the Play Store or App Store and have full access to device features. In Appium, native apps are automated using the NATIVE_APP context.
+Native applications are built specifically for a particular platform like Android or iOS using platform-specific languages. They are installed from the Play Store or App Store and have full access to device features. Examples of native apps are WhatsApp, Phone Dialer, Camera app. In Appium, native apps are automated using the NATIVE_APP context.
 
-Hybrid applications are a combination of native and web applications. They are installed like native apps but internally contain WebView. In Appium, we automate hybrid apps by switching between native context and web context.
+Hybrid applications are a combination of native and web applications. They are installed like native apps but internally contain a WebView to display web content. Examples of hybrid apps are Amazon, Flipkart, Zomato. In Appium, we automate hybrid apps by switching between NATIVE_APP and WEBVIEW contexts.
 
-Mobile web applications run inside the mobile browser like Chrome or Safari and are not installed on the device. In Appium, mobile web apps are automated using browser capabilities and the WEBVIEW or browser context.
+Mobile web applications run inside the mobile browser like Chrome or Safari and are not installed on the device. Examples include accessing amazon.com or facebook.com through a mobile browser. In Appium, mobile web apps are automated using browser capabilities and the browser or WEBVIEW context.
 
 4 Which programming languages are supported by Appium?
 
