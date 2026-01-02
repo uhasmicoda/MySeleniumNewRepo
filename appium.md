@@ -58,7 +58,6 @@ To set up Appium for Android automation, a few prerequisites are required. First
 In Appium, Desired Capabilities are basically a set of key–value pairs that act like instructions for the Appium server, telling it what kind of automation session we want to start. Whenever we write a test script, before executing any action, our client script sends these capabilities to the Appium server in the form of a JSON object. The server then uses this information to launch the right platform, the right device, and the right application. 
 
 
-
 For example, in Android automation, we usually define capabilities such as the platform name, platform version, device name, automation engine (like UiAutomator2), and the details of the application under test such as app package and app activity. Similarly, for iOS we provide capabilities like platform name, platform version, device UDID, automation engine (like XCUITest), and the bundle ID of the app. Desired Capabilities make the framework flexible because by changing these values we can run the same test scripts on different devices, OS versions, or even on real devices and emulators without changing the core logic of our test. In short, they act as the bridge between our test scripts and the mobile environment by defining all the necessary configurations for a successful session.
 
 
@@ -95,6 +94,7 @@ caps.setCapability("newCommandTimeout", 60);            // Timeout (in seconds) 
 ```
 
 ## 5 UiAutomator2Options.
+
 UiAutomator2Options is a special class introduced in Appium 2.x under the package io.appium.java_client.android.options. Its main purpose is to define the capabilities of an Android device or emulator in a more structured and type-safe way. Earlier, in Appium 1.x, testers used DesiredCapabilities to pass these values, but the problem was that everything was written as key–value strings (for example, "platformName", "deviceName"). If you made a small spelling mistake in the capability name, the script would fail, and debugging was difficult.
 
 With Appium 2.x, the Appium team introduced the concept of Options classes, such as UiAutomator2Options for Android and XCUITestOptions for iOS. These classes provide dedicated setter methods like setDeviceName(), setAppPackage(), or setAppActivity(). This not only makes the code cleaner and easier to read, but also gives autocomplete suggestions in the IDE, which helps avoid mistakes. For example, instead of writing caps.setCapability("deviceName", "Pixel_5"), now you can simply write options.setDeviceName("Pixel_5").
@@ -873,7 +873,7 @@ public class StartAppiumServer {
 
 ## Interview Questions
 
-## Part 1
+## 1 Appium and Type of Application
 
 1 What is Appium?
 
@@ -920,7 +920,7 @@ A real device is an actual physical Android or iOS device, which gives accurate 
 In Appium, mobile web automation and native app automation are different in terms of platform and approach. Mobile web automation is performed on a mobile browser, like Chrome or Safari, and interacts with HTML DOM elements, so we can even use JavaScriptExecutor for certain actions. On the other hand, native app automation is performed on an installed app and uses mobile-specific locators like accessibility IDs or XPath, and we cannot use JavaScript. Native automation also allows testing app-specific features, gestures, and interactions that are not available in a browser. Essentially, mobile web automation is for testing web applications on mobile devices, while native automation is for testing the actual mobile app functionality.
 
 
-## Part 2
+## 2 Appium architecture and Server
 
 1 What is Appium client–server architecture?
 
@@ -951,7 +951,12 @@ Appium Server is the core backend that actually executes the automation commands
 
 Appium Desktop is a GUI tool built on top of the Appium Server. It helps testers start and stop the server easily and provides additional features like Inspector to inspect mobile elements. It is mainly used for learning, debugging, and locator identification, not for CI execution.
 
-## Part 3
+
+7 What is WebDriver API?
+
+WebDriver API is a standard set of interfaces and methods used to automate interactions with applications (mainly web and mobile) in a way similar to how a real user works with them, In simple terms, WebDriver API allows your test code to control the browser or mobile app by sending commands like click, type, swipe, or navigate, WebDriver API is part of the W3C WebDriver standard.
+
+## 3 Debug and Crash 
 
 1 What are Appium server logs and why are they important?
 
@@ -999,8 +1004,11 @@ Third, using proxy tools like Charles Proxy or BrowserMob Proxy helps handle SSL
 Finally, on cloud platforms like BrowserStack or Sauce Labs, SSL handling is usually managed by the platform itself, or we just enable the required SSL-related capabilities.
 
 Overall, handling SSL certificate errors ensures that automation is not blocked by security warnings and the test flow continues smoothly, especially in test environments.
+|
+8 What are the common tools used for debugging in Appium?
 
-## Part 4
+
+## 4 Type of Execution
 
 1 How is Appium used for cross-platform testing?
 
@@ -1021,8 +1029,7 @@ Appium itself doesn’t provide built-in parallel execution, but we can run test
 
 In my experience, I perform cross-platform testing by first creating platform-specific desired capabilities for Android and iOS, such as platform name, device details, OS version, and application details. I then design my automation framework using the Page Object Model, which helps in maintaining separate locators while keeping the test logic reusable. I create common test scripts that handle platform differences using conditional logic wherever required. The same test scripts are executed on both Android and iOS by switching the desired capabilities. Appium manages the platform interaction internally. After execution, I analyze results separately for each platform using reporting and CI tools like Jenkins or device clouds to identify any platform-specific issues.
 
-## Part 5
-
+## 5 Synchronization 
 
 1 How do you handle timeouts in Appium?
 
@@ -1040,7 +1047,7 @@ How do you handle animation and transitions in Appium?
 
 Animations and transitions in mobile apps can make elements appear slowly or not immediately interactable. In Appium, we handle this using explicit waits or WebDriverWait to wait for elements to be visible or clickable. We can also use the TouchAction class to simulate gestures during animations. Additionally, animations can be disabled on the device through Developer Options, and tools like Appium Inspector or visual validation tools like Applitools help ensure that the UI remains stable and consistent during testing.
 
-## Part 6 
+## 6 Locators and Appium Inspector 
 
 1 What is Appium Inspector?
 
@@ -1087,7 +1094,7 @@ To launch Appium Inspector, I first start the Appium server either through the c
 In Appium, dynamic locators are handled by creating flexible locator strategies instead of hard-coding values. We commonly use XPath functions like contains(), starts-with(), or ends-with() to match the stable part of an attribute when the complete value changes dynamically. We also use XPath axes such as parent, child, following-sibling, preceding-sibling, and ancestor to locate elements relative to other stable elements, which is very useful when direct attributes are not reliable. Another approach is using relative XPath or index-based locators when unique attributes are not available. For Android, we prefer resource-id, content-desc, or UiSelector because they are faster and more stable. In real projects, we often build dynamic locators in code by passing variable values into the locator to handle changing text, IDs, or list items, making the automation more reliable.
 
 
-## Part 6 
+## 7 Context and Alert
 
 1 What is the difference between native context and web context in Appium?
 
@@ -1161,7 +1168,7 @@ In mobile automation, context switching in Appium refers to switching between th
 
 In Appium, we handle alerts and pop-ups by switching to them using driver.switchTo().alert(). For native alerts, we can accept, dismiss, get the text, or enter input. We use explicit waits to ensure the alert is present before interacting. For system pop-ups, we can enable autoGrantPermissions or locate the elements using XPath or ID. For custom in-app pop-ups, we find the elements and perform actions accordingly.
 
-## Part 7
+## 8 Desired Capabilities and Launch application
 
 1 What are Desired Capabilities in Appium?
 
@@ -1261,7 +1268,7 @@ We can start the Appium server in three ways. First, using Appium Desktop, where
 Appium server flags are used to control the behavior of the Appium server while starting it. Using flags, we can define settings such as the port number, IP address, logging level, and session handling. For example, the -p flag is used to start the server on a specific port, which is especially useful for parallel execution. The -a flag is used to specify the IP address, usually 127.0.0.1. In Appium 2, the --base-path flag is important to define the endpoint, commonly /wd/hub. The --log-level flag helps in debugging by controlling the level of logs, while --session-override automatically closes any existing sessions before starting a new one. The --allow-insecure flag is used to enable certain restricted features like chromedriver auto-download. Overall, Appium server flags help us customize and manage the server efficiently based on project needs.
 
 
-## Part 7
+## 9 Cloud Based Testing
 
 1 How is Appium used for cloud testing?
 
@@ -1281,7 +1288,7 @@ In practice, the test code remains the same. We only update the desired capabili
 
 BrowserStack also allows parallel execution, so we can run the same tests on multiple devices at the same time, which improves coverage and reduces execution time. This setup helps validate the app behavior in real-world conditions without maintaining physical devices locally.
 
-## Part 8
+## 10 Part Driver and Gesture 
 
 1 Difference between Appium's UIAutomator2 and UIAutomator (Android)
 
@@ -1309,49 +1316,29 @@ Short version: Single-touch = one finger; multi-touch = multiple fingers simulta
 Automating mobile games with Appium is similar to automating regular mobile apps but requires handling complex gestures, graphics, and animations. I use Appium’s TouchAction and MultiTouchAction classes to perform taps, swipes, pinches, and zooms that mimic user interactions in the game. I also rely on explicit waits to synchronize with animations and dynamic elements. For games that use native UI components, I use standard locators like accessibility IDs or XPath, and for graphics-heavy or canvas-based games, I may combine Appium with image recognition or coordinate-based actions. Logging, screenshots, and reporting are crucial to track game state and validate expected behaviors during automated runs.
 
 
+## 11 Configuration and Integration  
 
-
-
-
-10 How do you install and use Appium on Windows?
+1 How do you install and use Appium on Windows?
 
 To install Appium on Windows, first we install the Java JDK and set the JAVA_HOME environment variable. Then we install Node.js, and using NPM we can install Appium globally, or use Appium Desktop for the GUI version. For Android automation, we install Android Studio for SDK, ADB, and emulator setup. After connecting a real device or creating an emulator, we start the Appium server and use Appium Inspector to inspect elements. Finally, we write and run automation scripts in an IDE like Eclipse or IntelliJ."
 
-11 How do you install and use Appium on Mac?
+2 How do you install and use Appium on Mac?
 
 On Mac, the steps are similar. We install Java JDK, Node.js, and Appium. For Android, we use Android Studio as usual. For iOS automation, we also need Xcode, a simulator or real device, and provisioning profiles for signing. After setting up the environment, we start the Appium server, inspect elements using Appium Inspector, and write tests in an IDE.
 
-
-
-
-52 What is WebDriver API?
-
-WebDriver API is a standard set of interfaces and methods used to automate interactions with applications (mainly web and mobile) in a way similar to how a real user works with them, In simple terms, WebDriver API allows your test code to control the browser or mobile app by sending commands like click, type, swipe, or navigate, WebDriver API is part of the W3C WebDriver standard.
-
-
-
-56 How do you use Appium with JUnit? (Interview-safe answer)
-
-
-Appium can be integrated with JUnit in a similar way to TestNG. We add Appium and Selenium dependencies, create a JUnit test class, and initialize the AppiumDriver in setup methods like @Before or @BeforeClass. Test cases are written using @Test, and cleanup is done in @After.
-
-Even though I mainly worked with TestNG, the integration concept is the same—only the annotations and reporting features differ.
-
-57 How do you use Appium with Pytest?
+3 How do you use Appium with Pytest?
 
 Appium can also be used with Pytest for Python-based automation. We install Appium and Selenium libraries, initialize the Appium driver using Pytest fixtures, and write test functions using Pytest syntax. Pytest provides simple test execution and supports parallel runs using plugins.
 
 Personally, I worked with Appium using Java and TestNG, but I understand that Pytest follows the same setup–execute–teardown approach.
 
-58 What are the best practices for writing maintainable Appium tests?
+4 How do you use Appium with JUnit? (Interview-safe answer)
 
-To write maintainable Appium tests, I design my framework using the Page Object Model, where UI locators are separated from test logic. This helps reduce rework when there are UI changes. I use reliable and stable locators, preferably accessibility IDs, and avoid hard-coded or absolute XPaths. I avoid hard waits like Thread.sleep and instead use proper synchronization techniques such as explicit waits to handle dynamic content. I create reusable utility methods for common actions like login, scrolling, swiping, and OTP handling, which keeps the code clean and reduces duplication. I also handle different device screen sizes dynamically to ensure tests run smoothly across devices. Finally, I maintain clean test data management, capture screenshots and logs on failure, and integrate proper reporting, which makes debugging easier and improves long-term test maintenance.
+Appium can be integrated with JUnit in a similar way to TestNG. We add Appium and Selenium dependencies, create a JUnit test class, and initialize the AppiumDriver in setup methods like @Before or @BeforeClass. Test cases are written using @Test, and cleanup is done in @After.
 
-60 What are the common challenges in Appium, and how do you overcome them?
+Even though I mainly worked with TestNG, the integration concept is the same—only the annotations and reporting features differ.
 
-While working with Appium, some common challenges include unstable element identification, synchronization issues, platform differences between Android and iOS, device and environment dependency, and test execution slowness. I overcome these by using reliable locators like accessibility IDs, implementing proper synchronization with explicit waits, handling platform-specific logic separately in the framework, and executing tests on real devices and device clouds. I also optimize execution by reducing unnecessary waits, reusing sessions where possible, and maintaining a stable Appium server setup. Proper logging, screenshots, and reporting help in debugging failures efficiently.
-
-61 How do you integrate Appium with Jenkins?
+5 How do you integrate Appium with Jenkins?
 
 I integrate Appium with Jenkins by first configuring Jenkins to pull the latest automation code from the Git repository. On the Jenkins machine, I ensure that all required tools such as Java, Node.js, Appium, Maven, and Android/iOS SDK are properly installed and configured.
 
@@ -1362,23 +1349,43 @@ Once the execution is completed, I generate Extent Reports, which provide detail
 This integration helps in continuous testing, as tests can be executed automatically on every new build or based on a schedule, ensuring early detection of issues and better test coverage.
 
 
+6 What are the best practices for writing maintainable Appium tests?
+
+To write maintainable Appium tests, I design my framework using the Page Object Model, where UI locators are separated from test logic. This helps reduce rework when there are UI changes. I use reliable and stable locators, preferably accessibility IDs, and avoid hard-coded or absolute XPaths. I avoid hard waits like Thread.sleep and instead use proper synchronization techniques such as explicit waits to handle dynamic content. I create reusable utility methods for common actions like login, scrolling, swiping, and OTP handling, which keeps the code clean and reduces duplication. I also handle different device screen sizes dynamically to ensure tests run smoothly across devices. Finally, I maintain clean test data management, capture screenshots and logs on failure, and integrate proper reporting, which makes debugging easier and improves long-term test maintenance.
+
+7 What are the common challenges in Appium, and how do you overcome them?
+
+While working with Appium, some common challenges include unstable element identification, synchronization issues, platform differences between Android and iOS, device and environment dependency, and test execution slowness. I overcome these by using reliable locators like accessibility IDs, implementing proper synchronization with explicit waits, handling platform-specific logic separately in the framework, and executing tests on real devices and device clouds. I also optimize execution by reducing unnecessary waits, reusing sessions where possible, and maintaining a stable Appium server setup. Proper logging, screenshots, and reporting help in debugging failures efficiently.
 
 
+## 12 Exception in Appium
+
+MoveTargetOutOfBoundsException occurs when Appium tries to perform an action like swipe, scroll, drag, or move on an element, but the target location goes outside the device screen. This mostly happens when we use hard-coded coordinates, calculate incorrect X or Y values, or try to interact with elements that are not visible on the screen. In real projects, I’ve mainly faced this issue during swipe actions, especially when running tests on devices with different screen sizes. To fix this, we should avoid hard-coded coordinates and calculate positions dynamically using the device screen dimensions. Also, making sure the element is visible by scrolling or using proper waits helps prevent this exception.
 
 
+SessionNotCreatedException occurs when Appium fails to create a new automation session between the test script and the device. This usually happens due to incorrect desired capabilities, platform or device version mismatch, Appium server issues, or missing drivers like UiAutomator2 or XCUITest. I have also faced this when the device is not connected, the emulator is not running, or the app package and activity are wrong. To fix this, we verify that the Appium server is running, the device is detected using adb devices, and all required capabilities are correct. Updating Appium and drivers and matching compatible versions usually resolves the issue.
 
 
+WebDriverException is a common and generic exception in Appium that occurs when there is a failure at the driver or Appium server level during test execution. This can happen due to Appium server crashes, network issues, communication problems between the client and server, unsupported commands, or device instability. In real projects, I’ve mostly faced this when the server stops responding, the session times out, or the device gets disconnected during execution. To resolve it, we usually restart the Appium server, reconnect the device, check the server logs to find the root cause, and make sure the test environment is stable. Using proper waits, reliable locators, and handling sessions cleanly also helps reduce this issue.
 
+FatalException
 
+FatalException occurs when a critical failure happens in the Appium server or driver, such as a driver crash or unrecoverable session issue, and execution stops immediately.
+Handling: Restart the Appium server, relaunch the device/emulator, and start a fresh session after checking server logs.
 
+InvalidServerInstanceException
 
+This exception occurs when the Appium server is not started properly, the port is already in use, or multiple server instances conflict with each other.
+Handling: Ensure only one Appium server is running, verify the correct port, and restart the server before execution.
 
+UnsupportedCommandException
 
+UnsupportedCommandException is thrown when Appium receives a command that is not supported by the current automation driver, like using desktop Selenium commands in mobile testing.
+Handling: Use only mobile-supported commands and verify driver compatibility (UiAutomator2 or XCUITest).
 
+InvalidServerInstanceException occurs when the Appium server is not started properly or when there is an issue with the server instance, such as the port already being in use or multiple Appium servers running at the same time. Because of this, Appium cannot create or connect to a valid session.
 
-
-
-
+Handling: We fix this by stopping all running Appium servers, checking that the correct port is free, restarting the Appium server, and then rerunning the test.
 
 
 ## Appium W3C Actions
@@ -1730,7 +1737,6 @@ driver.perform(Arrays.asList(pinch1, pinch2));
 
 
 
-36. What are the common tools used for debugging in Appium?
 
 
 
