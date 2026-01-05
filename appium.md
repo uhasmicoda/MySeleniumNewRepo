@@ -1403,8 +1403,9 @@ Cloud testing means running Appium tests on real devices hosted on cloud platfor
 
 Real divices, Real devices are used because they give accurate real-world behavior such as actual hardware performance, real OS behavior, real network conditions, device sensors, and system interactions, which emulators cannot fully simulate.
 
-2 
+2 How did you set up BrowserStack?
 
+I set up BrowserStack by creating an account, uploading the app, configuring capabilities, and connecting my Appium tests to BrowserStack’s cloud hub
 
 I set up BrowserStack by first creating an account and getting the authentication details such as the BrowserStack username and access key. These credentials are required to connect my Appium tests to BrowserStack’s cloud infrastructure. After that, I uploaded the mobile application, either an Android APK or an iOS IPA, using the BrowserStack dashboard or their upload API. Once the app was uploaded, BrowserStack provided a unique app URL in the format bs://…, which I used inside my test capabilities to identify the application under test.
 
@@ -1449,7 +1450,41 @@ options.setCapability("project", "iOS Automation");
 options.setCapability("build", "Build_1");
 options.setCapability("name", "Signup Test");
 ```
+3 What capabilities did you use for BrowserStack?
 
+I used UiAutomator2Options for Android and passed BrowserStack-specific capabilities like userName, accessKey, deviceName, osVersion, and app URL.
+
+4 How do you connect to BrowserStack?
+
+Using the BrowserStack remote hub URL with username and access key.”
+
+```bash
+
+https://username:accesskey@hub-cloud.browserstack.com/wd/hub
+
+```
+
+4 How do you upload app to BrowserStack?
+
+Using BrowserStack upload API or dashboard, which returns an app URL that we pass in capabilities.”
+
+
+
+5 Did you start or stop Appium server for BrowserStack?
+
+No. BrowserStack manages the Appium server internally
+
+6 Can we use gestures and AppiumBy locators in BrowserStack?
+
+“Yes. Appium gestures and locators work the same because BrowserStack runs Appium internally.”
+
+7 Any challenges you faced?
+
+“Network latency and execution time is slightly higher compared to local execution.”
+
+8 Can multiple tests run in parallel?
+
+Yes, BrowserStack supports parallel execution based on the plan, Yes, BrowserStack supports parallel execution based on the plan, and I achieve it by running multiple Appium sessions in parallel using TestNG with different device capabilities, while BrowserStack handles device allocation automatically.
 ## Appium W3C Actions
 
 ```java
