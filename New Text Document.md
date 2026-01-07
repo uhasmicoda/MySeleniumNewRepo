@@ -3594,6 +3594,7 @@ Tests are configured in CI/CD pipelines (Jenkins, GitHub Actions) to automatical
 Differences in browser behavior/rendering, browser version compatibility, handling browser-specific alerts or pop-ups, and extra setup effort for capabilities.## Version of Tool
 
 
+1 Parallel execution testng.xml
 ```java
 
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
