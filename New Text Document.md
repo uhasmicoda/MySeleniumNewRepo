@@ -3595,6 +3595,25 @@ Differences in browser behavior/rendering, browser version compatibility, handli
 
 
 1 Parallel execution testng.xml
+
+```java
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Parallel Suite" parallel="tests" thread-count="2">
+
+    <test name="Test One">
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Test Two">
+        <classes>
+            <class name="tests.HomeTest"/>
+        </classes>
+    </test>
+
+</suite>
+```
 ```java
 
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
