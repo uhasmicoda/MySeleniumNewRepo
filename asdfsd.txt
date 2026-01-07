@@ -1,0 +1,51 @@
+What is desired capabilities in Appium
+I’ve frequently worked with Desired Capabilities in Appium to set up and configure the test environment before launching the application on a device or emulator.
+
+DesiredCapabilities is basically a key-value pair configuration that tells the Appium server what kind of mobile device and application I want to test.
+I usually define things like platformName – to specify if I’m testing on Android or iOS. deviceName – to identify the device or emulator.
+automationName – I commonly use UiAutomator2 for Android.
+appPackage and appActivity – to open the correct app and screen.
+udid – when testing on real devices connected via USB.
+
+In one of my recent projects, I was testing a language learning mobile app. I set up DesiredCapabilities to launch the app on a real Android device for regression and smoke testing
+
+Desired Capabilities plays a crucial role in making the Appium test environment dynamic and device-specific.
+
+Why do we go for desired capabilities 
+
+Since a mobile phone is an external device, we need to establish a connection between the Appium server and the device to execute automation scripts. To enable this communication, the server needs specific information about the device and the application under test — such as platform type, device name, automation engine, app package, and activity, in set desire capabilities we specify platformName, platformVersion, deviceName, udid, ignoreHiddenApiPolicyErro
+utoGrantPermissions, noReset, appPackage, appActivity, If we are testing a web application on a mobile browser like Chrome or Safari using Appium, then yes, we must specify the browserName, we need to specify the path of the application file (like .apk for Android or .ipa for iOS) in DesiredCapabilities when we are installing the app as part of the automation run
+
+
+what is Appium inspector
+
+Appium Inspector is a graphical user interface (GUI) tool used to inspect the UI elements of mobile applications, similar to the “Inspect Element” feature in web browsers like Chrome. It helps testers explore the app’s element hierarchy and view attributes such as resource-id, class, text, content-desc, and XPath. This is especially useful when identifying the correct locators to be used in test scripts.
+
+From my experience, I’ve used Appium Inspector extensively while testing Android apps. For example, during one of my projects, I used it to inspect the login screen of a language learning app. With the help of Appium Inspector, I was able to easily locate the email field and login button using their resource-id and content-desc attributes, which I later used in my automation scripts.
+
+The process is simple: once the real device or emulator is connected, we start a session in Appium Inspector by providing the desired capabilities. Once the session starts, it opens the mobile app and displays a complete view of the element tree. It also allows us to interact with those elements using basic actions like click, sendKeys, and swipe — even before we write the test code.
+
+Appium Inspector is very helpful for debugging element-related issues and ensuring that we are using the correct and most stable locators in our tests. It supports both Android and iOS platforms and comes bundled with the Appium Desktop application. Overall, it’s an essential tool for mobile testers to inspect UI components and build reliable test automation scripts.
+
+Difference between selenium and Appium locators
+
+Selenium and Appium both use WebDriver APIs and support many common locator strategies like ID, Name, Class Name, and XPath. However, the key difference lies in the type of applications they are used to automate. Selenium is used for web applications and interacts with HTML elements, so it supports web-specific locators like cssSelector(), linkText(), partial link text() and tagName(). Appium, on the other hand, is used for mobile automation (Android and iOS), where it interacts with mobile UI elements rather than HTML. Therefore, Appium introduces some mobile-specific locators such as accessibilityId, which maps to content-desc on Android and accessibilityLabel on iOS. It also provides platform-specific strategies like AndroidUIAutomator() and iOSPredicateString() for advanced element identification. Additionally, Appium does not support cssSelector() since CSS is not used in mobile native apps. So, while both tools share a similar structure in writing locators, the underlying technology they work with is different, and Appium provides mobile-specific locator strategies to deal with native app elements. 
+
+
+Gesture testing
+Gesture testing in Appium involves automating touch-based interactions like tap, double-tap, long press, swipe, scroll, pinch, and zoom — all of which simulate real user behavior on mobile apps. In my project, I worked on the Busuu app, where gestures play a key role in navigating through interactive lessons, flashcards, and exercises. Appium supports gesture automation using TouchAction and MultiTouchAction classes, but in modern automation (especially with uiautomator2), I used JavaScript-based mobile commands through JavascriptExecutor. For example, to swipe between language lessons or scroll through vocabulary lists, I used commands like mobile: swipeGesture and mobile: scrollGesture. In places where users tap to reveal correct answers or double-tap to bookmark lessons, I used mobile: clickGesture and mobile: doubleClickGesture. This approach provided more control over gesture direction, speed, and element targeting, especially in areas with rich UI interactions. These JavaScript snippets make the automation much more robust and closely mimic real user behavior in apps like Busuu, where learning is driven through frequent touch gestures.
+
+
+
+burger king in which login, add address, place cancel the order
+
+
+
+
+
+
+
+
+
+
+

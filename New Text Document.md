@@ -3505,9 +3505,93 @@ In my current Selenium framework, I’ve used Java 17, which is the latest long-
 | **Apache Commons IO**                     | 2.8.0       | For file handling and I/O operations                           |
 | **Screenshot Utility (Commons IO based)** | 5.2.0       | For capturing and storing screenshots during test execution    |
 
+## 23 Parallel Excecution
+
+This testng.xml file is used to enable parallel execution in TestNG. Here, a test suite named ParallelSuite is defined with the attribute parallel="classes", which means TestNG will execute multiple test classes at the same time instead of running them one after another. The thread-count="2" specifies that two threads are available, so at most two test classes can run in parallel. Inside the suite, a test block named ParallelTests is created, which includes two test classes: Test1 and Test2. When the suite is executed, TestNG assigns separate threads to each class, allowing Test1 and Test2 to run simultaneously. This approach helps reduce overall execution time and is commonly used in automation frameworks, especially when running tests across multiple browsers or devices.
+
+1 How do you perform parallel execution
+
+I configure parallel execution in TestNG using the parallel attribute with values like methods, classes, or tests and set thread-count based on requirement. I also manage WebDriver instances with ThreadLocal to avoid conflicts, and I am aware of challenges like synchronization and resource usage.
+
+2 What is parallel execution in Selenium/TestNG?
+
+Parallel execution means running multiple tests simultaneously in different threads to reduce overall execution time
+
+3 How do you configure parallel execution in TestNG?
+
+We use the parallel attribute in testng.xml, such as methods, classes, or tests, along with thread-count to define how many tests run simultaneously.
+
+4 What values can parallel have?
+
+Interviewers want specifics.
+✔ methods – runs test methods in parallel
+✔ classes – runs test classes in parallel
+✔ tests – runs <test> blocks in parallel
+✔ instances – runs methods in different instances in paralle
+
+5 What is thread-count?
+
+It controls the number of threads TestNG will use for parallel execution.
+
+6 How do you handle WebDriver instances for parallel tests
+
+We use ThreadLocal to ensure each thread has its own WebDriver instance to avoid conflicts
+
+7 Can you run parallel execution with groups or data providers?
+
+Yes, TestNG supports parallel execution with groups and with @DataProvider using threadPoolSize
+
+8 What are challenges of parallel execution?
+
+In parallel execution, challenges include shared resource conflicts and synchronization problems between threads, which make debugging more complex and can also lead to higher CPU and memory usage.
+
+What happens if thread-count is too high?
+
+Performance may degrade due to limited CPU/memory or too many browser instances.
+
+## 24 Cross browser execution
+
+1. What is cross-browser execution?
+
+Interviewers often start with this to test your understanding.
+Cross-browser execution means running the same automation tests across multiple browsers like Chrome, Firefox, Edge, and Safari to ensure the application behaves consistently.
 
 
-## Version of Tool
+2. How do you implement cross-browser testing in Selenium?
+
+I parameterize the browser type, use a browser factory or conditional logic to initialize the correct WebDriver, and run the same tests on each browser.
+
+3. How do you do cross-browser testing using TestNG?
+
+I pass browser names via testng.xml parameters and run tests for each browser using the configured parameter.
+
+4. How do you handle cross-browser testing in parallel?
+
+I configure parallel execution in TestNG by setting parallel="tests" or parallel="classes" and provide different browser capabilities for each thread.
+
+5. Which browsers are supported in Selenium?
+
+Chrome, Firefox, Edge, Safari, and others via respective WebDriver binaries.
+
+6. Why is cross-browser testing important?
+
+It ensures consistent functionality and UI across browsers because each browser may render HTML/CSS differently.
+
+7. What tools help with cross-browser testing besides Selenium?
+
+Selenium Grid, BrowserStack, Sauce Labs, LambdaTest — these help run tests on multiple browsers, devices, and platforms.
+
+8. How do you manage browser drivers for cross-browser testing?
+
+I use WebDriverManager to automatically manage and set up browser driver binaries.
+
+9. How do you integrate cross-browser testing with CI/CD?
+
+Tests are configured in CI/CD pipelines (Jenkins, GitHub Actions) to automatically run on multiple browsers whenever code is merged.
+
+10. What challenges do you face in cross-browser testing?
+
+Differences in browser behavior/rendering, browser version compatibility, handling browser-specific alerts or pop-ups, and extra setup effort for capabilities.## Version of Tool
 
 ## 22 CHALLENGES
 
