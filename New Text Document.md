@@ -3593,6 +3593,29 @@ Tests are configured in CI/CD pipelines (Jenkins, GitHub Actions) to automatical
 
 Differences in browser behavior/rendering, browser version compatibility, handling browser-specific alerts or pop-ups, and extra setup effort for capabilities.## Version of Tool
 
+
+```java
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Selenium Parallel Suite" parallel="tests" thread-count="2">
+
+    <test name="Chrome Test">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Firefox Test">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+</suite>
+```
+
 ## 22 CHALLENGES
 
 What are the automation challenges you faced in your previous project
